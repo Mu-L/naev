@@ -384,6 +384,7 @@ static int use_normal_mapping    = 1;
 static int use_ambient_occlusion = 1;
 static int max_tex_size          = 0;
 
+#if 0
 /* Prototypes. */
 static int         cache_cmp( const void *p1, const void *p2 );
 static GltfObject *cache_get( const char *filename, int *new );
@@ -605,7 +606,7 @@ static int gltf_loadTexture( const GltfObject *obj, Texture *otex,
    otex->tex = tex;
 #ifdef HAVE_NAEV
    tex_setTex( otex->gtex, tex ); /* Update the texture. */
-#endif                            /* HAVE_NAEV */
+#endif /* HAVE_NAEV */
    return 0;
 }
 
@@ -1908,9 +1909,9 @@ static void gltf_freeTex( Texture *tex )
 
 #ifdef HAVE_NAEV
    gl_freeTexture( tex->gtex ); /* Frees texture too. */
-#else                           /* HAVE_NAEV */
+#else  /* HAVE_NAEV */
    glDeleteTextures( 1, &tex->tex );
-#endif                          /* HAVE_NAEV */
+#endif /* HAVE_NAEV */
    gl_checkErr();
 }
 
@@ -2434,3 +2435,4 @@ const GltfMount *gltf_mounts( const GltfObject *obj, int *num )
    *num = array_size( obj->mounts );
    return obj->mounts;
 }
+#endif

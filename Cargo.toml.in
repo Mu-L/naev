@@ -22,7 +22,7 @@ image = "0"
 #etagere = "0" # Texture Atlas generation
 palette = "0" # Colour conversion
 nalgebra = { version = "0", features = ["bytemuck"]  }
-gltf = { version = "1", features = ["extras", "names", "utils"] }
+gltf = { version = "1", features = ["extras", "names", "utils", "EXT_texture_webp"] }
 bytemuck = { version = "1", features = ["derive"] } # Needed for shader voodoo
 encase = { version = "0", features = ["nalgebra"] } # Needed for shader voodoo
 # We support lua51 / luajit and they are ABI compatible, so just point at luajit

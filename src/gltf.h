@@ -87,4 +87,4 @@ const GltfTrail *gltf_trails( const GltfObject *obj, int *num );
 const GltfMount *gltf_mounts( const GltfObject *obj, int *num );
 
 /* Misc functions. */
-GLuint gltf_shadowmap( int light );
+// GLuint gltf_shadowmap( int light );
