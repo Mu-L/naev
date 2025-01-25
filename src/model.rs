@@ -976,3 +976,34 @@ pub extern "C" fn gltf_renderScene_(
         &transform,
     );
 }
+
+#[no_mangle]
+pub extern "C" fn gltf_sceneBody_(model: *const Model) -> c_int {
+    0
+}
+
+#[no_mangle]
+pub extern "C" fn gltf_sceneEngine_(model: *const Model) -> c_int {
+    0
+}
+
+#[no_mangle]
+pub extern "C" fn gltf_numAnimations_(model: *const Model) -> c_int {
+    0
+}
+
+#[no_mangle]
+pub extern "C" fn gltf_trails_(model: *const Model, num: *mut c_int) -> *const naevc::GltfTrail {
+    unsafe {
+        *num = 0;
+    }
+    std::ptr::null()
+}
+
+#[no_mangle]
+pub extern "C" fn gltf_mounts_(model: *const Model, num: *mut c_int) -> *const naevc::GltfMount {
+    unsafe {
+        *num = 0;
+    }
+    std::ptr::null()
+}

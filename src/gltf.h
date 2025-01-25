@@ -14,9 +14,6 @@
 
 #include "mat4.h"
 #include "vec3.h"
-#ifdef HAVE_NAEV
-#include "opengl_tex.h"
-#endif /* HAVE_NAEV */
 
 #define MAX_LIGHTS                                                             \
    7 /**< Maximum amount of lights. TODO deferred rendering.                   \
