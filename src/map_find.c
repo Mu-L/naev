@@ -721,8 +721,10 @@ static int map_findSearchOutfits( unsigned int wid_map_find, const char *name )
 
       /* Ask which one player wants. */
       list = malloc( len * sizeof( char * ) );
-      for ( i = 0; i < len; i++ )
-         list[i] = strdup( _( map_foundOutfitNames[i] ) );
+      for ( i = 0; i < len; i++ ) {
+         const Outfit *oi = outfit_get( map_foundOutfitNames[i] );
+         list[i]          = strdup( outfit_name( oi ) );
+      }
       if ( ( name == NULL ) || ( name[0] == '\0' ) )
          i = dialogue_listPanelRaw( _( "Search Results" ), list, len, 452, 650,
                                     map_addOutfitDetailFields,
@@ -864,8 +866,10 @@ static int map_findSearchShips( unsigned int wid_map_find, const char *name )
       int i;
       /* Ask which one player wants. */
       list = malloc( len * sizeof( char * ) );
-      for ( i = 0; i < len; i++ )
-         list[i] = strdup( _( names[i] ) );
+      for ( i = 0; i < len; i++ ) {
+         const Ship *si = ship_get( names[i] );
+         list[i]        = strdup( ship_name( si ) );
+      }
       if ( ( name == NULL ) || ( name[0] == '\0' ) )
          i = dialogue_listRaw( _( "Search Results" ), list, len,
                                _( "Showing all known ships:" ) );
