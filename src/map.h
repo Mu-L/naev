@@ -18,6 +18,7 @@
 typedef struct MapDecorator_ {
    glTexture *image;            /**< Map decorator image. */
    double     x, y;             /**< Position on the map. */
+   double     scale;            /**< Amount to scale. */
    int        detection_radius; /**< Distance at which it is detected. */
 } MapDecorator;
 

@@ -1198,8 +1198,8 @@ void map_renderDecorators( double x, double y, double zoom, int editor,
          double tx = x + decorator->x * zoom;
          double ty = y + decorator->y * zoom;
 
-         int sw = tex_sw( decorator->image ) * zoom;
-         int sh = tex_sh( decorator->image ) * zoom;
+         int sw = tex_sw( decorator->image ) * zoom * decorator->scale;
+         int sh = tex_sh( decorator->image ) * zoom * decorator->scale;
 
          gl_renderScale( decorator->image, tx - sw * 0.5, ty - sh * 0.5, sw, sh,
                          &ccol );
@@ -3420,6 +3420,7 @@ static int map_decorator_parse( MapDecorator *temp, const char *file )
    /* Clear memory. */
    memset( temp, 0, sizeof( MapDecorator ) );
 
+   temp->scale            = 1.0;
    temp->detection_radius = 10;
 
    /* Parse body. */
@@ -3428,6 +3429,7 @@ static int map_decorator_parse( MapDecorator *temp, const char *file )
       xml_onlyNodes( node );
       xmlr_float( node, "x", temp->x );
       xmlr_float( node, "y", temp->y );
+      xmlr_float( node, "scale", temp->scale );
       xmlr_int( node, "detection_radius", temp->detection_radius );
       if ( xml_isNode( node, "image" ) ) {
          temp->image = xml_parseTexture( node, MAP_DECORATOR_GFX_PATH "%s", 1,
