@@ -136,10 +136,22 @@ impl NLua {
       globals.set("unpack", mlua::Nil)?;
 
       // Some unsafe overrides.
-      globals.set("dofile", mlua::Nil)?;
+      globals.set(
+         "dofile",
+         lua.create_function(|lua, s: String| -> mlua::Result<mlua::MultiValue> {
+            let chunk = lua.load(ndata::read(s)?);
+            chunk.call(())
+         })?,
+      )?;
+      globals.set(
+         "loadfile",
+         lua.create_function(|lua, s: String| -> mlua::Result<mlua::Function> {
+            let chunk = lua.load(ndata::read(s)?);
+            chunk.into_function()
+         })?,
+      )?;
       globals.set("getfenv", mlua::Nil)?;
       globals.set("load", mlua::Nil)?;
-      globals.set("loadfile", mlua::Nil)?;
 
       // Sandbox "io" and "os".
       globals.set("io", mlua::Nil)?;
