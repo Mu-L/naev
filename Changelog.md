@@ -65,6 +65,11 @@
        - `HYPERSPACE_ENTER_MAX/MIN` control distance at which ships jump into
          systems
        - `PILOT_HIT_NEUTRALS` allows neutral ships to be hit by crossfire
+       - `PILOT_TAKEOFF_DELAY` and `PILOT_LANDING_DELAY` to control landing
+         animations
+       - `PILOT_REVERSE_THRUST` for the accel provided by reverse thrusting
+       - `HYPERSPACE_` prefixed constants to control hyperspace positioning and
+         time
    * Tech groups cand have conditional elements and the likes
    * All player visible resources now have a separate user-facing display name
    * Audio should try to switch devices when disconnected or default playback
@@ -76,6 +81,7 @@
    * Changed rnd.rnd() syntax to be like math.random
    * Collision polygon generated baked into the engine
    * Time system is completely customizable by plugins now
+   * You can define scaling for map decorators
 
  ### Fixes
 
