@@ -1023,7 +1023,8 @@ static void outfits_buy( unsigned int wid, const char *str )
    q      = outfits_getMod();
    /* Can only get one unique item. */
    if ( outfit_isProp( outfit, OUTFIT_PROP_UNIQUE ) ||
-        ( outfit_slotType( outfit ) == OUTFIT_SLOT_INTRINSIC ) ||
+        ( CTS.WARN_BUY_INTRINSICS &&
+          ( outfit_slotType( outfit ) == OUTFIT_SLOT_INTRINSIC ) ) ||
         outfit_isMap( outfit ) || outfit_isLocalMap( outfit ) ||
         outfit_isGUI( outfit ) || outfit_isLicense( outfit ) )
       q = MIN( q, 1 );
@@ -1071,7 +1072,7 @@ static void outfits_buy( unsigned int wid, const char *str )
          return;
       }
       q = luaL_checkinteger( naevL, -1 );
-      player_addOutfit( outfit, q );
+      q = player_addOutfit( outfit, q );
 
       lua_pop( naevL, 2 );
    } else
