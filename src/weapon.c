@@ -2639,17 +2639,16 @@ Weapon *weapon_add( PilotOutfitSlot *po, const Outfit *ref, double dir,
                     const vec2 *pos, const vec2 *vel, const Pilot *parent,
                     const Target *target, double time, int aim )
 {
-   Weapon *w;
-
 #if DEBUGGING
    const Outfit *o = ( ref == NULL ) ? po->outfit : ref;
-   if ( !outfit_isBolt( o ) && !outfit_isLauncher( o ) ) {
+   if ( !outfit_isBolt( o ) && !outfit_isLauncher( o ) &&
+        !outfit_isBeam( o ) ) {
       WARN( _( "Trying to create a Weapon from a non-Weapon type Outfit" ) );
       return 0;
    }
 #endif /* DEBUGGING */
 
-   w = &array_grow( &weapon_stack );
+   Weapon *w = &array_grow( &weapon_stack );
    weapon_create( w, po, ref, dir, pos, vel, parent, target, time, aim );
 
    /* Grow the vertex stuff if needed. */
@@ -2704,14 +2703,12 @@ unsigned int beam_start( PilotOutfitSlot *po, double dir, const vec2 *pos,
                          const vec2 *vel, const Pilot *parent,
                          const Target *target, int aim )
 {
-   Weapon *w;
-
    if ( !outfit_isBeam( po->outfit ) ) {
       WARN( _( "Trying to create a Beam Weapon from a non-beam outfit." ) );
       return -1;
    }
 
-   w = &array_grow( &weapon_stack );
+   Weapon *w = &array_grow( &weapon_stack );
    weapon_create( w, po, NULL, dir, pos, vel, parent, target, 0., aim );
 
    /* Grow the vertex stuff if needed. */

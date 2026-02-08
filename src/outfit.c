@@ -2457,7 +2457,7 @@ static void outfit_parseSBeam( Outfit *temp, const xmlNodePtr parent )
              "turn" );
    MELEMENT( temp->u.bem.energy == 0., "energy" );
    // MELEMENT( temp->cpu == 0., "cpu" );
-   MELEMENT( temp->u.bem.dmg.damage == 0, "damage" );
+   // MELEMENT( temp->u.bem.dmg.damage == 0, "damage" );
 #undef MELEMENT
 }
 
