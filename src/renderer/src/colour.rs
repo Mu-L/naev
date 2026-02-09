@@ -640,7 +640,7 @@ pub fn open_colour(lua: &mlua::Lua) -> anyhow::Result<mlua::AnyUserData> {
    if let mlua::Value::Nil = lua.named_registry_value("push_colour")? {
       let push_colour = lua.create_function(|lua, (r, g, b, a): (f32, f32, f32, f32)| {
          let col = Colour::new_alpha(r, g, b, a);
-         lua.create_any_userdata(col)
+         lua.create_userdata(col)
       })?;
       lua.set_named_registry_value("push_colour", push_colour)?;
 

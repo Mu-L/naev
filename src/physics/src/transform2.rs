@@ -277,7 +277,7 @@ pub fn open_transform2(lua: &mlua::Lua) -> anyhow::Result<mlua::AnyUserData> {
       let push_transform =
          lua.create_function(|lua, (x, y, z, i, j, k): (f32, f32, f32, f32, f32, f32)| {
             let transform = Transform2::new_from(&[x, y, z, i, j, k]);
-            lua.create_any_userdata(transform)
+            lua.create_userdata(transform)
          })?;
       lua.set_named_registry_value("push_transform", push_transform)?;
 

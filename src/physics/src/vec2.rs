@@ -404,7 +404,7 @@ pub fn open_vec2(lua: &mlua::Lua) -> anyhow::Result<mlua::AnyUserData> {
    if let mlua::Value::Nil = lua.named_registry_value("push_vector")? {
       let push_vector = lua.create_function(|lua, (x, y): (f64, f64)| {
          let vec = Vec2::new(x, y);
-         lua.create_any_userdata(vec)
+         lua.create_userdata(vec)
       })?;
       lua.set_named_registry_value("push_vector", push_vector)?;
 

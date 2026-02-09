@@ -491,7 +491,7 @@ pub fn open_time(lua: &mlua::Lua) -> anyhow::Result<mlua::AnyUserData> {
    if let mlua::Value::Nil = lua.named_registry_value("push_time")? {
       let push_time = lua.create_function(|lua, n: i64| {
          let nt = NTime(n);
-         lua.create_any_userdata(nt)
+         lua.create_userdata(nt)
       })?;
       lua.set_named_registry_value("push_time", push_time)?;
 

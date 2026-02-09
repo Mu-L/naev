@@ -218,7 +218,7 @@ fn naevmain() -> Result<()> {
    // Plugin initialization before checking the data for consistency
    plugin::mount()?;
    // Constants should be loaded as soon as possible, which is just after ndata + plugins are set up
-   let _ = naev_core::constants::CTS;
+   std::sync::LazyLock::force(&naev_core::constants::CTS);
    ndata::check_version()?;
 
    unsafe {

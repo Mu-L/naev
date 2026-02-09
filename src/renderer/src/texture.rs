@@ -2341,7 +2341,7 @@ pub fn open_texture(lua: &mlua::Lua) -> anyhow::Result<mlua::AnyUserData> {
             ))
          } else {
             let tex = unsafe { &*tex };
-            lua.create_any_userdata(tex.try_clone()?)
+            lua.create_userdata(tex.try_clone()?)
          }
       })?;
       lua.set_named_registry_value("push_texture", push_texture)?;
