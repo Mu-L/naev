@@ -671,9 +671,14 @@ static void **tech_addGroupItemPrice( void **items, double **price,
       if ( item->type != type )
          continue;
 
+      /* Check conditional. */
+      if ( tech_testCond( item, search ) )
+         continue;
+
       /* Skip if already in list. */
       f = 0;
-      for ( int j = 0; j < array_size( items ); j++ ) {
+      /* Count backwards so the price of newly added stuff is more important. */
+      for ( int j = array_size( items ) - 1; j >= 0; j-- ) {
          if ( items[j] == item->u.ptr ) {
             f = 1;
             /* Overwrite price if it's not 1. */
@@ -686,10 +691,6 @@ static void **tech_addGroupItemPrice( void **items, double **price,
          }
       }
       if ( f == 1 )
-         continue;
-
-      /* Check conditional. */
-      if ( tech_testCond( item, search ) )
          continue;
 
       /* Add. */
