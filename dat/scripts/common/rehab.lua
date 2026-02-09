@@ -31,6 +31,15 @@ function rehab.init( fct, params )
          misn.finish()
       end
 
+      -- Must not be in a hostile place.
+      local spb = spob.cur()
+      if spb then
+         local spbfct = spob:faction()
+         if spbfct and spbfct:areEnemies(fct) then
+            misn.finish()
+         end
+      end
+
       -- Don't spawn this mission if the player is buddies with this faction's enemies.
       for _k, enemy in pairs(fct:enemies()) do
          if enemy:reputationGlobal() > 20 then
