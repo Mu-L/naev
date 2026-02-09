@@ -19,11 +19,13 @@ sbase.init({
    },
    mod_func = function ( min, max, mod, sys, _source, _secondary, _primary_fct )
       -- Require an independent spob to "remember"
-      local do_hit = false
-      for k,p in ipairs(sys:spobs()) do
-         if p:faction()==sbase.fct then
-            do_hit = true
-            break
+      local do_hit = (sys ~= nil)
+      if sys then
+         for k,p in ipairs(sys:spobs()) do
+            if p:faction()==sbase.fct then
+               do_hit = true
+               break
+            end
          end
       end
       if not do_hit then
