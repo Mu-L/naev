@@ -85,6 +85,7 @@
    * Time system is completely customizable by plugins now
    * You can define scaling for map decorators
    * Support for making ships and outfits sell at discount prices
+   * Added support for sounds to spfx
 
  ### Fixes
 

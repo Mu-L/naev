@@ -29,6 +29,7 @@
 #include "perlin.h"
 #include "render.h"
 #include "rng.h"
+#include "sound.h"
 #include "vec2.h"
 
 #define SPFX_XML_ID "spfx" /**< SPFX XML node tag. */
@@ -97,8 +98,9 @@ static void spfx_updateDamage( double dt );
 typedef struct SPFX_Base_ {
    char *name; /**< Name of the special effect. */
 
-   double ttl;  /**< Time to live */
-   double anim; /**< Total duration in ms */
+   double       ttl;  /**< Time to live */
+   double       anim; /**< Total duration in ms */
+   const Sound *snd;  /**< Sound to play if applicable. */
 
    /* Use texture when not using shaders. */
    glTexture *gfx; /**< Will use each sprite as a frame */
@@ -208,6 +210,10 @@ static int spfx_base_parse( SPFX_Base *temp, const char *filename )
       xmlr_float( node, "ttl", temp->ttl );
       if ( xml_isNode( node, "gfx" ) ) {
          temp->gfx = xml_parseTexture( node, SPFX_GFX_PATH "%s", 6, 5, 0 );
+         continue;
+      }
+      if ( xml_isNode( node, "sound" ) ) {
+         temp->snd = sound_get( xml_get( node ) );
          continue;
       }
 
@@ -543,6 +549,10 @@ void spfx_add( int effect, const double px, const double py, const double vx,
       cur_spfx->timer = ttl + RNGF() * anim;
    else
       cur_spfx->timer = ttl;
+
+   /* Play sound if applicable. */
+   if ( spfx_effects[effect].snd != NULL )
+      sound_playPos( spfx_effects[effect].snd, px, py, vx, vy );
 
    /* Shader magic. */
    cur_spfx->unique = RNGF();
