@@ -217,6 +217,8 @@ fn naevmain() -> Result<()> {
 
    // Plugin initialization before checking the data for consistency
    plugin::mount()?;
+   // Constants should be loaded as soon as possible, which is just after ndata + plugins are set up
+   let _ = naev_core::constants::CTS;
    ndata::check_version()?;
 
    unsafe {
@@ -471,7 +473,6 @@ impl LoadStage {
 
 fn load_all(sdlctx: &sdl::Sdl, env: &nlua::LuaEnv) -> Result<()> {
    unsafe {
-      let _ = naev_core::constants::CTS;
       // Misc init stuff
       naevc::render_init();
       naevc::nebu_init();

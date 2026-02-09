@@ -36,5 +36,3 @@ typedef struct constants {
 } constants;
 
 extern constants CTS;
-
-int constants_init( void );

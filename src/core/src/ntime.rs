@@ -433,7 +433,7 @@ impl UserData for NTime {
        */
       methods.add_meta_function(
          MetaMethod::ToString,
-         |_, nt: Self| -> mlua::Result<String> { Ok(nt.to_string()) },
+         |_, nt: Self| -> mlua::Result<String> { Ok(nt.as_string()) },
       );
       methods.add_method("str", |lua, this, ()| -> mlua::Result<String> {
          // deprecated in 0.14
@@ -496,9 +496,9 @@ pub fn open_time(lua: &mlua::Lua) -> anyhow::Result<mlua::AnyUserData> {
       lua.set_named_registry_value("push_time", push_time)?;
 
       let get_time = lua.create_function(|_, mut ud: mlua::UserDataRefMut<NTime>| {
-         let vec: *mut NTime = &mut *ud;
+         let time: *mut NTime = &mut *ud;
          Ok(Value::LightUserData(mlua::LightUserData(
-            vec as *mut c_void,
+            time as *mut c_void,
          )))
       })?;
       lua.set_named_registry_value("get_time", get_time)?;
