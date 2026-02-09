@@ -783,17 +783,12 @@ static int systemL_spobs( lua_State *L )
  */
 static int systemL_presence( lua_State *L )
 {
-   StarSystem *sys;
-   int        *fct;
-   double      presence;
-   int         used;
-
    /* Get parameters. */
-   sys = luaL_validsystem( L, 1 );
+   StarSystem *sys = luaL_validsystem( L, 1 );
 
    /* Allow fall-through. */
-   used = 0;
-   fct  = NULL;
+   int  used = 0;
+   int *fct  = NULL;
 
    /* Get the second parameter. */
    if ( lua_isstring( L, 2 ) ) {
@@ -822,7 +817,7 @@ static int systemL_presence( lua_State *L )
    }
 
    /* Add up the presence values. */
-   presence = 0;
+   double presence = 0;
    for ( int i = 0; i < array_size( fct ); i++ ) {
       /* Only count positive presences. */
       double v = system_getPresence( sys, fct[i] );

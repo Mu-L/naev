@@ -219,24 +219,26 @@ function hit( sys, mod, source, secondary, primary_fct )
       local minsys, maxsys
       local minval, maxval = math.huge, -math.huge
       for k,s in ipairs(system.getAll()) do
-         local r = s:reputation( sbase.fct )
-         if r < minval then
-            minsys = s
-            minval = r
+         if s:presence( sbase.fct ) > 0 then
+            local r = s:reputation( sbase.fct )
+            if r < minval then
+               minsys = s
+               minval = r
+            end
+            if r > maxval then
+               maxsys = s
+               maxval = r
+            end
+            local fmin = math.min( r, min )
+            local fmax = math.max( r, max )
+            local f = clamp( r+mod, fmin, fmax )
+            if mod < 0 then
+               changed = math.min( changed, f-r )
+            else
+               changed = math.max( changed, f-r )
+            end
+            s:setReputation( sbase.fct, f )
          end
-         if r > maxval then
-            maxsys = s
-            maxval = r
-         end
-         local fmin = math.min( r, min )
-         local fmax = math.max( r, max )
-         local f = clamp( r+mod, fmin, fmax )
-         if mod < 0 then
-            changed = math.min( changed, f-r )
-         else
-            changed = math.max( changed, f-r )
-         end
-         s:setReputation( sbase.fct, f )
       end
 
       -- Now propagate the thresholding from the max or min depending on sign of mod
@@ -245,13 +247,18 @@ function hit( sys, mod, source, secondary, primary_fct )
       else
          sys = minsys
       end
-      sbase.fct:applyLocalThreshold( sys )
+      if sys then
+         sbase.fct:applyLocalThreshold( sys )
+      end
       return changed
    end
 
    -- Centre hit on sys and have to expand out
    local val = hit_local( sys, mod, min, max )
-   local valsys = sys
+   local valsys
+   if sys:presence( sbase.fct ) > 0 then
+      valsys = sys
+   end
    if sbase.hit_range > 0 then
       local done = { sys }
       local todo = { sys }
@@ -261,7 +268,7 @@ function hit( sys, mod, source, secondary, primary_fct )
             for j,n in ipairs(s:adjacentSystems()) do
                if not inlist( done, n ) then
                   local v = hit_local( n, mod / (dist+1), min, max )
-                  if not val and v then
+                  if n:presence( sbase.fct ) > 0 and not val and v then
                      val = v
                      valsys = n
                   end
