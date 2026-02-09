@@ -70,6 +70,8 @@
        - `PILOT_REVERSE_THRUST` for the accel provided by reverse thrusting
        - `HYPERSPACE_` prefixed constants to control hyperspace positioning and
          time
+       - `SELL_SHIP_MODIFIER` and `SELL_OUTFIT_MODIFIER` to control how much of
+         a discount things are sold with
    * Tech groups cand have conditional elements and the likes
    * All player visible resources now have a separate user-facing display name
    * Audio should try to switch devices when disconnected or default playback
@@ -82,6 +84,7 @@
    * Collision polygon generated baked into the engine
    * Time system is completely customizable by plugins now
    * You can define scaling for map decorators
+   * Support for making ships and outfits sell at discount prices
 
  ### Fixes
 

@@ -575,7 +575,7 @@ int shipyard_canBuy( const Ship *ship, const Spob *spob )
 int shipyard_canTrade( const Ship *ship, const Spob *spob )
 {
    credits_t price =
-      ship_buyPrice( ship ) - player_shipPrice( player.p->name, 0 );
+      ship_buyPrice( ship ) - player_shipSellPrice( player.p->name );
    land_errClear();
 
    if ( ship_isFlag( player.p->ship, SHIP_UNIQUE ) ) {
@@ -611,7 +611,7 @@ static void shipyard_trade( unsigned int wid, const char *str )
    ship = shipyard_list[i];
 
    credits_t targetprice = ship_buyPrice( ship );
-   credits_t playerprice = player_shipPrice( player.p->name, 0 );
+   credits_t playerprice = player_shipSellPrice( player.p->name );
 
    if ( !shipyard_canTrade( ship, land_spob ) ) {
       land_errDisplay();

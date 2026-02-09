@@ -2734,7 +2734,7 @@ static void equipment_sellShip( unsigned int wid, const char *str )
    }
 
    /* Calculate price. */
-   price = player_shipPrice( shipname, 0 );
+   price = player_shipSellPrice( shipname );
    credits2str( buf, price, 2 );
 
    /* Check if player really wants to sell. */

@@ -772,6 +772,35 @@ credits_t player_shipPrice( const char *shipname, int count_unique )
    return pilot_worth( ship, count_unique );
 }
 
+credits_t player_shipSellPrice( const char *shipname )
+{
+   Pilot *ship = NULL;
+
+   if ( strcmp( shipname, player.p->name ) == 0 )
+      ship = player.p;
+   else {
+      /* Find the ship. */
+      for ( int i = 0; i < array_size( player_stack ); i++ ) {
+         if ( strcmp( shipname, player_stack[i].p->name ) == 0 ) {
+            ship = player_stack[i].p;
+            break;
+         }
+      }
+   }
+
+   /* Not found. */
+   if ( ship == NULL ) {
+      WARN( _( "Unable to find price for player's ship '%s': ship does not "
+               "exist!" ),
+            shipname );
+      return -1;
+   }
+
+   return round( (double)( pilot_worth( ship, 0 ) - ship->ship->price ) *
+                    CTS.SELL_OUTFIT_MODIFIER +
+                 ship->ship->price * CTS.SELL_SHIP_MODIFIER );
+}
+
 void player_rmPlayerShip( PlayerShip_t *ps )
 {
    if ( ps->p != NULL ) {

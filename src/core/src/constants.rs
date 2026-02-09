@@ -31,6 +31,8 @@ pub struct Constants {
    pub pilot_hit_neutrals: bool,
    pub pilot_reverse_thrust: f32,
    pub camera_angle: f32,
+   pub sell_ship_modifier: f32,
+   pub sell_outfit_modifier: f32,
    pub warn_buy_intrinsics: bool,
 }
 impl Constants {
@@ -104,6 +106,8 @@ impl Constants {
       let pilot_hit_neutrals = get_bool(&tbl, "PILOT_HIT_NEUTRALS", false);
       let pilot_reverse_thrust = get_f32(&tbl, "PILOT_REVERSE_THRUST", 0.4);
       let camera_angle = get_f32(&tbl, "CAMERA_ANGLE", std::f32::consts::FRAC_PI_4);
+      let sell_ship_modifier = get_f32(&tbl, "SELL_SHIP_MODIFIER", 1.0);
+      let sell_outfit_modifier = get_f32(&tbl, "SELL_OUTFIT_MODIFIER", 1.0);
       let warn_buy_intrinsics = get_bool(&tbl, "WARN_BUY_INTRINSICS", true);
 
       // TODO remove this
@@ -133,6 +137,8 @@ impl Constants {
          naevc::CTS.CAMERA_ANGLE = camera_angle as f64;
          naevc::CTS.CAMERA_VIEW = naevc::CTS.CAMERA_ANGLE.sin();
          naevc::CTS.CAMERA_VIEW_INV = 1.0 / naevc::CTS.CAMERA_VIEW;
+         naevc::CTS.SELL_SHIP_MODIFIER = sell_ship_modifier as f32;
+         naevc::CTS.SELL_OUTFIT_MODIFIER = sell_outfit_modifier as f32;
          naevc::CTS.WARN_BUY_INTRINSICS = warn_buy_intrinsics as i32;
       }
 
@@ -163,6 +169,8 @@ impl Constants {
          pilot_hit_neutrals,
          pilot_reverse_thrust,
          camera_angle,
+         sell_ship_modifier,
+         sell_outfit_modifier,
          warn_buy_intrinsics,
       })
    }
@@ -205,6 +213,8 @@ impl Constants {
          pilot_hit_neutrals: false,
          pilot_reverse_thrust: 0.4,
          camera_angle: std::f32::consts::FRAC_PI_4,
+         sell_ship_modifier: 1.0,
+         sell_outfit_modifier: 1.0,
          warn_buy_intrinsics: true,
       }
    }

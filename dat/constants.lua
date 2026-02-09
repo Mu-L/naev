@@ -34,6 +34,8 @@ local constants = {
 
    CAMERA_ANGLE         = math.pi/4, -- Camera angle, math.pi/2 would be overhead, math.pi/4 is isometric
 
+   SELL_SHIP_MODIFIER   = 1, -- Amount of the full price you can get back when selling a ship
+   SELL_OUTFIT_MODIFIER = 1, -- Same but for outfits
    WARN_BUY_INTRINSICS  = true, -- Whether to warn the player when they are buying intrinsic outfits
 
    -- Constants used by multiple Lua scripts

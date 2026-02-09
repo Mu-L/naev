@@ -1200,7 +1200,9 @@ static void outfits_sell( unsigned int wid, const char *str )
       lua_pop( naevL, 2 );
    } else {
       q = player_rmOutfit( outfit, q );
-      player_modCredits( outfit_price( outfit ) * q );
+      player_modCredits(
+         (credits_t)round( outfit_price( outfit ) * CTS.SELL_OUTFIT_MODIFIER ) *
+         q );
    }
 
    outfits_updateEquipmentOutfits();

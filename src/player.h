@@ -224,6 +224,7 @@ Pilot              *player_getShip( const char *shipname );
 PlayerShip_t       *player_getPlayerShip( const char *shipname );
 void                player_swapShip( const char *shipname, int move_cargo );
 credits_t           player_shipPrice( const char *shipname, int count_unique );
+credits_t           player_shipSellPrice( const char *shipname );
 void                player_rmShip( const char *shipname );
 void                player_rmPlayerShip( PlayerShip_t *ps );
 

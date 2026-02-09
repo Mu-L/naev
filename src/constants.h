@@ -30,6 +30,8 @@ typedef struct constants {
    double CAMERA_ANGLE;
    double CAMERA_VIEW;
    double CAMERA_VIEW_INV;
+   double SELL_SHIP_MODIFIER;
+   double SELL_OUTFIT_MODIFIER;
    int    WARN_BUY_INTRINSICS;
 } constants;
 
