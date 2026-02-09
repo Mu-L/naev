@@ -2260,8 +2260,8 @@ static void outfit_parseSBolt( Outfit *temp, const xmlNodePtr parent )
    WARN( _( "Outfit '%s' missing/invalid '%s' element" ), temp->name,          \
          s ) /**< Define to help check for data errors. */
    MELEMENT( temp->u.blt.gfx.size < 0., "gfx" );
-   MELEMENT( temp->u.blt.spfx_shield == -1, "spfx_shield" );
-   MELEMENT( temp->u.blt.spfx_armour == -1, "spfx_armour" );
+   // MELEMENT( temp->u.blt.spfx_shield == -1, "spfx_shield" );
+   // MELEMENT( temp->u.blt.spfx_armour == -1, "spfx_armour" );
    MELEMENT( !conf.nosound && temp->u.blt.sound == NULL, "sound" );
    MELEMENT( temp->mass == 0., "mass" );
    MELEMENT( temp->u.blt.delay == 0, "delay" );
@@ -2441,8 +2441,8 @@ static void outfit_parseSBeam( Outfit *temp, const xmlNodePtr parent )
    WARN( _( "Outfit '%s' missing/invalid '%s' element" ), temp->name,          \
          s ) /**< Define to help check for data errors. */
    MELEMENT( temp->u.bem.width == 0., "shader width" );
-   MELEMENT( temp->u.bem.spfx_shield == -1, "spfx_shield" );
-   MELEMENT( temp->u.bem.spfx_armour == -1, "spfx_armour" );
+   // MELEMENT( temp->u.bem.spfx_shield == -1, "spfx_shield" );
+   // MELEMENT( temp->u.bem.spfx_armour == -1, "spfx_armour" );
    MELEMENT( ( temp->u.bem.warmup > 0. ) &&
                 ( temp->u.bem.sound_warmup == NULL ),
              "sound_warmup" );
@@ -2739,12 +2739,14 @@ static void outfit_parseSLauncher( Outfit *temp, const xmlNodePtr parent )
    MELEMENT( temp->u.lau.reload_time == 0., "reload_time" );
    MELEMENT( temp->u.lau.ammo_mass == 0., "ammo_mass" );
    // MELEMENT(!outfit_isProp(temp,OUTFIT_PROP_SHOOT_DRY)&&temp->u.lau.gfx_space==NULL,"gfx");
+   /*
    MELEMENT( !outfit_isProp( temp, OUTFIT_PROP_SHOOT_DRY ) &&
                 temp->u.lau.spfx_shield == -1,
              "spfx_shield" );
    MELEMENT( !outfit_isProp( temp, OUTFIT_PROP_SHOOT_DRY ) &&
                 temp->u.lau.spfx_armour == -1,
              "spfx_armour" );
+   */
    MELEMENT( !conf.nosound && temp->u.lau.sound == NULL, "sound" );
    /* MELEMENT(temp->u.lau.accel==0,"accel"); */
    /* Unguided missiles don't need everything */

@@ -137,8 +137,8 @@ impl Constants {
          naevc::CTS.CAMERA_ANGLE = camera_angle as f64;
          naevc::CTS.CAMERA_VIEW = naevc::CTS.CAMERA_ANGLE.sin();
          naevc::CTS.CAMERA_VIEW_INV = 1.0 / naevc::CTS.CAMERA_VIEW;
-         naevc::CTS.SELL_SHIP_MODIFIER = sell_ship_modifier as f32;
-         naevc::CTS.SELL_OUTFIT_MODIFIER = sell_outfit_modifier as f32;
+         naevc::CTS.SELL_SHIP_MODIFIER = sell_ship_modifier as f64;
+         naevc::CTS.SELL_OUTFIT_MODIFIER = sell_outfit_modifier as f64;
          naevc::CTS.WARN_BUY_INTRINSICS = warn_buy_intrinsics as i32;
       }
 
