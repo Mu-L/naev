@@ -312,8 +312,12 @@ impl UserData for FramebufferWrap {
       methods.add_function(
          "new",
          |_, (w, h, depth): (usize, usize, Option<bool>)| -> mlua::Result<Self> {
+            static CANVAS_ID: AtomicU32 = AtomicU32::new(1);
+            let id = CANVAS_ID
+               .fetch_update(Ordering::SeqCst, Ordering::SeqCst, |x| Some(x + 1))
+               .unwrap_or(0);
             Ok(FramebufferWrap::new(
-               FramebufferBuilder::new(None)
+               FramebufferBuilder::new(Some(&format!("nlua_canvas_{id}")))
                   .width(w)
                   .height(h)
                   .depth(depth.unwrap_or(false))
