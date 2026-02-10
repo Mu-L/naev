@@ -5,84 +5,73 @@ import subprocess
 import shutil
 import sys
 import re
+import traceback
 
 def eprint(*args, **kwargs):
    print(*args, file=sys.stderr, **kwargs)
 
-try:
+def main():
    source_root = os.environ['MESON_SOURCE_ROOT']
    build_root = os.environ['MESON_BUILD_ROOT']
-except:
-   eprint("script is meant to be run from meson, not manually")
-   sys.exit(-2)
 
-def usage():
-   eprint(f"usage: {os.path.basename(sys.argv[0])} [-d] (Verbose output)")
-   eprint("DLL Bundler for Windows")
-   eprint("This script is called by 'meson install' if building for Windows.")
-   eprint("The intention is for this wrapper to behave in a similar manner to the bundle.py script in extras/macos.")
-   sys.exit(-1)
+   def usage():
+      eprint(f"usage: {os.path.basename(sys.argv[0])} [-d] (Verbose output)")
+      eprint("DLL Bundler for Windows")
+      eprint("This script is called by 'meson install' if building for Windows.")
+      eprint("The intention is for this wrapper to behave in a similar manner to the bundle.py script in extras/macos.")
+      sys.exit(-1)
 
-verbose = False
+   verbose = False
 
-# Parse command-line arguments
-args = sys.argv[1:]
-while args:
-   arg = args.pop(0)
-   if arg == '-d':
-      verbose = True
-   else:
-      usage()
+   # Parse command-line arguments
+   args = sys.argv[1:]
+   while args:
+      arg = args.pop(0)
+      if arg == '-d':
+         verbose = True
+      else:
+         usage()
 
-# Get DLL search path from meson
-try:
+   # Get DLL search path from meson
    devenv = subprocess.run([sys.executable, os.path.join(source_root, "meson.py"), "devenv", "--dump"], capture_output=True, check=True)
-except:
-   eprint("failed to get devenv")
-   sys.exit(2)
 
-# WINEPATH is set in cross compilation enviornments. Check it first
-try:
+   # WINEPATH is set in cross compilation enviornments. Check it first
    devenvPath = re.search(f"WINEPATH=\"(.*);\\$WINEPATH\"",devenv.stdout.decode())
    if devenvPath is not None:
       os.environ['MINGW_BUNDLEDLLS_SEARCH_PATH'] = (devenvPath.group(1) + ";" + os.environ.get('WINEPATH', default="")).replace(";", os.pathsep)
-# If WINEPATH wasn't set, this is a native windows build, and we should use PATH
+   # If WINEPATH wasn't set, this is a native windows build, and we should use PATH
    else:
       devenvPath = re.search(f"PATH=\"(.*){os.pathsep}\\$PATH\"",devenv.stdout.decode())
       os.environ['MINGW_BUNDLEDLLS_SEARCH_PATH'] = devenvPath.group(1) + os.pathsep + os.environ.get('PATH', default="")
-except:
-   eprint(f"unable to set 'MINGW_BUNDLEDLLS_SEARCH_PATH':  devenvPath='{devenvPath}'")
-   sys.exit(3)
 
+   # Run mingw-bundledlls to get DLL list
+   dll_list_cmd = [sys.executable, os.path.join(source_root, 'extras/windows/mingw-bundledlls/mingw-bundledlls'),
+               os.path.join(build_root, 'naev.exe')]
 
-# Run mingw-bundledlls to get DLL list
-dll_list_cmd = [sys.executable, os.path.join(source_root, 'extras/windows/mingw-bundledlls/mingw-bundledlls'),
-            os.path.join(build_root, 'naev.exe')]
+   if verbose:
+      print("Executing command:", dll_list_cmd)
+      print("Working directory:", os.getcwd())
 
-if verbose:
-   print("Executing command:", dll_list_cmd)
-   print("Working directory:", os.getcwd())
-
-try:
    dll_list_proc = subprocess.run(dll_list_cmd, capture_output=True)
    dll_list_out = dll_list_proc.stdout
    dll_list_err = dll_list_proc.stderr
-except:
-   eprint(f"failed to get dll_list_proc: dll_list_cmd='{dll_list_cmd}'")
-   sys.exit(4)
 
-if verbose:
-   print(dll_list_out.decode())
-if verbose or dll_list_proc.returncode != 0:
-   print(dll_list_err.decode())
+   if verbose:
+      print(dll_list_out.decode())
+   if verbose or dll_list_proc.returncode != 0:
+      print(dll_list_err.decode())
 
-dll_list_proc.check_returncode()
+   dll_list_proc.check_returncode()
 
-# Copy DLLs to installation directory
-dll_list = dll_list_out.decode().splitlines()
-for dll in dll_list:
-   dll_path = os.path.join(os.getenv('MESON_INSTALL_DESTDIR_PREFIX'), os.path.basename(dll))
-   try:
+   # Copy DLLs to installation directory
+   dll_list = dll_list_out.decode().splitlines()
+   for dll in dll_list:
+      dll_path = os.path.join(os.getenv('MESON_INSTALL_DESTDIR_PREFIX'), os.path.basename(dll))
       shutil.copy(dll, dll_path)
-   except:
-      eprint(f"failed to copy dll '{dll}' to '{dll_path}'")
+
+if __name__ == '__main__':
+   try:
+      main()
+   except Exception:
+      traceback.print_exc()
+      sys.exit(9)
