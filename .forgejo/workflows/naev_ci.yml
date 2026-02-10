@@ -272,7 +272,7 @@ jobs:
       - name: Test Install
         id: install
         run: |
-          meson install -v -C build
+          meson install -C build
 
       - name: Upload Install Log
         uses: actions/upload-artifact@v3
