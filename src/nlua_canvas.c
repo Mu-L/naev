@@ -54,7 +54,7 @@ int nlua_loadCanvas( nlua_env *env )
  *
  * @note The API here is designed to be compatible with that of "LÖVE".
  *
- * @luamod canvas
+ * @lua_mod canvas
  */
 /**
  * @brief Gets canvas at index.

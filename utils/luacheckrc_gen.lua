@@ -266,21 +266,6 @@ stds.camera = {
       }
    }
 }
-stds.canvas = {
-   read_globals = {
-      canvas = {
-         fields = {
-            __gc = {},
-            __eq = {},
-            new = {},
-            set = {},
-            dims = {},
-            getTex = {},
-            clear = {},
-         }
-      }
-   }
-}
 stds.commodity = {
    read_globals = {
       commodity = {
@@ -1317,6 +1302,19 @@ stds.colour = {
       }
    }
 }
+stds.canvas = {
+   read_globals = {
+      canvas = {
+         fields = {
+            new = {},
+            set = {},
+            dims = {},
+            getTex = {},
+            clear = {},
+         }
+      }
+   }
+}
 stds.tex = {
    read_globals = {
       tex = {
@@ -1379,7 +1377,6 @@ stds.naev.read_globals.naev.fields.file = stds.file.read_globals.file
 stds.naev.read_globals.naev.fields.asteroid = stds.asteroid.read_globals.asteroid
 stds.naev.read_globals.naev.fields.bkg = stds.bkg.read_globals.bkg
 stds.naev.read_globals.naev.fields.camera = stds.camera.read_globals.camera
-stds.naev.read_globals.naev.fields.canvas = stds.canvas.read_globals.canvas
 stds.naev.read_globals.naev.fields.commodity = stds.commodity.read_globals.commodity
 stds.naev.read_globals.naev.fields.diff = stds.diff.read_globals.diff
 stds.naev.read_globals.naev.fields.evt = stds.evt.read_globals.evt
@@ -1409,6 +1406,7 @@ stds.naev.read_globals.naev.fields.var = stds.var.read_globals.var
 stds.naev.read_globals.naev.fields.transform = stds.transform.read_globals.transform
 stds.naev.read_globals.naev.fields.vec2 = stds.vec2.read_globals.vec2
 stds.naev.read_globals.naev.fields.colour = stds.colour.read_globals.colour
+stds.naev.read_globals.naev.fields.canvas = stds.canvas.read_globals.canvas
 stds.naev.read_globals.naev.fields.tex = stds.tex.read_globals.tex
 stds.naev.read_globals.naev.fields.rnd = stds.rnd.read_globals.rnd
 stds.naev.read_globals.naev.fields.spfx = stds.spfx.read_globals.spfx

@@ -49,6 +49,7 @@ source_rust = files(
    'renderer/src/buffer.rs',
    'renderer/src/sdf.rs',
    'renderer/src/shader.rs',
+   'renderer/src/framebuffer.rs',
    'renderer/src/texture.rs',
    'renderer/src/camera.rs',
    'renderer/src/colour.rs',

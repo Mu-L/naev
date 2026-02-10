@@ -1,3 +1,4 @@
+use crate::colour::Colour;
 use crate::texture::{AddressMode, FilterMode, Texture, TextureBuilder, TextureFormat};
 use crate::{Context, ContextWrapper};
 use anyhow::Result;
@@ -7,7 +8,9 @@ use mlua::{
    BorrowedStr, Either, FromLua, Lua, MetaMethod, UserData, UserDataMethods, UserDataRef,
    UserDataRefMut, Value,
 };
+use nalgebra::Vector4;
 use std::num::NonZero;
+use std::sync::atomic::{AtomicBool, AtomicU32, Ordering};
 
 pub struct FramebufferC {
    fb: glow::NativeFramebuffer,
@@ -251,5 +254,145 @@ impl FramebufferBuilder {
          texture,
          depth,
       })
+   }
+}
+
+static PREVIOUS_FBO: AtomicU32 = AtomicU32::new(0);
+static WAS_SCISSORED: AtomicBool = AtomicBool::new(false);
+fn canvas_reset() {
+   let prev = PREVIOUS_FBO.load(Ordering::Relaxed);
+   if prev == 0 {
+      return;
+   }
+
+   let ctx = Context::get();
+   let gl = &ctx.gl;
+   unsafe {
+      naevc::gl_screen.current_fbo = prev;
+      PREVIOUS_FBO.store(0, Ordering::Relaxed);
+      if WAS_SCISSORED.load(Ordering::Relaxed) {
+         gl.enable(SCISSOR_TEST);
+         WAS_SCISSORED.store(false, Ordering::Relaxed);
+      }
+      gl.viewport(0, 0, naevc::gl_screen.rw, naevc::gl_screen.rh);
+      gl.bind_framebuffer(
+         FRAMEBUFFER,
+         Some(glow::NativeFramebuffer(NonZero::new(prev).unwrap())),
+      );
+   }
+}
+
+/*@
+ * @brief Lua bindings to interact with canvass.
+ *
+ * @note The API here is designed to be compatible with that of "LÖVE".
+ *
+ * @luamod canvas
+ */
+impl UserData for Framebuffer {
+   fn add_methods<M: UserDataMethods<Self>>(methods: &mut M) {
+      /*@
+       * @brief Opens a new canvas.
+       *
+       *    @luatparam number width Width of the new canvas.
+       *    @luatparam number height Height of the new canvas.
+       *    @luatparam[opt=false] boolean depth Whether or not to add a depth channel
+       * to the canvas.
+       *    @luatreturn Canvas New canvas object.
+       * @luafunc new
+       */
+      methods.add_function(
+         "new",
+         |_, (w, h, depth): (usize, usize, Option<bool>)| -> mlua::Result<Self> {
+            Ok(FramebufferBuilder::new(None)
+               .width(w)
+               .height(h)
+               .depth(depth.unwrap_or(false))
+               .build(Context::get())?)
+         },
+      );
+
+      /*@
+       * @brief Sets the active canvas.
+       *
+       *    @luatparam Canvas|nil arg Either a canvas object or nil to disable.
+       * @luafunc set
+       * @todo Add actual graphics state maintenance! For now, just disable the
+       * scissor region.
+       */
+      methods.add_function(
+         "set",
+         |_, c: Option<UserDataRef<Self>>| -> mlua::Result<()> {
+            if let Some(canvas) = c {
+               let ctx = Context::get();
+               let gl = &ctx.gl;
+               if PREVIOUS_FBO.load(Ordering::Relaxed) > 0 {
+                  PREVIOUS_FBO.store(unsafe { naevc::gl_screen.current_fbo }, Ordering::Relaxed);
+                  WAS_SCISSORED.store(unsafe { gl.is_enabled(SCISSOR_TEST) }, Ordering::Relaxed);
+               }
+               unsafe {
+                  naevc::gl_screen.current_fbo = canvas.framebuffer.0.into();
+                  gl.disable(SCISSOR_TEST);
+                  gl.viewport(0, 0, canvas.w as i32, canvas.h as i32);
+                  naevc::render_needsReset();
+               }
+               canvas.bind_gl(gl);
+            } else {
+               canvas_reset();
+            }
+            Ok(())
+         },
+      );
+
+      /*@
+       * @brief Gets the size of the canvas.
+       *
+       *    @luatreturn number Width of the canvas.
+       *    @luatreturn number Height of the canvas.
+       * @luafunc dims
+       */
+      methods.add_method("dims", |_, canvas, ()| -> mlua::Result<(usize, usize)> {
+         Ok((canvas.w, canvas.h))
+      });
+
+      /*@
+       * @brief Gets the texture associated with the canvas.
+       *
+       *    @luatparam Canvas canvas Canvas to get the texture from.
+       *    @luatreturn Tex Texture associated with the canvas.
+       * @luafunc getTex
+       */
+      methods.add_method("getTex", |_, canvas, ()| -> mlua::Result<Texture> {
+         if let Some(tex) = &canvas.texture {
+            Ok(tex.try_clone()?)
+         } else {
+            Err(mlua::Error::RuntimeError(
+               "framebuffer has no texture".to_string(),
+            ))
+         }
+      });
+
+      /*@
+       * @brief Clears a canvas.
+       *
+       *    @luatparam Canvas canvas Canvas to clear.
+       *    @luatparam Colour col Colour to clear to.
+       * @luafunc clear
+       */
+      methods.add_method(
+         "clear",
+         |_, _canvas, colour: Option<Colour>| -> mlua::Result<()> {
+            let colour = colour.unwrap_or(Colour::new_alpha(0., 0., 0., 0.));
+            let ctx = Context::get();
+            let gl = &ctx.gl;
+            let v: Vector4<f32> = colour.into();
+            unsafe {
+               gl.clear_color(v.x, v.y, v.z, v.w);
+               gl.clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT);
+               gl.clear_color(0.0, 0.0, 0.0, 0.0);
+            }
+            Ok(())
+         },
+      );
    }
 }
