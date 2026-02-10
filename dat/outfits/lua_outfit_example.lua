@@ -251,14 +251,14 @@ function update( _p, po, dt )
       end
    end
 end
-function ontoggle( _p, _po, on )
+function ontoggle( _p, po, on )
    if on then
       -- Ignore already active
       if mem.active then return end
-      return enable()
+      return enable( po )
    else
       -- Ignore already not active
       if not mem.active then return end
-      return disable()
+      return disable( po )
    end
 end
