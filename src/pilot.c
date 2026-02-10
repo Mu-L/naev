@@ -3302,7 +3302,8 @@ static void pilot_refuel( Pilot *p, double dt )
  */
 ntime_t pilot_hyperspaceDelay( const Pilot *p )
 {
-   int stu = (int)( CTS.TIMEDATE_HYPERSPACE_INCREMENTS * p->stats.jump_delay );
+   int stu =
+      (int)round( CTS.TIMEDATE_HYPERSPACE_INCREMENTS * p->stats.jump_delay );
    return ntime_create( 0, 0, stu );
 }
 

@@ -94,10 +94,10 @@ impl Constants {
       let timedate_increments_per_second =
          get_f64(&tbl, "TIMEDATE_INCREMENTS_PER_SECOND", 30.0) * ntime::MULTIPLIER_F;
       let timedate_hyperspace_increments =
-         (get_f64(&tbl, "TIMEDATE_HYPERSPACE_INCREMENT", 10_000.0) * ntime::MULTIPLIER_F).round()
+         (get_f64(&tbl, "TIMEDATE_HYPERSPACE_INCREMENTS", 10_000.0) * ntime::MULTIPLIER_F).round()
             as i64;
       let timedate_land_increments =
-         (get_f64(&tbl, "TIMEDATE_LAND_INCREMENT", 10_000.0) * ntime::MULTIPLIER_F).round() as i64;
+         (get_f64(&tbl, "TIMEDATE_LAND_INCREMENTS", 10_000.0) * ntime::MULTIPLIER_F).round() as i64;
       let pilot_takeoff_delay = get_f32(&tbl, "PILOT_TAKEOFF_DELAY", 1.);
       let pilot_landing_delay = get_f32(&tbl, "PILOT_LANDING_DELAY", 1.);
       let pilot_shield_down_time = get_f32(&tbl, "PILOT_SHIELD_DOWN_TIME", 5.);

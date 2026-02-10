@@ -1849,8 +1849,8 @@ void takeoff( int delay, int nosave )
    /* time goes by, triggers hook before takeoff */
    if ( delay ) {
       /* TODO should this depend on something else? */
-      int stu =
-         (int)( CTS.TIMEDATE_LAND_INCREMENTS * player.p->stats.land_delay );
+      int stu = (int)round( CTS.TIMEDATE_LAND_INCREMENTS *
+                            player.p->stats.land_delay );
       ntime_inc( ntime_create( 0, 0, stu ) );
    }
    nt = ntime_pretty( 0, 2 );
