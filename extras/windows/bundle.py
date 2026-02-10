@@ -6,15 +6,18 @@ import shutil
 import sys
 import re
 
+def eprint(*args, **kwargs):
+   print(*args, file=sys.stderr, **kwargs)
+
 source_root = os.environ['MESON_SOURCE_ROOT']
 
 def usage():
-   print(f"usage: {os.path.basename(sys.argv[0])} [-d] (Verbose output)")
-   print("DLL Bundler for Windows")
-   print("This script is called by 'meson install' if building for Windows.")
-   print("The intention is for this wrapper to behave in a similar manner to the bundle.py script in extras/macos.")
-   print(f"usage: {os.path.basename(sys.argv[0])} [-d] (Verbose output)")
-   sys.exit(1)
+   eprint(f"usage: {os.path.basename(sys.argv[0])} [-d] (Verbose output)")
+   eprint("DLL Bundler for Windows")
+   eprint("This script is called by 'meson install' if building for Windows.")
+   eprint("The intention is for this wrapper to behave in a similar manner to the bundle.py script in extras/macos.")
+   eprint(f"usage: {os.path.basename(sys.argv[0])} [-d] (Verbose output)")
+   sys.exit(-1)
 
 verbose = False
 
