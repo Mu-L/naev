@@ -20,7 +20,6 @@ def usage():
    eprint("DLL Bundler for Windows")
    eprint("This script is called by 'meson install' if building for Windows.")
    eprint("The intention is for this wrapper to behave in a similar manner to the bundle.py script in extras/macos.")
-   eprint(f"usage: {os.path.basename(sys.argv[0])} [-d] (Verbose output)")
    sys.exit(-1)
 
 verbose = False
