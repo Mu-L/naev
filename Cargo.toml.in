@@ -141,7 +141,7 @@ mlua = { workspace = true }
 thunderdome = { workspace = true }
 derive_more = { workspace = true }
 constcat = "0.6"
-rand = "0.9"
+rand = "0.10"
 rayon = { workspace = true }
 palette = { workspace = true }
 serde = { workspace = true }
