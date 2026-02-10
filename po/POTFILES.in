@@ -4184,6 +4184,7 @@ src/render.h
 src/renderer/src/buffer.rs
 src/renderer/src/camera.rs
 src/renderer/src/colour.rs
+src/renderer/src/framebuffer.rs
 src/renderer/src/lib.rs
 src/renderer/src/luagfx.rs
 src/renderer/src/luashader.rs

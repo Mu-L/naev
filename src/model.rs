@@ -14,11 +14,10 @@ use renderer::buffer::{
    Buffer, BufferBuilder, BufferTarget, BufferUsage, VertexArray, VertexArrayBuffer,
    VertexArrayBuilder,
 };
+use renderer::framebuffer::{Framebuffer, FramebufferBuilder, FramebufferTarget};
 use renderer::shader::{ProgramBuilder, Shader};
 use renderer::texture;
-use renderer::texture::{
-   Framebuffer, FramebufferBuilder, FramebufferTarget, Texture, TextureBuilder,
-};
+use renderer::texture::{Texture, TextureBuilder};
 use renderer::{Context, ContextWrapper, Uniform, look_at4, ortho4};
 
 const MAX_LIGHTS: usize = 7;

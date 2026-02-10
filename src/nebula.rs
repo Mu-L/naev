@@ -13,8 +13,8 @@ use renderer::buffer::{
    Buffer, BufferBuilder, BufferTarget, BufferUsage, VertexArray, VertexArrayBuffer,
    VertexArrayBuilder,
 };
+use renderer::framebuffer::{Framebuffer, FramebufferBuilder};
 use renderer::shader::{ProgramBuilder, Shader};
-use renderer::texture::{Framebuffer, FramebufferBuilder};
 
 #[allow(dead_code)]
 pub const DEFAULT_HUE: f64 = 260.0;
