@@ -73,5 +73,5 @@ if __name__ == '__main__':
    try:
       main()
    except Exception:
-      traceback.print_exc()
+      traceback.print_exc( file=sys.stderr )
       sys.exit(9)
