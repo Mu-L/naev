@@ -44,7 +44,6 @@ These tags allow missions to randomly target spobs with specific properties, so 
 * **shipbuilding**: shipbuilding is an important part of the spob economy
 * **research**: the spob has a strong focus in research (special research laboratories, etc...)
 * **immigration**: the spob draws in many immigrants or is being colonised
-* **refuel**: the spobs reason for existance is as a fueling point
 * **government**: the spob has important government functions or hosts the central government
 * **military**: the spob has an important factional military presence
 * **religious**: the spob has an important religious significance or presence
