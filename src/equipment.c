@@ -354,6 +354,8 @@ void equipment_open( unsigned int wid )
    x -= ( 15 + bw );
    window_addButtonKey( wid, x, y, bw, bh, "btnSellShip", _( "Sell Ship" ),
                         equipment_sellShip, SDLK_S );
+   if ( land_spob && !spob_hasService( land_spob, SPOB_SERVICE_SHIPYARD ) )
+      window_disableButton( wid, "btnSellShip" );
    x -= ( 15 + bw );
    window_addButtonKey( wid, x, y, bw, bh, "btnChangeShip", _( "Swap Ship" ),
                         equipment_transChangeShip, SDLK_P );
@@ -1524,6 +1526,12 @@ int equipment_canSellPlayerShip( const char *shipname )
    land_errClear();
    if ( strcmp( shipname, player.p->name ) == 0 ) { /* Already on-board. */
       land_errDialogueBuild( _( "You can't sell the ship you're piloting!" ) );
+      failure = 1;
+   }
+
+   if ( land_spob && !spob_hasService( land_spob, SPOB_SERVICE_SHIPYARD ) ) {
+      land_errDialogueBuild(
+         _( "You can only sell ships when there is a shipyard!" ) );
       failure = 1;
    }
 

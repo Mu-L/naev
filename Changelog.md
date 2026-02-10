@@ -27,6 +27,7 @@
    * Stress starts recovering 5 seconds after taking disable damage instead of
      immediately
    * Independent systems have their own standing and memory
+   * Can only sell ships when a shipyard is available
 
  ### Content
 
