@@ -11,6 +11,7 @@ def eprint(*args, **kwargs):
 
 try:
    source_root = os.environ['MESON_SOURCE_ROOT']
+   build_root = os.environ['MESON_BUILD_ROOT']
 except:
    eprint("script is meant to be run from meson, not manually")
    sys.exit(-2)
@@ -41,18 +42,22 @@ except:
    sys.exit(2)
 
 # WINEPATH is set in cross compilation enviornments. Check it first
-devenvPath = re.search(f"WINEPATH=\"(.*);\\$WINEPATH\"",devenv.stdout.decode())
-if devenvPath is not None:
-   os.environ['MINGW_BUNDLEDLLS_SEARCH_PATH'] = (devenvPath.group(1) + ";" + os.environ.get('WINEPATH', default="")).replace(";", os.pathsep)
-
+try:
+   devenvPath = re.search(f"WINEPATH=\"(.*);\\$WINEPATH\"",devenv.stdout.decode())
+   if devenvPath is not None:
+      os.environ['MINGW_BUNDLEDLLS_SEARCH_PATH'] = (devenvPath.group(1) + ";" + os.environ.get('WINEPATH', default="")).replace(";", os.pathsep)
 # If WINEPATH wasn't set, this is a native windows build, and we should use PATH
-else:
-   devenvPath = re.search(f"PATH=\"(.*){os.pathsep}\\$PATH\"",devenv.stdout.decode())
-   os.environ['MINGW_BUNDLEDLLS_SEARCH_PATH'] = devenvPath.group(1) + os.pathsep + os.environ.get('PATH', default="")
+   else:
+      devenvPath = re.search(f"PATH=\"(.*){os.pathsep}\\$PATH\"",devenv.stdout.decode())
+      os.environ['MINGW_BUNDLEDLLS_SEARCH_PATH'] = devenvPath.group(1) + os.pathsep + os.environ.get('PATH', default="")
+except:
+   eprint(f"unable to set 'MINGW_BUNDLEDLLS_SEARCH_PATH':  devenvPath='{devenvPath}'")
+   sys.exit(3)
+
 
 # Run mingw-bundledlls to get DLL list
-dll_list_cmd = [sys.executable, os.path.join(os.getenv('MESON_SOURCE_ROOT'), 'extras/windows/mingw-bundledlls/mingw-bundledlls'),
-            os.path.join(os.getenv('MESON_BUILD_ROOT'), 'naev.exe')]
+dll_list_cmd = [sys.executable, os.path.join(source_root, 'extras/windows/mingw-bundledlls/mingw-bundledlls'),
+            os.path.join(build_root, 'naev.exe')]
 
 if verbose:
    print("Executing command:", dll_list_cmd)
@@ -63,8 +68,8 @@ try:
    dll_list_out = dll_list_proc.stdout
    dll_list_err = dll_list_proc.stderr
 except:
-   eprint(f"failed to get dll_list_proc: {dll_list_cmd}")
-   sys.exit(3)
+   eprint(f"failed to get dll_list_proc: dll_list_cmd='{dll_list_cmd}'")
+   sys.exit(4)
 
 if verbose:
    print(dll_list_out.decode())
