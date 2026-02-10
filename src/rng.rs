@@ -1,5 +1,5 @@
 use mlua::{Either, UserData, UserDataMethods};
-use rand::Rng;
+use rand::RngExt;
 use std::os::raw::{c_double, c_uint};
 
 #[unsafe(no_mangle)]
