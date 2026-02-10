@@ -9,7 +9,11 @@ import re
 def eprint(*args, **kwargs):
    print(*args, file=sys.stderr, **kwargs)
 
-source_root = os.environ['MESON_SOURCE_ROOT']
+try:
+   source_root = os.environ['MESON_SOURCE_ROOT']
+except:
+   eprint("script is meant to be run from meson, not manually")
+   sys.exit(-2)
 
 def usage():
    eprint(f"usage: {os.path.basename(sys.argv[0])} [-d] (Verbose output)")
@@ -31,7 +35,11 @@ while args:
       usage()
 
 # Get DLL search path from meson
-devenv = subprocess.run([sys.executable, os.path.join(source_root, "meson.py"), "devenv", "--dump"], capture_output=True, check=True)
+try:
+   devenv = subprocess.run([sys.executable, os.path.join(source_root, "meson.py"), "devenv", "--dump"], capture_output=True, check=True)
+except:
+   eprint("failed to get devenv")
+   sys.exit(2)
 
 # WINEPATH is set in cross compilation enviornments. Check it first
 devenvPath = re.search(f"WINEPATH=\"(.*);\\$WINEPATH\"",devenv.stdout.decode())
@@ -51,9 +59,13 @@ if verbose:
    print("Executing command:", dll_list_cmd)
    print("Working directory:", os.getcwd())
 
-dll_list_proc = subprocess.run(dll_list_cmd, capture_output=True)
-dll_list_out = dll_list_proc.stdout
-dll_list_err = dll_list_proc.stderr
+try:
+   dll_list_proc = subprocess.run(dll_list_cmd, capture_output=True)
+   dll_list_out = dll_list_proc.stdout
+   dll_list_err = dll_list_proc.stderr
+except:
+   eprint(f"failed to get dll_list_proc: {dll_list_cmd}")
+   sys.exit(3)
 
 if verbose:
    print(dll_list_out.decode())
@@ -66,4 +78,7 @@ dll_list_proc.check_returncode()
 dll_list = dll_list_out.decode().splitlines()
 for dll in dll_list:
    dll_path = os.path.join(os.getenv('MESON_INSTALL_DESTDIR_PREFIX'), os.path.basename(dll))
-   shutil.copy(dll, dll_path)
+   try:
+      shutil.copy(dll, dll_path)
+   except:
+      eprint(f"failed to copy dll '{dll}' to '{dll_path}'")
