@@ -3,13 +3,11 @@ use crate::texture::{AddressMode, FilterMode, Texture, TextureBuilder, TextureFo
 use crate::{Context, ContextWrapper};
 use anyhow::Result;
 use glow::*;
-#[allow(unused_imports)]
-use mlua::{
-   BorrowedStr, Either, FromLua, Lua, MetaMethod, UserData, UserDataMethods, UserDataRef,
-   UserDataRefMut, Value,
-};
+use mlua::{UserData, UserDataMethods, UserDataRef};
 use nalgebra::Vector4;
 use std::num::NonZero;
+use std::ops::Deref;
+use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, AtomicU32, Ordering};
 
 pub struct FramebufferC {
@@ -261,24 +259,34 @@ static PREVIOUS_FBO: AtomicU32 = AtomicU32::new(0);
 static WAS_SCISSORED: AtomicBool = AtomicBool::new(false);
 fn canvas_reset() {
    let prev = PREVIOUS_FBO.load(Ordering::Relaxed);
-   if prev == 0 {
-      return;
-   }
-
-   let ctx = Context::get();
-   let gl = &ctx.gl;
-   unsafe {
-      naevc::gl_screen.current_fbo = prev;
-      PREVIOUS_FBO.store(0, Ordering::Relaxed);
-      if WAS_SCISSORED.load(Ordering::Relaxed) {
-         gl.enable(SCISSOR_TEST);
-         WAS_SCISSORED.store(false, Ordering::Relaxed);
+   if let Some(prev) = NonZero::new(prev) {
+      let ctx = Context::get();
+      let gl = &ctx.gl;
+      unsafe {
+         naevc::gl_screen.current_fbo = prev.into();
+         PREVIOUS_FBO.store(0, Ordering::Relaxed);
+         if WAS_SCISSORED.load(Ordering::Relaxed) {
+            gl.enable(SCISSOR_TEST);
+            WAS_SCISSORED.store(false, Ordering::Relaxed);
+         }
+         gl.viewport(0, 0, naevc::gl_screen.rw, naevc::gl_screen.rh);
+         gl.bind_framebuffer(FRAMEBUFFER, Some(glow::NativeFramebuffer(prev)));
       }
-      gl.viewport(0, 0, naevc::gl_screen.rw, naevc::gl_screen.rh);
-      gl.bind_framebuffer(
-         FRAMEBUFFER,
-         Some(glow::NativeFramebuffer(NonZero::new(prev).unwrap())),
-      );
+   }
+}
+
+#[derive(Clone)]
+pub struct FramebufferWrap(Arc<Framebuffer>);
+impl FramebufferWrap {
+   pub fn new(fb: Framebuffer) -> Self {
+      Self(Arc::new(fb))
+   }
+}
+impl Deref for FramebufferWrap {
+   type Target = Framebuffer;
+
+   fn deref(&self) -> &Self::Target {
+      &self.0
    }
 }
 
@@ -289,7 +297,7 @@ fn canvas_reset() {
  *
  * @luamod canvas
  */
-impl UserData for Framebuffer {
+impl UserData for FramebufferWrap {
    fn add_methods<M: UserDataMethods<Self>>(methods: &mut M) {
       /*@
        * @brief Opens a new canvas.
@@ -304,11 +312,13 @@ impl UserData for Framebuffer {
       methods.add_function(
          "new",
          |_, (w, h, depth): (usize, usize, Option<bool>)| -> mlua::Result<Self> {
-            Ok(FramebufferBuilder::new(None)
-               .width(w)
-               .height(h)
-               .depth(depth.unwrap_or(false))
-               .build(Context::get())?)
+            Ok(FramebufferWrap::new(
+               FramebufferBuilder::new(None)
+                  .width(w)
+                  .height(h)
+                  .depth(depth.unwrap_or(false))
+                  .build(Context::get())?,
+            ))
          },
       );
 
@@ -326,7 +336,7 @@ impl UserData for Framebuffer {
             if let Some(canvas) = c {
                let ctx = Context::get();
                let gl = &ctx.gl;
-               if PREVIOUS_FBO.load(Ordering::Relaxed) > 0 {
+               if PREVIOUS_FBO.load(Ordering::Relaxed) == 0 {
                   PREVIOUS_FBO.store(unsafe { naevc::gl_screen.current_fbo }, Ordering::Relaxed);
                   WAS_SCISSORED.store(unsafe { gl.is_enabled(SCISSOR_TEST) }, Ordering::Relaxed);
                }
@@ -396,3 +406,80 @@ impl UserData for Framebuffer {
       );
    }
 }
+
+/*
+use mlua::{Value, ffi};
+use std::ffi::{c_void, c_int, c_char};
+pub fn open_canvas(lua: &mlua::Lua) -> anyhow::Result<mlua::AnyUserData> {
+   let proxy = lua.create_proxy::<FramebufferWrap>()?;
+
+   if let mlua::Value::Nil = lua.named_registry_value("push_canvas")? {
+      let push_canvas = lua.create_function(|lua, canvas: mlua::LightUserData| {
+         let canvas = canvas.0 as *mut FramebufferWrap;
+         if canvas.is_null() {
+            Err(mlua::Error::RuntimeError(
+               "push_canvas received NULL".to_string(),
+            ))
+         } else {
+            let canvas = unsafe { &*canvas };
+            lua.create_userdata(canvas.clone())
+         }
+      })?;
+      lua.set_named_registry_value("push_canvas", push_canvas)?;
+
+      let get_canvas = lua.create_function(|_, mut ud: mlua::UserDataRefMut<FramebufferWrap>| {
+         let canvas: *mut FramebufferWrap = &mut *ud;
+         Ok(Value::LightUserData(mlua::LightUserData(
+            canvas as *mut c_void,
+         )))
+      })?;
+      lua.set_named_registry_value("get_canvas", get_canvas)?;
+   }
+
+   Ok(proxy)
+}
+
+#[allow(non_snake_case)]
+#[unsafe(no_mangle)]
+pub extern "C" fn luaL_checkcanvas(L: *mut mlua::lua_State, idx: c_int) -> *mut FramebufferWrap {
+   unsafe {
+      let canvas = lua_tocanvas(L, idx);
+      if canvas.is_null() {
+         ffi::luaL_typerror(L, idx, c"canvas".as_ptr() as *const c_char);
+      }
+      canvas
+   }
+}
+
+#[allow(non_snake_case)]
+#[unsafe(no_mangle)]
+pub extern "C" fn lua_iscanvas(L: *mut mlua::lua_State, idx: c_int) -> c_int {
+   !lua_tocanvas(L, idx).is_null() as c_int
+}
+
+#[allow(non_snake_case)]
+#[unsafe(no_mangle)]
+pub extern "C" fn lua_pushcanvas(L: *mut mlua::lua_State, canvas: *mut FramebufferWrap) {
+   unsafe {
+      ffi::lua_getfield(L, ffi::LUA_REGISTRYINDEX, c"push_canvas".as_ptr());
+      ffi::lua_pushlightuserdata(L, canvas as *mut c_void);
+      ffi::lua_call(L, 1, 1);
+   }
+}
+
+#[allow(non_snake_case)]
+#[unsafe(no_mangle)]
+pub extern "C" fn lua_tocanvas(L: *mut mlua::lua_State, idx: c_int) -> *mut FramebufferWrap {
+   unsafe {
+      let idx = ffi::lua_absindex(L, idx);
+      ffi::lua_getfield(L, ffi::LUA_REGISTRYINDEX, c"get_canvas".as_ptr());
+      ffi::lua_pushvalue(L, idx);
+      let canvas = match ffi::lua_pcall(L, 1, 1, 0) {
+         ffi::LUA_OK => ffi::lua_touserdata(L, -1) as *mut FramebufferWrap,
+         _ => std::ptr::null_mut(),
+      };
+      ffi::lua_pop(L, 1);
+      canvas
+   }
+}
+*/
