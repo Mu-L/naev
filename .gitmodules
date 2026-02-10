@@ -1,6 +1,6 @@
 [submodule "extras/windows/mingw-bundledlls"]
 path = extras/windows/mingw-bundledlls
-url = https://github.com/ProjectSynchro/mingw-bundledlls.git
+url = https://codeberg.org/naev/mingw-bundledlls.git
 branch = ucrt_blacklist
 [submodule "dat/lua-repl"]
 path = dat/lua-repl
