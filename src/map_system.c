@@ -593,11 +593,11 @@ static void map_system_render( double bx, double by, double w, double h,
                           &cFontWhite, -1., factionBuf );
       }
 
-      cnt +=
-         scnprintf( &buf[cnt], sizeof( buf ) - cnt,
-                    _( "#nSpace Object:#0 %s\n#nPlanetary class:#0 %s    "
-                       "#nPopulation:#0 %s\n" ),
-                    spob_name( p ), _( p->class ), space_populationStr( p ) );
+      cnt += scnprintf( &buf[cnt], sizeof( buf ) - cnt,
+                        _( "#nSpace Object:#0 %s\n#nPlanetary class:#0 %s    "
+                           "#nPopulation:#0 %s\n" ),
+                        spob_name( p ), space_className( p ),
+                        space_populationStr( p ) );
       if ( !spob_hasService( p, SPOB_SERVICE_INHABITED ) )
          cnt += scnprintf( &buf[cnt], sizeof( buf ) - cnt,
                            _( "No space port here\n" ) );
