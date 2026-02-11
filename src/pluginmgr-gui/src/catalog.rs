@@ -384,7 +384,7 @@ impl Catalog {
             |p: &&Plugin| {
                p != tc
                   && !p.depends.contains(&tc.identifier)
-                  && !p.recomends.contains(&tc.identifier)
+                  && !p.recommends.contains(&tc.identifier)
             },
             pgettext(
                "plugins",

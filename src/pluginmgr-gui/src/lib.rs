@@ -45,8 +45,10 @@ pub fn open() -> Result<()> {
 
    Ok(iced::application(App::run, App::update, App::view)
       .title(gettext("Naev Plugin Manager"))
+      .subscription(|_state| iced::window::close_requests().map(|_| Message::Exit(false)))
       .window(iced::window::Settings {
          icon,
+         exit_on_close_request: false,
          ..Default::default()
       })
       .settings(iced::Settings {
