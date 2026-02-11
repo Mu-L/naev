@@ -150,9 +150,11 @@ pub struct Plugin {
    pub tags: Vec<String>,
    pub image_url: Option<reqwest::Url>,
    #[serde(default)]
-   pub depends: Vec<String>,
+   pub depends: Vec<Identifier>,
    #[serde(default)]
-   pub recommends: Vec<String>,
+   pub recommends: Vec<Identifier>,
+   #[serde(default)]
+   pub conflicts: Vec<Identifier>,
    pub naev_version: semver::VersionReq,
    #[serde(default = "source_default")]
    pub source: Source,
@@ -209,6 +211,7 @@ impl Plugin {
          image_url: None,
          depends: Vec::new(),
          recommends: Vec::new(),
+         conflicts: Vec::new(),
          naev_version: semver::VersionReq::STAR,
          source: source_default(),
          priority: priority_default(),

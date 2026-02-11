@@ -644,13 +644,16 @@ impl App {
             Task::none()
          }
          Message::Exit(force) => {
-            if !force && let Ok((issues, _plugins)) = self.catalog.check_issues() {
+            if !force
+               && let Ok((issues, _plugins)) = self.catalog.check_issues()
+               && issues.len() > 0
+            {
                let msg = formatx!(
                   pgettext(
                      "plugins",
-                     "Are you sure you want to exit with the following issues unresolved?\n{}"
+                     "Are you sure you want to exit with the following issues unresolved?\n\n{}"
                   ),
-                  issues.join("\n")
+                  issues.join("\n\n")
                )
                .unwrap_or(
                   "Are you sure you want to exit with unresolved plugin conflicts?".to_string(),

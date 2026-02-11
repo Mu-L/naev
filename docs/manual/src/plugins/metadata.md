@@ -47,7 +47,8 @@ source = { git = "https://my.awesome.website/plugin/repo.git" }
   This will be shown in the plugin manager and cached.
   The url must have an explicit extension such as `.webp` or `.png`.
 * **depends**: a list of plugin identifiers that this plugin depends on such as `[ "SomeOtherPlugin", "YetAnotherPlugin" ]`.
-* **recommends** a list of plugin identifiers that this plugin recommends usage jointly with.
+* **recommends**: a list of plugin identifiers that this plugin recommends usage jointly with.
+* **conflicts**: a list of plugin identifier that this plugin conflicts with.
 * **priority**: indicates the loading order of the plugin.
   The default value is 5 and a lower value indicates higher priority.
   Higher priority allows the plugin to overwrite files of lower priority plugins.

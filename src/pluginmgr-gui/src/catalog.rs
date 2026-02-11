@@ -2,7 +2,7 @@ use anyhow::Result;
 use fs_err as fs;
 use iced::widget;
 use itertools::Itertools;
-use nlog::gettext::N_;
+use nlog::gettext::{N_, pgettext};
 use nlog::warn_err;
 use pluginmgr::plugin::{Identifier, Plugin};
 use serde::{Deserialize, Serialize};
@@ -339,30 +339,77 @@ impl Catalog {
          .collect();
       let mut issues = Vec::new();
 
+      // Generic test function.
+      fn test<'a, F>(
+         plugins: &'a [&'a Plugin],
+         issues: &mut Vec<String>,
+         f: F,
+         msg: &'a str,
+      ) -> Vec<&'a Plugin>
+      where
+         F: FnMut(&&Plugin) -> bool,
+      {
+         let plugs: Vec<_> = plugins.into_iter().cloned().filter(f).collect();
+         if !plugs.is_empty() {
+            issues.push(format!(
+               "{msg}:\n * {}",
+               plugs
+                  .iter()
+                  .map(|p| p.name.as_str())
+                  .collect::<Vec<_>>()
+                  .join("\n * ")
+            ));
+         }
+         plugs
+      }
+
       // Multiple TC conflict
-      let tc: Vec<_> = plugins.iter().filter(|p| p.total_conversion).collect();
-      if !tc.is_empty() {
+      let tc: Vec<_> = plugins
+         .iter()
+         .cloned()
+         .filter(|p| p.total_conversion)
+         .collect();
+      if tc.len() > 1 {
          issues.push( format!("Multiple total conversions detected! You should only use one total conversion at a time. The following are in conflict:\n * {}",
                tc.iter().map(|p|p.name.as_str()).collect::<Vec<_>>().join("\n * " )));
       }
 
       // Incompatible versions conflict
-      let incompat: Vec<_> = plugins.iter().filter(|p| !p.compatible).collect();
-      if !incompat.is_empty() {
-         issues.push(format!(
-            "The following plugins are incompatible with the current Naev version:\n * {}",
-            incompat
-               .iter()
-               .map(|p| p.name.as_str())
-               .collect::<Vec<_>>()
-               .join("\n * ")
-         ));
-      }
+      let incompat = test(
+         &plugins,
+         &mut issues,
+         |p: &&Plugin| !p.compatible,
+         pgettext(
+            "plugins",
+            "The following plugins are incompatible with the current Naev version:",
+         ),
+      );
+
+      // Missing dependencies
+      let depends = test(
+         &plugins,
+         &mut issues,
+         |p: &&Plugin| p.depends.iter().any(|d| lock.get(d).is_none()),
+         pgettext("plugins", "The following plugins are missing dependencies:"),
+      );
+
+      // Conflicts
+      let conflicts = test(
+         &plugins,
+         &mut issues,
+         |p: &&Plugin| p.conflicts.iter().any(|d| lock.get(d).is_some()),
+         pgettext(
+            "plugins",
+            "The following plugins conflict with installed plugins:\n * {}",
+         ),
+      );
 
       // Collect them up
       let badplugs = tc
-         .iter()
-         .chain(incompat.iter())
+         .into_iter()
+         .chain(incompat.into_iter())
+         .chain(depends.into_iter())
+         .chain(conflicts.into_iter())
          .map(|p| p.identifier.clone())
          .unique()
          .collect::<Vec<_>>();
