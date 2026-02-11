@@ -381,7 +381,11 @@ impl Catalog {
          test(
             &plugins,
             &mut issues,
-            |p: &&Plugin| p != tc && !p.depends.contains(&tc.identifier),
+            |p: &&Plugin| {
+               p != tc
+                  && !p.depends.contains(&tc.identifier)
+                  && !p.recomends.contains(&tc.identifier)
+            },
             pgettext(
                "plugins",
                "The following plugins may not be compatible with the current total conversion:",
