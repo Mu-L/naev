@@ -8,7 +8,6 @@ use nlog::warn_err;
 use pluginmgr::install;
 use pluginmgr::install::Installer;
 use pluginmgr::plugin::{Identifier, Plugin, ReleaseStatus};
-use sdl3 as sdl;
 use serde::{Deserialize, Serialize};
 use std::borrow::Cow;
 use std::collections::HashMap;
@@ -155,7 +154,9 @@ enum Message {
    Enable(Plugin),
    Update(Plugin),
    Disable(Plugin),
+   ModalClose,
    Uninstall(Plugin, bool),
+   UninstallNoAsk(Plugin),
    LinkClicked(widget::markdown::Uri),
    ProgressNew(Progress),
    Progress(install::Progress),
@@ -457,6 +458,51 @@ struct Progress {
 }
 
 #[derive(Debug)]
+struct Modal {
+   title: String,
+   message: String,
+   buttons: Vec<(String, Message)>,
+}
+impl Modal {
+   fn show<'a>(
+      &'a self,
+      base: impl Into<iced::Element<'a, Message>>,
+   ) -> iced::Element<'a, Message> {
+      use iced::Color;
+      use iced::widget::{Row, button, center, column, container, mouse_area, opaque, stack, text};
+      let buttons_row = Row::from_iter(
+         self
+            .buttons
+            .iter()
+            .map(|(label, msg)| button(text(label)).on_press(msg.clone()).into()),
+      )
+      .spacing(10);
+      let content = container(
+         column![text(&self.title).size(24), text(&self.message), buttons_row,].spacing(10),
+      )
+      .padding(10)
+      .width(400)
+      .style(container::rounded_box);
+      stack![
+         base.into(),
+         opaque(mouse_area(center(opaque(content)).style(|_theme| {
+            container::Style {
+               background: Some(
+                  Color {
+                     a: 0.8,
+                     ..Color::BLACK
+                  }
+                  .into(),
+               ),
+               ..container::Style::default()
+            }
+         })))
+      ]
+      .into()
+   }
+}
+
+#[derive(Debug)]
 struct App {
    catalog: Arc<Catalog>,
    view: Vec<PluginWrap>,
@@ -467,6 +513,7 @@ struct App {
    log: Vec<LogEntry>,
    log_open: bool,
    filter: String,
+   modal: Option<Modal>,
    // Some useful data
    default_logo: iced::advanced::image::Handle,
 }
@@ -498,6 +545,7 @@ impl App {
          log: Vec::new(),
          log_open: false,
          filter: "".to_string(),
+         modal: None,
          default_logo,
       })
    }
@@ -828,58 +876,46 @@ impl App {
             let _ = plugin.disable(true);
             self.refresh_local_task()
          }
+         Message::ModalClose => {
+            self.modal = None;
+            Task::none()
+         }
          Message::Uninstall(plugin, noremote) => {
             // If over 20 MiB, warn
             let msg = if let Ok(s) = fs_extra::dir::get_size(&self.catalog.conf.install_path)
                && s > 20 * 1024 * 1024
             {
-               Some(formatx!(pgettext( "Are you sure you want to delete the very large plugin '{}'? It will be moved to the trash.", &plugin.name )).unwrap_or("Are you sure you want to delete the very large plugin? It will be moved to the trash.".to_string()))
+               Some(formatx!(pgettext( "plugins", "Are you sure you want to delete the very large plugin '{}'? It will be moved to the trash." ), &plugin.name ).unwrap_or("Are you sure you want to delete the very large plugin? It will be moved to the trash.".to_string()))
             } else if noremote {
-               Some(formatx!(pgettext( "Are you sure you want to delete the local plugin '{}'? It will be moved to the trash.", &plugin.name )).unwrap_or("Are you sure you want to delete the local plugin? It will be moved to the trash.".to_string()))
+               Some(formatx!(pgettext( "plugins", "Are you sure you want to delete the local plugin '{}'? It will be moved to the trash."), &plugin.name ).unwrap_or("Are you sure you want to delete the local plugin? It will be moved to the trash.".to_string()))
             } else {
                None
             };
 
             // Display message prompt if necessary before removing
             if let Some(msg) = msg {
-               use sdl::messagebox::{
-                  ButtonData, ClickedButton, MessageBoxButtonFlag, MessageBoxFlag, show_message_box,
-               };
-               match show_message_box(
-                  MessageBoxFlag::INFORMATION,
-                  &[
-                     ButtonData {
-                        flags: MessageBoxButtonFlag::NOTHING,
-                        button_id: 1,
-                        text: pgettext("plugins", "Move to Trash"),
-                     },
-                     ButtonData {
-                        flags: MessageBoxButtonFlag::ESCAPEKEY_DEFAULT,
-                        button_id: 0,
-                        text: pgettext("plugins", "Cancel"),
-                     },
+               self.modal = Some(Modal {
+                  title: pgettext("plugins", "Delete Plugin?").to_string(),
+                  message: msg,
+                  buttons: vec![
+                     (
+                        pgettext("plugins", "Move to Trash").to_string(),
+                        Message::UninstallNoAsk(plugin),
+                     ),
+                     (
+                        pgettext("plugins", "Cancel").to_string(),
+                        Message::ModalClose,
+                     ),
                   ],
-                  pgettext("plugins", "Delete Plugin?"),
-                  &msg,
-                  None,
-                  None,
-               ) {
-                  Ok(ClickedButton::CustomButton(cb)) => {
-                     if cb.button_id == 1 {
-                        self.uninstall_task(&plugin, &self.catalog.conf.install_path, true)
-                     } else {
-                        Task::none()
-                     }
-                  }
-                  Err(e) => {
-                     warn_err!(e);
-                     Task::none()
-                  }
-                  _ => Task::none(),
-               }
+               });
+               Task::none()
             } else {
                self.uninstall_task(&plugin, &self.catalog.conf.install_path, false)
             }
+         }
+         Message::UninstallNoAsk(plugin) => {
+            self.modal = None;
+            self.uninstall_task(&plugin, &self.catalog.conf.install_path, false)
          }
          Message::LinkClicked(url) => {
             if let Err(e) = webbrowser::open(url.as_str()) {
@@ -1327,6 +1363,10 @@ impl App {
          .padding(10);
          main = main.push(over);
       }
-      main.into()
+      if let Some(modal) = &self.modal {
+         modal.show(main).into()
+      } else {
+         main.into()
+      }
    }
 }
