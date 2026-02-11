@@ -42,6 +42,7 @@
    * Deploying fighters no longer resets autonav
    * Shortened real time that passes when player is disabled
    * Configuration values only save if they are not set to defaults
+   * Plugin manager tries to detect potential plugin conflicts now
 
  ### Engine
 
