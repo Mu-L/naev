@@ -76,7 +76,9 @@ impl logcore::Log for Logger {
    fn enabled(&self, metadata: &logcore::Metadata) -> bool {
       let level = metadata.level();
       let target = metadata.target();
-      if level > logcore::Level::Warn && !WHITELIST.iter().any(|s| target.starts_with(s)) {
+      // TODO we should probably allow warnings from 3rd party libraries, but wgpu is really bad at
+      // this sort of thing...
+      if level >= logcore::Level::Warn && !WHITELIST.iter().any(|s| target.starts_with(s)) {
          return false;
       }
       if cfg!(debug_assertions) {
