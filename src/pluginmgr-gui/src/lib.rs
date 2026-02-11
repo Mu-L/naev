@@ -2,90 +2,20 @@ use anyhow::{Error, Result};
 use formatx::formatx;
 use fs_err as fs;
 use iced::task::{Sipper, Straw, sipper};
-use iced::{Task, exit, widget};
-use nlog::gettext::{N_, gettext, pgettext};
+use iced::{Task, widget};
+use nlog::gettext::{gettext, pgettext};
 use nlog::warn_err;
 use pluginmgr::install;
 use pluginmgr::install::Installer;
 use pluginmgr::plugin::{Identifier, Plugin, ReleaseStatus};
-use serde::{Deserialize, Serialize};
 use std::borrow::Cow;
 use std::collections::HashMap;
 use std::io::Write;
-use std::ops::Deref;
 use std::path::{Path, PathBuf};
-use std::sync::{Arc, LazyLock, Mutex};
+use std::sync::{Arc, Mutex};
 
-/// A remote plugin repository.
-#[derive(Debug, Clone, Deserialize, Serialize, PartialEq)]
-struct Remote {
-   url: reqwest::Url,
-   mirror: Option<reqwest::Url>,
-   branch: String,
-}
-
-static REMOTES_DEFAULT: LazyLock<Vec<Remote>> = LazyLock::new(|| {
-   vec![Remote {
-      url: reqwest::Url::parse("https://codeberg.org/naev/naev-plugins").unwrap(),
-      mirror: Some(reqwest::Url::parse("https://github.com/naev/naev-plugins").unwrap()),
-      branch: "main".to_string(),
-   }]
-});
-
-/// Location of the plugins directory.
-fn local_plugins_dir() -> PathBuf {
-   pluginmgr::local_plugins_dir().unwrap()
-}
-
-/// Location of the cache directory for storing information about plugins.
-fn catalog_cache_dir() -> PathBuf {
-   ndata::cache_dir().join("pluginmanager")
-}
-
-static CONFIG_FILE: LazyLock<PathBuf> =
-   LazyLock::new(|| ndata::pref_dir().join("pluginmanager.toml"));
-
-/// To skip serializing if default.
-fn skip_remotes(remotes: &Vec<Remote>) -> bool {
-   REMOTES_DEFAULT.deref() == remotes
-}
-/// To set the default remotes if not found.
-fn default_remotes() -> Vec<Remote> {
-   REMOTES_DEFAULT.clone()
-}
-const REFRESH_INTERVAL_DEFAULT: chrono::TimeDelta = chrono::TimeDelta::days(1);
-fn skip_refresh_interval(interval: &chrono::TimeDelta) -> bool {
-   *interval == REFRESH_INTERVAL_DEFAULT
-}
-fn default_refresh_interval() -> chrono::TimeDelta {
-   REFRESH_INTERVAL_DEFAULT
-}
-
-/// Plugin manager configuration.
-#[derive(Debug, Clone, Serialize, Deserialize)]
-struct Conf {
-   #[serde(skip_serializing_if = "skip_remotes", default = "default_remotes")]
-   remotes: Vec<Remote>,
-   #[serde(
-      skip_serializing_if = "skip_refresh_interval",
-      default = "default_refresh_interval"
-   )]
-   refresh_interval: chrono::TimeDelta,
-   #[serde(skip, default = "local_plugins_dir")]
-   install_path: PathBuf,
-   #[serde(skip, default = "catalog_cache_dir")]
-   catalog_cache: PathBuf,
-}
-impl Conf {
-   fn new() -> Result<Self> {
-      Ok(Self {
-         remotes: REMOTES_DEFAULT.clone(),
-         install_path: pluginmgr::local_plugins_dir()?,
-         catalog_cache: ndata::cache_dir().join("pluginmanager"),
-         refresh_interval: default_refresh_interval(),
-      })
-   }
-}
+mod catalog;
+use catalog::{Catalog, Conf, PluginState, PluginWrap};
 
 const THEME: iced::Theme = iced::Theme::Dark;
 const SHADOW: iced::Shadow = iced::Shadow {
@@ -178,246 +108,6 @@ impl Message {
 
    fn log_result(result: Result<()>) -> Self {
       Message::LogResult(result.map_err(|e| e.into()))
-   }
-}
-
-/// Different potential plugin states.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Deserialize, Serialize)]
-#[serde(rename_all = "lowercase")]
-enum PluginState {
-   Installed,
-   Disabled,
-   Available,
-}
-impl PluginState {
-   pub const fn as_str(&self) -> &'static str {
-      match self {
-         PluginState::Installed => N_("installed"),
-         PluginState::Disabled => N_("disabled"),
-         PluginState::Available => N_("available"),
-      }
-   }
-}
-
-/// A wrapper containing local and remote information about plugins.
-#[derive(Debug, Clone, Deserialize, Serialize)]
-struct PluginWrap {
-   identifier: Identifier,
-   local: Option<Plugin>,
-   remote: Option<Plugin>,
-   state: PluginState,
-   #[serde(skip, default)]
-   image: Option<iced::advanced::image::Handle>,
-   #[serde(skip, default)]
-   description_md: Option<Vec<widget::markdown::Item>>,
-}
-impl PluginWrap {
-   fn new_local(plugin: &Plugin, state: PluginState) -> Self {
-      PluginWrap {
-         identifier: plugin.identifier.clone(),
-         local: Some(plugin.clone()),
-         remote: None,
-         state,
-         image: None,
-         description_md: plugin
-            .description
-            .as_ref()
-            .map(|desc| widget::markdown::parse(desc).collect()),
-      }
-   }
-
-   fn new_remote(plugin: &Plugin) -> Self {
-      PluginWrap {
-         identifier: plugin.identifier.clone(),
-         local: None,
-         remote: Some(plugin.clone()),
-         state: PluginState::Available,
-         image: None,
-         description_md: plugin
-            .description
-            .as_ref()
-            .map(|desc| widget::markdown::parse(desc).collect()),
-      }
-   }
-
-   fn update_description(&mut self) {
-      self.description_md = self
-         .plugin()
-         .description
-         .as_ref()
-         .map(|desc| widget::markdown::parse(desc).collect());
-   }
-
-   fn update_remote_if_newer(&mut self, remote: &Plugin) {
-      if let Some(dest) = &self.remote {
-         if dest.version <= remote.version {
-            self.remote = Some(remote.clone());
-            self.update_description();
-         }
-      } else {
-         self.remote = Some(remote.clone());
-         self.update_description();
-      }
-   }
-
-   fn plugin(&self) -> &Plugin {
-      if let Some(local) = &self.local
-         && let Some(remote) = &self.remote
-      {
-         if local.version <= remote.version {
-            remote
-         } else {
-            local
-         }
-      } else {
-         self.plugin_prefer_local()
-      }
-   }
-
-   fn plugin_prefer_local(&self) -> &Plugin {
-      if let Some(local) = &self.local {
-         local
-      } else if let Some(remote) = &self.remote {
-         remote
-      } else {
-         unreachable!();
-      }
-   }
-
-   fn has_update(&self) -> bool {
-      if let Some(local) = &self.local
-         && let Some(remote) = &self.remote
-         && local.version < remote.version
-      {
-         true
-      } else {
-         false
-      }
-   }
-
-   fn from_path<P: AsRef<Path>>(path: P) -> Result<Self> {
-      let data = fs::read(path)?;
-      let mut wrap: Self = toml::from_slice(&data)?;
-      if let Some(local) = &mut wrap.local {
-         local.check_compatible();
-      }
-      if let Some(remote) = &mut wrap.remote {
-         remote.check_compatible();
-      }
-      wrap.update_description();
-      Ok(wrap)
-   }
-
-   fn image_path_url<P: AsRef<Path>>(&self, dir: P) -> Option<(PathBuf, reqwest::Url)> {
-      let plugin = self.plugin();
-      if let Some(url) = &plugin.image_url
-         && let Some(ext) = Path::new(url.path()).extension().and_then(|e| e.to_str())
-      {
-         let path = dir.as_ref().join(format!("{}.{}", plugin.identifier, ext));
-         Some((path.to_path_buf(), url.clone()))
-      } else {
-         None
-      }
-   }
-
-   fn missing_image<P: AsRef<Path>>(&self, dir: P) -> Option<(PathBuf, reqwest::Url)> {
-      if let Some((path, url)) = self.image_path_url(dir)
-         && !fs::exists(&path).ok()?
-      {
-         Some((path, url))
-      } else {
-         None
-      }
-   }
-
-   fn load_image<P: AsRef<Path>>(&mut self, dir: P) -> Result<()> {
-      if let Some((path, _)) = self.image_path_url(dir)
-         && fs::exists(&path)?
-      {
-         self.image = Some(iced::advanced::image::Handle::from_path(&path));
-      }
-      Ok(())
-   }
-}
-
-#[derive(Debug, Copy, Clone, Serialize, Deserialize)]
-struct Metadata {
-   last_updated: chrono::DateTime<chrono::Utc>,
-}
-impl Metadata {
-   fn new() -> Self {
-      Self {
-         last_updated: chrono::DateTime::<chrono::Utc>::MIN_UTC,
-      }
-   }
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-struct Catalog {
-   meta: Mutex<Metadata>,
-   conf: Conf,
-   /// Contains the reference data of all the plugins
-   #[serde(skip, default)]
-   data: Mutex<HashMap<Identifier, PluginWrap>>,
-}
-impl Catalog {
-   fn new(conf: Conf) -> Self {
-      Self {
-         meta: Mutex::new(Metadata::new()),
-         conf,
-         data: Mutex::new(HashMap::new()),
-      }
-   }
-
-   fn from_path<P: AsRef<Path>>(path: P) -> Result<Self> {
-      let data = fs::read(&path)?;
-      Ok(toml::from_slice(&data)?)
-   }
-
-   fn save_to_cache(&self) -> Result<()> {
-      for (_, plugin) in self.data.lock().unwrap().iter() {
-         let data = match toml::to_string(&plugin) {
-            Ok(data) => data,
-            Err(e) => {
-               warn_err!(e);
-               continue;
-            }
-         };
-         let mut file = fs::File::create(
-            self
-               .conf
-               .catalog_cache
-               .join(format!("{}.toml", plugin.identifier)),
-         )?;
-         file.write_all(data.as_bytes())?;
-      }
-      // Write metadata
-      let data = toml::to_string(self)?;
-      let mut file = fs::File::create(&*CONFIG_FILE)?;
-      file.write_all(data.as_bytes())?;
-      Ok(())
-   }
-
-   async fn load_from_cache(&self) -> Result<()> {
-      *self.data.lock().unwrap() = fs::read_dir(&self.conf.catalog_cache)?
-         .filter_map(|entry| {
-            let entry = match entry {
-               Ok(entry) => entry,
-               Err(e) => {
-                  warn_err!(e);
-                  return None;
-               }
-            };
-            let wrap = match PluginWrap::from_path(entry.path().as_path()) {
-               Ok(wrap) => wrap,
-               Err(_) => {
-                  return None;
-               }
-            };
-            Some((wrap.identifier.clone(), wrap))
-         })
-         .collect();
-      Ok(())
    }
 }
 
@@ -574,7 +264,7 @@ impl App {
             Ok(())
          })
       }
-      if let Ok(metacatalog) = Catalog::from_path(&*CONFIG_FILE) {
+      if let Ok(metacatalog) = Catalog::from_path(&*catalog::CONFIG_FILE) {
          self.catalog = Arc::new(metacatalog);
       }
       Task::done(Message::ProgressNew(Progress {
@@ -953,13 +643,7 @@ impl App {
             self.log_open = !self.log_open;
             Task::none()
          }
-         Message::Exit => exit(),
-         /*
-         Message::DropDownToggle => {
-             self.drop_action = !self.drop_action;
-             Task::none()
-         }
-         */
+         Message::Exit => iced::exit(),
          Message::RefreshLocal(value) => match value {
             Ok(()) => self.refresh_local_task(),
             Err(e) => {

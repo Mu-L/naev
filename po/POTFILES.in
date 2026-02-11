@@ -4169,6 +4169,7 @@ src/player_inventory.h
 src/plugin.h
 src/plugin.rs
 src/pluginmgr-cli/src/main.rs
+src/pluginmgr-gui/src/catalog.rs
 src/pluginmgr-gui/src/lib.rs
 src/pluginmgr/src/git.rs
 src/pluginmgr/src/install.rs
