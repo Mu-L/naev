@@ -26,4 +26,5 @@ ndata = { workspace = true }
 webbrowser = { workspace = true }
 formatx = { workspace = true }
 sdl3 = { workspace = true }
+itertools = { workspace = true }
 fs_extra = "1"

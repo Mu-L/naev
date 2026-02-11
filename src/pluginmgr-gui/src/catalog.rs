@@ -1,6 +1,7 @@
 use anyhow::Result;
 use fs_err as fs;
 use iced::widget;
+use itertools::Itertools;
 use nlog::gettext::N_;
 use nlog::warn_err;
 use pluginmgr::plugin::{Identifier, Plugin};
@@ -319,5 +320,52 @@ impl Catalog {
          })
          .collect();
       Ok(())
+   }
+
+   pub fn check_issues(&self) -> Result<(Vec<String>, Vec<Identifier>)> {
+      let lock = self.data.lock().unwrap();
+      let plugins: Vec<&Plugin> = lock
+         .values()
+         .filter_map(|pw| {
+            if pw.state == PluginState::Installed
+               && let Some(p) = &pw.local
+            {
+               Some(p)
+            } else {
+               None
+            }
+         })
+         .sorted_by_key(|p| &p.identifier)
+         .collect();
+      let mut issues = Vec::new();
+
+      // Multiple TC conflict
+      let tc: Vec<_> = plugins.iter().filter(|p| p.total_conversion).collect();
+      if !tc.is_empty() {
+         issues.push( format!("Multiple total conversions detected! You should only use one total conversion at a time. The following are in conflict:\n * {}",
+               tc.iter().map(|p|p.name.as_str()).collect::<Vec<_>>().join("\n * " )));
+      }
+
+      // Incompatible versions conflict
+      let incompat: Vec<_> = plugins.iter().filter(|p| !p.compatible).collect();
+      if !incompat.is_empty() {
+         issues.push(format!(
+            "The following plugins are incompatible with the current Naev version:\n * {}",
+            incompat
+               .iter()
+               .map(|p| p.name.as_str())
+               .collect::<Vec<_>>()
+               .join("\n * ")
+         ));
+      }
+
+      // Collect them up
+      let badplugs = tc
+         .iter()
+         .chain(incompat.iter())
+         .map(|p| p.identifier.clone())
+         .unique()
+         .collect::<Vec<_>>();
+      Ok((issues, badplugs))
    }
 }

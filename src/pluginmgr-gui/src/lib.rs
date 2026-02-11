@@ -92,7 +92,7 @@ enum Message {
    Progress(install::Progress),
    LogResult(Result<(), LogEntry>),
    LogToggle,
-   Exit,
+   Exit(bool),
    Action(DropDownAction),
    RefreshLocal(Result<(), LogEntry>),
    FilterChange(String),
@@ -643,7 +643,34 @@ impl App {
             self.log_open = !self.log_open;
             Task::none()
          }
-         Message::Exit => iced::exit(),
+         Message::Exit(force) => {
+            if !force && let Ok((issues, _plugins)) = self.catalog.check_issues() {
+               let msg = formatx!(
+                  pgettext(
+                     "plugins",
+                     "Are you sure you want to exit with the following issues unresolved?\n{}"
+                  ),
+                  issues.join("\n")
+               )
+               .unwrap_or(
+                  "Are you sure you want to exit with unresolved plugin conflicts?".to_string(),
+               );
+               self.modal = Some(Modal {
+                  title: pgettext("plugins", "Exit with Plugin Conflicts?").to_string(),
+                  message: msg,
+                  buttons: vec![
+                     (pgettext("plugins", "Exit").to_string(), Message::Exit(true)),
+                     (
+                        pgettext("plugins", "Cancel").to_string(),
+                        Message::ModalClose,
+                     ),
+                  ],
+               });
+               Task::none()
+            } else {
+               iced::exit()
+            }
+         }
          Message::RefreshLocal(value) => match value {
             Ok(()) => self.refresh_local_task(),
             Err(e) => {
@@ -1012,7 +1039,7 @@ impl App {
             .padding(10),
       );
       main = main.push(
-         container(button(pgettext("plugins", "Exit")).on_press(Message::Exit))
+         container(button(pgettext("plugins", "Exit")).on_press(Message::Exit(false)))
             .align_x(Horizontal::Right)
             .align_y(Vertical::Bottom)
             .width(Fill)

@@ -17,7 +17,7 @@ pub const fn N_(s: &str) -> &str {
 const ID_ERROR: &str = "ERROR";
 
 /// Small wrapper for our identifier that has additional deserialization checks
-#[derive(Debug, Clone, derive_more::Display, Serialize, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, derive_more::Display, Serialize, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Identifier(String);
 impl Deref for Identifier {
    type Target = String;
