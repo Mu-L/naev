@@ -7,9 +7,10 @@ It is recommended to use as many tags as possible early in the development cycle
 
 These tags significantly change the functionality of the spob:
 
-* **restricted**: player should not normally have access here, and normal missions shouldn't spawn or try to come to the spob.
+* **restricted**: Player should not normally have access here, and normal missions shouldn't spawn or try to come to the spob.
 * **nonpc**: There should be no normal generic NPCs spawning at the spaceport bar.
 * **nonews**: There is no news at the spaceport bar.
+* **noshipcapture**: The player will not be able to capture ships here.
 * **nosightseeing**: Will never be a point of interest for sightseeing missions.
 * **garbage**: Can be used as a garbage dump for the waste desposal missions.
 * **wormhole**: The spob is a wormhole.
@@ -22,7 +23,7 @@ These tags significantly change the functionality of the spob:
 ## Descriptive Tags
 
 Below is the complete list of dominantly used descriptive tags.
-It should be noted that tagging is incomplete at present and it is possible that none of these tags will apply to many spobs (e.g. uninhabited, average, uninteresting or deserted spobs).
+It should be noted that tagging is incomplete at present, and it is possible that none of these tags will apply to many spobs (e.g. uninhabited, average, uninteresting or deserted spobs).
 Most others will only have one or two tags - they are supposed to represent important facets of the spob in its own estimation, not minor elements e.g. while the (temporary) Imperial Homeworld has many criminals and military personnel neither tag applies since its defining tags would be rich, urban and maybe tourism or trade.
 
 These tags allow missions to randomly target spobs with specific properties, so they may have fairly localized specific effects.

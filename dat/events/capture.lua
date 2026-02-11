@@ -175,7 +175,7 @@ end
 
 function land ()
    local cur = spob.cur()
-   if cur:services()['refuel'] then
+   if cur:services()['refuel'] and not cur:tags().noshipcapture then
       local abandon = false
       local naked = false
 

@@ -36,5 +36,6 @@ There is no functioning landing port, and you have to land among the rubble. At 
   <tag>nonpc</tag>
   <tag>ruined</tag>
   <tag>restricted</tag>
+  <tag>noshipcapture</tag>
  </tags>
 </spob>
