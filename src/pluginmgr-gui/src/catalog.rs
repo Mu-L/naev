@@ -374,6 +374,23 @@ impl Catalog {
                tc.iter().map(|p|p.name.as_str()).collect::<Vec<_>>().join("\n * " )));
       }
 
+      // TC are incompatible with other outfits unless they depend
+      let tc_depends = if tc.len() == 1
+         && let Some(tc) = tc.get(0)
+      {
+         test(
+            &plugins,
+            &mut issues,
+            |p: &&Plugin| p != tc && !p.depends.contains(&tc.identifier),
+            pgettext(
+               "plugins",
+               "The following plugins may not be compatible with the current total conversion:",
+            ),
+         )
+      } else {
+         Vec::new()
+      };
+
       // Incompatible versions conflict
       let incompat = test(
          &plugins,
@@ -407,6 +424,7 @@ impl Catalog {
       // Collect them up
       let badplugs = tc
          .into_iter()
+         .chain(tc_depends.into_iter())
          .chain(incompat.into_iter())
          .chain(depends.into_iter())
          .chain(conflicts.into_iter())
