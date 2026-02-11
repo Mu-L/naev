@@ -82,7 +82,8 @@ enum Message {
    Startup,
    UpdateView(Result<(), LogEntry>),
    Selected(usize),
-   Install(Plugin),
+   Install(Plugin, bool),
+   InstallWithDeps(Plugin),
    Enable(Plugin),
    Update(Plugin),
    Disable(Plugin),
@@ -139,6 +140,12 @@ impl LogEntry {
          message,
       }
    }
+   fn error(message: String) -> Self {
+      LogEntry {
+         ltype: LogType::Error,
+         message,
+      }
+   }
 }
 
 #[derive(Debug, Clone)]
@@ -173,7 +180,7 @@ impl Modal {
          column![text(&self.title).size(24), text(&self.message), buttons_row,].spacing(10),
       )
       .padding(10)
-      .width(400)
+      .width(450)
       .style(container::rounded_box);
       stack![
          base.into(),
@@ -558,7 +565,96 @@ impl App {
             };
             Task::none()
          }
-         Message::Install(plugin) => self.install_task(&plugin),
+         Message::Install(plugin, force) => {
+            if !force {
+               let lock = self.catalog.data.lock().unwrap();
+               let missing_deps: Vec<_> = plugin
+                  .depends
+                  .iter()
+                  .filter_map(|d| {
+                     if let Some(d) = lock.get(&d)
+                        && d.state != PluginState::Installed
+                     {
+                        Some(d.plugin_prefer_local().name.clone())
+                     } else {
+                        None
+                     }
+                  })
+                  .collect();
+               if missing_deps.len() > 0 {
+                  let msg = formatx!(
+                     pgettext(
+                        "plugins",
+                        "Install the following missing dependencies required by '{}'?\n * {}"
+                     ),
+                     &plugin.name,
+                     missing_deps.join("\n * ")
+                  )
+                  .unwrap_or("Install missing dependencies for this plugin too/".to_string());
+                  self.modal = Some(Modal {
+                     title: pgettext("plugins", "Install Missing Dependencies?").to_string(),
+                     message: msg,
+                     buttons: vec![
+                        (
+                           pgettext("plugins", "Install Dependencies").to_string(),
+                           Message::InstallWithDeps(plugin.clone()),
+                        ),
+                        (
+                           pgettext("plugins", "Install Plugin Only").to_string(),
+                           Message::Install(plugin, true),
+                        ),
+                        (
+                           pgettext("plugins", "Cancel").to_string(),
+                           Message::ModalClose,
+                        ),
+                     ],
+                  });
+                  Task::none()
+               } else {
+                  self.install_task(&plugin)
+               }
+            } else {
+               self.install_task(&plugin)
+            }
+         }
+         Message::InstallWithDeps(plugin) => {
+            let deps: Vec<_> = {
+               let lock = self.catalog.data.lock().unwrap();
+               plugin
+                  .depends
+                  .iter()
+                  .filter_map(|p| {
+                     if let Some(d) = lock.get(&p) {
+                        Some(d.clone())
+                     } else {
+                        self.log.push(LogEntry::error(
+                           formatx!(
+                              pgettext("plugins", "Can not find dependency '{}' for plugin '{}'."),
+                              p,
+                              &plugin.name
+                           )
+                           .unwrap_or("Failed to find dependency for plugin!".to_string()),
+                        ));
+                        self.log_open = true;
+                        None
+                     }
+                  })
+                  .collect()
+            };
+            self
+               .install_task(&plugin)
+               .chain(Task::batch(deps.into_iter().filter_map(
+                  |d| match d.state {
+                     PluginState::Installed => None,
+                     PluginState::Disabled => {
+                        let _ = d.plugin_prefer_local().disable(false);
+                        None
+                     }
+                     PluginState::Available => Some(self.install_task(d.plugin_prefer_local())),
+                  },
+               )))
+               .chain(Task::done(Message::RefreshLocal(Ok(()))))
+         }
          Message::Enable(plugin) => {
             let _ = plugin.disable(false);
             self.refresh_local_task()
@@ -961,7 +1057,7 @@ impl App {
                PluginState::Available => {
                   row![
                      button(pgettext("plugins", "Install"))
-                        .on_press_maybe(idle.then_some(Message::Install(sel.clone()))),
+                        .on_press_maybe(idle.then_some(Message::Install(sel.clone(), false))),
                   ]
                }
             },
