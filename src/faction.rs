@@ -1,21 +1,21 @@
 #![allow(dead_code, unused_variables, unused_imports)]
 
-use anyhow::Result;
-use nalgebra::{Vector3, Vector4};
-use rayon::prelude::*;
-use std::ffi::{CStr, CString};
-use std::sync::{Mutex, OnceLock, RwLock};
-
 use crate::array;
 use crate::array::ArrayCString;
 use crate::nlua::LuaEnv;
 use crate::nlua::{NLUA, NLua};
-use crate::{formatx, warn, warnx};
+use anyhow::Result;
 use gettext::gettext;
 use helpers::{binary_search_by_key_ref, sort_by_key_ref};
 use naev_core::{nxml, nxml_err_attr_missing, nxml_warn_node_unknown};
+use nalgebra::{Vector3, Vector4};
 use nlog::warn_err;
+use nlog::{warn, warnx};
+use rayon::prelude::*;
 use renderer::{Context, ContextWrapper, texture};
+use std::ffi::{CStr, CString, OsStr};
+use std::path::{Path, PathBuf};
+use std::sync::{Mutex, OnceLock, RwLock};
 
 #[derive(Copy, Clone, Debug, PartialEq)]
 enum GridEntry {
@@ -440,36 +440,24 @@ pub struct FactionData {
 }
 impl FactionData {
    fn init_lua(&self, lua: &NLua) -> Result<()> {
-      if let Some(env) = &self.equip_env {
-         let path = format!("factions/equip/{}.lua", self.script_equip);
-         let data = ndata::read(&path)?;
-         let func = lua
-            .lua
-            .load(std::str::from_utf8(&data)?)
-            .set_name(path)
-            .into_function()?;
-         env.call::<()>(lua, &func, ())?;
+      fn init_env(lua: &NLua, env: &Option<LuaEnv>, script: &str) -> Result<()> {
+         if let Some(env) = env {
+            let path = format!("factions/equip/{}.lua", script);
+            let data = ndata::read(&path)?;
+            let func = lua
+               .lua
+               .load(std::str::from_utf8(&data)?)
+               .set_name(path)
+               .into_function()?;
+            env.call::<()>(lua, &func, ())?;
+         }
+         Ok(())
       }
-      if let Some(env) = &self.sched_env {
-         let path = format!("factions/spawn/{}.lua", self.script_spawn);
-         let data = ndata::read(&path)?;
-         let func = lua
-            .lua
-            .load(std::str::from_utf8(&data)?)
-            .set_name(path)
-            .into_function()?;
-         env.call::<()>(lua, &func, ())?;
-      }
-      if let Some(env) = &self.lua_env {
-         let path = format!("factions/standing/{}.lua", self.script_standing);
-         let data = ndata::read(&path)?;
-         let func = lua
-            .lua
-            .load(std::str::from_utf8(&data)?)
-            .set_name(path)
-            .into_function()?;
-         env.call::<()>(lua, &func, ())?;
-      }
+
+      init_env(lua, &self.equip_env, &self.script_equip)?;
+      init_env(lua, &self.sched_env, &self.script_spawn)?;
+      init_env(lua, &self.lua_env, &self.script_standing)?;
+
       Ok(())
    }
 
@@ -564,7 +552,7 @@ struct FactionLoad {
 impl FactionLoad {
    /// Loads the elementary faction stuff, does not fill out information dependent on other
    /// factions
-   fn new(ctx: &ContextWrapper, lua: &NLua, filename: &str) -> Result<Self> {
+   fn new<P: AsRef<Path>>(ctx: &ContextWrapper, lua: &NLua, filename: P) -> Result<Self> {
       let mut fctload = FactionLoad::default();
       let fct = &mut fctload.data;
 
@@ -736,21 +724,22 @@ pub static FACTIONDATA: OnceLock<Vec<FactionData>> = OnceLock::new();
 
 pub fn load() -> Result<()> {
    let ctx = Context::get().as_safe_wrap();
-   let files = ndata::read_dir_filter("factions/", |filename| filename.ends_with(".xml"))?;
+   let base: PathBuf = "factions/".into();
+   let files = ndata::read_dir_filter(&base, |filename| {
+      filename.extension() == Some(OsStr::new("xml"))
+   })?;
 
    // First pass: set up factions
    let mut factionload: Vec<FactionLoad> = files
       //.par_iter()
       .iter()
-      .filter_map(
-         |filename| match FactionLoad::new(&ctx, &NLUA, filename.as_str()) {
-            Ok(sp) => Some(sp),
-            Err(e) => {
-               warn!("Unable to load Faction '{filename}': {e}");
-               None
-            }
-         },
-      )
+      .filter_map(|filename| match FactionLoad::new(&ctx, &NLUA, filename) {
+         Ok(sp) => Some(sp),
+         Err(e) => {
+            warn!("Unable to load Faction '{}': {e}", filename.display());
+            None
+         }
+      })
       .collect();
    // Add Player before sorting
    factionload.push(FactionLoad {
