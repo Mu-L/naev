@@ -34,6 +34,7 @@
    * 1 new mission
    * 2 new events
    * 4 new outfits
+   * Many more unique pilots
    * Made NGC-11718 a bit more interesting
 
  ### Quality of Life
