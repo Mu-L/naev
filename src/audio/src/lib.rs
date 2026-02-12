@@ -33,6 +33,7 @@ use helpers::{binary_search_by_key_ref, sort_by_key_ref};
 use mlua::{BorrowedStr, Either, MetaMethod, UserData, UserDataMethods, UserDataRef};
 use nalgebra::{Vector2, Vector3};
 use nlog::{debug, debugx, warn, warn_err};
+use slotmap::{Key, SlotMap};
 use std::fmt::{Debug, Formatter};
 use std::mem::ManuallyDrop;
 use std::ops::Deref;
@@ -46,7 +47,6 @@ use symphonia::core::conv::{FromSample, IntoSample};
 use symphonia::core::{
    codecs::Decoder, formats::FormatReader, io::MediaSourceStream, sample::Sample,
 };
-use thunderdome::Arena;
 #[cfg(debug_assertions)]
 use tracing_mutex::stdsync::{Mutex, RwLock};
 
@@ -1352,11 +1352,11 @@ impl AudioBuilder {
 
    pub fn build(self) -> Result<AudioRef> {
       if AUDIO.disabled || SILENT.load(Ordering::Relaxed) {
-         return Ok(thunderdome::Index::DANGLING.into());
+         return Ok(AudioRef::null());
       }
       let mut voices = AUDIO.voices.lock().unwrap();
       if voices.len() >= self.atype.priority_threshold() {
-         return Ok(thunderdome::Index::DANGLING.into());
+         return Ok(AudioRef::null());
       }
       let source = al::Source::new()?;
 
@@ -1368,7 +1368,7 @@ impl AudioBuilder {
             if let Some(pos) = self.pos {
                let max_dist = naev_core::constants::CTS.audio_max_distance;
                if (pos - *AUDIO.listener_pos.read().unwrap()).norm_squared() > max_dist * max_dist {
-                  return Ok(thunderdome::Index::DANGLING.into());
+                  return Ok(AudioRef::null());
                }
             }
             // Build sound normally
@@ -1418,7 +1418,7 @@ impl AudioBuilder {
       let id: AudioRef = voices.insert(audio).into();
       drop(voices);
       if let Some(groupid) = groupid {
-         match AUDIO.groups.lock().unwrap().get_mut(groupid.0) {
+         match AUDIO.groups.lock().unwrap().get_mut(groupid) {
             Some(group) => group.voices.push(id),
             None => warn!("Group not found"),
          }
@@ -1448,17 +1448,19 @@ impl Group {
       }
    }
 }
-#[derive(Clone, Copy, Debug, PartialEq)]
-pub struct GroupRef(thunderdome::Index);
+
+slotmap::new_key_type! {
+   pub struct GroupRef;
+}
 impl GroupRef {
    pub fn new(max: usize) -> Self {
-      GroupRef(AUDIO.groups.lock().unwrap().insert(Group::new(max)))
+      AUDIO.groups.lock().unwrap().insert(Group::new(max))
    }
 
    pub fn play_buffer(&self, buf: &Arc<Buffer>, looping: bool) -> Option<AudioRef> {
       let (g_volume, g_pitch, ingame) = {
          let groups = AUDIO.groups.lock().unwrap();
-         let group = match groups.get(self.0) {
+         let group = match groups.get(*self) {
             Some(group) => group,
             None => {
                warn!("Group not found!");
@@ -1496,13 +1498,13 @@ impl GroupRef {
 
    pub fn stop(&self) -> Result<()> {
       let mut groups = AUDIO.groups.lock().unwrap();
-      let group = match groups.get_mut(self.0) {
+      let group = match groups.get_mut(*self) {
          Some(group) => group,
          None => anyhow::bail!("Group not found"),
       };
       let voices = AUDIO.voices.lock().unwrap();
       for v in group.voices.drain(..) {
-         if let Some(voice) = voices.get(v.0) {
+         if let Some(voice) = voices.get(v) {
             // Will get removed from voices too automatically
             // TODO fade out
             voice.stop();
@@ -1513,13 +1515,13 @@ impl GroupRef {
 
    pub fn pause(&self) -> Result<()> {
       let mut groups = AUDIO.groups.lock().unwrap();
-      let group = match groups.get_mut(self.0) {
+      let group = match groups.get_mut(*self) {
          Some(group) => group,
          None => anyhow::bail!("Group not found"),
       };
       let voices = AUDIO.voices.lock().unwrap();
       for v in group.voices.iter() {
-         if let Some(voice) = voices.get(v.0)
+         if let Some(voice) = voices.get(*v)
             && voice.is_playing()
          {
             voice.pause();
@@ -1535,13 +1537,13 @@ impl GroupRef {
 
    pub fn resume(&self) -> Result<()> {
       let mut groups = AUDIO.groups.lock().unwrap();
-      let group = match groups.get_mut(self.0) {
+      let group = match groups.get_mut(*self) {
          Some(group) => group,
          None => anyhow::bail!("Group not found"),
       };
       let mut voices = AUDIO.voices.lock().unwrap();
       for v in group.voices.iter() {
-         if let Some(voice) = voices.get_mut(v.0)
+         if let Some(voice) = voices.get_mut(*v)
             && voice.is_paused()
          {
             voice.play();
@@ -1557,14 +1559,14 @@ impl GroupRef {
 
    pub fn set_ingame(&self) -> Result<()> {
       let mut groups = AUDIO.groups.lock().unwrap();
-      let group = match groups.get_mut(self.0) {
+      let group = match groups.get_mut(*self) {
          Some(group) => group,
          None => anyhow::bail!("Group not found"),
       };
       group.ingame = true;
       let mut voices = AUDIO.voices.lock().unwrap();
       for v in group.voices.iter() {
-         if let Some(voice) = voices.get_mut(v.0) {
+         if let Some(voice) = voices.get_mut(*v) {
             voice.set_ingame();
             // Sort of ugly hack, because we don't actually handle position with the groups
             voice.set_relative(true);
@@ -1580,7 +1582,7 @@ impl GroupRef {
       let mut voices = AUDIO.voices.lock().unwrap();
       let pitch = group.speed_affects.then_some(group.pitch);
       for v in group.voices.iter() {
-         if let Some(voice) = voices.get_mut(v.0) {
+         if let Some(voice) = voices.get_mut(*v) {
             let src = voice.source_mut();
             src.g_pitch = pitch;
             src.update_pitch(speed);
@@ -1591,7 +1593,7 @@ impl GroupRef {
 
    pub fn set_speed_affects(&self, enable: bool) -> Result<()> {
       let mut groups = AUDIO.groups.lock().unwrap();
-      let group = match groups.get_mut(self.0) {
+      let group = match groups.get_mut(*self) {
          Some(group) => group,
          None => anyhow::bail!("Group not found"),
       };
@@ -1602,7 +1604,7 @@ impl GroupRef {
 
    pub fn set_volume(&self, volume: f32) -> Result<()> {
       let mut groups = AUDIO.groups.lock().unwrap();
-      let group = match groups.get_mut(self.0) {
+      let group = match groups.get_mut(*self) {
          Some(group) => group,
          None => anyhow::bail!("Group not found"),
       };
@@ -1612,7 +1614,7 @@ impl GroupRef {
       let cvol = 1.0 - AUDIO.compression_gain.load(Ordering::Relaxed);
       let mut voices = AUDIO.voices.lock().unwrap();
       for v in group.voices.iter() {
-         if let Some(voice) = voices.get_mut(v.0) {
+         if let Some(voice) = voices.get_mut(*v) {
             {
                let src = voice.source_mut();
                src.g_volume = group.volume;
@@ -1625,7 +1627,7 @@ impl GroupRef {
 
    pub fn set_pitch(&self, pitch: f32) -> Result<()> {
       let mut groups = AUDIO.groups.lock().unwrap();
-      let group = match groups.get_mut(self.0) {
+      let group = match groups.get_mut(*self) {
          Some(group) => group,
          None => anyhow::bail!("Group not found"),
       };
@@ -1635,15 +1637,11 @@ impl GroupRef {
    }
 
    fn into_ptr(self) -> *const c_void {
-      unsafe { std::mem::transmute::<thunderdome::Index, *const c_void>(self.0) }
+      unsafe { std::mem::transmute::<GroupRef, *const c_void>(self) }
    }
 
    fn from_ptr(ptr: *const c_void) -> Self {
-      unsafe {
-         Self(std::mem::transmute::<*const c_void, thunderdome::Index>(
-            ptr,
-         ))
-      }
+      unsafe { Self(std::mem::transmute::<*const c_void, slotmap::KeyData>(ptr)) }
    }
 }
 
@@ -1721,8 +1719,8 @@ pub struct System {
    freq: i32,
    speed: AtomicF32,
    volume: RwLock<Volume>,
-   voices: Mutex<Arena<Audio>>,
-   groups: Mutex<Arena<Group>>,
+   voices: Mutex<SlotMap<AudioRef, Audio>>,
+   groups: Mutex<SlotMap<GroupRef, Group>>,
    compression: Option<AudioStatic>,
    compression_gain: AtomicF32,
    listener_pos: RwLock<Vector2<f32>>,
@@ -2093,14 +2091,14 @@ impl System {
                }
             }
             Message::Remove(id) => {
-               voices.remove(id.0);
+               voices.remove(id);
             }
             Message::SourceStopped(id) => {
                if let Some((vid, v)) = voices.iter().find(|(_, x)| x.al_source().raw() == id) {
                   // Remove from group too if it has one
                   if let Some(gid) = v.groupid() {
-                     let group = &mut groups[gid.0];
-                     if let Some(gvid) = group.voices.iter().position(|x| x.0 == vid) {
+                     let group = &mut groups[gid];
+                     if let Some(gvid) = group.voices.iter().position(|x| *x == vid) {
                         group.voices.remove(gvid);
                      }
                   }
@@ -2130,18 +2128,20 @@ pub fn init() -> Result<()> {
    Ok(())
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, derive_more::From, mlua::FromLua)]
-pub struct AudioRef(thunderdome::Index);
+slotmap::new_key_type! {
+   #[derive(mlua::FromLua)]
+   pub struct AudioRef;
+}
 impl AudioRef {
    fn try_clone(&self) -> Result<Self> {
       if AUDIO.disabled {
-         return Ok(Self(self.0));
+         return Ok(*self);
       }
       let mut voices = AUDIO.voices.lock().unwrap();
-      let audio = match voices.get(self.0) {
+      let audio = match voices.get(*self) {
          Some(audio) => {
             if voices.len() >= audio.audio_type().priority_threshold() {
-               return Ok(thunderdome::Index::DANGLING.into());
+               return Ok(AudioRef::null());
             }
             let source = al::Source::new()?;
             audio.try_clone(source)?
@@ -2156,11 +2156,11 @@ impl AudioRef {
    where
       S: Fn(&Audio) -> R,
    {
-      if AUDIO.disabled || self.0 == thunderdome::Index::DANGLING {
+      if AUDIO.disabled || self.is_null() {
          return Ok(d);
       }
       let audio = AUDIO.voices.lock().unwrap();
-      match audio.get(self.0) {
+      match audio.get(*self) {
          Some(audio) => Ok(f(audio)),
          None => anyhow::bail!("Audio not found"),
       }
@@ -2181,11 +2181,11 @@ impl AudioRef {
       S: Fn(&mut Audio) -> R,
       R: std::default::Default,
    {
-      if AUDIO.disabled || self.0 == thunderdome::Index::DANGLING {
+      if AUDIO.disabled || self.is_null() {
          return Ok(Default::default());
       }
       let mut audio = AUDIO.voices.lock().unwrap();
-      match audio.get_mut(self.0) {
+      match audio.get_mut(*self) {
          Some(audio) => Ok(f(audio)),
          None => anyhow::bail!("Audio not found"),
       }

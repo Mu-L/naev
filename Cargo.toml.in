@@ -76,7 +76,7 @@ image = { version = "0.25", default-features = false, features = [ "avif-native"
 mlua = { version = "0.11.6", features = ["luajit", "anyhow", "send", "serialize", "macros"] }
 roxmltree = "0.21"
 symphonia = { version = "=0.5.5", features = ["opt-simd", "aac", "mp3"] }
-thunderdome = "0.6"
+slotmap = "1"
 static_assertions = "1.1"
 tracing-mutex = "0.3"
 derive_more = { version = "2", features = ["from", "into", "mul", "add", "add_assign", "mul_assign", "display"] }
@@ -138,7 +138,7 @@ collide = { workspace = true }
 pluginmgr = { workspace = true }
 pluginmgr-gui = { workspace = true }
 mlua = { workspace = true }
-thunderdome = { workspace = true }
+slotmap = { workspace = true }
 derive_more = { workspace = true }
 constcat = "0.6"
 rand = "0.10"

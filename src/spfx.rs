@@ -7,8 +7,7 @@ use physics::vec2::Vec2;
 use renderer::camera;
 use renderer::colour::Colour;
 use std::sync::atomic::Ordering;
-use std::sync::{Mutex, RwLock};
-use thunderdome::Arena;
+use std::sync::{LazyLock, Mutex, RwLock};
 
 enum Message {
    Insert(Box<LuaSpfx>),
@@ -18,7 +17,9 @@ enum Message {
 }
 static MESSAGES: Mutex<Vec<Message>> = Mutex::new(Vec::new());
 
-fn process_messages(luaspfx: &mut std::sync::RwLockWriteGuard<'_, Arena<LuaSpfx>>) {
+fn process_messages(
+   luaspfx: &mut std::sync::RwLockWriteGuard<'_, slotmap::SlotMap<LuaSpfxRef, LuaSpfx>>,
+) {
    pub fn notfound(id: LuaSpfxRef) {
       warn!("LuaSpfx '{:?}' not found", id);
    }
@@ -28,7 +29,7 @@ fn process_messages(luaspfx: &mut std::sync::RwLockWriteGuard<'_, Arena<LuaSpfx>
             luaspfx.insert(*data);
          }
          Message::Remove(id) => {
-            if let Some(spfx) = luaspfx.get_mut(id.into()) {
+            if let Some(spfx) = luaspfx.get_mut(id) {
                spfx.cleanup = true;
                spfx.ttl = -1.0;
             } else {
@@ -36,14 +37,14 @@ fn process_messages(luaspfx: &mut std::sync::RwLockWriteGuard<'_, Arena<LuaSpfx>
             }
          }
          Message::SetPos(id, pos) => {
-            if let Some(spfx) = luaspfx.get_mut(id.into()) {
+            if let Some(spfx) = luaspfx.get_mut(id) {
                spfx.pos = Some(pos);
             } else {
                notfound(id);
             }
          }
          Message::SetVel(id, vel) => {
-            if let Some(spfx) = luaspfx.get_mut(id.into()) {
+            if let Some(spfx) = luaspfx.get_mut(id) {
                spfx.vel = Some(vel);
             } else {
                notfound(id);
@@ -71,15 +72,16 @@ struct LuaSpfx {
    remove: Option<Function>,
 }
 
-#[derive(Copy, Clone, derive_more::From, derive_more::Into, Debug)]
-struct LuaSpfxRef(thunderdome::Index);
+slotmap::new_key_type! {
+   struct LuaSpfxRef;
+}
 impl LuaSpfxRef {
    pub fn call<S, R>(&self, f: S) -> anyhow::Result<R>
    where
       S: Fn(&LuaSpfx) -> R,
    {
       let luaspfx = LUASPFX.read().unwrap();
-      match luaspfx.get(self.0) {
+      match luaspfx.get(*self) {
          Some(spfx) => Ok(f(spfx)),
          None => anyhow::bail!("LuaSpfx not found"),
       }
@@ -100,7 +102,8 @@ impl LuaSpfxRef {
    */
 }
 
-static LUASPFX: RwLock<Arena<LuaSpfx>> = RwLock::new(Arena::new());
+static LUASPFX: LazyLock<RwLock<slotmap::SlotMap<LuaSpfxRef, LuaSpfx>>> =
+   LazyLock::new(|| RwLock::new(slotmap::SlotMap::with_key()));
 
 pub fn clear() {
    LUASPFX.write().unwrap().clear();
@@ -147,7 +150,7 @@ pub fn update(dt: f64) {
       if let Some(update) = &spfx.update {
          spfx
             .env
-            .call::<()>(lua, update, (LuaSpfxRef(id), dt))
+            .call::<()>(lua, update, (id, dt))
             .unwrap_or_else(|e| {
                warn_err!(e);
             });
@@ -181,7 +184,7 @@ fn render(layer: RenderLayer, dt: f64) {
       {
          spfx
             .env
-            .call::<()>(lua, func, (LuaSpfxRef(id), pos.x, pos.y, z, dt))
+            .call::<()>(lua, func, (id, pos.x, pos.y, z, dt))
             .unwrap_or_else(|e| {
                warn_err!(e);
             });
