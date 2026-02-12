@@ -13,6 +13,18 @@ local biointrin= require "bioship.intrinsics"
 
 local bioship = {}
 
+local function ship_intrinsics( ps )
+   local intrinsics = biointrin[ ps:nameRaw() ]
+   -- Fall back to main ship if not found
+   if not intrinsics then
+      local inherit = ps:inherits()
+      if inherit then
+         intrinsics = biointrin[ inherit:nameRaw() ]
+      end
+   end
+   return intrinsics
+end
+
 function bioship.isbioship( p )
    return p:ship():tags().bioship
 end
@@ -63,7 +75,7 @@ local function _getskills( p )
       table.insert( skilllist, "stealth" )
    end
    local skills = bioskills.get( skilllist )
-   local intrinsics = biointrin[ ps:nameRaw() ]
+   local intrinsics = ship_intrinsics( ps )
 
    -- Filter out high tiers if necessary
    local nskills = {}
@@ -197,7 +209,7 @@ local _maxstageSize = {
 }
 function bioship.maxstage( p )
    local ps = p:ship()
-   local intrin = biointrin[ ps:nameRaw() ]
+   local intrin = ship_intrinsics( ps )
    return intrin.maxstage or _maxstageSize[ ps:size() ]
 end
 
