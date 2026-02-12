@@ -21,7 +21,7 @@
   <energy>102</energy>
   <damage>
    <type>energy</type>
-   <penetrate>95</penetrate>
+   <penetrate>210</penetrate>
    <physical>250</physical>
    <disable>18</disable>
   </damage>
