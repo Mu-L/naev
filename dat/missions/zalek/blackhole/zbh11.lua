@@ -147,7 +147,7 @@ He gives a sign to the drones that start working like ants to lift the ship back
       z(_([["The beauty of my colleagues, of Mie's research, is to take a completely different approach using hyper-relativistic acceleration in a Schwarzschild frame such that the Birkhoff-Kerr radiation does the brunt of the work. It's a really interesting novel take that was only theorized about. That is, up until now!"]]))
       z(_([["By using a reverse tachyon depolarizer, they were able to…"
 Zach realizes that he lost you a while back.
-"Ummm, long story short, we may have a way of generating much more antimatter that was feasible up until now!"]]))
+"Ummm, long story short, we may have a way of generating much more antimatter than was feasible up until now!"]]))
       vn.disappear( z, zbh.zach.transition )
       vn.na(_([[Eventually he leads you to a room you don't recall seeing before, filled with experimental devices and drones flying around. He hands you a book titled "Black Holes for Non-Za'leks" and indicates you to take a seat. You sit down, book in hand, and wait for whatever he's going to do.]]))
       vn.appear( z, zbh.zach.transition )
