@@ -61,16 +61,17 @@ struct Logger {
    warn_num: AtomicU32,
    output: Mutex<Output>,
 }
-const WHITELIST: [&str; 9] = [
-   "naev",
-   "nlog",
-   "renderer",
-   "pluginmgr",
-   "pluginmgr-gui",
-   "core",
+const WHITELIST: [&str; 10] = [
    "audio",
+   "collide",
+   "core",
+   "naev",
    "ndata",
+   "nlog",
    "physics",
+   "pluginmgr-gui",
+   "pluginmgr",
+   "renderer",
 ];
 impl logcore::Log for Logger {
    fn enabled(&self, metadata: &logcore::Metadata) -> bool {

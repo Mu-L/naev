@@ -7,6 +7,7 @@ use nalgebra::Vector2;
 use nlog::{warn, warn_err};
 use serde::{Deserialize, Serialize};
 use std::collections::VecDeque;
+use std::fs;
 use std::path::Path;
 
 const ALPHA_THRESHOLD: u8 = 50;
@@ -335,15 +336,29 @@ pub struct SpinPolygon {
 
 impl SpinPolygon {
    pub fn from_image_path<P: AsRef<Path>>(path: P, sx: u32, sy: u32) -> Result<Self> {
-      // TODO caching
       let path = ndata::image_path(&path)?;
+      let stats = ndata::stat(&path)?;
+      let mut hasher = blake3::Hasher::new();
+      hasher.update(path.as_ref().as_os_str().as_encoded_bytes());
+      hasher.update(&stats.modtime.to_ne_bytes());
+      let hash = hasher.finalize();
+      let cache_path = ndata::cache_dir().join(format!("collisions/{hash}"));
+      if let Ok(data) = fs::read(&cache_path)
+         && let Ok(poly) = bitcode::deserialize::<SpinPolygon>(&data)
+      {
+         return Ok(poly);
+      }
+
       let io = ndata::iostream(&path)?;
       let img = image::ImageReader::with_format(
          std::io::BufReader::new(io),
          image::ImageFormat::from_path(&path)?,
       )
       .decode()?;
-      Ok(SpinPolygon::from_image(&img, sx, sy))
+      let poly = SpinPolygon::from_image(&img, sx, sy);
+      fs::write(&cache_path, bitcode::serialize(&poly)?)?;
+
+      Ok(poly)
    }
 
    pub fn from_image(img: &image::DynamicImage, sx: u32, sy: u32) -> Self {

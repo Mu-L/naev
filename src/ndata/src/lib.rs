@@ -341,12 +341,12 @@ pub enum FileType {
 
 #[allow(dead_code)]
 pub struct Stat {
-   filesize: i64,
-   modtime: i64,
-   createtime: i64,
-   accesstime: i64,
-   filetype: FileType,
-   readonly: bool,
+   pub filesize: i64,
+   pub modtime: i64,
+   pub createtime: i64,
+   pub accesstime: i64,
+   pub filetype: FileType,
+   pub readonly: bool,
 }
 
 /// Gets information about a file or directory
