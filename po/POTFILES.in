@@ -3602,6 +3602,7 @@ dat/scripts/equipopt/templates/dvaered.lua
 dat/scripts/equipopt/templates/empire.lua
 dat/scripts/equipopt/templates/generic.lua
 dat/scripts/equipopt/templates/lost.lua
+dat/scripts/equipopt/templates/miner.lua
 dat/scripts/equipopt/templates/pirate.lua
 dat/scripts/equipopt/templates/pirate_base.lua
 dat/scripts/equipopt/templates/proteron.lua
