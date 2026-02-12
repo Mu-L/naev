@@ -1,0 +1,35 @@
+<ship name="Soromid Nyx Symbiotic" inherits="Soromid Nyx">
+ <rarity>3</rarity>
+ <price>3500000</price>
+ <cond>require("buyrep")("Soromid", 60)</cond>
+ <condstr>You need at least 60% reputation with the Soromid.</condstr>
+ <description>This Nyx variant has been engineered as a mobile nest to house and sustain a small squadron of Brigand fighters, allowing the Soromid to project remote carrier-based firepower quickly to where it is needed. The modifications required to create suitable nesting space and cerebrum capacity to support it have resulted in a significant reduction to the ship's direct fire weapons capability.</description>
+ <slots>
+  <weapon size="medium" prop="bio_weapon" name="weap1" x="-15" y="-10" h="-10">Talon Organ I</weapon>
+  <weapon size="medium" prop="bio_weapon" name="weap2" x="-15" y="10" h="-10">Talon Organ I</weapon>
+  <weapon size="large" prop="fighter_bay" locked="1" x="20" y="0" h="-10">Soromid Brigand Bay</weapon>
+  <weapon size="medium" x="4" y="-5" h="-10"/>
+  <utility size="medium" prop="bio_systems" name="brain">Largum Cerebrum I</utility>
+  <utility size="medium" prop="bio_organ" name="feral_rage"/>
+  <utility size="medium" prop="bio_organ" name="the_bite"/>
+  <utility size="medium" prop="accessory" name="accessory"/>
+  <utility size="large"/>
+  <utility size="medium"/>
+  <structure size="medium" prop="bio_engines" name="genedrive">Supernus Gene Drive I</structure>
+  <structure size="medium" prop="bio_hull" name="shell">Largus Cortex I</structure>
+  <structure size="large"/>
+  <structure size="medium"/>
+  <structure size="medium"/>
+ </slots>
+ <stats>
+  <armour_mod>-10</armour_mod>
+  <ew_hide>-10</ew_hide>
+  <fbay_health>25</fbay_health>
+  <fbay_damage>25</fbay_damage>
+  <cpu_max>270</cpu_max>
+ </stats>
+ <tags>
+  <tag>soromid</tag>
+  <tag>bioship</tag>
+ </tags>
+</ship>

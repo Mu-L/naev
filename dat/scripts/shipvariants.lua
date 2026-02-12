@@ -112,6 +112,10 @@ var.empire_pacifier = _v{
    { w=1,    s=ship.exists("Empire Pacifier") },
    { w=0.05, s=ship.exists("Empire Pacifier Hoplite") },
 }
+var.soromid_nyx = _v{
+   { w=1,    s=ship.exists("Soromid Nyx") },
+   { w=0.05, s=ship.exists("Soromid Nyx Symbiotic") },
+}
 -- Cruiser
 var.kestrel = _v{
    { w=1,    s=ship.exists("Kestrel") },

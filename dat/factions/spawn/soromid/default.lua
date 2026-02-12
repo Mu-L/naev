@@ -1,9 +1,9 @@
 local scom = require "factions.spawn.lib.common"
+local var = require "shipvariants"
 
 local sbrigand    = ship.get("Soromid Brigand")
 local sreaver     = ship.get("Soromid Reaver")
 local smarauder   = ship.get("Soromid Marauder")
-local snyx        = ship.get("Soromid Nyx")
 local sodium      = ship.get("Soromid Odium")
 local sarx        = ship.get("Soromid Arx")
 local sira        = ship.get("Soromid Ira")
@@ -14,7 +14,7 @@ local function spawn_patrol ()
    return scom.doTable( { __doscans=true }, {
       { w=0.5, sreaver },
       { w=0.8, smarauder, sbrigand },
-      { snyx },
+      { var.soromid_nyx },
    } )
 end
 
@@ -23,7 +23,7 @@ local function spawn_squad ()
    return scom.doTable( { __doscans=(rnd.rnd() < 0.5) }, {
       { w=0.5, sodium, smarauder, sbrigand },
       { w=0.8, sodium, sreaver },
-      { snyx, sreaver, sbrigand },
+      { var.soromid_nyx, sreaver, sbrigand },
    } )
 end
 
@@ -40,7 +40,7 @@ local function spawn_capship ()
    return scom.doTable( pilots, {
       { w=0.5, sreaver, smarauder, sbrigand },
       { w=0.8, sodium, sreaver },
-      { snyx, sreaver },
+      { var.soromid_nyx, sreaver },
    } )
 end
 
