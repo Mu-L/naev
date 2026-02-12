@@ -82,7 +82,7 @@ return function ()
    }
 
    -- Miners yearn for the mines
-   if scur:asteroidFields() > 0 then
+   if #scur:asteroidFields() > 0 then
       table.insert( pers, {
          spawn = function ()
             local p = pilot.add("Mule Hardhat", "Trader", nil, _("Yearning Steve"), {naked=true, ai="pers_miner"})

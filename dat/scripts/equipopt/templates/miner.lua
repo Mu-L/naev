@@ -51,7 +51,7 @@ local function equip_miner( p, opt_params, cores )
    params = tmerge_r( params, opt_params )
 
    -- See cores
-   local ocores = cores or ecores.get( p, { all="standard" } )
+   local ocores = ecores.get( p, { all=cores } )
 
    -- Try to equip
    return optimize.optimize( p, ocores, miner_outfits, params )
