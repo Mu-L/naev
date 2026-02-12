@@ -559,10 +559,6 @@ int pilot_addOutfitRawAnySlotNoLua( Pilot *p, const Outfit *o )
             if ( spid != ( !!s->sslot->slot.spid ) )
                continue;
 
-            /* Must be correct size. */
-            if ( s->sslot->slot.size != size )
-               continue;
-
             /* Must not be full already. */
             if ( s->outfit != NULL )
                continue;
