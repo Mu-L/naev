@@ -23,7 +23,81 @@ return function ()
             return p
          end
       },
+      -- Some Atra Vigilis
+      {
+         spawn = function ()
+            local p = pilot.add("Vigilance", "Trader", nil, _("Crimson Star"), {naked=true, ai="pers_patrol"})
+            p:outfitAddIntrinsic("Escape Pod")
+            equipopt.soromid( p, {
+               outfits_add={"Plasma Eruptor"},
+               max_same_weap = 4,
+               prefer={
+                  ["Plasma Eruptor"] = 100,
+               },
+            } )
+            local m = p:memory()
+            m.capturable = true
+            m.comm_greet = _([["Know where I can fry some pirates?"]])
+            m.taunt = _("Get torched!")
+            return p
+         end
+      }, {
+         spawn = function ()
+            local p = pilot.add("Admonisher ΩIIa", "Trader", nil, _("Astra Needle"), {naked=true, ai="pers_patrol"})
+            p:outfitAddIntrinsic("Escape Pod")
+            equipopt.empire( p, {
+               outfits_add={"Pincushion Battery"},
+               max_same_weap = 4,
+               prefer={
+                  ["Pincushion Battery"] = 100,
+               },
+            } )
+            local m = p:memory()
+            m.capturable = true
+            m.comm_greet = _([["The Astra Vigilis always keeps an eye out for trouble."]])
+            m.taunt = _("En garde!")
+            return p
+         end
+      }, {
+         spawn = function ()
+            local p = pilot.add("Kestrel Sigma", "Trader", nil, _("Eulalia Lionheart"), {naked=true, ai="pers_patrol"})
+            p:outfitAddIntrinsic("Escape Pod")
+            p:intrinsicSet( "weapon_firerate", 25 )
+            p:intrinsicSet( "energy_mod", 50 )
+            p:intrinsicSet( "energy_regen_mod", 50 )
+            p:intrinsicSet( "shield_mod", 50 )
+            p:intrinsicSet( "shield_regen_od", 50 )
+            p:intrinsicSet( "armour_mod", 50 )
+            equipopt.sirius( p, {
+               pointdefence   = 10,
+               fighterbay     = 0,
+            } )
+            local m = p:memory()
+            m.capturable = true
+            m.comm_greet = _([["The universe is a dangerous place, you better watch yourself."]])
+            m.taunt = _("Have at thee!")
+            return p
+         end
+      },
    }
+
+   -- Miners yearn for the mines
+   if scur:asteroidFields() > 0 then
+      table.insert( pers, {
+         spawn = function ()
+            local p = pilot.add("Mule Hardhat", "Trader", nil, _("Yearning Steve"), {naked=true, ai="pers_miner"})
+            p:outfitAddIntrinsic("Escape Pod")
+            equipopt.miner( p, {
+               fighterbay=20,
+            } )
+            local m = p:memory()
+            m.capturable = true
+            m.comm_greet = _([["I yearn to mine!"]])
+            m.taunt = _("Hey! I'm just mining some rocks here!")
+            return p
+         end
+      } )
+   end
 
    return pers
 end
