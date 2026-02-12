@@ -2872,6 +2872,7 @@ dat/ai/mercenary.lua
 dat/ai/miner.lua
 dat/ai/orez.lua
 dat/ai/pers.lua
+dat/ai/pers_miner.lua
 dat/ai/pers_patrol.lua
 dat/ai/pers_pirate.lua
 dat/ai/pers_runaway.lua
