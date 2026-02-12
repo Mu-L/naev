@@ -151,7 +151,7 @@ Zach realizes that he lost you a while back.
       vn.disappear( z, zbh.zach.transition )
       vn.na(_([[Eventually he leads you to a room you don't recall seeing before, filled with experimental devices and drones flying around. He hands you a book titled "Black Holes for Non-Za'leks" and indicates you to take a seat. You sit down, book in hand, and wait for whatever he's going to do.]]))
       vn.appear( z, zbh.zach.transition )
-      vn.na(_([[After what seems like an eternity of you trying to make sense of what is written in the book, which seems to be purposely written to be hard to understand, Zach appears once again and motions for you to follow. He leads you to a room separated by a curtain where there seems to be a large device, and beams a triumphant smile at your, eagerly waiting a reaction.]]))
+      vn.na(_([[After what seems like an eternity of you trying to make sense of what is written in the book, which seems to be purposely written to be hard to understand, Zach appears once again and motions for you to follow. He leads you to a room separated by a curtain where there seems to be a large device, and beams a triumphant smile at you, eagerly waiting a reaction.]]))
       vn.menu{
          {_([["It's awesome!"]]), "02awesome"},
          {_([[Stay silent.]]), "02silent"},
