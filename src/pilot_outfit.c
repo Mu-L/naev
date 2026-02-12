@@ -1435,11 +1435,15 @@ static void pilot_outfitLRun( Pilot *p,
       PilotOutfitSlot *po = p->outfits[i];
       if ( po->outfit == NULL )
          continue;
+      if ( outfit_luaEnv( po->outfit ) == NULL )
+         continue;
       func( p, po, data );
    }
    for ( int i = 0; i < array_size( p->outfit_intrinsic ); i++ ) {
       PilotOutfitSlot *po = &p->outfit_intrinsic[i];
       if ( po->outfit == NULL )
+         continue;
+      if ( outfit_luaEnv( po->outfit ) == NULL )
          continue;
       func( p, po, data );
    }
