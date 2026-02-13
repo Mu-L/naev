@@ -22,6 +22,7 @@ physics = { workspace = true }
 quick-xml = { workspace = true }
 itertools = { workspace = true }
 arrayvec = { workspace = true }
+fs-err = { workspace = true }
 ramer_douglas_peucker = "0.2"
 mint = "0.5"
 bitcode = { version = "0.6", features = ["serde"] }

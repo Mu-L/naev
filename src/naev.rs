@@ -161,6 +161,10 @@ fn setup_conf_and_ndata() -> Result<PathBuf> {
 
    // Load the data and plugins.
    ndata::setup()?;
+   // Create some useful cache stuf once
+   if let Err(e) = fs::create_dir_all(&ndata::cache_dir().join("collisions/")) {
+      warn_err!(e);
+   }
 
    Ok(conf_file_path)
 }

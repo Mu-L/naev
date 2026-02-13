@@ -1,13 +1,13 @@
 use crate::{line_circle, line_line};
 use anyhow::Result;
 use arrayvec::ArrayVec;
+use fs_err as fs;
 use image::GenericImageView;
 use itertools::Itertools;
 use nalgebra::Vector2;
 use nlog::{warn, warn_err};
 use serde::{Deserialize, Serialize};
 use std::collections::VecDeque;
-use std::fs;
 use std::path::Path;
 
 const ALPHA_THRESHOLD: u8 = 50;
