@@ -645,7 +645,7 @@ static void uniedit_btnView( unsigned int wid_unused, const char *unused )
    int          n, h, k;
    Spob        *spobs;
    char       **str;
-   int         *factions;
+   int64_t     *factions;
 
    /* Find usable factions. */
    factions = faction_getAll();

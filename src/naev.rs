@@ -484,6 +484,8 @@ fn load_all(sdlctx: &sdl::Sdl, env: &nlua::LuaEnv) -> Result<()> {
       naevc::cli_init();
    }
 
+   faction::load()?;
+
    let stages: Vec<LoadStage> = vec![
       LoadStage::new_c(gettext("Loading Special Effects…"), || unsafe {
          naevc::spfx_load()

@@ -71,7 +71,7 @@ static const double pilot_commFade =
  */
 /* Create. */
 static void pilot_init( Pilot *dest, const Ship *ship, const char *name,
-                        int faction, const double dir, const vec2 *pos,
+                        int64_t faction, const double dir, const vec2 *pos,
                         const vec2 *vel, const PilotFlags flags,
                         unsigned int dockpilot, int dockslot,
                         const Outfit **intrinsics );
@@ -3400,7 +3400,7 @@ credits_t pilot_modCredits( Pilot *p, credits_t amount )
  *    @param intrinsics Intrinsic outfits to add.
  */
 static void pilot_init( Pilot *pilot, const Ship *ship, const char *name,
-                        int faction, double dir, const vec2 *pos,
+                        int64_t faction, double dir, const vec2 *pos,
                         const vec2 *vel, const PilotFlags flags,
                         unsigned int dockpilot, int dockslot,
                         const Outfit **intrinsics )
@@ -3630,7 +3630,7 @@ static void pilot_init_trails( Pilot *p )
  *
  * @sa pilot_init
  */
-Pilot *pilot_create( const Ship *ship, const char *name, int faction,
+Pilot *pilot_create( const Ship *ship, const char *name, int64_t faction,
                      const char *ai, const double dir, const vec2 *pos,
                      const vec2 *vel, const PilotFlags flags,
                      unsigned int dockpilot, int dockslot,
@@ -3701,7 +3701,7 @@ Pilot *pilot_create( const Ship *ship, const char *name, int faction,
  *    @param flags Flags for tweaking.
  *    @return Pointer to the new pilot (not added to stack).
  */
-Pilot *pilot_createEmpty( const Ship *ship, const char *name, int faction,
+Pilot *pilot_createEmpty( const Ship *ship, const char *name, int64_t faction,
                           PilotFlags flags )
 {
    Pilot *dyn = nmalloc( sizeof( Pilot ) );
@@ -3897,7 +3897,7 @@ void pilot_choosePoint( vec2 *vp, Spob **spob, JumpPoint **jump, int lf,
          const JumpPoint *jmp    = &cur_system->jumps[i];
          JumpPoint       *target = jmp->returnJump;
          double           limit, pres;
-         const int       *fact;
+         const int64_t   *fact;
 
          /* Can't use exit only from the other-side. */
          if ( jp_isFlag( target, JP_EXITONLY ) )
@@ -4676,7 +4676,7 @@ void pilot_msg( const Pilot *p, const Pilot *receiver, const char *type,
  *    @param faction Faction to check.
  *    @return 1 if has illegal stuff 0 otherwise.
  */
-int pilot_hasIllegal( const Pilot *p, int faction )
+int pilot_hasIllegal( const Pilot *p, int64_t faction )
 {
    /* Check commodities. */
    for ( int i = 0; i < array_size( p->commodities ); i++ ) {

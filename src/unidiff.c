@@ -1119,7 +1119,7 @@ int diff_patchHunk( UniHunk_t *hunk )
    StarSystem *ssys  = NULL;
    StarSystem *ssys2 = NULL;
    int         a, b;
-   int         f = -1;
+   int64_t     f = -1;
 
    /* Common loading target bit to simplify code below. */
    switch ( hunk->target.type ) {

@@ -372,7 +372,7 @@ void system_updateAsteroids( StarSystem *sys )
  *    @param faction Faction to change to.
  *    @return 0 on success.
  */
-int spob_setFaction( Spob *p, int faction )
+int spob_setFaction( Spob *p, int64_t faction )
 {
    p->presence.faction = faction;
    return 0;
@@ -630,7 +630,7 @@ int space_calcJumpInPos( const StarSystem *in, const StarSystem *out, vec2 *pos,
  *    @return An array (array.h) of faction names.  Individual names are not
  * allocated.
  */
-char **space_getFactionSpob( const int *factions, int landable )
+char **space_getFactionSpob( const int64_t *factions, int landable )
 {
    char **tmp = array_create( char * );
    for ( int i = 0; i < array_size( systems_stack ); i++ ) {
@@ -4365,9 +4365,8 @@ static int space_parseSaveNodes( xmlNodePtr parent, StarSystem *sys )
             jp_setFlag( jp, JP_KNOWN );
       } else if ( xml_isNode( node, "faction" ) ) {
          char *buf;
-         int   f;
          xmlr_attr_strd( node, "name", buf );
-         f = faction_get( buf );
+         int64_t f = faction_get( buf );
          free( buf );
          if ( !faction_isFaction( f ) )
             continue;
@@ -4532,7 +4531,7 @@ static SystemPresence *system_getFactionPresenceGrow( StarSystem *sys,
    }
    return sp;
 }
-SystemPresence *system_getFactionPresence( StarSystem *sys, int faction )
+SystemPresence *system_getFactionPresence( StarSystem *sys, int64_t faction )
 {
    /* Go through the array, looking for the faction. */
    for ( int i = 0; i < array_size( sys->presence ); i++ ) {
@@ -4542,7 +4541,7 @@ SystemPresence *system_getFactionPresence( StarSystem *sys, int faction )
    return NULL;
 }
 const SystemPresence *system_getFactionPresenceConst( const StarSystem *sys,
-                                                      int faction )
+                                                      int64_t faction )
 {
    /* Go through the array, looking for the faction. */
    for ( int i = 0; i < array_size( sys->presence ); i++ ) {
@@ -4555,7 +4554,7 @@ const SystemPresence *system_getFactionPresenceConst( const StarSystem *sys,
 /**
  * @brief Gets the local reputation of the player in a system or returns 0.
  */
-double system_getReputation( const StarSystem *sys, int faction )
+double system_getReputation( const StarSystem *sys, int64_t faction )
 {
    int    set;
    double val = faction_reputationOverride( faction, &set );
@@ -4571,7 +4570,7 @@ double system_getReputation( const StarSystem *sys, int faction )
  * @brief Gets the local reputation of the player in a system or returns the
  * global standing.
  */
-double system_getReputationOrGlobal( const StarSystem *sys, int faction )
+double system_getReputationOrGlobal( const StarSystem *sys, int64_t faction )
 {
    int    set;
    double val = faction_reputationOverride( faction, &set );
@@ -4590,7 +4589,7 @@ double system_getReputationOrGlobal( const StarSystem *sys, int faction )
  *    @param faction The faction to get the presence for.
  *    @return The amount of presence the faction has in the system.
  */
-double system_getPresence( const StarSystem *sys, int faction )
+double system_getPresence( const StarSystem *sys, int64_t faction )
 {
    /* Check for NULL and display a warning. */
 #if DEBUGGING
@@ -4619,8 +4618,8 @@ double system_getPresence( const StarSystem *sys, int faction )
  *    @param[out] bonus Bonus value of the presence.
  *    @return The amount of presence the faction has in the system.
  */
-double system_getPresenceFull( const StarSystem *sys, int faction, double *base,
-                               double *bonus )
+double system_getPresenceFull( const StarSystem *sys, int64_t faction,
+                               double *base, double *bonus )
 {
    /* Check for NULL and display a warning. */
 #if DEBUGGING
@@ -4731,7 +4730,7 @@ int system_hasSpob( const StarSystem *sys )
 /**
  * @brief Removes active presence.
  */
-void system_rmCurrentPresence( StarSystem *sys, int faction, double amount )
+void system_rmCurrentPresence( StarSystem *sys, int64_t faction, double amount )
 {
    nlua_env *env;
 

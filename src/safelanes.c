@@ -520,7 +520,7 @@ static void safelanes_initStacks_edge( void )
  */
 static void safelanes_initStacks_faction( void )
 {
-   int              *faction_all;
+   int64_t          *faction_all;
    const StarSystem *systems_stack;
 
    faction_stack = array_create( Faction );

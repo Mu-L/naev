@@ -164,7 +164,7 @@ static int factionL_get( lua_State *L )
  */
 static int factionL_getAll( lua_State *L )
 {
-   const int *factions = faction_getAll();
+   const int64_t *factions = faction_getAll();
    lua_newtable( L );
    for ( int i = 0; i < array_size( factions ); i++ ) {
       lua_pushfaction( L, factions[i] );
@@ -577,8 +577,8 @@ static int factionL_applyLocalThreshold( lua_State *L )
  */
 static int factionL_enemies( lua_State *L )
 {
-   const int *factions;
-   int        f = luaL_validfaction( L, 1 );
+   const int64_t *factions;
+   int            f = luaL_validfaction( L, 1 );
 
    /* Push the enemies in a table. */
    lua_newtable( L );
@@ -602,8 +602,8 @@ static int factionL_enemies( lua_State *L )
  */
 static int factionL_allies( lua_State *L )
 {
-   const int *factions;
-   int        f = luaL_validfaction( L, 1 );
+   const int64_t *factions;
+   int            f = luaL_validfaction( L, 1 );
 
    /* Push the enemies in a table. */
    lua_newtable( L );

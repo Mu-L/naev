@@ -787,8 +787,8 @@ static int systemL_presence( lua_State *L )
    StarSystem *sys = luaL_validsystem( L, 1 );
 
    /* Allow fall-through. */
-   int  used = 0;
-   int *fct  = NULL;
+   int      used = 0;
+   int64_t *fct  = NULL;
 
    /* Get the second parameter. */
    if ( lua_isstring( L, 2 ) ) {
@@ -812,7 +812,7 @@ static int systemL_presence( lua_State *L )
    if ( !used ) {
       /* A faction id was given. */
       int f = luaL_validfaction( L, 2 );
-      fct   = array_create( int );
+      fct   = array_create( int64_t );
       array_push_back( &fct, f );
    }
 

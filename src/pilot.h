@@ -251,9 +251,9 @@ typedef struct Pilot_ {
    double       r;    /**< Pilot's randomness value in [0,1] range. */
 
    /* Fleet/faction management. */
-   int faction;       /**< Pilot's faction. */
-   int faction_spawn; /**< Faction used to spawn the pilot. */
-   int presence;      /**< Presence being used by the pilot. */
+   int64_t faction;       /**< Pilot's faction. */
+   int64_t faction_spawn; /**< Faction used to spawn the pilot. */
+   int     presence;      /**< Presence being used by the pilot. */
 
    /* Object characteristics */
    const Ship  *ship;        /**< ship pilot is flying */
@@ -492,13 +492,13 @@ int       pilot_hasCredits( const Pilot *p, credits_t amount );
 credits_t pilot_modCredits( Pilot *p, credits_t amount );
 
 /* Creation. */
-Pilot       *pilot_create( const Ship *ship, const char *name, int faction,
-                           const char *ai, double dir, const vec2 *pos,
-                           const vec2 *vel, const PilotFlags flags,
-                           unsigned int dockpilot, int dockslot,
-                           const Outfit **intrinsics );
-Pilot       *pilot_createEmpty( const Ship *ship, const char *name, int faction,
-                                PilotFlags flags );
+Pilot *pilot_create( const Ship *ship, const char *name, int64_t faction,
+                     const char *ai, double dir, const vec2 *pos,
+                     const vec2 *vel, const PilotFlags flags,
+                     unsigned int dockpilot, int dockslot,
+                     const Outfit **intrinsics );
+Pilot *pilot_createEmpty( const Ship *ship, const char *name, int64_t faction,
+                          PilotFlags flags );
 unsigned int pilot_clone( const Pilot *p );
 unsigned int pilot_addStack( Pilot *p );
 void         pilot_reset( Pilot *pilot );
@@ -558,7 +558,7 @@ void    pilot_msg( const Pilot *p, const Pilot *receiver, const char *type,
                    int index );
 void    pilot_clearTrails( Pilot *p );
 void    pilot_sample_trails( Pilot *p, int none );
-int     pilot_hasIllegal( const Pilot *p, int faction );
+int     pilot_hasIllegal( const Pilot *p, int64_t faction );
 int     pilot_refuelStart( Pilot *p );
 void    pilot_hyperspaceAbort( Pilot *p );
 void    pilot_clearTimers( Pilot *pilot );

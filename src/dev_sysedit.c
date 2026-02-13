@@ -3025,7 +3025,8 @@ static void sysedit_btnFaction( unsigned int wid_unused, const char *unused )
    (void)wid_unused;
    (void)unused;
    unsigned int wid;
-   int          pos, j, y, h, bw, *factions;
+   int          pos, j, y, h, bw;
+   int64_t     *factions;
    char       **str;
    Spob        *p;
 
