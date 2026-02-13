@@ -3,6 +3,7 @@ use crate::array;
 use crate::array::ArrayCString;
 use crate::nlua::LuaEnv;
 use crate::nlua::{NLUA, NLua};
+use anyhow::Context as AnyhowContext;
 use anyhow::Result;
 use gettext::gettext;
 use helpers::{binary_search_by_key_ref, sort_by_key_ref};
@@ -12,7 +13,7 @@ use nalgebra::{Vector3, Vector4};
 use nlog::warn_err;
 use nlog::{warn, warnx};
 use rayon::prelude::*;
-use renderer::{Context, ContextWrapper, texture};
+use renderer::{Context, ContextWrapper, colour, texture};
 use slotmap::{Key, KeyData, SecondaryMap, SlotMap};
 use std::collections::HashMap;
 use std::ffi::{CStr, CString, OsStr};
@@ -174,17 +175,17 @@ impl FactionRef {
       }
    }
 
-   pub fn hit(&self, val: f32, source: &str, single: bool) -> Result<f32> {
+   pub fn hit(&self, val: f32, system: &mlua::Value, source: &str, single: bool) -> Result<f32> {
       let factions = FACTIONS.read().unwrap();
       match factions.get(*self) {
          Some(fct) => {
-            let ret = fct.hit_lua(val, source, false, None)?;
+            let ret = fct.hit_lua(val, system, source, false, None)?;
             if !single {
                for a in &fct.data.allies {
-                  factions[*a].hit_lua(val, source, true, Some(fct))?;
+                  factions[*a].hit_lua(val, system, source, true, Some(fct))?;
                }
                for e in &fct.data.enemies {
-                  factions[*e].hit_lua(-val, source, true, Some(fct))?;
+                  factions[*e].hit_lua(-val, system, source, true, Some(fct))?;
                }
             }
             Ok(ret)
@@ -279,6 +280,11 @@ impl Faction {
       }
    }
 
+   pub fn r#override(&self) -> Option<f32> {
+      let standing = self.standing.read().unwrap();
+      standing.p_override
+   }
+
    pub fn set_override(&self, std: Option<f32>) {
       let mut standing = self.standing.write().unwrap();
       standing.p_override = std;
@@ -345,6 +351,7 @@ impl Faction {
    fn hit_lua(
       &self,
       val: f32,
+      system: &mlua::Value,
       source: &str,
       secondary: bool,
       parent: Option<&Faction>,
@@ -359,13 +366,19 @@ impl Faction {
       }
       let ret: f32 = match &self.api.get().unwrap().hit {
          // (sys, mod, source, secondary, primary_fct)
-         Some(hit) => hit.call((val, source, secondary, parent.map(|f| f.data.id)))?,
+         Some(hit) => hit.call((system, val, source, secondary, parent.map(|f| f.data.id)))?,
          None => anyhow::bail!("hit function not defined for faction '{}'", &self.data.name),
       };
       Ok(ret)
    }
 
-   fn hit_test_lua(&self, val: f32, source: &str, secondary: bool) -> Result<f32> {
+   fn hit_test_lua(
+      &self,
+      val: f32,
+      system: &mlua::Value,
+      source: &str,
+      secondary: bool,
+   ) -> Result<f32> {
       if self.data.f_static {
          return Ok(0.);
       } else {
@@ -375,7 +388,7 @@ impl Faction {
          }
       }
       let ret: f32 = match &self.api.get().unwrap().hit_test {
-         Some(hit) => hit.call((val, source, secondary))?,
+         Some(hit) => hit.call((system, val, source, secondary))?,
          None => anyhow::bail!(
             "hit_test function not defined for faction '{}'",
             &self.data.name
@@ -385,7 +398,7 @@ impl Faction {
    }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Generator {
    /// ID of faction to generate
    id: FactionRef,
@@ -422,7 +435,7 @@ pub struct FactionData {
 
    // Graphics
    pub logo: Option<texture::Texture>,
-   pub colour: Vector3<f32>,
+   pub colour: Vector4<f32>,
 
    // Relationships
    enemies: Vec<FactionRef>,
@@ -466,7 +479,6 @@ pub struct FactionData {
    cdescription: CString,
    cai: CString,
    ctags: ArrayCString,
-   ccolour: Vector4<f32>,
 }
 impl FactionData {
    /// Loads the elementary faction stuff, does not fill out information dependent on other
@@ -990,7 +1002,7 @@ impl UserData for FactionRef {
          "areAllies",
          |_, this, other: UserDataRef<Self>| -> mlua::Result<bool> {
             // TODO system check
-            Ok(this.call2(&other, |fct1, fct2| fct1.data.are_enemies(&fct2.data))?)
+            Ok(this.call2(&other, |fct1, fct2| fct1.data.are_allies(&fct2.data))?)
          },
       );
 
@@ -1021,8 +1033,9 @@ impl UserData for FactionRef {
          "hit",
          |_,
           this,
-          (modifier, extent, reason, ignore_others): (
+          (modifier, system, extent, reason, ignore_others): (
             f32,
+            mlua::Value,
             Option<BorrowedStr>,
             Option<BorrowedStr>,
             Option<bool>,
@@ -1030,8 +1043,7 @@ impl UserData for FactionRef {
           -> mlua::Result<f32> {
             let reason = reason.as_ref().map_or("script", |v| v);
             let ignore_others = ignore_others.unwrap_or(false);
-            // TODO system stuff
-            Ok(this.hit(modifier, reason, ignore_others)?)
+            Ok(this.hit(modifier, &system, reason, ignore_others)?)
          },
       );
       /*@
@@ -1053,12 +1065,16 @@ impl UserData for FactionRef {
          "hitTest",
          |_,
           this,
-          (modifier, extent, reason): (f32, Option<BorrowedStr>, Option<BorrowedStr>)|
+          (modifier, system, extent, reason): (
+            f32,
+            mlua::Value,
+            Option<BorrowedStr>,
+            Option<BorrowedStr>,
+         )|
           -> mlua::Result<f32> {
             let reason = reason.as_ref().map_or("script", |v| v);
             let ignore_others = true;
-            // TODO system stuff and implement
-            Ok(this.call(|fct| fct.hit_test_lua(modifier, reason, ignore_others))??)
+            Ok(this.call(|fct| fct.hit_test_lua(modifier, &system, reason, ignore_others))??)
          },
       );
       /*@
@@ -1085,11 +1101,10 @@ impl UserData for FactionRef {
       methods.add_method(
          "reputationText",
          |_, this, value: Option<f32>| -> mlua::Result<String> {
-            // TODO
             Ok(this.call(|fct| {
                if let Some(f) = &fct.api.get().unwrap().text_rank {
                   let value = value.unwrap_or(fct.player());
-                  f.call(())
+                  f.call(value)
                } else {
                   Ok(String::from("???"))
                }
@@ -1115,8 +1130,265 @@ impl UserData for FactionRef {
        * @luafunc setReputationGlobal
        */
       methods.add_method(
-         "reputationDefault",
+         "setReputationGlobal",
          |_, this, value: f32| -> mlua::Result<()> { Ok(this.call(|fct| fct.set_player(value))?) },
+      );
+      /*@
+       * @brief Enforces the local threshold of a faction starting at a particular
+       * system. Meant to be used when computing faction hits from the faction
+       * standing Lua scripts. Not meant for use elsewhere.
+       *
+       *    @luatparam Faction f Faction to apply local threshold to.
+       *    @luatparam System sys System to compute the threshold from. This will
+       * be the reference and will not have its value modified.
+       * @luafunc applyLocalThreshold
+       */
+      // TODO
+      /*
+      static int factionL_applyLocalThreshold( lua_State *L )
+      {
+         FactionRef  f   = luaL_validfaction( L, 1 );
+         StarSystem *sys = luaL_validsystem( L, 2 );
+         faction_applyLocalThreshold( f, sys );
+         return 0;
+      }
+            */
+      /*@
+       * @brief Gets the enemies of the faction.
+       *
+       * @usage for k,v in pairs(f:enemies()) do -- Iterates over enemies
+       *
+       *    @luatparam Faction f Faction to get enemies of.
+       *    @luatreturn {Faction,...} A table containing the enemies of the faction.
+       * @luafunc enemies
+       */
+      methods.add_method("enemies", |_, this, ()| -> mlua::Result<Vec<Self>> {
+         Ok(this.call(|fct| fct.data.enemies.clone())?)
+      });
+      /*@
+       * @brief Gets the allies of the faction.
+       *
+       * @usage for k,v in pairs(f:allies()) do -- Iterate over faction allies
+       *
+       *    @luatparam Faction f Faction to get allies of.
+       *    @luatreturn {Faction,...} A table containing the allies of the faction.
+       * @luafunc allies
+       */
+      methods.add_method("allies", |_, this, ()| -> mlua::Result<Vec<Self>> {
+         Ok(this.call(|fct| fct.data.allies.clone())?)
+      });
+      /*@
+       * @brief Gets whether or not a faction uses hidden jumps.
+       *
+       *    @luatparam Faction f Faction to get whether or not they use hidden jumps.
+       *    @luatreturn boolean true if the faction uses hidden jumps, false
+       * otherwise.
+       * @luafunc usesHiddenJumps
+       */
+      methods.add_method("usesHiddenJumps", |_, this, ()| -> mlua::Result<bool> {
+         Ok(this.call(|fct| fct.data.f_useshiddenjumps)?)
+      });
+      /*@
+       * @brief Gets the faction logo.
+       *
+       *    @luatparam Faction f Faction to get logo from.
+       *    @luatreturn Tex The faction logo or nil if not applicable.
+       * @luafunc logo
+       */
+      methods.add_method(
+         "logo",
+         |_, this, ()| -> mlua::Result<Option<texture::Texture>> {
+            Ok(this
+               .call(|fct| fct.data.logo.as_ref().map(|t| t.try_clone()))?
+               .transpose()?)
+         },
+      );
+      /*@
+       * @brief Gets the faction colour.
+       *
+       *    @luatparam Faction f Faction to get colour from.
+       *    @luatreturn Colour|nil The faction colour or nil if not applicable.
+       * @luafunc colour
+       */
+      methods.add_method("colour", |_, this, ()| -> mlua::Result<colour::Colour> {
+         Ok(this.call(|fct| fct.data.colour)?.into())
+      });
+      /*@
+       * @brief Checks to see if a faction is known by the player.
+       *
+       * @usage b = f:known()
+       *
+       *    @luatparam Faction f Faction to check if the player knows.
+       *    @luatreturn boolean true if the player knows the faction.
+       * @luafunc known
+       */
+      methods.add_method("known", |_, this, ()| -> mlua::Result<bool> {
+         Ok(this.call(|fct| fct.known())?)
+      });
+      /*@
+       * @brief Sets a faction's known state.
+       *
+       * @usage f:setKnown( false ) -- Makes faction unknown.
+       *    @luatparam Faction f Faction to set known.
+       *    @luatparam[opt=false] boolean b Whether or not to set as known.
+       * @luafunc setKnown
+       */
+      methods.add_method_mut("setKnown", |_, this, known: bool| -> mlua::Result<()> {
+         Ok(this.call(|fct| fct.set_known(known))?)
+      });
+      /*@
+       * @brief Checks to see if a faction is invisible the player.
+       *
+       * @usage b = f:invisible()
+       *
+       *    @luatparam Faction f Faction to check if is invisible to the player.
+       *    @luatreturn boolean true if the faction is invisible to the player.
+       * @luafunc invisible
+       */
+      methods.add_method("invisible", |_, this, ()| -> mlua::Result<bool> {
+         Ok(this.call(|fct| fct.invisible())?)
+      });
+      /*@
+       * @brief Checks to see if a faction has a static standing with the player.
+       *
+       * @usage b = f:static()
+       *
+       *    @luatparam Faction f Faction to check if has a static standing to the
+       * player.
+       *    @luatreturn boolean true if the faction is static to the player.
+       * @luafunc static
+       */
+      methods.add_method("static", |_, this, ()| -> mlua::Result<bool> {
+         Ok(this.call(|fct| fct.fixed())?)
+      });
+      /*@
+       * @brief Gets the overridden reputation value of a faction.
+       *
+       *    @luatparam Faction f Faction to get whether or not the reputation is
+       * overridden and the value.
+       *    @luatreturn number|nil The override reputation value or nil if not
+       * overridden.
+       * @luafunc reputationOverride
+       */
+      methods.add_method(
+         "reputationOverride",
+         |_, this, ()| -> mlua::Result<Option<f32>> { Ok(this.call(|fct| fct.r#override())?) },
+      );
+      /*@
+       * @brief Sets the overridden reputation value of a faction.
+       *
+       *    @luatparam Faction f Faction to enable/disable reputation override of.
+       *    @luatparam number|nil value Sets the faction reputation override to the value if
+       * a number, or disables it if nil.
+       * @luafunc setReputationOverride
+       */
+      methods.add_method(
+         "setReputationOverride",
+         |_, this, value: Option<f32>| -> mlua::Result<()> {
+            Ok(this.call(|fct| fct.set_override(value))?)
+         },
+      );
+      /*@
+       * @brief Gets the tags a faction has.
+       *
+       * @usage for k,v in ipairs(f:tags()) do ... end
+       * @usage if f:tags().likes_cheese then ... end
+       * @usage if f:tags("generic") then ... end
+       *
+       *    @luatparam[opt=nil] string tag Tag to check if exists.
+       *    @luatreturn table|boolean Table of tags where the name is the key and true
+       * is the value or a boolean value if a string is passed as the second parameter
+       * indicating whether or not the specified tag exists.
+       * @luafunc tags
+       */
+      methods.add_method("tags", |_, this, ()| -> mlua::Result<Vec<String>> {
+         Ok(this.call(|fct| fct.data.tags.clone())?)
+      });
+      /*@
+       * @brief Adds a faction dynamically. Note that if the faction already exists as
+       * a dynamic faction, the existing one is returned.
+       *
+       * @note Defaults to known.
+       *
+       *    @luatparam Faction|nil base Faction to base it off of or nil for new
+       * faction.
+       *    @luatparam string name Name to give the faction.
+       *    @luatparam[opt] string display Display name to give the faction.
+       *    @luatparam[opt] table params Table of parameters. Options include `ai`
+       * (string) to set the AI to use, `clear_allies` (boolean) to clear all allies,
+       * `clear_enemies` (boolean) to clear all enemies, `player` (number) to set the
+       * default player standing, `colour` (string|colour) which represents the
+       * factional colours.
+       *    @luatreturn The newly created faction.
+       * @luafunc dynAdd
+       */
+      methods.add_function(
+         "dynAdd",
+         |lua,
+          (base, name, display, params): (
+            Option<UserDataRef<Self>>,
+            String,
+            Option<String>,
+            Option<mlua::Table>,
+         )|
+          -> mlua::Result<Self> {
+            let data = FACTIONS.write().unwrap();
+            let params = params.unwrap_or_else(|| lua.create_table().unwrap());
+            let base = if let Some(reference) = base {
+               let base = &data.get(*reference).context("faction not found")?.data;
+               let ai = params
+                  .get::<Option<String>>("ai")?
+                  .unwrap_or(base.ai.clone());
+               let clear_allies: bool = params.get("clear_allies")?;
+               let clear_enemies: bool = params.get("clear_enemies")?;
+               let player_def = params
+                  .get::<Option<f32>>("player")?
+                  .unwrap_or(base.player_def);
+               let colour = params
+                  .get::<Option<colour::Colour>>("colour")?
+                  .unwrap_or(base.colour.into());
+               let allies = if clear_allies {
+                  Vec::new()
+               } else {
+                  base.allies.clone()
+               };
+               let enemies = if clear_enemies {
+                  Vec::new()
+               } else {
+                  base.enemies.clone()
+               };
+               FactionData {
+                  id: FactionRef::null(),
+                  cname: CString::new(name.as_str()).unwrap(),
+                  name,
+                  cdisplayname: display.clone().map(|s| CString::new(s.as_str()).unwrap()),
+                  displayname: display,
+                  ai,
+                  logo: base.logo.as_ref().map(|l| l.try_clone()).transpose()?,
+                  colour: colour.into(),
+                  player_def,
+                  allies,
+                  enemies,
+                  // TODO more stuff
+                  f_static: base.f_static,
+                  tags: base.tags.clone(),
+                  f_dynamic: true,
+                  ..Default::default()
+               }
+            } else {
+               let ai: String = params.get("ai").unwrap_or(String::new());
+               FactionData {
+                  cname: CString::new(name.as_str()).unwrap(),
+                  name,
+                  cdisplayname: display.clone().map(|s| CString::new(s.as_str()).unwrap()),
+                  displayname: display,
+                  ai,
+                  f_dynamic: true,
+                  ..Default::default()
+               }
+            };
+            todo!();
+         },
       );
    }
 }
@@ -1445,7 +1717,7 @@ pub extern "C" fn _faction_logo(id: i64) -> *const naevc::glTexture {
 #[unsafe(no_mangle)]
 pub extern "C" fn _faction_colour(id: i64) -> *const naevc::glColour {
    faction_c_call(id, |fct| {
-      &fct.data.ccolour as *const Vector4<f32> as *const naevc::glColour
+      &fct.data.colour as *const Vector4<f32> as *const naevc::glColour
    })
    .unwrap_or_else(|err| {
       warn_err!(err);
