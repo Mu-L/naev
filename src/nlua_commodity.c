@@ -604,12 +604,11 @@ static int commodityL_illegalto( lua_State *L )
    if ( lua_istable( L, 2 ) ) {
       lua_pushnil( L );                  /* nil */
       while ( lua_next( L, -2 ) != 0 ) { /* k, v */
-         int f = luaL_validfaction( L, -1 );
-         commodity_tempIllegalto( c, f );
+         commodity_tempIllegalto( c, luaL_validfaction( L, -1 ) );
          lua_pop( L, 1 ); /* k */
       }
    } else {
-      int f = luaL_validfaction( L, 2 );
+      FactionRef f = luaL_validfaction( L, 2 );
       commodity_tempIllegalto( c, f );
    }
    return 0;

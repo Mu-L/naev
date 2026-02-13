@@ -61,7 +61,7 @@ typedef struct EventData_ {
    char       *spob;       /**< Spob name. */
    char       *system;     /**< System name. */
    char       *chapter;    /**< Chapter name. */
-   int        *factions;   /**< Faction checks. */
+   FactionRef *factions;   /**< Faction checks. */
    pcre2_code *chapter_re; /**< Compiled regex chapter if applicable. */
 
    EventTrigger_t trigger;    /**< What triggers the event. */
@@ -375,14 +375,15 @@ void events_trigger( EventTrigger_t trigger )
 
       /* Test factions. */
       if ( ed->factions != NULL ) {
-         int fct, match = 0;
+         FactionRef fct;
+         int        match = 0;
          if ( trigger == EVENT_TRIGGER_ENTER )
             fct = cur_system->faction;
          else if ( trigger == EVENT_TRIGGER_LOAD ||
                    trigger == EVENT_TRIGGER_LAND )
             fct = land_spob->presence.faction;
          else {
-            fct   = -1;
+            fct   = FACTION_NULL;
             match = -1; /* Don't hae to check factions. */
          }
 
@@ -477,7 +478,7 @@ static int event_parseXML( EventData *temp, const xmlNodePtr parent )
 
       if ( xml_isNode( node, "faction" ) ) {
          if ( temp->factions == NULL )
-            temp->factions = array_create( int );
+            temp->factions = array_create( FactionRef );
          array_push_back( &temp->factions, faction_get( xml_get( node ) ) );
          continue;
       }

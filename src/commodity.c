@@ -349,11 +349,11 @@ static int commodity_parse( Commodity *temp, const char *filename )
       }
       if ( xml_isNode( node, "illegalto" ) ) {
          xmlNodePtr cur  = node->xmlChildrenNode;
-         temp->illegalto = array_create( int );
+         temp->illegalto = array_create( FactionRef );
          do {
             xml_onlyNodes( cur );
             if ( xml_isNode( cur, "faction" ) ) {
-               int f = faction_get( xml_get( cur ) );
+               FactionRef f = faction_get( xml_get( cur ) );
                array_push_back( &temp->illegalto, f );
             }
          } while ( xml_nextNode( cur ) );
@@ -453,7 +453,7 @@ const char *commodity_name( const Commodity *com )
  *    @param faction Faction to check to see if it is illegal to.
  *    @return 1 if it is illegal, 0 otherwise.
  */
-int commodity_checkIllegal( const Commodity *com, int faction )
+int commodity_checkIllegal( const Commodity *com, FactionRef faction )
 {
    for ( int i = 0; i < array_size( com->illegalto ); i++ ) {
       if ( com->illegalto[i] == faction )
@@ -505,7 +505,7 @@ Commodity *commodity_newTemp( const char *name, const char *desc )
 /**
  * @brief Makes a temporary commodity illegal to something.
  */
-int commodity_tempIllegalto( Commodity *com, int faction )
+int commodity_tempIllegalto( Commodity *com, FactionRef faction )
 {
    if ( !com->istemp ) {
       WARN( _( "Trying to modify temporary commodity '%s'!" ), com->name );
@@ -513,7 +513,7 @@ int commodity_tempIllegalto( Commodity *com, int faction )
    }
 
    if ( com->illegalto == NULL )
-      com->illegalto = array_create( int );
+      com->illegalto = array_create( FactionRef );
 
    /* Don't add twice. */
    for ( int i = 0; i < array_size( com->illegalto ); i++ ) {

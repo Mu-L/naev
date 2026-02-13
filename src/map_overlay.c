@@ -633,7 +633,7 @@ void ovr_initAlpha( void )
          pnt->map_alpha = 1.;
    }
 
-   safelanes = safelanes_get( -1, 0, cur_system );
+   safelanes = safelanes_get( FACTION_NULL, 0, cur_system );
    for ( int i = 0; i < array_size( safelanes ); i++ ) {
       vec2 *posns[2];
       if ( !ovr_safelaneKnown( &safelanes[i], posns ) )
@@ -771,7 +771,7 @@ void ovr_render( double dt )
    gl_renderRect( ovr_bounds.l, ovr_bounds.b, w, h, &c );
 
    /* Render the safe lanes */
-   safelanes = safelanes_get( -1, 0, cur_system );
+   safelanes = safelanes_get( FACTION_NULL, 0, cur_system );
    for ( int i = 0; i < array_size( safelanes ); i++ ) {
       glColour col;
       vec2    *posns[2];

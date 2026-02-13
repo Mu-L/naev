@@ -285,7 +285,7 @@ static void map_system_render( double bx, double by, double w, double h,
    char             buf[STRMAX];
    int              cnt;
    double           ast_nb, ast_area;
-   double           f;
+   FactionRef       f;
    int              hasPresence     = 0;
    double           unknownPresence = 0;
    char             t;
@@ -500,20 +500,21 @@ static void map_system_render( double bx, double by, double w, double h,
          cnt += scnprintf( &buf[cnt], sizeof( buf ) - cnt,
                            _( "#nOther:#0 %s\n" ), _( sys->features ) );
       /* Faction */
-      f = -1;
+      f = FACTION_NULL;
       for ( i = 0; i < array_size( sys->spobs ); i++ ) {
          if ( spob_isKnown( sys->spobs[i] ) ) {
-            if ( ( f == -1 ) && ( sys->spobs[i]->presence.faction >= 0 ) ) {
+            if ( ( f == FACTION_NULL ) &&
+                 ( sys->spobs[i]->presence.faction != FACTION_NULL ) ) {
                f = sys->spobs[i]->presence.faction;
             } else if ( f != sys->spobs[i]->presence.faction &&
-                        ( sys->spobs[i]->presence.faction >= 0 ) ) {
+                        ( sys->spobs[i]->presence.faction != FACTION_NULL ) ) {
                cnt += scnprintf( &buf[cnt], sizeof( buf ) - cnt,
                                  _( "#nFaction:#0 Multiple\n" ) );
                break;
             }
          }
       }
-      if ( f == -1 ) {
+      if ( f == FACTION_NULL ) {
          cnt += scnprintf( &buf[cnt], sizeof( buf ) - cnt,
                            _( "#nFaction:#0 N/A\n" ) );
       } else {
@@ -579,7 +580,7 @@ static void map_system_render( double bx, double by, double w, double h,
    } else {
       /* Display spob info */
       p = cur_spobObj_sel;
-      if ( p->presence.faction >= 0 ) { /* show the faction */
+      if ( p->presence.faction != FACTION_NULL ) { /* show the faction */
          char factionBuf[64];
          logo = faction_logo( p->presence.faction );
          if ( logo != NULL )

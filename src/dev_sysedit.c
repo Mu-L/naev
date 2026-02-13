@@ -972,7 +972,7 @@ static void sysedit_render( double bx, double by, double w, double h,
    }
 
    /* Render safe lanes. */
-   SafeLane *safelanes = safelanes_get( -1, 0, sys );
+   SafeLane *safelanes = safelanes_get( FACTION_NULL, 0, sys );
    for ( int i = 0; i < array_size( safelanes ); i++ ) {
       vec2           *posns[2];
       Spob           *pnt;
@@ -1692,8 +1692,9 @@ static void sysedit_editPnt( void )
    window_addText( wid, 20, y, 180, 15, 0, "txtFactionLabel", &gl_smallFont,
                    NULL, buf );
    snprintf( buf, sizeof( buf ), "%s",
-             p->presence.faction >= 0 ? faction_name( p->presence.faction )
-                                      : _( "None" ) );
+             p->presence.faction != FACTION_NULL
+                ? faction_name( p->presence.faction )
+                : _( "None" ) );
    window_addText( wid, 20 + w, y, 180, 15, 0, "txtFaction", &gl_smallFont,
                    NULL, buf );
    y -= gl_defFont.h + 5;
@@ -3026,7 +3027,7 @@ static void sysedit_btnFaction( unsigned int wid_unused, const char *unused )
    (void)unused;
    unsigned int wid;
    int          pos, j, y, h, bw;
-   int64_t     *factions;
+   FactionRef  *factions;
    char       **str;
    Spob        *p;
 
@@ -3048,7 +3049,7 @@ static void sysedit_btnFaction( unsigned int wid_unused, const char *unused )
    qsort( &str[1], j - 1, sizeof( char * ), strsort );
 
    /* Get current faction. */
-   if ( p->presence.faction >= 0 ) {
+   if ( p->presence.faction != FACTION_NULL ) {
       const char *s = faction_name( p->presence.faction );
       pos           = 0;
       for ( int i = 0; i < j; i++ )
@@ -3091,7 +3092,7 @@ static void sysedit_btnFactionSet( unsigned int wid, const char *unused )
    } else {
       /* "None" case. */
       if ( toolkit_getListPos( wid, "lstFactions" ) == 0 ) {
-         p->presence.faction = -1;
+         p->presence.faction = FACTION_NULL;
       } else {
          /* Set the faction. */
          p->presence.faction = faction_get( selected );
@@ -3100,7 +3101,7 @@ static void sysedit_btnFactionSet( unsigned int wid, const char *unused )
 
    /* Update the editor window. */
    window_modifyText( sysedit_widEdit, "txtFaction",
-                      p->presence.faction >= 0
+                      p->presence.faction != FACTION_NULL
                          ? faction_name( p->presence.faction )
                          : _( "None" ) );
 

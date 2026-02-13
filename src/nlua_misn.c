@@ -378,7 +378,7 @@ static int misn_setFaction( lua_State *L )
 {
    Mission *cur_mission = misn_getFromLua( L );
    if ( lua_isnoneornil( L, 1 ) )
-      cur_mission->faction = -1;
+      cur_mission->faction = FACTION_NULL;
    else
       cur_mission->faction = luaL_validfaction( L, 1 );
    return 0;

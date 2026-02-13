@@ -337,7 +337,7 @@ void ship_renderGfxStore( GLuint fbo, const Ship *s, int size, double dir,
    glClear( GL_COLOR_BUFFER_BIT );
 
    /* Give faction colour background if applicable. */
-   if ( s->faction >= 0 ) {
+   if ( s->faction != FACTION_NULL ) {
       const glColour *c = faction_colour( s->faction );
       if ( c != NULL ) {
          glUseProgram( shaders.shop_bg.program );
@@ -910,7 +910,7 @@ static int ship_parse( Ship *temp, const char *filename, int firstpass )
       /* Defaults. */
       ss_statsInit( &temp->stats_array );
       temp->dt_default     = 1.;
-      temp->faction        = -1;
+      temp->faction        = FACTION_NULL;
       temp->trail_emitters = array_create( ShipTrailEmitter );
 
       /* Lua defaults. */

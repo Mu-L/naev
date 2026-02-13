@@ -5,6 +5,7 @@
 
 #include <stdint.h>
 
+#include "faction.h"
 #include "ntime.h"
 
 #define NEWS_FOREVER INT64_MAX /* For news that should never get removed. */
@@ -35,7 +36,7 @@ void news_exit( void );
 /*
  * Display.
  */
-int *generate_news( int faction );
+int *generate_news( FactionRef faction );
 void news_widget( unsigned int wid, int x, int y, int w, int h );
 
 /*

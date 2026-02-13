@@ -79,10 +79,10 @@ typedef struct MapOverlayPos_ {
 /**
  * @brief Represents the presence of a spob. */
 typedef struct SpobPresence_ {
-   int64_t faction; /**< Faction generating presence. */
-   double  base;    /**< Base presence. */
-   double  bonus;   /**< Bonus presence. */
-   int     range;   /**< Range effect of the presence (in jumps). */
+   FactionRef faction; /**< Faction generating presence. */
+   double     base;    /**< Base presence. */
+   double     bonus;   /**< Bonus presence. */
+   int        range;   /**< Range effect of the presence (in jumps). */
 } SpobPresence;
 
 /**
@@ -233,12 +233,12 @@ typedef struct Spob_ {
  * @brief Represents presence in a system
  */
 typedef struct SystemPresence_ {
-   int64_t faction; /**< Faction of this presence. */
-   double  base;    /**< Base presence value. */
-   double  bonus;   /**< Bonus presence value. */
-   double  value;   /**< Amount of presence (base+bonus). */
-   double  curUsed; /**< Presence currently used. */
-   double  timer;   /**< Current faction timer. */
+   FactionRef faction; /**< Faction of this presence. */
+   double     base;    /**< Base presence value. */
+   double     bonus;   /**< Bonus presence value. */
+   double     value;   /**< Amount of presence (base+bonus). */
+   double     curUsed; /**< Presence currently used. */
+   double     timer;   /**< Current faction timer. */
    int disabled; /**< Whether or not spawning is disabled for this presence. */
    double local; /**< Local standing for the system. */
 } SystemPresence;
@@ -334,7 +334,7 @@ struct StarSystem_ {
    /* Spobs. */
    Spob        **spobs;         /**< Array (array.h): spobs */
    int          *spobsid;       /**< Array (array.h): IDs of the spobs. */
-   int64_t       faction;       /**< overall faction */
+   FactionRef    faction;       /**< overall faction */
    VirtualSpob **spobs_virtual; /**< Array (array.h): virtual spobs. */
 
    /* Jumps. */
@@ -420,7 +420,7 @@ int  spob_averageSpobPrice( const Spob *p, const Commodity *c, credits_t *mean,
                             double *std );
 void spob_averageSeenPricesAtTime( const Spob *p, const ntime_t tupdate );
 /* Misc modification. */
-int spob_setFaction( Spob *p, int64_t faction );
+int spob_setFaction( Spob *p, FactionRef faction );
 int spob_addCommodity( Spob *p, Commodity *c );
 int spob_addService( Spob *p, int service );
 int spob_rmService( Spob *p, int service );
@@ -475,17 +475,19 @@ void spobs_render( void );
  */
 void system_presenceCleanupAll( void );
 void system_presenceAddSpob( StarSystem *sys, const SpobPresence *ap );
-SystemPresence *system_getFactionPresence( StarSystem *sys, int64_t faction );
+SystemPresence       *system_getFactionPresence( StarSystem *sys,
+                                                 FactionRef  faction );
 const SystemPresence *system_getFactionPresenceConst( const StarSystem *sys,
-                                                      int64_t faction );
-double system_getReputation( const StarSystem *sys, int64_t faction );
-double system_getReputationOrGlobal( const StarSystem *sys, int64_t faction );
-double system_getPresence( const StarSystem *sys, int64_t faction );
-double system_getPresenceFull( const StarSystem *sys, int64_t faction,
+                                                      FactionRef faction );
+double system_getReputation( const StarSystem *sys, FactionRef faction );
+double system_getReputationOrGlobal( const StarSystem *sys,
+                                     FactionRef        faction );
+double system_getPresence( const StarSystem *sys, FactionRef faction );
+double system_getPresenceFull( const StarSystem *sys, FactionRef faction,
                                double *base, double *bonus );
 void   system_addAllSpobsPresence( StarSystem *sys );
 void   space_reconstructPresences( void );
-void   system_rmCurrentPresence( StarSystem *sys, int64_t faction,
+void   system_rmCurrentPresence( StarSystem *sys, FactionRef faction,
                                  double amount );
 
 /*
@@ -514,7 +516,7 @@ int         space_sysReachable( const StarSystem *sys );
 int         space_sysReallyReachable( const char *sysname );
 int         space_sysReachableFromSys( const StarSystem *target,
                                        const StarSystem *sys );
-char      **space_getFactionSpob( const int64_t *factions, int landable );
+char      **space_getFactionSpob( const FactionRef *factions, int landable );
 const char *space_getRndSpob( int landable, unsigned int services,
                               int ( *filter )( Spob *p ) );
 double system_getClosest( const StarSystem *sys, int *pnt, int *jp, int *ast,

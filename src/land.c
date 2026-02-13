@@ -1073,7 +1073,7 @@ void land_updateMainTab( void )
    l += scnprintf( &buf[l], sizeof( buf ) - l, "%s",
                    space_className( land_spob ) );
    l += scnprintf( &buf[l], sizeof( buf ) - l, "\n%s",
-                   land_spob->presence.faction >= 0
+                   land_spob->presence.faction != FACTION_NULL
                       ? faction_shortname( land_spob->presence.faction )
                       : _( "None" ) );
    l += scnprintf( &buf[l], sizeof( buf ) - l, "\n%s",
@@ -1534,7 +1534,7 @@ static void land_createMainTab( unsigned int wid )
     * Faction logo.
     */
    offset = 20;
-   if ( land_spob->presence.faction != -1 ) {
+   if ( land_spob->presence.faction != FACTION_NULL ) {
       const glTexture *logo = faction_logo( land_spob->presence.faction );
       if ( logo != NULL ) {
          int logow = tex_w( logo ) * (double)FACTION_LOGO_SM /
@@ -1875,7 +1875,7 @@ void takeoff( int delay, int nosave )
    if ( menu_isOpen( MENU_MAIN ) )
       return;
    events_trigger( EVENT_TRIGGER_ENTER );
-   missions_run( MIS_AVAIL_ENTER, -1, NULL, NULL );
+   missions_run( MIS_AVAIL_ENTER, FACTION_NULL, NULL, NULL );
    if ( menu_isOpen( MENU_MAIN ) )
       return;
 

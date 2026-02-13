@@ -3776,9 +3776,10 @@ int outfit_loadPost( void )
 
       /* Add illegality as necessary. */
       if ( array_size( o->illegaltoS ) > 0 ) {
-         o->illegalto = array_create_size( int, array_size( o->illegaltoS ) );
+         o->illegalto =
+            array_create_size( FactionRef, array_size( o->illegaltoS ) );
          for ( int j = 0; j < array_size( o->illegaltoS ); j++ ) {
-            int f = faction_get( o->illegaltoS[j] );
+            FactionRef f = faction_get( o->illegaltoS[j] );
             array_push_back( &o->illegalto, f );
             free( o->illegaltoS[j] );
          }
@@ -3872,7 +3873,7 @@ glTexture *rarity_texture( int rarity )
 /**
  * @brief Checks illegality of an outfit to a faction.
  */
-int outfit_checkIllegal( const Outfit *o, int fct )
+int outfit_checkIllegal( const Outfit *o, FactionRef fct )
 {
    for ( int i = 0; i < array_size( o->illegalto ); i++ ) {
       if ( o->illegalto[i] == fct )
@@ -3880,7 +3881,7 @@ int outfit_checkIllegal( const Outfit *o, int fct )
    }
    return 0;
 }
-int *outfit_illegalTo( const Outfit *o )
+FactionRef *outfit_illegalTo( const Outfit *o )
 {
    return o->illegalto;
 }

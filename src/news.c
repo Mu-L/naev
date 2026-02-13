@@ -199,14 +199,14 @@ void news_rm( int id )
  *    @param faction the faction of wanted news
  * @return 0 on success
  */
-int *generate_news( int faction )
+int *generate_news( FactionRef faction )
 {
    const char        *fname;
    ntime_t            curtime = ntime_get();
    int                p       = 0;
    const char *const *tags;
 
-   fname = ( faction >= 0 ) ? faction_name( faction ) : NULL;
+   fname = ( faction != FACTION_NULL ) ? faction_name( faction ) : NULL;
 
    /* First pass to remove old articles. */
    for ( int i = array_size( news_list ) - 1; i >= 0; i-- ) {
@@ -218,7 +218,7 @@ int *generate_news( int faction )
    }
 
    /* Put all acceptable news into buf */
-   tags = ( faction >= 0 ) ? faction_tags( faction ) : NULL;
+   tags = ( faction != FACTION_NULL ) ? faction_tags( faction ) : NULL;
    for ( int i = 0; i < array_size( news_list ); i++ ) {
       news_t *n         = &news_list[i];
       int     match_tag = 0;

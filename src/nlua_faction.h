@@ -3,6 +3,7 @@
  */
 #pragma once
 
+#include "faction.h"
 #include "nlua.h"
 
 #define FACTION_METATABLE "faction" /**< Faction metatable identifier. */
@@ -10,7 +11,7 @@
 /**
  * @brief Lua Faction wrapper.
  */
-typedef int64_t LuaFaction;
+typedef FactionRef LuaFaction;
 
 /*
  * Load the space library.

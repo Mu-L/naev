@@ -371,7 +371,7 @@ void commodity_update( unsigned int wid, const char *str )
       l += scnprintf( &buf[l], sizeof( buf ) - l, "\n\n%s",
                       _( "Illegalized by the following factions:\n" ) );
       for ( int j = 0; j < array_size( com->illegalto ); j++ ) {
-         int f = com->illegalto[j];
+         FactionRef f = com->illegalto[j];
          if ( !faction_isKnown( f ) )
             continue;
 

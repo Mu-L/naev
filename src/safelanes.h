@@ -27,7 +27,7 @@ typedef enum SafeLaneLocType_ {
  * @brief Describes a safe lane, patrolled by a faction, within a system.
  */
 typedef struct SafeLane_ {
-   int             faction;       /**< ID of the faction which owns the lane. */
+   FactionRef      faction;       /**< ID of the faction which owns the lane. */
    SafeLaneLocType point_type[2]; /**< Type of the patrol's endpoints. */
    int             point_id[2];   /**< ID of the patrol's endpoints. */
    double          map_alpha;     /**< Alpha to display on the map. */
@@ -35,6 +35,7 @@ typedef struct SafeLane_ {
 
 int       safelanes_init( void );
 void      safelanes_destroy( void );
-SafeLane *safelanes_get( int faction, int standing, const StarSystem *system );
+SafeLane *safelanes_get( FactionRef faction, int standing,
+                         const StarSystem *system );
 void      safelanes_recalculate( void );
 int       safelanes_calculated( void );

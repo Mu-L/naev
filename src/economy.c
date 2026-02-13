@@ -642,7 +642,7 @@ static int economy_calcPrice( Spob *spob, Commodity *commodity,
    }
 
    /* Check the faction is not NULL.*/
-   if ( spob->presence.faction == -1 ) {
+   if ( spob->presence.faction == FACTION_NULL ) {
       WARN( _( "Spob '%s' appears to have commodity '%s' defined, but no "
                "faction." ),
             spob->name, commodity->name );

@@ -145,7 +145,7 @@ static int  system_parseAsteroidExclusion( const xmlNodePtr node,
 static int             spob_cmp( const void *p1, const void *p2 );
 static void            system_scheduler( double dt, int init );
 static SystemPresence *system_getFactionPresenceGrow( StarSystem *sys,
-                                                      int         faction );
+                                                      FactionRef  faction );
 /* Markers. */
 static int space_addMarkerSystem( int sysid, MissionMarkerType type );
 static int space_addMarkerSpob( int pntid, MissionMarkerType type );
@@ -372,7 +372,7 @@ void system_updateAsteroids( StarSystem *sys )
  *    @param faction Faction to change to.
  *    @return 0 on success.
  */
-int spob_setFaction( Spob *p, int64_t faction )
+int spob_setFaction( Spob *p, FactionRef faction )
 {
    p->presence.faction = faction;
    return 0;
@@ -630,7 +630,7 @@ int space_calcJumpInPos( const StarSystem *in, const StarSystem *out, vec2 *pos,
  *    @return An array (array.h) of faction names.  Individual names are not
  * allocated.
  */
-char **space_getFactionSpob( const int64_t *factions, int landable )
+char **space_getFactionSpob( const FactionRef *factions, int landable )
 {
    char **tmp = array_create( char * );
    for ( int i = 0; i < array_size( systems_stack ); i++ ) {
@@ -2338,7 +2338,7 @@ static int spob_parsePresence( xmlNodePtr node, SpobPresence *ap )
 {
    xmlNodePtr cur = node->children;
    memset( ap, 0, sizeof( SpobPresence ) );
-   ap->faction = -1;
+   ap->faction = FACTION_NULL;
    do {
       xml_onlyNodes( cur );
       xmlr_float( cur, "base", ap->base );
@@ -2361,7 +2361,7 @@ static void spob_initDefaults( Spob *spob )
    memset( spob, 0, sizeof( Spob ) );
    spob->hide             = 0.01;
    spob->radius           = -1.;
-   spob->presence.faction = -1;
+   spob->presence.faction = FACTION_NULL;
    spob->marker_scale     = 1.; /* Default scale. */
    /* Lua stuff. */
    spob->lua_env        = NULL;
@@ -2489,7 +2489,7 @@ static int spob_parse( Spob *spob, const char *filename )
          continue;
       } else if ( xml_isNode( node, "presence" ) ) {
          spob_parsePresence( node, &spob->presence );
-         if ( spob->presence.faction >= 0 )
+         if ( spob->presence.faction != FACTION_NULL )
             flags |= FLAG_FACTIONSET;
          continue;
       } else if ( xml_isNode( node, "general" ) ) {
@@ -2933,7 +2933,7 @@ static void system_init( StarSystem *sys )
    sys->jumps         = array_create( JumpPoint );
    sys->asteroids     = array_create( AsteroidAnchor );
    sys->astexclude    = array_create( AsteroidExclusion );
-   sys->faction       = -1;
+   sys->faction       = FACTION_NULL;
    sys->presence      = array_create( SystemPresence );
 }
 
@@ -3428,7 +3428,7 @@ void system_setFaction( StarSystem *sys )
       qsort( sys->presence, array_size( sys->presence ),
              sizeof( SystemPresence ), sys_cmpSysFaction );
 
-   sys->faction = -1;
+   sys->faction = FACTION_NULL;
    for ( int i = 0; i < array_size( sys->presence ); i++ ) {
       for ( int j = 0; j < array_size( sys->spobs );
             j++ ) { /** @todo Handle multiple different factions. */
@@ -4366,7 +4366,7 @@ static int space_parseSaveNodes( xmlNodePtr parent, StarSystem *sys )
       } else if ( xml_isNode( node, "faction" ) ) {
          char *buf;
          xmlr_attr_strd( node, "name", buf );
-         int64_t f = faction_get( buf );
+         FactionRef f = faction_get( buf );
          free( buf );
          if ( !faction_isFaction( f ) )
             continue;
@@ -4396,7 +4396,7 @@ void system_presenceAddSpob( StarSystem *sys, const SpobPresence *ap )
    int                     curSpill;
    Queue                   q, qn;
    double                  spillfactor;
-   int                     faction   = ap->faction;
+   FactionRef              faction   = ap->faction;
    double                  base      = ap->base;
    double                  bonus     = ap->bonus;
    double                  range     = ap->range;
@@ -4516,7 +4516,7 @@ sys_cleanup:
 }
 
 static SystemPresence *system_getFactionPresenceGrow( StarSystem *sys,
-                                                      int         faction )
+                                                      FactionRef  faction )
 {
    /* Go through the array, looking for the faction. */
    for ( int i = 0; i < array_size( sys->presence ); i++ ) {
@@ -4531,7 +4531,7 @@ static SystemPresence *system_getFactionPresenceGrow( StarSystem *sys,
    }
    return sp;
 }
-SystemPresence *system_getFactionPresence( StarSystem *sys, int64_t faction )
+SystemPresence *system_getFactionPresence( StarSystem *sys, FactionRef faction )
 {
    /* Go through the array, looking for the faction. */
    for ( int i = 0; i < array_size( sys->presence ); i++ ) {
@@ -4541,7 +4541,7 @@ SystemPresence *system_getFactionPresence( StarSystem *sys, int64_t faction )
    return NULL;
 }
 const SystemPresence *system_getFactionPresenceConst( const StarSystem *sys,
-                                                      int64_t faction )
+                                                      FactionRef faction )
 {
    /* Go through the array, looking for the faction. */
    for ( int i = 0; i < array_size( sys->presence ); i++ ) {
@@ -4554,7 +4554,7 @@ const SystemPresence *system_getFactionPresenceConst( const StarSystem *sys,
 /**
  * @brief Gets the local reputation of the player in a system or returns 0.
  */
-double system_getReputation( const StarSystem *sys, int64_t faction )
+double system_getReputation( const StarSystem *sys, FactionRef faction )
 {
    int    set;
    double val = faction_reputationOverride( faction, &set );
@@ -4570,7 +4570,7 @@ double system_getReputation( const StarSystem *sys, int64_t faction )
  * @brief Gets the local reputation of the player in a system or returns the
  * global standing.
  */
-double system_getReputationOrGlobal( const StarSystem *sys, int64_t faction )
+double system_getReputationOrGlobal( const StarSystem *sys, FactionRef faction )
 {
    int    set;
    double val = faction_reputationOverride( faction, &set );
@@ -4589,7 +4589,7 @@ double system_getReputationOrGlobal( const StarSystem *sys, int64_t faction )
  *    @param faction The faction to get the presence for.
  *    @return The amount of presence the faction has in the system.
  */
-double system_getPresence( const StarSystem *sys, int64_t faction )
+double system_getPresence( const StarSystem *sys, FactionRef faction )
 {
    /* Check for NULL and display a warning. */
 #if DEBUGGING
@@ -4618,7 +4618,7 @@ double system_getPresence( const StarSystem *sys, int64_t faction )
  *    @param[out] bonus Bonus value of the presence.
  *    @return The amount of presence the faction has in the system.
  */
-double system_getPresenceFull( const StarSystem *sys, int64_t faction,
+double system_getPresenceFull( const StarSystem *sys, FactionRef faction,
                                double *base, double *bonus )
 {
    /* Check for NULL and display a warning. */
@@ -4730,7 +4730,8 @@ int system_hasSpob( const StarSystem *sys )
 /**
  * @brief Removes active presence.
  */
-void system_rmCurrentPresence( StarSystem *sys, int64_t faction, double amount )
+void system_rmCurrentPresence( StarSystem *sys, FactionRef faction,
+                               double amount )
 {
    nlua_env *env;
 
