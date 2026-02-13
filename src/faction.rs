@@ -1,5 +1,4 @@
 #![allow(dead_code, unused_variables, unused_imports)]
-
 use crate::array;
 use crate::array::ArrayCString;
 use crate::nlua::LuaEnv;
@@ -13,9 +12,10 @@ use nlog::warn_err;
 use nlog::{warn, warnx};
 use rayon::prelude::*;
 use renderer::{Context, ContextWrapper, texture};
+use slotmap::{Key, KeyData, SlotMap};
 use std::ffi::{CStr, CString, OsStr};
 use std::path::{Path, PathBuf};
-use std::sync::{Mutex, OnceLock, RwLock};
+use std::sync::{LazyLock, Mutex, OnceLock, RwLock};
 
 #[derive(Copy, Clone, Debug, PartialEq)]
 enum GridEntry {
@@ -29,14 +29,14 @@ struct Grid {
    data: Vec<GridEntry>,
    size: usize,
 }
-impl std::ops::Index<(usize, usize)> for Grid {
+impl std::ops::Index<(FactionRef, FactionRef)> for Grid {
    type Output = GridEntry;
-   fn index(&self, index: (usize, usize)) -> &Self::Output {
-      &self.data[self.offset(index)]
+   fn index(&self, index: (FactionRef, FactionRef)) -> &Self::Output {
+      &self.data[self.offset(index.slot())]
    }
 }
-impl std::ops::IndexMut<(usize, usize)> for Grid {
-   fn index_mut(&mut self, index: (usize, usize)) -> &mut Self::Output {
+impl std::ops::IndexMut<(FactionRef, FactionRef)> for Grid {
+   fn index_mut(&mut self, index: (FactionRef, FactionRef)) -> &mut Self::Output {
       let offset = self.offset(index);
       &mut self.data[offset]
    }
@@ -49,11 +49,13 @@ impl Grid {
       }
    }
 
-   fn offset(&self, idx: (usize, usize)) -> usize {
-      if idx.0 <= idx.1 {
-         idx.0 * self.size + idx.1
+   fn offset(&self, idx: (FactionRef, FactionRef)) -> usize {
+      let a = idx.0.slot();
+      let b = idx.0.slot();
+      if a <= b {
+         a * self.size + b
       } else {
-         idx.1 * self.size + idx.0
+         a * self.size + b
       }
    }
 
@@ -63,7 +65,7 @@ impl Grid {
       self.data.clear();
       self.data.resize(self.size * self.size, GridEntry::None);
 
-      for (id, fct) in factions.iter().enumerate() {
+      for (id, fct) in factions.iter() {
          let dat = &fct.data;
          self[(dat.id, dat.id)] = GridEntry::Allies;
          for a in &dat.allies {
@@ -112,20 +114,33 @@ impl Grid {
 static GRID: RwLock<Grid> = RwLock::new(Grid::new());
 
 /// Full faction data
-pub static FACTIONS: RwLock<Vec<Faction>> = RwLock::new(Vec::new());
-pub static PLAYER: OnceLock<FactionID> = OnceLock::new();
+pub static FACTIONS: LazyLock<RwLock<SlotMap<FactionRef, Faction>>> =
+   LazyLock::new(|| RwLock::new(SlotMap::with_key()));
+pub static PLAYER: OnceLock<FactionRef> = OnceLock::new();
 const PLAYER_FACTION_NAME: &str = "Escort";
 
-#[derive(PartialEq, Debug)]
-pub struct FactionID {
-   id: usize,
+slotmap::new_key_type! {
+pub struct FactionRef;
 }
-impl FactionID {
-   pub fn new(name: &str) -> Option<FactionID> {
+
+impl FactionRef {
+   pub fn slot(&self) -> usize {
+      (self.data().as_ffi() & 0xffff_ffff) as usize
+   }
+
+   pub fn as_ffi(self) -> i64 {
+      self.data().as_ffi() as i64
+   }
+
+   pub const fn from_ffi(value: i64) -> Self {
+      Self(KeyData::from_ffi(value as u64))
+   }
+
+   pub fn new(name: &str) -> Option<FactionRef> {
       let factions = FACTIONS.read().unwrap();
-      for (id, fct) in factions.iter().enumerate() {
+      for (id, fct) in factions.iter() {
          if fct.data.name == name {
-            return Some(FactionID { id });
+            return Some(id);
          }
       }
       None
@@ -136,7 +151,7 @@ impl FactionID {
       F: Fn(&Faction) -> R,
    {
       let factions = FACTIONS.read().unwrap();
-      match factions.get(self.id) {
+      match factions.get(*self) {
          Some(fct) => Ok(f(fct)),
          None => anyhow::bail!("faction not found"),
       }
@@ -144,7 +159,7 @@ impl FactionID {
 
    pub fn hit(&self, val: f32, source: &str, single: bool) -> Result<f32> {
       let factions = FACTIONS.read().unwrap();
-      match factions.get(self.id) {
+      match factions.get(*self) {
          Some(fct) => {
             let ret = fct.hit_lua(val, source, false, None)?;
             if !single {
@@ -177,7 +192,7 @@ impl FactionID {
                false
             })
       } else {
-         GRID.read().unwrap()[(self.id, other.id)] == GridEntry::Enemies
+         GRID.read().unwrap()[(*self, *other)] == GridEntry::Enemies
       }
    }
 
@@ -193,7 +208,7 @@ impl FactionID {
                false
             })
       } else {
-         GRID.read().unwrap()[(self.id, other.id)] == GridEntry::Enemies
+         GRID.read().unwrap()[(*self, *other)] == GridEntry::Enemies
       }
    }
 
@@ -202,7 +217,7 @@ impl FactionID {
       if self == other || other == PLAYER.get().unwrap() {
          false
       } else {
-         GRID.read().unwrap()[(self.id, other.id)] == GridEntry::Neutrals
+         GRID.read().unwrap()[(*self, *other)] == GridEntry::Neutrals
       }
    }
 }
@@ -785,7 +800,7 @@ pub fn load() -> Result<()> {
    FACTIONDATA.set(factions).unwrap_or_else(|err| {
       warn!("unable to set factions");
    });
-   match FactionID::new(PLAYER_FACTION_NAME) {
+   match FactionRef::new(PLAYER_FACTION_NAME) {
       Some(id) => PLAYER.set(id).unwrap_or_else(|_| {
          warn!("unable to set player faction ID");
       }),
@@ -793,11 +808,9 @@ pub fn load() -> Result<()> {
    };
 
    // Populate the arena with the static factions
-   *FACTIONS.write().unwrap() = FACTIONDATA
-      .get()
-      .unwrap()
-      .iter()
-      .map(|fct| Faction {
+   let mut data = FACTIONS.write().unwrap();
+   for fct in FACTIONDATA.get().unwrap() {
+      data.insert(Faction {
          api: OnceLock::new(),
          standing: RwLock::new(Standing {
             player: fct.player_def,
@@ -806,8 +819,8 @@ pub fn load() -> Result<()> {
             f_invisible: fct.f_invisible,
          }),
          data: DataWrapper::Static(fct),
-      })
-      .collect();
+      });
+   }
 
    // Compute grid
    GRID.write().unwrap().recompute()
@@ -816,7 +829,7 @@ pub fn load() -> Result<()> {
 pub fn load_lua() -> Result<()> {
    // Last pass: initialize Lua
    let lua = &NLUA;
-   for fct in FACTIONS.read().unwrap().iter() {
+   for (id, fct) in FACTIONS.read().unwrap().iter() {
       fct.init_lua(lua)?;
    }
    Ok(())
@@ -827,35 +840,35 @@ use std::mem::ManuallyDrop;
 use std::os::raw::{c_char, c_double, c_int};
 
 #[unsafe(no_mangle)]
-pub extern "C" fn _faction_isFaction(f: c_int) -> c_int {
+pub extern "C" fn _faction_isFaction(f: i64) -> c_int {
    if f < 0 {
       return 0;
    }
-   match FACTIONS.read().unwrap().get(f as usize) {
+   match FACTIONS.read().unwrap().get(FactionRef::from_ffi(f)) {
       Some(_) => 1,
       None => 0,
    }
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn _faction_exists(name: *const c_char) -> c_int {
+pub extern "C" fn _faction_exists(name: *const c_char) -> i64 {
    let ptr = unsafe { CStr::from_ptr(name) };
    let name = ptr.to_str().unwrap();
-   for (id, val) in FACTIONS.read().unwrap().iter().enumerate() {
+   for (id, val) in FACTIONS.read().unwrap().iter() {
       if name == val.data.name {
-         return id as c_int;
+         return id.as_ffi();
       }
    }
    0
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn _faction_get(name: *const c_char) -> c_int {
+pub extern "C" fn _faction_get(name: *const c_char) -> i64 {
    let ptr = unsafe { CStr::from_ptr(name) };
    let name = ptr.to_str().unwrap();
-   for (id, val) in FACTIONS.read().unwrap().iter().enumerate() {
+   for (id, val) in FACTIONS.read().unwrap().iter() {
       if name == val.data.name {
-         return id as c_int;
+         return id.as_ffi();
       }
    }
    warnx!(gettext("Faction '{}' not found in stack."), name);
@@ -863,60 +876,60 @@ pub extern "C" fn _faction_get(name: *const c_char) -> c_int {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn _faction_getAll() -> *const c_int {
-   let mut fcts: Vec<c_int> = vec![];
-   for (id, val) in FACTIONS.read().unwrap().iter().enumerate() {
-      fcts.push(id as c_int);
+pub extern "C" fn _faction_getAll() -> *const i64 {
+   let mut fcts: Vec<i64> = vec![];
+   for (id, val) in FACTIONS.read().unwrap().iter() {
+      fcts.push(id.as_ffi());
    }
    let arr = ManuallyDrop::new(array::Array::new(&fcts).unwrap());
-   arr.as_ptr() as *const c_int
+   arr.as_ptr() as *const i64
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn _faction_getAllVisible() -> *const c_int {
-   let mut fcts: Vec<c_int> = vec![];
-   for (id, fct) in FACTIONS.read().unwrap().iter().enumerate() {
+pub extern "C" fn _faction_getAllVisible() -> *const i64 {
+   let mut fcts: Vec<i64> = vec![];
+   for (id, fct) in FACTIONS.read().unwrap().iter() {
       if !fct.data.f_invisible {
-         fcts.push(id as c_int);
+         fcts.push(id.as_ffi());
       }
    }
    let arr = ManuallyDrop::new(array::Array::new(&fcts).unwrap());
-   arr.as_ptr() as *const c_int
+   arr.as_ptr() as *const i64
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn _faction_getKnown() -> *const c_int {
-   let mut fcts: Vec<c_int> = vec![];
-   for (id, val) in FACTIONS.read().unwrap().iter().enumerate() {
+pub extern "C" fn _faction_getKnown() -> *const i64 {
+   let mut fcts: Vec<i64> = vec![];
+   for (id, val) in FACTIONS.read().unwrap().iter() {
       if !val.data.f_invisible && !val.standing.read().unwrap().f_known {
-         fcts.push(id as c_int);
+         fcts.push(id.as_ffi());
       }
    }
    let arr = ManuallyDrop::new(array::Array::new(&fcts).unwrap());
-   arr.as_ptr() as *const c_int
+   arr.as_ptr() as *const i64
 }
 
 #[unsafe(no_mangle)]
 pub extern "C" fn _faction_clearKnown() {
-   for val in FACTIONS.read().unwrap().iter() {
+   for (id, val) in FACTIONS.read().unwrap().iter() {
       val.standing.write().unwrap().f_known = val.data.f_known;
    }
 }
 
 /// Helper function for the C-side
-fn faction_c_call<F, R>(id: c_int, f: F) -> Result<R>
+fn faction_c_call<F, R>(id: i64, f: F) -> Result<R>
 where
    F: Fn(&Faction) -> R,
 {
    let factions = FACTIONS.read().unwrap();
-   match factions.get(id as usize) {
+   match factions.get(FactionRef::from_ffi(id)) {
       Some(fct) => Ok(f(fct)),
       None => anyhow::bail!("faction not found"),
    }
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn _faction_isStatic(id: c_int) -> c_int {
+pub extern "C" fn _faction_isStatic(id: i64) -> i64 {
    faction_c_call(id, |fct| match fct.fixed() {
       true => 1,
       false => 0,
@@ -928,7 +941,7 @@ pub extern "C" fn _faction_isStatic(id: c_int) -> c_int {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn _faction_isInvisible(id: c_int) -> c_int {
+pub extern "C" fn _faction_isInvisible(id: i64) -> i64 {
    faction_c_call(id, |fct| match fct.invisible() {
       true => 1,
       false => 0,
@@ -940,7 +953,7 @@ pub extern "C" fn _faction_isInvisible(id: c_int) -> c_int {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn _faction_setInvisible(id: c_int, state: c_int) -> c_int {
+pub extern "C" fn _faction_setInvisible(id: i64, state: i64) -> c_int {
    faction_c_call(id, |fct| {
       fct.set_invisible(!matches!(state, 0));
       0
@@ -952,7 +965,7 @@ pub extern "C" fn _faction_setInvisible(id: c_int, state: c_int) -> c_int {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn _faction_isKnown(id: c_int) -> c_int {
+pub extern "C" fn _faction_isKnown(id: i64) -> i64 {
    faction_c_call(id, |fct| match fct.known() {
       true => 1,
       false => 0,
@@ -964,7 +977,7 @@ pub extern "C" fn _faction_isKnown(id: c_int) -> c_int {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn _faction_setKnown(id: c_int, state: c_int) -> c_int {
+pub extern "C" fn _faction_setKnown(id: i64, state: i64) -> c_int {
    faction_c_call(id, |fct| {
       fct.set_known(!matches!(state, 0));
       0
@@ -976,7 +989,7 @@ pub extern "C" fn _faction_setKnown(id: c_int, state: c_int) -> c_int {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn _faction_name(id: c_int) -> *const c_char {
+pub extern "C" fn _faction_name(id: i64) -> *const c_char {
    faction_c_call(id, |fct| {
       // Not translated on purpose
       fct.data.cname.as_ptr()
@@ -988,7 +1001,7 @@ pub extern "C" fn _faction_name(id: c_int) -> *const c_char {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn _faction_shortname(id: c_int) -> *const c_char {
+pub extern "C" fn _faction_shortname(id: i64) -> *const c_char {
    faction_c_call(id, |fct| {
       let ptr = match &fct.data.cdisplayname {
          Some(name) => name.as_ptr(),
@@ -1003,7 +1016,7 @@ pub extern "C" fn _faction_shortname(id: c_int) -> *const c_char {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn _faction_longname(id: c_int) -> *const c_char {
+pub extern "C" fn _faction_longname(id: i64) -> *const c_char {
    faction_c_call(id, |fct| {
       let ptr = match &fct.data.clongname {
          Some(name) => name.as_ptr(),
@@ -1018,7 +1031,7 @@ pub extern "C" fn _faction_longname(id: c_int) -> *const c_char {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn _faction_mapname(id: c_int) -> *const c_char {
+pub extern "C" fn _faction_mapname(id: i64) -> *const c_char {
    faction_c_call(id, |fct| {
       let ptr = match &fct.data.cmapname {
          Some(name) => name.as_ptr(),
@@ -1033,7 +1046,7 @@ pub extern "C" fn _faction_mapname(id: c_int) -> *const c_char {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn _faction_description(id: c_int) -> *const c_char {
+pub extern "C" fn _faction_description(id: i64) -> *const c_char {
    faction_c_call(id, |fct| {
       let ptr = fct.data.cdescription.as_ptr();
       unsafe { naevc::gettext_rust(ptr) }
@@ -1045,7 +1058,7 @@ pub extern "C" fn _faction_description(id: c_int) -> *const c_char {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn _faction_default_ai(id: c_int) -> *const c_char {
+pub extern "C" fn _faction_default_ai(id: i64) -> *const c_char {
    faction_c_call(id, |fct| fct.data.cai.as_ptr()).unwrap_or_else(|err| {
       warn_err!(err);
       std::ptr::null()
@@ -1053,7 +1066,7 @@ pub extern "C" fn _faction_default_ai(id: c_int) -> *const c_char {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn _faction_tags(id: c_int) -> *mut *const c_char {
+pub extern "C" fn _faction_tags(id: i64) -> *mut *const c_char {
    faction_c_call(id, |fct| fct.data.ctags.as_ptr()).unwrap_or_else(|err| {
       warn_err!(err);
       std::ptr::null_mut()
@@ -1061,7 +1074,7 @@ pub extern "C" fn _faction_tags(id: c_int) -> *mut *const c_char {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn _faction_lane_length_per_presence(id: c_int) -> c_double {
+pub extern "C" fn _faction_lane_length_per_presence(id: i64) -> c_double {
    faction_c_call(id, |fct| fct.data.lane_length_per_presence as c_double).unwrap_or_else(|err| {
       warn_err!(err);
       0.0
@@ -1069,7 +1082,7 @@ pub extern "C" fn _faction_lane_length_per_presence(id: c_int) -> c_double {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn _faction_lane_base_cost(id: c_int) -> c_double {
+pub extern "C" fn _faction_lane_base_cost(id: i64) -> c_double {
    faction_c_call(id, |fct| fct.data.lane_base_cost as c_double).unwrap_or_else(|err| {
       warn_err!(err);
       0.0
@@ -1077,7 +1090,7 @@ pub extern "C" fn _faction_lane_base_cost(id: c_int) -> c_double {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn _faction_logo(id: c_int) -> *const naevc::glTexture {
+pub extern "C" fn _faction_logo(id: i64) -> *const naevc::glTexture {
    faction_c_call(id, |fct| match &fct.data.logo {
       Some(logo) => logo as *const texture::Texture as *const naevc::glTexture,
       None => std::ptr::null(),
@@ -1089,7 +1102,7 @@ pub extern "C" fn _faction_logo(id: c_int) -> *const naevc::glTexture {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn _faction_colour(id: c_int) -> *const naevc::glColour {
+pub extern "C" fn _faction_colour(id: i64) -> *const naevc::glColour {
    faction_c_call(id, |fct| {
       &fct.data.ccolour as *const Vector4<f32> as *const naevc::glColour
    })
