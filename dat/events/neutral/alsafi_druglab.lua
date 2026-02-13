@@ -28,7 +28,7 @@ function create ()
    local voice = vn.newCharacter( _("Voice") )
    vn.transition()
    vn.na(_([[You sit in your command chair, blanking out as you look at the endless nothingness of Alsafi II. Nothing is good for the soul.]]))
-   vn.na(_([[To your chagrin, you see what seems to be a dust covered hatch open and someone, or something pulls them out of the ground. They stretch a bit before they notice your ship, and, pretending as if nothing happened, backtrack back into the surface and close the hatch. Whelp, there goes your nothingness.]]))
+   vn.na(_([[To your chagrin, you see what seems to be a dust covered hatch open and someone, or something climbs out of the ground. They stretch a bit before they notice your ship. Then, pretending as if nothing happened, backtrack back into the surface and close the hatch. Whelp, there goes your nothingness.]]))
    vn.menu{
       {_([[Go investigate.]]), "01_investigate" },
       {_([[Ignore it.]]), "01_ignore" },
