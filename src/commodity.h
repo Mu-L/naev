@@ -8,6 +8,7 @@
 #include <stdint.h>
 /** @endcond */
 
+#include "faction.h"
 #include "opengl_tex.h"
 
 #define ECON_CRED_STRLEN                                                       \
@@ -73,8 +74,8 @@ typedef struct Commodity_ {
    /* Misc stuff. */
    credits_t
       lastPurchasePrice; /**< Price paid when last purchasing this commodity. */
-   int  istemp;          /**< This commodity is temporary. */
-   int *illegalto;       /**< Factions this commodity is illegal to. */
+   int         istemp;   /**< This commodity is temporary. */
+   FactionRef *illegalto; /**< Factions this commodity is illegal to. */
 
    /* Dynamic economy stuff. */
    CommodityModifier
@@ -123,14 +124,14 @@ int        commodity_load( void );
 void       commodity_free( void );
 
 const char *commodity_name( const Commodity *com );
-int         commodity_checkIllegal( const Commodity *com, int faction );
+int         commodity_checkIllegal( const Commodity *com, FactionRef faction );
 
 /*
  * Temporary commodities.
  */
 int        commodity_isTemp( const char *name );
 Commodity *commodity_newTemp( const char *name, const char *desc );
-int        commodity_tempIllegalto( Commodity *com, int faction );
+int        commodity_tempIllegalto( Commodity *com, FactionRef faction );
 
 /*
  * Misc stuff.

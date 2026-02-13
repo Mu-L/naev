@@ -373,7 +373,7 @@ static int systemL_nameRaw( lua_State *L )
 static int systemL_faction( lua_State *L )
 {
    const StarSystem *s = luaL_validsystem( L, 1 );
-   if ( s->faction == -1 )
+   if ( s->faction == FACTION_NULL )
       return 0;
    lua_pushfaction( L, s->faction );
    return 1;
@@ -787,8 +787,8 @@ static int systemL_presence( lua_State *L )
    StarSystem *sys = luaL_validsystem( L, 1 );
 
    /* Allow fall-through. */
-   int  used = 0;
-   int *fct  = NULL;
+   int         used = 0;
+   FactionRef *fct  = NULL;
 
    /* Get the second parameter. */
    if ( lua_isstring( L, 2 ) ) {
@@ -811,8 +811,8 @@ static int systemL_presence( lua_State *L )
 
    if ( !used ) {
       /* A faction id was given. */
-      int f = luaL_validfaction( L, 2 );
-      fct   = array_create( int );
+      FactionRef f = luaL_validfaction( L, 2 );
+      fct          = array_create( FactionRef );
       array_push_back( &fct, f );
    }
 
@@ -1040,7 +1040,7 @@ static int systemL_reputation( lua_State *L )
       return 1;
    }
 
-   int f = luaL_validfaction( L, 2 );
+   FactionRef f = luaL_validfaction( L, 2 );
    for ( int i = 0; i < array_size( sys->presence ); i++ ) {
       if ( sys->presence[i].faction == f ) {
          lua_pushnumber( L, sys->presence[i].local );
@@ -1062,7 +1062,7 @@ static int systemL_reputation( lua_State *L )
 static int systemL_setReputation( lua_State *L )
 {
    StarSystem     *sys = luaL_validsystem( L, 1 );
-   int             f   = luaL_validfaction( L, 2 );
+   FactionRef      f   = luaL_validfaction( L, 2 );
    double          m   = luaL_checknumber( L, 3 );
    SystemPresence *sp  = system_getFactionPresence( sys, f );
    if ( sp != NULL )

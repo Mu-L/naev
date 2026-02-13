@@ -52,7 +52,7 @@ typedef struct Weapon_ {
    Solid        solid; /**< Actually has its own solid :) */
    unsigned int id;    /**< Unique weapon id. */
 
-   int           faction; /**< faction of pilot that shot it */
+   FactionRef    faction; /**< faction of pilot that shot it */
    unsigned int  parent;  /**< pilot that shot it */
    Target        target;  /**< Weapon target. */
    const Outfit *outfit;  /**< related outfit that fired it or whatnot */

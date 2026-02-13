@@ -940,7 +940,7 @@ static int outfitL_specificStats( lua_State *L )
 static int outfitL_illegality( lua_State *L )
 {
    const Outfit *o         = luaL_validoutfit( L, 1 );
-   int          *illegalto = outfit_illegalTo( o );
+   FactionRef   *illegalto = outfit_illegalTo( o );
    lua_newtable( L );
    for ( int i = 0; i < array_size( illegalto ); i++ ) {
       lua_pushfaction( L, illegalto[i] );

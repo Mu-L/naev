@@ -1118,8 +1118,9 @@ int diff_patchHunk( UniHunk_t *hunk )
    Spob       *p     = NULL;
    StarSystem *ssys  = NULL;
    StarSystem *ssys2 = NULL;
-   int         a, b;
-   int         f = -1;
+   int         a;
+   FactionRef  fa, fb;
+   FactionRef  f = FACTION_NULL;
 
    /* Common loading target bit to simplify code below. */
    switch ( hunk->target.type ) {
@@ -1135,7 +1136,7 @@ int diff_patchHunk( UniHunk_t *hunk )
       break;
    case HUNK_TARGET_FACTION:
       f = faction_get( hunk->target.u.name );
-      if ( f < 0 )
+      if ( f == FACTION_NULL )
          return -1;
       break;
    case HUNK_TARGET_NONE:
@@ -1535,20 +1536,20 @@ int diff_patchHunk( UniHunk_t *hunk )
 
    /* Changing spob faction. */
    case HUNK_TYPE_SPOB_FACTION:
-      if ( p->presence.faction < 0 )
+      if ( p->presence.faction == FACTION_NULL )
          hunk->o.name = NULL;
       else
          hunk->o.name = faction_name( p->presence.faction );
       diff_universe_changed = 1;
       /* Special case to clear the faction. */
       if ( SDL_strcasecmp( hunk->u.name, "None" ) == 0 )
-         return spob_setFaction( p, -1 );
+         return spob_setFaction( p, FACTION_NULL );
       else
          return spob_setFaction( p, faction_get( hunk->u.name ) );
    case HUNK_TYPE_SPOB_FACTION_REVERT:
       diff_universe_changed = 1;
       if ( hunk->o.name == NULL )
-         return spob_setFaction( p, -1 );
+         return spob_setFaction( p, FACTION_NULL );
       else
          return spob_setFaction( p, faction_get( hunk->o.name ) );
 
@@ -1729,87 +1730,89 @@ int diff_patchHunk( UniHunk_t *hunk )
       return faction_setInvisible( f, 1 );
    /* Making two factions allies. */
    case HUNK_TYPE_FACTION_ALLY:
-      a = f;
-      b = faction_get( hunk->u.name );
-      if ( areAllies( a, b ) )
+      fa = f;
+      fb = faction_get( hunk->u.name );
+      if ( fb == FACTION_NULL )
+         return -1;
+      else if ( areAllies( fa, fb ) )
          hunk->o.data = 'A';
-      else if ( areEnemies( a, b ) )
+      else if ( areEnemies( fa, fb ) )
          hunk->o.data = 'E';
       else
          hunk->o.data = 0;
-      faction_addAlly( a, b );
-      faction_addAlly( b, a );
+      faction_addAlly( fa, fb );
+      faction_addAlly( fb, fa );
       return 0;
    /* Making two factions enemies. */
    case HUNK_TYPE_FACTION_ENEMY:
-      a = f;
-      b = faction_get( hunk->u.name );
-      if ( b < 0 )
+      fa = f;
+      fb = faction_get( hunk->u.name );
+      if ( fb == FACTION_NULL )
          return -1;
-      if ( areAllies( a, b ) )
+      if ( areAllies( fa, fb ) )
          hunk->o.data = 'A';
-      else if ( areEnemies( a, b ) )
+      else if ( areEnemies( fa, fb ) )
          hunk->o.data = 'E';
-      else if ( areNeutral( a, b ) )
+      else if ( areNeutral( fa, fb ) )
          hunk->o.data = 'N';
       else
          hunk->o.data = 0;
-      faction_addEnemy( a, b );
-      faction_addEnemy( b, a );
+      faction_addEnemy( fa, fb );
+      faction_addEnemy( fb, fa );
       return 0;
    /* Making two factions neutral (removing enemy/ally statuses). */
    case HUNK_TYPE_FACTION_NEUTRAL:
-      a = f;
-      b = faction_get( hunk->u.name );
-      if ( b < 0 )
+      fa = f;
+      fb = faction_get( hunk->u.name );
+      if ( fb == FACTION_NULL )
          return -1;
-      if ( areAllies( a, b ) )
+      if ( areAllies( fa, fb ) )
          hunk->o.data = 'A';
-      else if ( areEnemies( a, b ) )
+      else if ( areEnemies( fa, fb ) )
          hunk->o.data = 'E';
-      else if ( areNeutral( a, b ) )
+      else if ( areNeutral( fa, fb ) )
          hunk->o.data = 'N';
       else
          hunk->o.data = 0;
-      faction_rmAlly( a, b );
-      faction_rmAlly( b, a );
-      faction_rmEnemy( a, b );
-      faction_rmEnemy( b, a );
+      faction_rmAlly( fa, fb );
+      faction_rmAlly( fb, fa );
+      faction_rmEnemy( fa, fb );
+      faction_rmEnemy( fb, fa );
       return 0;
    /* Resetting the alignment state of two factions. */
    case HUNK_TYPE_FACTION_REALIGN:
-      a = f;
-      b = faction_get( hunk->u.name );
-      if ( b < 0 )
+      fa = f;
+      fb = faction_get( hunk->u.name );
+      if ( fb == FACTION_NULL )
          return -1;
       if ( hunk->o.data == 'A' ) {
-         faction_rmNeutral( a, b );
-         faction_rmNeutral( b, a );
-         faction_rmEnemy( a, b );
-         faction_rmEnemy( b, a );
-         faction_addAlly( a, b );
-         faction_addAlly( b, a );
+         faction_rmNeutral( fa, fb );
+         faction_rmNeutral( fb, fa );
+         faction_rmEnemy( fa, fb );
+         faction_rmEnemy( fb, fa );
+         faction_addAlly( fa, fb );
+         faction_addAlly( fb, fa );
       } else if ( hunk->o.data == 'E' ) {
-         faction_rmNeutral( a, b );
-         faction_rmNeutral( b, a );
-         faction_rmAlly( a, b );
-         faction_rmAlly( b, a );
-         faction_addEnemy( a, b );
-         faction_addEnemy( b, a );
+         faction_rmNeutral( fa, fb );
+         faction_rmNeutral( fb, fa );
+         faction_rmAlly( fa, fb );
+         faction_rmAlly( fb, fa );
+         faction_addEnemy( fa, fb );
+         faction_addEnemy( fb, fa );
       } else if ( hunk->o.data == 'N' ) {
-         faction_rmAlly( a, b );
-         faction_rmAlly( b, a );
-         faction_rmEnemy( a, b );
-         faction_rmEnemy( b, a );
-         faction_addNeutral( a, b );
-         faction_addNeutral( b, a );
+         faction_rmAlly( fa, fb );
+         faction_rmAlly( fb, fa );
+         faction_rmEnemy( fa, fb );
+         faction_rmEnemy( fb, fa );
+         faction_addNeutral( fa, fb );
+         faction_addNeutral( fb, fa );
       } else {
-         faction_rmNeutral( a, b );
-         faction_rmNeutral( b, a );
-         faction_rmAlly( a, b );
-         faction_rmAlly( b, a );
-         faction_rmEnemy( a, b );
-         faction_rmEnemy( b, a );
+         faction_rmNeutral( fa, fb );
+         faction_rmNeutral( fb, fa );
+         faction_rmAlly( fa, fb );
+         faction_rmAlly( fb, fa );
+         faction_rmEnemy( fa, fb );
+         faction_rmEnemy( fb, fa );
       }
       return 0;
 

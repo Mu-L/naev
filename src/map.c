@@ -591,7 +591,8 @@ static void map_update( unsigned int wid )
 {
    int          multiple;
    StarSystem  *sys;
-   int          f, fh, h, x, y;
+   FactionRef   f;
+   int          fh, h, x, y;
    unsigned int services, services_u, services_h, services_f, services_r;
    int          hasSpobs;
    char         t;
@@ -690,26 +691,27 @@ static void map_update( unsigned int wid )
       return;
    }
 
-   f        = -1;
+   f        = FACTION_NULL;
    multiple = 0;
    for ( int i = 0; i < array_size( sys->spobs ); i++ ) {
       if ( !spob_isKnown( sys->spobs[i] ) )
          continue;
-      if ( ( sys->spobs[i]->presence.faction >= 0 ) &&
+      if ( ( sys->spobs[i]->presence.faction != FACTION_NULL ) &&
            ( !faction_isKnown( sys->spobs[i]->presence.faction ) ) )
          continue;
 
-      if ( ( f == -1 ) && ( sys->spobs[i]->presence.faction >= 0 ) ) {
+      if ( ( f == FACTION_NULL ) &&
+           ( sys->spobs[i]->presence.faction != FACTION_NULL ) ) {
          f = sys->spobs[i]->presence.faction;
       } else if ( f !=
                      sys->spobs[i]->presence.faction /** @todo more verbosity */
-                  && ( sys->spobs[i]->presence.faction >= 0 ) ) {
+                  && ( sys->spobs[i]->presence.faction != FACTION_NULL ) ) {
          snprintf( buf, sizeof( buf ), _( "Multiple" ) );
          multiple = 1;
          break;
       }
    }
-   if ( f == -1 ) {
+   if ( f == FACTION_NULL ) {
       window_modifyImage( wid, "imgFaction", NULL, 0, 0 );
       window_modifyText( wid, "txtFaction", _( "N/A" ) );
       window_modifyText( wid, "txtStanding", _( "N/A" ) );
@@ -1225,7 +1227,7 @@ void map_renderFactionDisks( double x, double y, double zoom, double r,
       ty = y + sys->pos.y * zoom;
 
       /* System has faction and is known or we are in editor. */
-      if ( sys->faction != -1 ) {
+      if ( sys->faction != FACTION_NULL ) {
          const glColour *col;
          double          presence = sqrt( sys->ownerpresence );
 

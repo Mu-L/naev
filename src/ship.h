@@ -107,7 +107,7 @@ typedef struct Ship {
    ShipClass class; /**< Ship class. */
    char *
       class_display; /**< Custom ship class, overrides class when displaying. */
-   int faction;      /**< Dominant faction of the ship. */
+   FactionRef faction; /**< Dominant faction of the ship. */
    int
       points; /**< Number of points the ship costs (used for presence et al.) */
    int          rarity; /**< Rarity. */

@@ -76,7 +76,7 @@ static int           info_lastTab; /**< Last open tab. */
 
 static CstSlotWidget info_eq;
 static CstSlotWidget info_eq_weaps;
-static int          *info_factions;
+static FactionRef   *info_factions;
 
 static int selectedMission = 0; /**< Current index in the missions list-box. */
 static int selectedLog     = 0;
@@ -1092,7 +1092,7 @@ static void cargo_update( unsigned int wid, const char *str )
       l += scnprintf( &desc[l], sizeof( desc ) - l, "\n\n%s",
                       _( "Illegalized by the following factions:\n" ) );
       for ( int i = 0; i < array_size( com->illegalto ); i++ ) {
-         int f = com->illegalto[i];
+         FactionRef f = com->illegalto[i];
          if ( !faction_isKnown( f ) )
             continue;
 
@@ -1224,10 +1224,10 @@ static void standings_close( unsigned int wid, const char *str )
 
 static int factionsSort( const void *p1, const void *p2 )
 {
-   int    f1, f2;
-   double v1, v2;
-   f1 = *(int *)p1;
-   f2 = *(int *)p2;
+   FactionRef f1, f2;
+   double     v1, v2;
+   f1 = *(FactionRef *)p1;
+   f2 = *(FactionRef *)p2;
    v1 = round( faction_reputation( f1 ) );
    v2 = round( faction_reputation( f2 ) );
    if ( v1 < v2 )
@@ -1294,12 +1294,12 @@ static void info_openStandings( unsigned int wid )
 static void standings_update( unsigned int wid, const char *str )
 {
    (void)str;
-   int              p, x, y;
-   const glTexture *t;
-   int              w, h, lw, l;
-   double           m, ml;
-   const int       *flist;
-   char             buf[STRMAX];
+   int               p, x, y;
+   const glTexture  *t;
+   int               w, h, lw, l;
+   double            m, ml;
+   const FactionRef *flist;
+   char              buf[STRMAX];
 
    /* Get dimensions. */
    info_getDim( wid, &w, &h, &lw );
@@ -1354,7 +1354,7 @@ static void standings_update( unsigned int wid, const char *str )
    if ( array_size( flist ) > 0 ) {
       int added = 0;
       for ( int i = 0; i < array_size( flist ); i++ ) {
-         int f = flist[i];
+         FactionRef f = flist[i];
          if ( faction_isStatic( f ) || !faction_isKnown( f ) ||
               faction_isInvisible( f ) || faction_isDynamic( f ) )
             continue;
@@ -1372,7 +1372,7 @@ static void standings_update( unsigned int wid, const char *str )
    if ( array_size( flist ) > 0 ) {
       int added = 0;
       for ( int i = 0; i < array_size( flist ); i++ ) {
-         int f = flist[i];
+         FactionRef f = flist[i];
          if ( faction_isStatic( f ) || !faction_isKnown( f ) ||
               faction_isInvisible( f ) || faction_isDynamic( f ) )
             continue;

@@ -2548,7 +2548,7 @@ static int playerL_teleport( lua_State *L )
    hooks_run( "jumpin" );
    hooks_run( "enter" );
    events_trigger( EVENT_TRIGGER_ENTER );
-   missions_run( MIS_AVAIL_ENTER, -1, NULL, NULL );
+   missions_run( MIS_AVAIL_ENTER, FACTION_NULL, NULL, NULL );
 
    /* Move to spob. */
    if ( pnt != NULL )

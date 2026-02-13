@@ -164,7 +164,7 @@ static int factionL_get( lua_State *L )
  */
 static int factionL_getAll( lua_State *L )
 {
-   const int *factions = faction_getAll();
+   const FactionRef *factions = faction_getAll();
    lua_newtable( L );
    for ( int i = 0; i < array_size( factions ); i++ ) {
       lua_pushfaction( L, factions[i] );
@@ -205,7 +205,7 @@ LuaFaction lua_checkfaction( lua_State *L, int ind )
    if ( lua_isfaction( L, ind ) )
       return lua_tofaction( L, ind );
    luaL_typerror( L, ind, FACTION_METATABLE );
-   return -1;
+   return FACTION_NULL;
 }
 
 static LuaFaction luaL_validfactionSilent( lua_State *L, int ind )
@@ -228,10 +228,10 @@ static LuaFaction luaL_validfactionSilent( lua_State *L, int ind )
  */
 LuaFaction luaL_validfaction( lua_State *L, int ind )
 {
-   int id = luaL_validfactionSilent( L, ind );
-   if ( id == -1 )
-      return NLUA_ERROR( L, _( "Faction '%s' not found in stack." ),
-                         lua_tostring( L, ind ) );
+   FactionRef id = luaL_validfactionSilent( L, ind );
+   if ( id == FACTION_NULL )
+      NLUA_ERROR( L, _( "Faction '%s' not found in stack." ),
+                  lua_tostring( L, ind ) );
    return id;
 }
 
@@ -287,8 +287,8 @@ int lua_isfaction( lua_State *L, int ind )
  */
 static int factionL_eq( lua_State *L )
 {
-   int a = luaL_validfaction( L, 1 );
-   int b = luaL_validfaction( L, 2 );
+   FactionRef a = luaL_validfaction( L, 1 );
+   FactionRef b = luaL_validfaction( L, 2 );
    lua_pushboolean( L, a == b );
    return 1;
 }
@@ -309,7 +309,7 @@ static int factionL_eq( lua_State *L )
  */
 static int factionL_name( lua_State *L )
 {
-   int f = luaL_validfaction( L, 1 );
+   FactionRef f = luaL_validfaction( L, 1 );
    lua_pushstring( L, faction_shortname( f ) );
    return 1;
 }
@@ -330,7 +330,7 @@ static int factionL_name( lua_State *L )
  */
 static int factionL_nameRaw( lua_State *L )
 {
-   int f = luaL_validfaction( L, 1 );
+   FactionRef f = luaL_validfaction( L, 1 );
    lua_pushstring( L, faction_name( f ) );
    return 1;
 }
@@ -350,7 +350,7 @@ static int factionL_nameRaw( lua_State *L )
  */
 static int factionL_longname( lua_State *L )
 {
-   int f = luaL_validfaction( L, 1 );
+   FactionRef f = luaL_validfaction( L, 1 );
    lua_pushstring( L, faction_longname( f ) );
    return 1;
 }
@@ -366,8 +366,8 @@ static int factionL_longname( lua_State *L )
  */
 static int factionL_areneutral( lua_State *L )
 {
-   int f  = luaL_validfaction( L, 1 );
-   int ff = luaL_validfaction( L, 2 );
+   FactionRef f  = luaL_validfaction( L, 1 );
+   FactionRef ff = luaL_validfaction( L, 2 );
    lua_pushboolean( L, areNeutral( f, ff ) );
    return 1;
 }
@@ -386,8 +386,8 @@ static int factionL_areneutral( lua_State *L )
  */
 static int factionL_areenemies( lua_State *L )
 {
-   int f  = luaL_validfaction( L, 1 );
-   int ff = luaL_validfaction( L, 2 );
+   FactionRef f  = luaL_validfaction( L, 1 );
+   FactionRef ff = luaL_validfaction( L, 2 );
    if ( !lua_isnoneornil( L, 3 ) )
       lua_pushboolean( L, areEnemiesSystem( f, ff, luaL_validsystem( L, 3 ) ) );
    else
@@ -409,8 +409,8 @@ static int factionL_areenemies( lua_State *L )
  */
 static int factionL_areallies( lua_State *L )
 {
-   int f  = luaL_validfaction( L, 1 );
-   int ff = luaL_validfaction( L, 2 );
+   FactionRef f  = luaL_validfaction( L, 1 );
+   FactionRef ff = luaL_validfaction( L, 2 );
    if ( !lua_isnoneornil( L, 3 ) )
       lua_pushboolean( L, areAlliesSystem( f, ff, luaL_validsystem( L, 3 ) ) );
    else
@@ -443,7 +443,7 @@ static int factionL_areallies( lua_State *L )
  */
 static int factionL_hit( lua_State *L )
 {
-   int               f   = luaL_validfaction( L, 1 );
+   FactionRef        f   = luaL_validfaction( L, 1 );
    double            mod = luaL_checknumber( L, 2 );
    const StarSystem *sys =
       ( lua_isnoneornil( L, 3 ) ) ? NULL : luaL_validsystem( L, 3 );
@@ -470,7 +470,7 @@ static int factionL_hit( lua_State *L )
  */
 static int factionL_hitTest( lua_State *L )
 {
-   int               f   = luaL_validfaction( L, 1 );
+   FactionRef        f   = luaL_validfaction( L, 1 );
    double            mod = luaL_checknumber( L, 2 );
    const StarSystem *sys =
       ( lua_isnoneornil( L, 3 ) ) ? NULL : luaL_validsystem( L, 3 );
@@ -491,7 +491,7 @@ static int factionL_hitTest( lua_State *L )
  */
 static int factionL_reputationGlobal( lua_State *L )
 {
-   int f = luaL_validfaction( L, 1 );
+   FactionRef f = luaL_validfaction( L, 1 );
    lua_pushnumber( L, faction_reputation( f ) );
    return 1;
 }
@@ -507,7 +507,7 @@ static int factionL_reputationGlobal( lua_State *L )
  */
 static int factionL_reputationText( lua_State *L )
 {
-   int f = luaL_validfaction( L, 1 );
+   FactionRef f = luaL_validfaction( L, 1 );
    if ( lua_isnoneornil( L, 2 ) )
       lua_pushstring( L, faction_getStandingTextAtValue(
                             f, faction_reputationDefault( f ) ) );
@@ -526,7 +526,7 @@ static int factionL_reputationText( lua_State *L )
  */
 static int factionL_reputationDefault( lua_State *L )
 {
-   int f = luaL_validfaction( L, 1 );
+   FactionRef f = luaL_validfaction( L, 1 );
    lua_pushnumber( L, faction_reputationDefault( f ) );
    return 1;
 }
@@ -541,8 +541,8 @@ static int factionL_reputationDefault( lua_State *L )
  */
 static int factionL_setReputationGlobal( lua_State *L )
 {
-   int    f = luaL_validfaction( L, 1 );
-   double n = luaL_checknumber( L, 2 );
+   FactionRef f = luaL_validfaction( L, 1 );
+   double     n = luaL_checknumber( L, 2 );
    /* TODO finish. */
    faction_setReputation( f, n );
    return 0;
@@ -560,7 +560,7 @@ static int factionL_setReputationGlobal( lua_State *L )
  */
 static int factionL_applyLocalThreshold( lua_State *L )
 {
-   int         f   = luaL_validfaction( L, 1 );
+   FactionRef  f   = luaL_validfaction( L, 1 );
    StarSystem *sys = luaL_validsystem( L, 2 );
    faction_applyLocalThreshold( f, sys );
    return 0;
@@ -577,8 +577,8 @@ static int factionL_applyLocalThreshold( lua_State *L )
  */
 static int factionL_enemies( lua_State *L )
 {
-   const int *factions;
-   int        f = luaL_validfaction( L, 1 );
+   const FactionRef *factions;
+   FactionRef        f = luaL_validfaction( L, 1 );
 
    /* Push the enemies in a table. */
    lua_newtable( L );
@@ -602,8 +602,8 @@ static int factionL_enemies( lua_State *L )
  */
 static int factionL_allies( lua_State *L )
 {
-   const int *factions;
-   int        f = luaL_validfaction( L, 1 );
+   const FactionRef *factions;
+   FactionRef        f = luaL_validfaction( L, 1 );
 
    /* Push the enemies in a table. */
    lua_newtable( L );
@@ -626,7 +626,7 @@ static int factionL_allies( lua_State *L )
  */
 static int factionL_usesHiddenJumps( lua_State *L )
 {
-   int f = luaL_validfaction( L, 1 );
+   FactionRef f = luaL_validfaction( L, 1 );
    lua_pushboolean( L, faction_usesHiddenJumps( f ) );
    return 1;
 }
@@ -640,7 +640,7 @@ static int factionL_usesHiddenJumps( lua_State *L )
  */
 static int factionL_logo( lua_State *L )
 {
-   int              lf  = luaL_validfaction( L, 1 );
+   FactionRef       lf  = luaL_validfaction( L, 1 );
    const glTexture *tex = faction_logo( lf );
    if ( tex == NULL )
       return 0;
@@ -657,7 +657,7 @@ static int factionL_logo( lua_State *L )
  */
 static int factionL_colour( lua_State *L )
 {
-   int             lf  = luaL_validfaction( L, 1 );
+   FactionRef      lf  = luaL_validfaction( L, 1 );
    const glColour *col = faction_reputationColour( lf );
    if ( col == NULL )
       return 0;
@@ -676,7 +676,7 @@ static int factionL_colour( lua_State *L )
  */
 static int factionL_isKnown( lua_State *L )
 {
-   int fac = luaL_validfaction( L, 1 );
+   FactionRef fac = luaL_validfaction( L, 1 );
    lua_pushboolean( L, faction_isKnown( fac ) );
    return 1;
 }
@@ -691,8 +691,8 @@ static int factionL_isKnown( lua_State *L )
  */
 static int factionL_setKnown( lua_State *L )
 {
-   int fac = luaL_validfaction( L, 1 );
-   int b   = lua_toboolean( L, 2 );
+   FactionRef fac = luaL_validfaction( L, 1 );
+   int        b   = lua_toboolean( L, 2 );
    faction_setKnown( fac, b );
    return 0;
 }
@@ -708,7 +708,7 @@ static int factionL_setKnown( lua_State *L )
  */
 static int factionL_isInvisible( lua_State *L )
 {
-   int fac = luaL_validfaction( L, 1 );
+   FactionRef fac = luaL_validfaction( L, 1 );
    lua_pushboolean( L, faction_isInvisible( fac ) );
    return 1;
 }
@@ -725,7 +725,7 @@ static int factionL_isInvisible( lua_State *L )
  */
 static int factionL_isStatic( lua_State *L )
 {
-   int fac = luaL_validfaction( L, 1 );
+   FactionRef fac = luaL_validfaction( L, 1 );
    lua_pushboolean( L, faction_isStatic( fac ) );
    return 1;
 }
@@ -741,9 +741,9 @@ static int factionL_isStatic( lua_State *L )
  */
 static int factionL_reputationOverride( lua_State *L )
 {
-   int    fac = luaL_validfaction( L, 1 );
-   int    set;
-   double val = faction_reputationOverride( fac, &set );
+   FactionRef fac = luaL_validfaction( L, 1 );
+   int        set;
+   double     val = faction_reputationOverride( fac, &set );
    if ( !set )
       return 0;
    lua_pushnumber( L, val );
@@ -760,8 +760,8 @@ static int factionL_reputationOverride( lua_State *L )
  */
 static int factionL_setReputationOverride( lua_State *L )
 {
-   int fac = luaL_validfaction( L, 1 );
-   int set = !lua_isnoneornil( L, 2 );
+   FactionRef fac = luaL_validfaction( L, 1 );
+   int        set = !lua_isnoneornil( L, 2 );
    faction_setReputationOverride( fac, set, luaL_optnumber( L, 2, 0. ) );
    return 1;
 }
@@ -781,7 +781,7 @@ static int factionL_setReputationOverride( lua_State *L )
  */
 static int factionL_tags( lua_State *L )
 {
-   int fac = luaL_validfaction( L, 1 );
+   FactionRef fac = luaL_validfaction( L, 1 );
    return nlua_helperTags( L, 2, (char *const *)faction_tags( fac ) );
 }
 
@@ -814,14 +814,14 @@ static int factionL_dynAdd( lua_State *L )
    if ( !lua_isnoneornil( L, 1 ) )
       fac = luaL_validfactionSilent( L, 1 ); /* Won't error. */
    else
-      fac = -1;
+      fac = FACTION_NULL;
    name       = luaL_checkstring( L, 2 );
    display    = luaL_optstring( L, 3, name );
    set_player = 0;
 
    /* Just return existing and ignore the rest. */
    if ( faction_exists( name ) ) {
-      int f = faction_get( name );
+      FactionRef f = faction_get( name );
       if ( !faction_isDynamic( f ) )
          return NLUA_ERROR( L,
                             _( "Trying to overwrite existing faction '%s' with "

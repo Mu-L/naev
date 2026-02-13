@@ -386,7 +386,7 @@ typedef struct Outfit {
    double       mass;    /**< How much weapon capacity is needed. */
    double       cpu;     /**< CPU usage. */
    char        *limit; /**< Name to limit to one per ship (ignored if NULL). */
-   int         *illegalto;  /**< Factions this outfit is illegal to. */
+   FactionRef  *illegalto;  /**< Factions this outfit is illegal to. */
    char       **illegaltoS; /**< Temporary buffer to set up illegality. */
 
    /* Store stuff */
@@ -669,11 +669,11 @@ void outfit_free( void );
 /*
  * Misc.
  */
-int        outfit_fitsSlot( const Outfit *o, const OutfitSlot *s );
-int        outfit_fitsSlotType( const Outfit *o, const OutfitSlot *s );
-void       outfit_freeSlot( OutfitSlot *s );
-glTexture *rarity_texture( int rarity );
-int        outfit_checkIllegal( const Outfit *o, int fct );
-int       *outfit_illegalTo( const Outfit *o );
-int        outfit_licenseExists( const char *name );
-char     **outfit_tags( const Outfit *o );
+int         outfit_fitsSlot( const Outfit *o, const OutfitSlot *s );
+int         outfit_fitsSlotType( const Outfit *o, const OutfitSlot *s );
+void        outfit_freeSlot( OutfitSlot *s );
+glTexture  *rarity_texture( int rarity );
+int         outfit_checkIllegal( const Outfit *o, FactionRef fct );
+FactionRef *outfit_illegalTo( const Outfit *o );
+int         outfit_licenseExists( const char *name );
+char      **outfit_tags( const Outfit *o );

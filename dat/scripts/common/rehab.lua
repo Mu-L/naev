@@ -34,7 +34,7 @@ function rehab.init( fct, params )
       -- Must not be in a hostile place.
       local spb = spob.cur()
       if spb then
-         local spbfct = spob:faction()
+         local spbfct = spb:faction()
          if spbfct and spbfct:areEnemies(fct) then
             misn.finish()
          end

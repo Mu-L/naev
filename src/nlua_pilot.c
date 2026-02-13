@@ -927,7 +927,7 @@ static int pilotL_explode( lua_State *L )
    return 0;
 }
 
-static void clearSelect( Pilot *const *pilot_stack, int f )
+static void clearSelect( Pilot *const *pilot_stack, FactionRef f )
 {
    for ( int i = 0; i < array_size( pilot_stack ); i++ ) {
       Pilot *pi = pilot_stack[i];
@@ -996,7 +996,7 @@ static int pilotL_canSpawn( lua_State *L )
    return 1;
 }
 
-static void toggleSpawn( int f, int b )
+static void toggleSpawn( FactionRef f, int b )
 {
    /* Find the faction and set. */
    for ( int i = 0; i < array_size( cur_system->presence ); i++ ) {
@@ -1075,13 +1075,13 @@ static int pilotL_getPilots( lua_State *L )
 
    /* Check for belonging to faction. */
    if ( lua_istable( L, 1 ) || lua_isfaction( L, 1 ) ) {
-      int *factions;
+      FactionRef *factions;
       if ( lua_isfaction( L, 1 ) ) {
-         factions = array_create( int );
+         factions = array_create( FactionRef );
          array_push_back( &factions, lua_tofaction( L, 1 ) );
       } else {
          /* Get table length and preallocate. */
-         factions = array_create_size( int, lua_objlen( L, 1 ) );
+         factions = array_create_size( FactionRef, lua_objlen( L, 1 ) );
          /* Load up the table. */
          lua_pushnil( L );
          while ( lua_next( L, 1 ) != 0 ) {
@@ -1197,13 +1197,13 @@ static int pilotL_getFriendOrFoe( lua_State *L, int friend )
    LuaFaction    lf;
 
    /* Check if using faction. */
-   lf = -1;
+   lf = FACTION_NULL;
    if ( lua_isfaction( L, 1 ) )
       lf = lua_tofaction( L, 1 );
    else if ( lua_isstring( L, 1 ) )
       lf = luaL_validfaction( L, 1 );
    /* Faction case. */
-   if ( lf >= 0 ) {
+   if ( lf != FACTION_NULL ) {
       dist     = luaL_optnumber( L, 2, -1. );
       v        = luaL_checkvector( L, 3 );
       inrange  = 0;
@@ -3242,8 +3242,8 @@ static int pilotL_comm( lua_State *L )
 static int pilotL_setFaction( lua_State *L )
 {
    /* Parse parameters. */
-   Pilot *p   = luaL_validpilot( L, 1 );
-   int    fid = luaL_validfaction( L, 2 );
+   Pilot     *p   = luaL_validpilot( L, 1 );
+   FactionRef fid = luaL_validfaction( L, 2 );
    /* Ignore escalations, we should probably add an API for that case, but it
     * can be problematic with, for example, the lost faction changing
     * mechanics. */
@@ -5568,7 +5568,7 @@ static int pilotL_flags( lua_State *L )
 static int pilotL_hasIllegal( lua_State *L )
 {
    const Pilot *p = luaL_validpilot( L, 1 );
-   int          f = luaL_validfaction( L, 2 );
+   FactionRef   f = luaL_validfaction( L, 2 );
    lua_pushboolean( L, pilot_hasIllegal( p, f ) );
    return 1;
 }

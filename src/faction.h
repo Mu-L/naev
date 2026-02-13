@@ -3,99 +3,107 @@
  */
 #pragma once
 
+#include <stdint.h>
+
 #include "colour.h"
 #include "nlua.h"
 #include "opengl_tex.h"
 #include "space_fdecl.h"
 
-extern int faction_player;
+// typedef void *FactionRef;
+typedef int FactionRef;
+
+#define FACTION_NULL ( ( FactionRef ) - 1 )
+
+extern FactionRef faction_player;
 
 #define FACTION_PLAYER                                                         \
    faction_player          /**< Hardcoded player faction identifier. */
 #define FACTION_LOGO_SM 64 /**< Size of "small" logo. */
 
 typedef struct FactionGenerator_ {
-   int    id;     /**< Id of the generator. */
-   double weight; /**< Weight modifier. */
+   FactionRef id;     /**< Id of the generator. */
+   double     weight; /**< Weight modifier. */
 } FactionGenerator;
 
 /* Get stuff */
-int                     faction_isFaction( int f );
-int                     faction_exists( const char *name );
-int                     faction_get( const char *name );
-int                    *faction_getAll( void );
-int                    *faction_getAllVisible( void );
-int                    *faction_getKnown();
-int                     faction_isStatic( int id );
-int                     faction_isInvisible( int id );
-int                     faction_setInvisible( int id, int state );
-int                     faction_isKnown( int id );
-int                     faction_isDynamic( int id );
-const char             *faction_name( int f );
-const char             *faction_shortname( int f );
-const char             *faction_longname( int f );
-const char             *faction_mapname( int f );
-const char             *faction_description( int f );
-const char             *faction_default_ai( int f );
-const char *const      *faction_tags( int f );
-double                  faction_lane_length_per_presence( int f );
-double                  faction_lane_base_cost( int f );
-void                    faction_clearEnemy( int f );
-void                    faction_addEnemy( int f, int o );
-void                    faction_rmEnemy( int f, int o );
-void                    faction_clearAlly( int f );
-void                    faction_addAlly( int f, int o );
-void                    faction_rmAlly( int f, int o );
-void                    faction_addNeutral( int f, int o );
-void                    faction_rmNeutral( int f, int o );
-nlua_env               *faction_getScheduler( int f );
-nlua_env               *faction_getEquipper( int f );
-const glTexture        *faction_logo( int f );
-const glColour         *faction_colour( int f );
-const int              *faction_getEnemies( int f );
-const int              *faction_getAllies( int f );
-int                    *faction_getGroup( int which );
-int                     faction_usesHiddenJumps( int f );
-const FactionGenerator *faction_generators( int f );
+int                     faction_isFaction( FactionRef f );
+FactionRef              faction_exists( const char *name );
+FactionRef              faction_get( const char *name );
+FactionRef             *faction_getAll( void );
+FactionRef             *faction_getAllVisible( void );
+FactionRef             *faction_getKnown();
+int                     faction_isStatic( FactionRef id );
+int                     faction_isInvisible( FactionRef id );
+int                     faction_setInvisible( FactionRef id, int state );
+int                     faction_isKnown( FactionRef id );
+int                     faction_isDynamic( FactionRef id );
+const char             *faction_name( FactionRef f );
+const char             *faction_shortname( FactionRef f );
+const char             *faction_longname( FactionRef f );
+const char             *faction_mapname( FactionRef f );
+const char             *faction_description( FactionRef f );
+const char             *faction_default_ai( FactionRef f );
+const char *const      *faction_tags( FactionRef f );
+double                  faction_lane_length_per_presence( FactionRef f );
+double                  faction_lane_base_cost( FactionRef f );
+void                    faction_clearEnemy( FactionRef f );
+void                    faction_addEnemy( FactionRef f, FactionRef o );
+void                    faction_rmEnemy( FactionRef f, FactionRef o );
+void                    faction_clearAlly( FactionRef f );
+void                    faction_addAlly( FactionRef f, FactionRef o );
+void                    faction_rmAlly( FactionRef f, FactionRef o );
+void                    faction_addNeutral( FactionRef f, FactionRef o );
+void                    faction_rmNeutral( FactionRef f, FactionRef o );
+nlua_env               *faction_getScheduler( FactionRef f );
+nlua_env               *faction_getEquipper( FactionRef f );
+const glTexture        *faction_logo( FactionRef f );
+const glColour         *faction_colour( FactionRef f );
+const FactionRef       *faction_getEnemies( FactionRef f );
+const FactionRef       *faction_getAllies( FactionRef f );
+FactionRef             *faction_getGroup( int which );
+int                     faction_usesHiddenJumps( FactionRef f );
+const FactionGenerator *faction_generators( FactionRef f );
 
 /* Set stuff */
-int    faction_setKnown( int id, int state );
-double faction_reputationOverride( int f, int *set );
-void   faction_setReputationOverride( int f, int set, double value );
+int    faction_setKnown( FactionRef id, int state );
+double faction_reputationOverride( FactionRef f, int *set );
+void   faction_setReputationOverride( FactionRef f, int set, double value );
 
 /* player stuff */
-double      faction_hit( int f, const StarSystem *sys, double mod,
-                         const char *source, int single );
-double      faction_hitTest( int f, const StarSystem *sys, double mod,
-                             const char *source );
-void        faction_modPlayer( int f, double mod, const char *source );
-void        faction_modPlayerSingle( int f, double mod, const char *source );
-void        faction_modPlayerRaw( int f, double mod );
-void        faction_setReputation( int f, double value );
-double      faction_reputation( int f );
-double      faction_reputationDefault( int f );
-int         faction_isPlayerFriend( int f );
-int         faction_isPlayerEnemy( int f );
-int         faction_isPlayerFriendSystem( int f, const StarSystem *sys );
-int         faction_isPlayerEnemySystem( int f, const StarSystem *sys );
-const char *faction_getStandingText( int f );
-const char *faction_getStandingTextAtValue( int f, double value );
-const char *faction_getStandingBroad( int f, int bribed, int override );
-double      faction_reputationMax( int f );
-const glColour *faction_reputationColour( int f );
-char            faction_reputationColourChar( int f );
-const glColour *faction_reputationColourSystem( int f, const StarSystem *sys );
-char faction_reputationColourCharSystem( int f, const StarSystem *sys );
-void faction_applyLocalThreshold( int f, StarSystem *sys );
-void faction_updateSingle( int f );
+double faction_hit( FactionRef f, const StarSystem *sys, double mod,
+                    const char *source, int single );
+double faction_hitTest( FactionRef f, const StarSystem *sys, double mod,
+                        const char *source );
+void   faction_modPlayer( FactionRef f, double mod, const char *source );
+void   faction_modPlayerSingle( FactionRef f, double mod, const char *source );
+void   faction_modPlayerRaw( FactionRef f, double mod );
+void   faction_setReputation( FactionRef f, double value );
+double faction_reputation( FactionRef f );
+double faction_reputationDefault( FactionRef f );
+int    faction_isPlayerFriend( FactionRef f );
+int    faction_isPlayerEnemy( FactionRef f );
+int    faction_isPlayerFriendSystem( FactionRef f, const StarSystem *sys );
+int    faction_isPlayerEnemySystem( FactionRef f, const StarSystem *sys );
+const char *faction_getStandingText( FactionRef f );
+const char *faction_getStandingTextAtValue( FactionRef f, double value );
+const char *faction_getStandingBroad( FactionRef f, int bribed, int override );
+double      faction_reputationMax( FactionRef f );
+const glColour *faction_reputationColour( FactionRef f );
+char            faction_reputationColourChar( FactionRef f );
+const glColour *faction_reputationColourSystem( FactionRef        f,
+                                                const StarSystem *sys );
+char faction_reputationColourCharSystem( FactionRef f, const StarSystem *sys );
+void faction_applyLocalThreshold( FactionRef f, StarSystem *sys );
+void faction_updateSingle( FactionRef f );
 void faction_updateGlobal( void );
 
 /* Works with only factions */
-int areEnemies( int a, int b );
-int areNeutral( int a, int b );
-int areAllies( int a, int b );
-int areEnemiesSystem( int a, int b, const StarSystem *sys );
-int areAlliesSystem( int a, int b, const StarSystem *sys );
+int areEnemies( FactionRef a, FactionRef b );
+int areNeutral( FactionRef a, FactionRef b );
+int areAllies( FactionRef a, FactionRef b );
+int areEnemiesSystem( FactionRef a, FactionRef b, const StarSystem *sys );
+int areAlliesSystem( FactionRef a, FactionRef b, const StarSystem *sys );
 
 /* load/free */
 int  factions_load( void );
@@ -107,6 +115,7 @@ void factions_cleanLocal( void );
 void faction_clearKnown( void );
 
 /* Dynamic factions. */
-void factions_clearDynamic( void );
-int  faction_dynAdd( int base, const char *name, const char *display,
-                     const char *ai, const glColour *colour );
+void       factions_clearDynamic( void );
+FactionRef faction_dynAdd( FactionRef base, const char *name,
+                           const char *display, const char *ai,
+                           const glColour *colour );

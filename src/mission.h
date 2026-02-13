@@ -46,7 +46,7 @@ typedef struct MissionAvail_s {
    pcre2_code *chapter_re; /**< Compiled regex chapter if applicable. */
 
    /* For generic cases */
-   int *factions; /**< Array (array.h): To certain factions. */
+   FactionRef *factions; /**< Array (array.h): To certain factions. */
 
    char *cond;       /**< Condition that must be met (Lua). */
    int   cond_chunk; /**< Chunk representing the condition. */
@@ -101,7 +101,7 @@ typedef struct Mission_ {
    credits_t    reward_value; /**< Value of the reward (for monetary cases). */
    unsigned int distance;     /**< Distance to the target. */
    int          illegal;      /**< Mission is considered illegal. */
-   int          faction; /**< Faction owning this mission, or -1 for none. */
+   FactionRef   faction; /**< Faction owning this mission, or -1 for none. */
 
    /* mission cargo given to the player - need to cleanup */
    unsigned int *cargo; /**< Array (array.h): Cargos given to player. */
@@ -129,14 +129,14 @@ extern Mission **player_missions; /**< Player's active missions. */
 /*
  * creates missions for a spob and such
  */
-Mission *missions_genList( int faction, const Spob *pnt, const StarSystem *sys,
-                           MissionAvailability loc );
+Mission *missions_genList( FactionRef faction, const Spob *pnt,
+                           const StarSystem *sys, MissionAvailability loc );
 int      mission_accept(
         Mission *mission ); /* player accepted mission for computer/bar */
-void        missions_run( MissionAvailability loc, int faction, const Spob *pnt,
-                          const StarSystem *sys );
-int         mission_start( const char *name, unsigned int *id );
-int         mission_test( const char *name );
+void missions_run( MissionAvailability loc, FactionRef faction, const Spob *pnt,
+                   const StarSystem *sys );
+int  mission_start( const char *name, unsigned int *id );
+int  mission_test( const char *name );
 const char *mission_availabilityStr( MissionAvailability loc );
 
 /*

@@ -62,9 +62,9 @@ static int  mission_init( Mission *mission, const MissionData *misn, int genid,
 static void mission_freeData( MissionData *mission );
 /* Matching. */
 static int mission_meetConditionals( const MissionData *misn );
-static int mission_meetReq( const MissionData *misn, int faction,
+static int mission_meetReq( const MissionData *misn, FactionRef faction,
                             const Spob *pnt, const StarSystem *sys );
-static int mission_matchFaction( const MissionData *misn, int faction );
+static int mission_matchFaction( const MissionData *misn, FactionRef faction );
 static int mission_location( const char *loc );
 /* Loading. */
 static int missions_cmp( const void *a, const void *b );
@@ -290,7 +290,7 @@ static int mission_meetConditionals( const MissionData *misn )
  *    @param sys System to run on.
  *    @return 1 if requirements are met, 0 if they aren't.
  */
-static int mission_meetReq( const MissionData *misn, int faction,
+static int mission_meetReq( const MissionData *misn, FactionRef faction,
                             const Spob *pnt, const StarSystem *sys )
 {
    if ( misn == NULL ) /* In case it doesn't exist */
@@ -309,7 +309,7 @@ static int mission_meetReq( const MissionData *misn, int faction,
       return 0;
 
    /* Match faction. */
-   if ( ( faction >= 0 ) && !mission_matchFaction( misn, faction ) )
+   if ( ( faction != FACTION_NULL ) && !mission_matchFaction( misn, faction ) )
       return 0;
 
    return !mission_meetConditionals( misn );
@@ -323,7 +323,7 @@ static int mission_meetReq( const MissionData *misn, int faction,
  *    @param pnt Spob to run on.
  *    @param sys System to run on.
  */
-void missions_run( MissionAvailability loc, int faction, const Spob *pnt,
+void missions_run( MissionAvailability loc, FactionRef faction, const Spob *pnt,
                    const StarSystem *sys )
 {
    for ( int i = 0; i < array_size( mission_stack ); i++ ) {
@@ -889,7 +889,7 @@ static void mission_freeData( MissionData *mission )
  *    @param faction Faction to check against.
  *    @return 1 if it meets the faction requirement, 0 if it doesn't.
  */
-static int mission_matchFaction( const MissionData *misn, int faction )
+static int mission_matchFaction( const MissionData *misn, FactionRef faction )
 {
    /* No faction always accepted. */
    if ( array_size( misn->avail.factions ) == 0 )
@@ -949,8 +949,8 @@ int mission_compare( const void *arg1, const void *arg2 )
  *    @param loc Location
  *    @return The stack of Missions created with n members.
  */
-Mission *missions_genList( int faction, const Spob *pnt, const StarSystem *sys,
-                           MissionAvailability loc )
+Mission *missions_genList( FactionRef faction, const Spob *pnt,
+                           const StarSystem *sys, MissionAvailability loc )
 {
    int      rep;
    Mission *tmp = array_create( Mission );
@@ -1069,7 +1069,7 @@ static int mission_parseXML( MissionData *temp, const xmlNodePtr parent )
       xmlr_strd( node, "chapter", temp->avail.chapter );
       if ( xml_isNode( node, "faction" ) ) {
          if ( temp->avail.factions == NULL )
-            temp->avail.factions = array_create( int );
+            temp->avail.factions = array_create( FactionRef );
          array_push_back( &temp->avail.factions,
                           faction_get( xml_get( node ) ) );
          continue;
@@ -1515,7 +1515,7 @@ Commodity *missions_loadTempCommodity( xmlNodePtr cur )
    do {
       xml_onlyNodes( ccur );
       if ( xml_isNode( ccur, "illegalto" ) ) {
-         int f = faction_get( xml_get( ccur ) );
+         FactionRef f = faction_get( xml_get( ccur ) );
          commodity_tempIllegalto( c, f );
       }
    } while ( xml_nextNode( ccur ) );

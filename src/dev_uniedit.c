@@ -91,9 +91,10 @@ static UniDiffData_t uniedit_diff      = {
         .name = NULL, .filename = NULL, .hunks = NULL };
 static UniEditMode     uniedit_mode = UNIEDIT_DEFAULT; /**< Editor mode. */
 static UniEditViewMode uniedit_viewmode =
-   UNIEDIT_VIEW_DEFAULT;              /**< Editor view mode. */
-static int uniedit_view_faction = -1; /**< Faction currently being viewed. */
-static unsigned int uniedit_wid = 0;  /**< Sysedit wid. */
+   UNIEDIT_VIEW_DEFAULT; /**< Editor view mode. */
+static FactionRef uniedit_view_faction =
+   FACTION_NULL; /**< Faction currently being viewed. */
+static unsigned int uniedit_wid       = 0;  /**< Sysedit wid. */
 static unsigned int uniedit_widEdit   = 0;  /**< Sysedit editor wid. */
 static unsigned int uniedit_widFind   = 0;  /**< Sysedit find wid. */
 static double       uniedit_xpos      = 0.; /**< Viewport X position. */
@@ -221,7 +222,7 @@ void uniedit_open( unsigned int wid_unused, const char *unused )
    /* Reset some variables. */
    uniedit_mode         = UNIEDIT_DEFAULT;
    uniedit_viewmode     = UNIEDIT_VIEW_DEFAULT;
-   uniedit_view_faction = -1;
+   uniedit_view_faction = FACTION_NULL;
    uniedit_drag         = 0;
    uniedit_dragSys      = 0;
    uniedit_dragSel      = 0;
@@ -621,7 +622,7 @@ static void uniedit_options_close( unsigned int wid, const char *unused )
    conf.devautosave = window_checkboxState( wid, "chkEditAutoSave" );
 }
 
-static int factionGenerates( int f, int tocheck, double *w )
+static int factionGenerates( FactionRef f, FactionRef tocheck, double *w )
 {
    const FactionGenerator *fg = faction_generators( f );
    for ( int i = 0; i < array_size( fg ); i++ ) {
@@ -645,14 +646,14 @@ static void uniedit_btnView( unsigned int wid_unused, const char *unused )
    int          n, h, k;
    Spob        *spobs;
    char       **str;
-   int         *factions;
+   FactionRef  *factions;
 
    /* Find usable factions. */
    factions = faction_getAll();
    spobs    = spob_getAll();
    for ( int i = 0; i < array_size( factions ); i++ ) {
-      int f       = factions[i];
-      int hasfact = 0;
+      FactionRef f       = factions[i];
+      int        hasfact = 0;
       for ( int j = 0; j < array_size( spobs ); j++ ) {
          Spob *p = &spobs[j];
          if ( ( p->presence.faction != f ) &&
@@ -664,7 +665,7 @@ static void uniedit_btnView( unsigned int wid_unused, const char *unused )
          break;
       }
       if ( !hasfact )
-         factions[i] = -1;
+         factions[i] = FACTION_NULL;
    }
 
    /* Create the window. */
@@ -686,8 +687,8 @@ static void uniedit_btnView( unsigned int wid_unused, const char *unused )
    str[8] = strdup( _( "Sum of Presences" ) );
    k      = n;
    for ( int i = 0; i < array_size( factions ); i++ ) {
-      int f = factions[i];
-      if ( f >= 0 )
+      FactionRef f = factions[i];
+      if ( f != FACTION_NULL )
          str[k++] = strdup(
             faction_name( f ) ); /* Not translating so we can use faction_get */
    }
@@ -1022,7 +1023,7 @@ void uniedit_renderMap( double bx, double by, double w, double h, double x,
       break;
 
    case UNIEDIT_VIEW_PRESENCE:
-      if ( uniedit_view_faction >= 0 )
+      if ( uniedit_view_faction != FACTION_NULL )
          uniedit_renderFactionDisks( x, y, r );
       break;
    }
@@ -1076,7 +1077,7 @@ static char getValCol( double val )
       return 'r';
    return '0';
 }
-static int getPresenceVal( int f, const SpobPresence *ap, double *base,
+static int getPresenceVal( FactionRef f, const SpobPresence *ap, double *base,
                            double *bonus )
 {
    int    gf = 0;
@@ -1297,9 +1298,9 @@ static void uniedit_renderOverlay( double bx, double by, double bw, double bh,
 
    /* Handle presence mode. */
    else if ( uniedit_viewmode == UNIEDIT_VIEW_PRESENCE ) {
-      int l;
-      int f = uniedit_view_faction;
-      if ( f < 0 )
+      int        l;
+      FactionRef f = uniedit_view_faction;
+      if ( f == FACTION_NULL )
          return;
 
       /* Total presence. */
@@ -2878,7 +2879,7 @@ static void uniedit_btnViewModeSet( unsigned int wid, const char *unused )
 
    /* Check default. */
    pos                  = toolkit_getListPos( wid, "lstViewModes" );
-   uniedit_view_faction = -1;
+   uniedit_view_faction = FACTION_NULL;
    if ( pos == 0 ) {
       uniedit_viewmode = UNIEDIT_VIEW_DEFAULT;
       window_close( wid, unused );

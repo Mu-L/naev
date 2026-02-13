@@ -91,10 +91,10 @@ typedef int Edge[2];
 
 /** @brief Description of a lane-building faction. */
 typedef struct Faction_ {
-   int    id;                       /**< Faction ID. */
-   double lane_length_per_presence; /**< Weight determining their ability to
-                                       claim lanes. */
-   double lane_base_cost;           /**< Base cost of a lane. */
+   FactionRef id;                       /**< Faction ID. */
+   double     lane_length_per_presence; /**< Weight determining their ability to
+                                           claim lanes. */
+   double lane_base_cost;               /**< Base cost of a lane. */
 } Faction;
 
 /** @brief A set of lane-building factions, represented as a bitfield. */
@@ -118,10 +118,10 @@ static int *sys_to_first_edge; /**< Array (array.h): For each system index, the
                                   id of its first edge, + sentinel. */
 static Faction *
    faction_stack; /**< Array (array.h): The faction IDs that can build lanes. */
-static int *lane_faction; /**< Array (array.h): Per edge, ID of faction that
-                             built a lane there, if any, else 0. */
-static FactionMask *lane_fmask; /**< Array (array.h): Per edge, the set of
-                                   factions that may build it. */
+static FactionRef *lane_faction; /**< Array (array.h): Per edge, ID of faction
+                             that built a lane there, if any, else 0. */
+static FactionMask *lane_fmask;  /**< Array (array.h): Per edge, the set of
+                                    factions that may build it. */
 static double *
    *presence_budget; /**< Array (array.h): Per faction, per system, the amount
                         of presence not yet spent on lanes. */
@@ -176,12 +176,12 @@ static void   safelanes_initFTilde( void );
 static void   safelanes_initPPl( void );
 static int    safelanes_triangleTooFlat( const vec2 *m, const vec2 *n,
                                          const vec2 *p, double lmn );
-static int    vertex_faction( int vi );
+static FactionRef         vertex_faction( int vi );
 static const vec2        *vertex_pos( int vi );
-static inline int         FACTION_ID_TO_INDEX( int id );
+static inline int         FACTION_ID_TO_INDEX( FactionRef id );
 static inline FactionMask MASK_ANY_FACTION();
-static inline FactionMask MASK_ONE_FACTION( int id );
-static inline FactionMask MASK_COMPROMISE( int id1, int id2 );
+static inline FactionMask MASK_ONE_FACTION( FactionRef id );
+static inline FactionMask MASK_COMPROMISE( FactionRef id1, FactionRef id2 );
 static int                cmp_key( const void *p1, const void *p2 );
 static inline void triplet_entry( cholmod_triplet *m, int i, int j, double v );
 static cholmod_dense *safelanes_sliceByPresence( const cholmod_dense *m,
@@ -232,7 +232,8 @@ void safelanes_destroy( void )
  *    @param system Star system whose lanes we want.
  *    @return Array (array.h) of matching `SafeLane` structures. Caller frees.
  */
-SafeLane *safelanes_get( int faction, int standing, const StarSystem *system )
+SafeLane *safelanes_get( FactionRef faction, int standing,
+                         const StarSystem *system )
 {
    SafeLane *out = array_create( SafeLane );
 
@@ -240,14 +241,14 @@ SafeLane *safelanes_get( int faction, int standing, const StarSystem *system )
          i < sys_to_first_edge[1 + system->id]; i++ ) {
       SafeLane     *l;
       const Vertex *v[2];
-      int           lf = lane_faction[i];
+      FactionRef    lf = lane_faction[i];
 
       /* No lane on edge. */
-      if ( lf <= 0 )
+      if ( lf == FACTION_NULL )
          continue;
 
       /* Filter by standing. */
-      if ( faction >= 0 ) {
+      if ( faction != FACTION_NULL ) {
          if ( standing == 0 ) {
             /* Only match exact faction. */
             if ( lf != faction )
@@ -509,7 +510,7 @@ static void safelanes_initStacks_edge( void )
    array_shrink( &edge_stack );
    array_shrink( &sys_to_first_edge );
 
-   lane_faction = array_create_size( int, array_size( edge_stack ) );
+   lane_faction = array_create_size( FactionRef, array_size( edge_stack ) );
    array_resize( &lane_faction, array_size( edge_stack ) );
    memset( lane_faction, 0,
            array_size( lane_faction ) * sizeof( lane_faction[0] ) );
@@ -520,17 +521,17 @@ static void safelanes_initStacks_edge( void )
  */
 static void safelanes_initStacks_faction( void )
 {
-   int              *faction_all;
+   FactionRef       *faction_all;
    const StarSystem *systems_stack;
 
    faction_stack = array_create( Faction );
    faction_all   = faction_getAllVisible();
    for ( int fi = 0; fi < array_size( faction_all ); fi++ ) {
-      int     f   = faction_all[fi];
-      Faction rec = { .id = f,
-                      .lane_length_per_presence =
-                         faction_lane_length_per_presence( f ),
-                      .lane_base_cost = faction_lane_base_cost( f ) };
+      FactionRef f   = faction_all[fi];
+      Faction    rec = { .id = f,
+                         .lane_length_per_presence =
+                            faction_lane_length_per_presence( f ),
+                         .lane_base_cost = faction_lane_base_cost( f ) };
       if ( rec.lane_length_per_presence > 0. )
          array_push_back( &faction_stack, rec );
    }
@@ -1009,19 +1010,19 @@ static int safelanes_triangleTooFlat( const vec2 *m, const vec2 *n,
 
 /**
  * @brief Return the vertex's owning faction (ID, not faction_stack index), or
- * -1 if not applicable.
+ * FACTION_NULL if not applicable.
  */
-static int vertex_faction( int vi )
+static FactionRef vertex_faction( int vi )
 {
    const StarSystem *sys = system_getIndex( vertex_stack[vi].system );
    switch ( vertex_stack[vi].type ) {
    case VERTEX_SPOB:
       return sys->spobs[vertex_stack[vi].index]->presence.faction;
    case VERTEX_JUMP:
-      return -1;
+      return FACTION_NULL;
    default:
       WARN( _( "Safe-lane vertex type is invalid." ) );
-      return -1;
+      return FACTION_NULL;
    }
 }
 
@@ -1045,7 +1046,7 @@ static const vec2 *vertex_pos( int vi )
 
 /** @brief Return the faction_stack index corresponding to a faction ID, or -1.
  */
-static inline int FACTION_ID_TO_INDEX( int id )
+static inline int FACTION_ID_TO_INDEX( FactionRef id )
 {
    for ( int i = 0;
          i < array_size( faction_stack ) && faction_stack[i].id <= id; i++ )
@@ -1062,7 +1063,7 @@ static inline FactionMask MASK_ANY_FACTION()
 
 /** @brief A mask giving this faction (NOT faction_stack index) exclusive rights
  * to build, if it's a lane-building faction. */
-static inline FactionMask MASK_ONE_FACTION( int id )
+static inline FactionMask MASK_ONE_FACTION( FactionRef id )
 {
    int ind = FACTION_ID_TO_INDEX( id );
    return ind > 0 ? ( MASK_1 ) << ind : MASK_ANY_FACTION();
@@ -1070,7 +1071,7 @@ static inline FactionMask MASK_ONE_FACTION( int id )
 
 /** @brief A mask with appropriate lane-building rights given one faction ID
  * owning each endpoint. */
-static inline FactionMask MASK_COMPROMISE( int id1, int id2 )
+static inline FactionMask MASK_COMPROMISE( FactionRef id1, FactionRef id2 )
 {
    FactionMask m1 = MASK_ONE_FACTION( id1 ), m2 = MASK_ONE_FACTION( id2 );
    return ( m1 & m2 )

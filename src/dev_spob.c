@@ -92,7 +92,7 @@ int dpl_saveSpob( const Spob *p )
    xmlw_endElem( writer ); /* "GFX" */
 
    /* Presence. */
-   if ( p->presence.faction >= 0 ) {
+   if ( p->presence.faction != FACTION_NULL ) {
       xmlw_startElem( writer, "presence" );
       xmlw_elem( writer, "faction", "%s", faction_name( p->presence.faction ) );
       xmlw_elem( writer, "base", "%f", p->presence.base );

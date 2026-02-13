@@ -64,7 +64,8 @@ int nlua_loadSafelanes( nlua_env *env )
  */
 static int safelanesL_get( lua_State *L )
 {
-   int         faction, standing, onlyknown;
+   FactionRef  faction;
+   int         standing, onlyknown;
    StarSystem *sys;
    SafeLane   *lanes;
    const char *std;
@@ -72,7 +73,7 @@ static int safelanesL_get( lua_State *L )
    if ( !lua_isnoneornil( L, 1 ) )
       faction = luaL_validfaction( L, 1 );
    else
-      faction = -1;
+      faction = FACTION_NULL;
    std = luaL_optstring( L, 2, NULL );
    if ( !lua_isnoneornil( L, 3 ) )
       sys = luaL_validsystem( L, 3 );
@@ -82,7 +83,7 @@ static int safelanesL_get( lua_State *L )
 
    /* Translate standing into number. */
    standing = 0;
-   if ( ( faction >= 0 ) && ( std != NULL ) ) {
+   if ( ( faction != FACTION_NULL ) && ( std != NULL ) ) {
       if ( strcmp( std, "friendly" ) == 0 )
          standing |= SAFELANES_FRIENDLY;
       else if ( strcmp( std, "neutral" ) == 0 )
