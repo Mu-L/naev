@@ -281,7 +281,7 @@ int faction_isInvisible( FactionRef id )
 int faction_setInvisible( FactionRef id, int state )
 {
    if ( !faction_isFaction( id ) ) {
-      WARN( _( "Faction id '%ld' is invalid." ), id );
+      WARN( _( "Faction id '%d' is invalid." ), id );
       return -1;
    }
    if ( state )
@@ -329,7 +329,7 @@ int faction_setKnown( FactionRef id, int state )
 const char *faction_name( FactionRef f )
 {
    if ( !faction_isFaction( f ) ) {
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return NULL;
    }
    /* Don't want player to see their escorts as "Player" faction. */
@@ -348,7 +348,7 @@ const char *faction_name( FactionRef f )
 const char *faction_shortname( FactionRef f )
 {
    if ( !faction_isFaction( f ) ) {
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return NULL;
    }
    /* Don't want player to see their escorts as "Player" faction. */
@@ -371,7 +371,7 @@ const char *faction_shortname( FactionRef f )
 const char *faction_longname( FactionRef f )
 {
    if ( !faction_isFaction( f ) ) {
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return NULL;
    }
    if ( faction_stack[f].longname != NULL )
@@ -390,7 +390,7 @@ const char *faction_longname( FactionRef f )
 const char *faction_mapname( FactionRef f )
 {
    if ( !faction_isFaction( f ) ) {
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return NULL;
    }
    if ( faction_stack[f].mapname != NULL )
@@ -409,7 +409,7 @@ const char *faction_mapname( FactionRef f )
 const char *faction_description( FactionRef f )
 {
    if ( !faction_isFaction( f ) ) {
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return NULL;
    }
    if ( faction_stack[f].description != NULL )
@@ -426,7 +426,7 @@ const char *faction_description( FactionRef f )
 const char *faction_default_ai( FactionRef f )
 {
    if ( !faction_isFaction( f ) ) {
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return NULL;
    }
    return faction_stack[f].ai;
@@ -441,7 +441,7 @@ const char *faction_default_ai( FactionRef f )
 const char *const *faction_tags( FactionRef f )
 {
    if ( !faction_isFaction( f ) ) {
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return NULL;
    }
    return (const char **)faction_stack[f].tags;
@@ -454,7 +454,7 @@ const char *const *faction_tags( FactionRef f )
 double faction_lane_length_per_presence( FactionRef f )
 {
    if ( !faction_isFaction( f ) ) {
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return 0.;
    }
    return faction_stack[f].lane_length_per_presence;
@@ -466,7 +466,7 @@ double faction_lane_length_per_presence( FactionRef f )
 double faction_lane_base_cost( FactionRef f )
 {
    if ( !faction_isFaction( f ) ) {
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return 0.;
    }
    return faction_stack[f].lane_base_cost;
@@ -481,7 +481,7 @@ double faction_lane_base_cost( FactionRef f )
 const glTexture *faction_logo( FactionRef f )
 {
    if ( !faction_isFaction( f ) ) {
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return NULL;
    }
    return faction_stack[f].logo;
@@ -496,7 +496,7 @@ const glTexture *faction_logo( FactionRef f )
 const glColour *faction_colour( FactionRef f )
 {
    if ( !faction_isFaction( f ) ) {
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return NULL;
    }
    return &faction_stack[f].colour;
@@ -511,7 +511,7 @@ const glColour *faction_colour( FactionRef f )
 const FactionRef *faction_getEnemies( FactionRef f )
 {
    if ( !faction_isFaction( f ) ) {
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return NULL;
    }
 
@@ -541,7 +541,7 @@ const FactionRef *faction_getEnemies( FactionRef f )
 const FactionRef *faction_getAllies( FactionRef f )
 {
    if ( !faction_isFaction( f ) ) {
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return NULL;
    }
 
@@ -574,7 +574,7 @@ void faction_clearEnemy( FactionRef f )
    if ( faction_isFaction( f ) )
       ff = &faction_stack[f];
    else { /* f is invalid */
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return;
    }
    array_erase( &ff->enemies, array_begin( ff->enemies ),
@@ -599,22 +599,22 @@ void faction_addEnemy( FactionRef f, FactionRef o )
    if ( faction_isFaction( f ) )
       ff = &faction_stack[f];
    else { /* f is invalid */
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return;
    }
 
    if ( !faction_isFaction( o ) ) { /* o is invalid */
-      WARN( _( "Faction id '%ld' is invalid." ), o );
+      WARN( _( "Faction id '%d' is invalid." ), o );
       return;
    }
 
    /* Player cannot be made an enemy this way */
    if ( f == FACTION_PLAYER ) {
-      WARN( _( "%ld is the player faction" ), f );
+      WARN( _( "%d is the player faction" ), f );
       return;
    }
    if ( o == FACTION_PLAYER ) {
-      WARN( _( "%ld is the player faction" ), o );
+      WARN( _( "%d is the player faction" ), o );
       return;
    }
 
@@ -645,7 +645,7 @@ void faction_rmEnemy( FactionRef f, FactionRef o )
    if ( faction_isFaction( f ) )
       ff = &faction_stack[f];
    else { /* f is invalid */
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return;
    }
 
@@ -670,7 +670,7 @@ void faction_clearAlly( FactionRef f )
    if ( faction_isFaction( f ) )
       ff = &faction_stack[f];
    else { /* f is invalid */
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return;
    }
    array_erase( &ff->allies, array_begin( ff->allies ),
@@ -695,22 +695,22 @@ void faction_addAlly( FactionRef f, FactionRef o )
    if ( faction_isFaction( f ) )
       ff = &faction_stack[f];
    else { /* f is invalid */
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return;
    }
 
    if ( !faction_isFaction( o ) ) { /* o is invalid */
-      WARN( _( "Faction id '%ld' is invalid." ), o );
+      WARN( _( "Faction id '%d' is invalid." ), o );
       return;
    }
 
    /* player cannot be made an ally this way */
    if ( f == FACTION_PLAYER ) {
-      WARN( _( "%ld is the player faction" ), f );
+      WARN( _( "%d is the player faction" ), f );
       return;
    }
    if ( o == FACTION_PLAYER ) {
-      WARN( _( "%ld is the player faction" ), o );
+      WARN( _( "%d is the player faction" ), o );
       return;
    }
 
@@ -741,7 +741,7 @@ void faction_rmAlly( FactionRef f, FactionRef o )
    if ( faction_isFaction( f ) )
       ff = &faction_stack[f];
    else { /* f is invalid */
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return;
    }
 
@@ -771,22 +771,22 @@ void faction_addNeutral( FactionRef f, FactionRef o )
    if ( faction_isFaction( f ) )
       ff = &faction_stack[f];
    else { /* f is invalid */
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return;
    }
 
    if ( !faction_isFaction( o ) ) { /* o is invalid */
-      WARN( _( "Faction id '%ld' is invalid." ), o );
+      WARN( _( "Faction id '%d' is invalid." ), o );
       return;
    }
 
    /* player cannot be made an neutral this way */
    if ( f == FACTION_PLAYER ) {
-      WARN( _( "%ld is the player faction" ), f );
+      WARN( _( "%d is the player faction" ), f );
       return;
    }
    if ( o == FACTION_PLAYER ) {
-      WARN( _( "%ld is the player faction" ), o );
+      WARN( _( "%d is the player faction" ), o );
       return;
    }
 
@@ -817,7 +817,7 @@ void faction_rmNeutral( FactionRef f, FactionRef o )
    if ( faction_isFaction( f ) )
       ff = &faction_stack[f];
    else { /* f is invalid */
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return;
    }
 
@@ -836,7 +836,7 @@ void faction_rmNeutral( FactionRef f, FactionRef o )
 nlua_env *faction_getScheduler( FactionRef f )
 {
    if ( !faction_isFaction( f ) ) {
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return NULL;
    }
    return faction_stack[f].sched_env;
@@ -848,7 +848,7 @@ nlua_env *faction_getScheduler( FactionRef f )
 nlua_env *faction_getEquipper( FactionRef f )
 {
    if ( !faction_isFaction( f ) ) {
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return NULL;
    }
    return faction_stack[f].equip_env;
@@ -955,7 +955,7 @@ double faction_hit( FactionRef f, const StarSystem *sys, double mod,
 {
    double ret;
    if ( !faction_isFaction( f ) ) {
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return 0;
    }
    const Faction *faction = &faction_stack[f];
@@ -986,7 +986,7 @@ double faction_hitTest( FactionRef f, const StarSystem *sys, double mod,
                         const char *source )
 {
    if ( !faction_isFaction( f ) ) {
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return 0;
    }
 
@@ -1010,7 +1010,7 @@ double faction_hitTest( FactionRef f, const StarSystem *sys, double mod,
 
    /* Set up the function:
     * standing:hit( sys, amount, source, secondary ) */
-   lua_rawgeti( naevL, LUA_REGISTRYINDEX, faction->lua_hit );
+   lua_rawgeti( naevL, LUA_REGISTRYINDEX, faction->lua_hit_test );
    if ( sys != NULL )
       lua_pushsystem( naevL, sys->id );
    else
@@ -1055,7 +1055,7 @@ void faction_modPlayer( FactionRef f, double mod, const char *source )
    Faction *faction;
 
    if ( !faction_isFaction( f ) ) {
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return;
    }
    faction = &faction_stack[f];
@@ -1093,7 +1093,7 @@ void faction_modPlayer( FactionRef f, double mod, const char *source )
 void faction_modPlayerSingle( FactionRef f, double mod, const char *source )
 {
    if ( !faction_isFaction( f ) ) {
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return;
    }
    faction_hitLua( f, NULL, mod, source, 0, -1 );
@@ -1118,7 +1118,7 @@ void faction_modPlayerRaw( FactionRef f, double mod )
       return;
 
    if ( !faction_isFaction( f ) ) {
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return;
    }
 
@@ -1150,7 +1150,7 @@ void faction_setReputation( FactionRef f, double value )
       return;
 
    if ( !faction_isFaction( f ) ) {
-      WARN( _( "Faction id '%ld' is invalid." ), f );
+      WARN( _( "Faction id '%d' is invalid." ), f );
       return;
    }
    faction = &faction_stack[f];
@@ -1223,7 +1223,7 @@ double faction_reputation( FactionRef f )
                                            // this should convert -0. to +0.
       }
    }
-   WARN( _( "Faction id '%ld' is invalid." ), f );
+   WARN( _( "Faction id '%d' is invalid." ), f );
    return -1000.;
 }
 
@@ -1237,7 +1237,7 @@ double faction_reputationDefault( FactionRef f )
 {
    if ( faction_isFaction( f ) )
       return faction_stack[f].player_def;
-   WARN( _( "Faction id '%ld' is invalid." ), f );
+   WARN( _( "Faction id '%d' is invalid." ), f );
    return -1000.;
 }
 
@@ -2185,11 +2185,11 @@ int factions_load( void )
 #if DEBUGGING
    if ( conf.devmode ) {
       time = SDL_GetTicks() - time;
-      DEBUG( n_( "Loaded %d Faction in %.3f s", "Loaded %ld Factions in %.3f s",
+      DEBUG( n_( "Loaded %d Faction in %.3f s", "Loaded %d Factions in %.3f s",
                  array_size( faction_stack ) ),
              array_size( faction_stack ), time / 1000. );
    } else
-      DEBUG( n_( "Loaded %d Faction", "Loaded %ld Factions",
+      DEBUG( n_( "Loaded %d Faction", "Loaded %d Factions",
                  array_size( faction_stack ) ),
              array_size( faction_stack ) );
 #endif /* DEBUGGING */
