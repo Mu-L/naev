@@ -6,6 +6,7 @@ use crate::nlua::{NLUA, NLua};
 use anyhow::Result;
 use gettext::gettext;
 use helpers::{binary_search_by_key_ref, sort_by_key_ref};
+use mlua::{BorrowedStr, Either, Function, UserData, UserDataMethods, UserDataRef};
 use naev_core::{nxml, nxml_err_attr_missing, nxml_warn_node_unknown};
 use nalgebra::{Vector3, Vector4};
 use nlog::warn_err;
@@ -134,7 +135,7 @@ impl FactionRef {
       self.data().as_ffi() as i64
    }
 
-   pub const fn from_ffi(value: i64) -> Self {
+   pub fn from_ffi(value: i64) -> Self {
       Self(KeyData::from_ffi(value as u64))
    }
 
@@ -156,6 +157,20 @@ impl FactionRef {
       match factions.get(*self) {
          Some(fct) => Ok(f(fct)),
          None => anyhow::bail!("faction not found"),
+      }
+   }
+
+   pub fn call2<F, R>(&self, other: &Self, f: F) -> Result<R>
+   where
+      F: Fn(&Faction, &Faction) -> R,
+   {
+      let factions = FACTIONS.read().unwrap();
+      if let Some(fct1) = factions.get(*self)
+         && let Some(fct2) = factions.get(*other)
+      {
+         Ok(f(fct1, fct2))
+      } else {
+         anyhow::bail!("faction not found")
       }
    }
 
@@ -343,8 +358,28 @@ impl Faction {
          }
       }
       let ret: f32 = match &self.api.get().unwrap().hit {
-         Some(hit) => hit.call((val, source, secondary))?,
+         // (sys, mod, source, secondary, primary_fct)
+         Some(hit) => hit.call((val, source, secondary, parent.map(|f| f.data.id)))?,
          None => anyhow::bail!("hit function not defined for faction '{}'", &self.data.name),
+      };
+      Ok(ret)
+   }
+
+   fn hit_test_lua(&self, val: f32, source: &str, secondary: bool) -> Result<f32> {
+      if self.data.f_static {
+         return Ok(0.);
+      } else {
+         let std = self.standing.read().unwrap();
+         if std.p_override.is_some() {
+            return Ok(0.);
+         }
+      }
+      let ret: f32 = match &self.api.get().unwrap().hit_test {
+         Some(hit) => hit.call((val, source, secondary))?,
+         None => anyhow::bail!(
+            "hit_test function not defined for faction '{}'",
+            &self.data.name
+         ),
       };
       Ok(ret)
    }
@@ -649,6 +684,28 @@ impl FactionData {
       }
       false
    }
+
+   fn shortname(&self) -> &str {
+      gettext(self.displayname.as_ref().unwrap_or(&self.name))
+   }
+
+   fn longname(&self) -> &str {
+      gettext(
+         self
+            .longname
+            .as_ref()
+            .unwrap_or(self.displayname.as_ref().unwrap_or(&self.name)),
+      )
+   }
+
+   fn mapname(&self) -> &str {
+      gettext(
+         self
+            .mapname
+            .as_ref()
+            .unwrap_or(self.displayname.as_ref().unwrap_or(&self.name)),
+      )
+   }
 }
 
 /// Loads all the Data
@@ -759,15 +816,317 @@ pub fn load_lua() -> Result<()> {
    Ok(())
 }
 
+/*@
+ * @brief Lua bindings to deal with factions.
+ *
+ * Use like:
+ * @code
+ * f = faction.get( "Empire" )
+ * if f:playerStanding() < 0 then
+ *    -- player is hostile to Empire
+ * end
+ * @endcode
+ *
+ * @lua_mod faction
+ */
+impl UserData for FactionRef {
+   fn add_methods<M: UserDataMethods<Self>>(methods: &mut M) {
+      /*@
+       * @brief Gets a faction if it exists.
+       *
+       * @usage f = faction.exists( "Empire" )
+       *
+       *    @luatparam string name Name of the faction to get if exists.
+       *    @luatreturn Faction The faction matching name or nil if not matched.
+       * @luafunc exists
+       */
+      methods.add_function(
+         "exists",
+         |_, name: BorrowedStr| -> mlua::Result<Option<Self>> {
+            for (id, fct) in FACTIONS.read().unwrap().iter() {
+               if name == fct.data.name {
+                  return Ok(Some(id));
+               }
+            }
+            Ok(None)
+         },
+      );
+      /*@
+       * @brief Gets the faction based on its name.
+       *
+       * @usage f = faction.get( "Empire" )
+       *
+       *    @luatparam string name Name of the faction to get.
+       *    @luatreturn Faction The faction matching name.
+       * @luafunc get
+       */
+      methods.add_function("get", |_, name: BorrowedStr| -> mlua::Result<Self> {
+         for (id, fct) in FACTIONS.read().unwrap().iter() {
+            if name == fct.data.name {
+               return Ok(id);
+            }
+         }
+         Err(mlua::Error::RuntimeError(format!(
+            "Faction '{name}' not found."
+         )))
+      });
+      /*@
+       * @brief Gets all the factions.
+       *
+       *    @luatreturn {Faction,...} An ordered table containing all of the factions.
+       * @luafunc getAll
+       */
+      methods.add_function("getAll", |_, ()| -> mlua::Result<Vec<Self>> {
+         Ok(FACTIONS.read().unwrap().keys().collect())
+      });
+      /*@
+       * @brief Gets the player's faction.
+       *
+       * @usage pf = faction.player()
+       *
+       *    @luareturn Faction The player's faction.
+       * @luafunc player
+       */
+      methods.add_function("player", |_, ()| -> mlua::Result<Self> {
+         Ok(*PLAYER.get().unwrap())
+      });
+      /*@
+       * @brief Gets the faction's translated short name.
+       *
+       * This translated name should be used for display purposes (e.g.
+       * messages) where the shorter version of the faction's display name
+       * should be used. It cannot be used as an identifier for the faction;
+       * for that, use faction.nameRaw() instead.
+       *
+       * @usage shortname = f:name()
+       *
+       *    @luatparam Faction f The faction to get the name of.
+       *    @luatreturn string The name of the faction.
+       * @luafunc name
+       */
+      methods.add_method("shortname", |_, this, ()| -> mlua::Result<String> {
+         Ok(this.call(|fct| fct.data.shortname().to_string())?)
+      });
+      /*@
+       * @brief Gets the faction's raw / "real" (untranslated, internal) name.
+       *
+       * This untranslated name should be used for identification purposes
+       * (e.g. can be passed to faction.get()). It should not be used for
+       * display purposes; for that, use faction.name() or faction.longname()
+       * instead.
+       *
+       * @usage name = f:nameRaw()
+       *
+       *    @luatparam Faction f The faction to get the name of.
+       *    @luatreturn string The name of the faction.
+       * @luafunc nameRaw
+       */
+      methods.add_method("shortname", |_, this, ()| -> mlua::Result<String> {
+         Ok(this.call(|fct| fct.data.name.clone())?)
+      });
+      /*@
+       * @brief Gets the faction's translated long name.
+       *
+       * This translated name should be used for display purposes (e.g.
+       * messages) where the longer version of the faction's display name
+       * should be used. It cannot be used as an identifier for the faction;
+       * for that, use faction.nameRaw() instead.
+       *
+       * @usage longname = f:longname()
+       *    @luatparam Faction f Faction to get long name of.
+       *    @luatreturn string The long name of the faction (translated).
+       * @luafunc longname
+       */
+      methods.add_method("longname", |_, this, ()| -> mlua::Result<String> {
+         Ok(this.call(|fct| fct.data.longname().to_string())?)
+      });
+      /*@
+       * @brief Checks to see if two factions are truly neutral with respect to each
+       * other.
+       *
+       *    @luatparam Faction f Faction to check against.
+       *    @luatparam Faction n Faction to check if is true neutral.
+       *    @luatreturn boolean true if they are truly neutral, false if they aren't.
+       * @luafunc areNeutral
+       */
+      methods.add_method(
+         "areNeutral",
+         |_, this, other: UserDataRef<Self>| -> mlua::Result<bool> {
+            Ok(this.call2(&other, |fct1, fct2| fct1.data.are_neutrals(&fct2.data))?)
+         },
+      );
+      /*@
+       * @brief Checks to see if f is an enemy of e.
+       *
+       * @usage if f:areEnemies( faction.get( "Dvaered" ) ) then
+       *
+       *    @luatparam Faction f Faction to check against.
+       *    @luatparam Faction e Faction to check if is an enemy.
+       *    @luatparam[opt] System sys System to check to see if they are enemies in.
+       * Mainly for when comparing to the player's faction.
+       *    @luatreturn boolean true if they are enemies, false if they aren't.
+       * @luafunc areEnemies
+       */
+      methods.add_method(
+         "areEnemies",
+         |_, this, other: UserDataRef<Self>| -> mlua::Result<bool> {
+            // TODO system check
+            Ok(this.call2(&other, |fct1, fct2| fct1.data.are_enemies(&fct2.data))?)
+         },
+      );
+      /*@
+       * @brief Checks to see if f is an ally of a.
+       *
+       * @usage if f:areAllies( faction.get( "Pirate" ) ) then
+       *
+       *    @luatparam Faction f Faction to check against.
+       *    @luatparam faction a Faction to check if is an enemy.
+       *    @luatparam[opt] System sys System to check to see if they are allies in.
+       * Mainly for when comparing to the player's faction.
+       *    @luatreturn boolean true if they are enemies, false if they aren't.
+       * @luafunc areAllies
+       */
+      methods.add_method(
+         "areAllies",
+         |_, this, other: UserDataRef<Self>| -> mlua::Result<bool> {
+            // TODO system check
+            Ok(this.call2(&other, |fct1, fct2| fct1.data.are_enemies(&fct2.data))?)
+         },
+      );
+
+      /*@
+       * @brief Modifies the player's standing with the faction.
+       *
+       * Also can modify the standing with allies and enemies of the faction.
+       *
+       * @usage f:hit( -5, system.cur() ) -- Lowers faction by 5 at the current system
+       * @usage f:hit( 10 ) -- Globally increases faction by 10
+       * @usage f:hit( 10, nil, nil, true ) -- Globally increases faction by 10, but
+       * doesn't affect allies nor enemies of the faction.
+       *
+       *    @luatparam Faction f Faction to modify player's standing with.
+       *    @luatparam number mod Amount of reputation to change.
+       *    @luatparam System|nil extent Whether to make the faction hit local at a
+       * system, or global affecting all systems of the faction.
+       *    @luatparam[opt="script"] string reason Reason behind it. This is passed as
+       * a string to the faction `hit` function. The engine can generate `destroy` and
+       * `distress` sources. For missions the default is `script`.
+       *    @luatparam[opt=false] boolean ignore_others Whether or not the hit should
+       * affect allies/enemies of the faction getting a hit.
+       *    @luatreturn How much the reputation was actually changed after Lua script
+       * was run.
+       * @luafunc hit
+       */
+      methods.add_method(
+         "hit",
+         |_,
+          this,
+          (modifier, extent, reason, ignore_others): (
+            f32,
+            Option<BorrowedStr>,
+            Option<BorrowedStr>,
+            Option<bool>,
+         )|
+          -> mlua::Result<f32> {
+            let reason = reason.as_ref().map_or("script", |v| v);
+            let ignore_others = ignore_others.unwrap_or(false);
+            // TODO system stuff
+            Ok(this.hit(modifier, reason, ignore_others)?)
+         },
+      );
+      /*@
+       * @brief Simulates modifying the player's standing with a faction and computes
+       * how much would be changed.
+       *
+       *    @luatparam Faction f Faction to simulate player's standing with.
+       *    @luatparam number mod Amount of reputation to simulate change.
+       *    @luatparam System|nil extent Whether to make the faction hit local at a
+       * system, or global.
+       *    @luatparam[opt="script"] string reason Reason behind it. This is passed as
+       * a string to the faction `hit` function. The engine can generate `destroy` and
+       * `distress` sources. For missions the default is `script`.
+       *    @luatreturn How much the reputation was actually changed after Lua script
+       * was run.
+       * @luafunc hitTest
+       */
+      methods.add_method(
+         "hitTest",
+         |_,
+          this,
+          (modifier, extent, reason): (f32, Option<BorrowedStr>, Option<BorrowedStr>)|
+          -> mlua::Result<f32> {
+            let reason = reason.as_ref().map_or("script", |v| v);
+            let ignore_others = true;
+            // TODO system stuff and implement
+            Ok(this.call(|fct| fct.hit_test_lua(modifier, reason, ignore_others))??)
+         },
+      );
+      /*@
+       * @brief Gets the player's global reputation with the faction.
+       *
+       * @usage if f:reputationGlobal() >= 0 then -- Player is not hostile
+       *
+       *    @luatparam Faction f Faction to get player's standing with.
+       *    @luatreturn number The value of the standing.
+       * @luafunc reputationGlobal
+       */
+      methods.add_method("reputationGlobal", |_, this, ()| -> mlua::Result<f32> {
+         Ok(this.call(|fct| fct.player())?)
+      });
+      /*@
+       * @brief Gets the human readable standing text corresponding (translated).
+       *
+       *    @luatparam faction f Faction to get standing text from.
+       *    @luatparam[opt=f:reputationGlobal()] number|nil val Value to get the
+       * standing text of, or nil to use the global faction standing.
+       *    @luatreturn string Translated text corresponding to the faction value.
+       * @luafunc reputationText
+       */
+      methods.add_method(
+         "reputationText",
+         |_, this, value: Option<f32>| -> mlua::Result<String> {
+            // TODO
+            Ok(this.call(|fct| {
+               if let Some(f) = &fct.api.get().unwrap().text_rank {
+                  let value = value.unwrap_or(fct.player());
+                  f.call(())
+               } else {
+                  Ok(String::from("???"))
+               }
+            })??)
+         },
+      );
+      /*@
+       * @brief Gets the player's default reputation with the faction.
+       *
+       *    @luatparam Faction f Faction to get player's default standing with.
+       *    @luatreturn number The value of the standing.
+       * @luafunc reputationDefault
+       */
+      methods.add_method("reputationDefault", |_, this, ()| -> mlua::Result<f32> {
+         Ok(this.call(|fct| fct.data.player_def)?)
+      });
+      /*@
+       * @brief Overrides the player's faction global standing with a faction. Use
+       * sparingly as it overwrites local standings at all systems.
+       *
+       *    @luatparam Faction f Faction to set the player's global reputation with.
+       *    @luatparam number The value of the reputation to set to.
+       * @luafunc setReputationGlobal
+       */
+      methods.add_method(
+         "reputationDefault",
+         |_, this, value: f32| -> mlua::Result<()> { Ok(this.call(|fct| fct.set_player(value))?) },
+      );
+   }
+}
+
 // Here be C API
 use std::mem::ManuallyDrop;
 use std::os::raw::{c_char, c_double, c_int};
 
 #[unsafe(no_mangle)]
 pub extern "C" fn _faction_isFaction(f: i64) -> c_int {
-   if f < 0 {
-      return 0;
-   }
    match FACTIONS.read().unwrap().get(FactionRef::from_ffi(f)) {
       Some(_) => 1,
       None => 0,
@@ -851,6 +1210,22 @@ where
       None => anyhow::bail!("faction not found"),
    }
 }
+fn faction_c_call_mut<F, R>(id: i64, f: F) -> Result<R>
+where
+   F: Fn(&mut Faction) -> R,
+{
+   let mut factions = FACTIONS.write().unwrap();
+   match factions.get_mut(FactionRef::from_ffi(id)) {
+      Some(fct) => {
+         if fct.dynamic() {
+            Ok(f(fct))
+         } else {
+            anyhow::bail!("trying to modify a non-dynamic faction!")
+         }
+      }
+      None => anyhow::bail!("faction not found"),
+   }
+}
 
 #[unsafe(no_mangle)]
 pub extern "C" fn _faction_isStatic(id: i64) -> i64 {
@@ -901,14 +1276,14 @@ pub extern "C" fn _faction_isKnown(id: i64) -> i64 {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn _faction_setKnown(id: i64, state: i64) -> c_int {
-   faction_c_call(id, |fct| {
-      fct.set_known(!matches!(state, 0));
-      0
+pub extern "C" fn _faction_isDynamic(id: i64) -> i64 {
+   faction_c_call(id, |fct| match fct.dynamic() {
+      true => 1,
+      false => 0,
    })
    .unwrap_or_else(|err| {
       warn_err!(err);
-      -1
+      0
    })
 }
 
@@ -944,7 +1319,10 @@ pub extern "C" fn _faction_longname(id: i64) -> *const c_char {
    faction_c_call(id, |fct| {
       let ptr = match &fct.data.clongname {
          Some(name) => name.as_ptr(),
-         None => fct.data.cname.as_ptr(),
+         None => match &fct.data.cdisplayname {
+            Some(name) => name.as_ptr(),
+            None => fct.data.cname.as_ptr(),
+         },
       };
       unsafe { naevc::gettext_rust(ptr) }
    })
@@ -959,7 +1337,10 @@ pub extern "C" fn _faction_mapname(id: i64) -> *const c_char {
    faction_c_call(id, |fct| {
       let ptr = match &fct.data.cmapname {
          Some(name) => name.as_ptr(),
-         None => fct.data.cname.as_ptr(),
+         None => match &fct.data.cdisplayname {
+            Some(name) => name.as_ptr(),
+            None => fct.data.cname.as_ptr(),
+         },
       };
       unsafe { naevc::gettext_rust(ptr) }
    })
@@ -1013,6 +1394,42 @@ pub extern "C" fn _faction_lane_base_cost(id: i64) -> c_double {
    })
 }
 
+/*
+#[unsafe(no_mangle)]
+pub extern "C" fn _faction_clearEnemy(id: i64) {
+   faction_c_call_mut(id, |fct| {
+      fct.data.enemies = Vec::new();
+   } ) .unwrap_or_else(|err| {
+      warn_err!(err);
+   })
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn _faction_addEnemy(id: i64, o: i64) {
+   if id==o { return; }
+   faction_c_call_mut(id, |fct| {
+      if !fct.data.enemies.contains(o) {
+         fct.data.enemies.push( o );
+      }
+   } ) .unwrap_or_else(|err| {
+      warn_err!(err);
+   })
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn _faction_rmEnemy(id: i64, o: i64) {
+   if id==o { return; }
+   let o = FactionRef::from_ffi(o);
+   faction_c_call_mut(id, |fct| {
+      if let Some(pos) = fct.data.enemies.iter().position(|x| *x == o) {
+         fct.data.enemies.swap_remove(pos);
+      }
+   } ) .unwrap_or_else(|err| {
+      warn_err!(err);
+   })
+}
+*/
+
 #[unsafe(no_mangle)]
 pub extern "C" fn _faction_logo(id: i64) -> *const naevc::glTexture {
    faction_c_call(id, |fct| match &fct.data.logo {
@@ -1033,5 +1450,17 @@ pub extern "C" fn _faction_colour(id: i64) -> *const naevc::glColour {
    .unwrap_or_else(|err| {
       warn_err!(err);
       std::ptr::null()
+   })
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn _faction_setKnown(id: i64, state: i64) -> c_int {
+   faction_c_call(id, |fct| {
+      fct.set_known(!matches!(state, 0));
+      0
+   })
+   .unwrap_or_else(|err| {
+      warn_err!(err);
+      -1
    })
 }
