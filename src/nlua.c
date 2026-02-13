@@ -248,6 +248,8 @@ void nlua_register( nlua_env *env, const char *libname, const luaL_Reg *l,
       if ( metatable ) {
          lua_pushvalue( naevL, -1 );
          lua_setfield( naevL, -2, "__index" );
+         lua_pushstring( naevL, libname );
+         lua_setfield( naevL, -2, "__name" );
       }
       luaL_register( naevL, NULL, l );
    } /* lib */
