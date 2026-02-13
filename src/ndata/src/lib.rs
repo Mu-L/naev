@@ -293,34 +293,6 @@ pub fn read_dir<P: AsRef<Path>>(path: P) -> Result<Vec<PathBuf>> {
       .collect())
 }
 
-/// Allows applying a filter
-pub fn read_dir_filter<P: AsRef<Path>>(
-   path: P,
-   predicate: impl Fn(&Path) -> bool,
-) -> Result<Vec<PathBuf>> {
-   let path = path.as_ref();
-   Ok(physfs::read_dir(path)?
-      .into_iter()
-      .filter_map(|f| {
-         let full = path.join(&f);
-         match is_dir(&full) {
-            true => read_dir_filter(&full, &predicate).ok().map(|v| {
-               let base: PathBuf = f.into();
-               v.iter().map(|file| base.join(file)).collect()
-            }),
-            false => match physfs::blacklisted(&full) {
-               true => None,
-               false => match predicate(Path::new(&f)) {
-                  true => Some(vec![f.into()]),
-                  false => None,
-               },
-            },
-         }
-      })
-      .flatten()
-      .collect())
-}
-
 /// Gets an SDL IOStream from a file if exists
 pub fn iostream<P: AsRef<Path>>(path: P) -> Result<sdl::iostream::IOStream<'static>> {
    physfs::iostream(path, physfs::Mode::Read)
