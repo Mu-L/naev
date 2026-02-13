@@ -1010,7 +1010,7 @@ double faction_hitTest( int f, const StarSystem *sys, double mod,
 
    /* Set up the function:
     * standing:hit( sys, amount, source, secondary ) */
-   lua_rawgeti( naevL, LUA_REGISTRYINDEX, faction->lua_hit );
+   lua_rawgeti( naevL, LUA_REGISTRYINDEX, faction->lua_hit_test );
    if ( sys != NULL )
       lua_pushsystem( naevL, sys->id );
    else
