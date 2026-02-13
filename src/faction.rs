@@ -12,7 +12,8 @@ use nlog::warn_err;
 use nlog::{warn, warnx};
 use rayon::prelude::*;
 use renderer::{Context, ContextWrapper, texture};
-use slotmap::{Key, KeyData, SlotMap};
+use slotmap::{Key, KeyData, SecondaryMap, SlotMap};
+use std::collections::HashMap;
 use std::ffi::{CStr, CString, OsStr};
 use std::path::{Path, PathBuf};
 use std::sync::{LazyLock, Mutex, OnceLock, RwLock};
@@ -32,7 +33,7 @@ struct Grid {
 impl std::ops::Index<(FactionRef, FactionRef)> for Grid {
    type Output = GridEntry;
    fn index(&self, index: (FactionRef, FactionRef)) -> &Self::Output {
-      &self.data[self.offset(index.slot())]
+      &self.data[self.offset(index)]
    }
 }
 impl std::ops::IndexMut<(FactionRef, FactionRef)> for Grid {
@@ -61,7 +62,7 @@ impl Grid {
 
    fn recompute(&mut self) -> Result<()> {
       let factions = FACTIONS.read().unwrap();
-      self.size = factions.len();
+      self.size = factions.capacity();
       self.data.clear();
       self.data.resize(self.size * self.size, GridEntry::None);
 
@@ -125,7 +126,8 @@ pub struct FactionRef;
 
 impl FactionRef {
    pub fn slot(&self) -> usize {
-      (self.data().as_ffi() & 0xffff_ffff) as usize
+      // TODO this is not very safe and probably a bad idea
+      (self.data().as_ffi() & 0xffff_ffff) as usize - 1
    }
 
    pub fn as_ffi(self) -> i64 {
@@ -244,7 +246,7 @@ struct Standing {
 pub struct Faction {
    api: OnceLock<StandingAPI>,
    standing: RwLock<Standing>,
-   pub data: DataWrapper,
+   data: FactionData,
 }
 impl Faction {
    pub fn player(&self) -> f32 {
@@ -288,10 +290,7 @@ impl Faction {
    }
 
    pub fn dynamic(&self) -> bool {
-      match &self.data {
-         DataWrapper::Static(_) => false,
-         DataWrapper::Dynamic(_) => true,
-      }
+      self.data.f_dynamic
    }
 
    fn init_lua(&self, lua: &NLua) -> Result<()> {
@@ -351,47 +350,28 @@ impl Faction {
    }
 }
 
-/// Wrapper for both Dynamic and Static factions
-#[derive(Debug)]
-pub enum DataWrapper {
-   Static(&'static FactionData),
-   Dynamic(Box<FactionData>),
-}
-impl std::ops::Deref for DataWrapper {
-   type Target = FactionData;
-   fn deref(&self) -> &<Self as std::ops::Deref>::Target {
-      match self {
-         Self::Static(d) => d,
-         Self::Dynamic(d) => d,
-      }
-   }
-}
-
 #[derive(Debug)]
 pub struct Generator {
-   /// Generator ID
-   id: usize,
+   /// ID of faction to generate
+   id: FactionRef,
    /// Weight modifier
    weight: f32,
 }
-impl Generator {
-   fn new(factions: &[FactionLoad], names: &[String], weights: &[f32]) -> Vec<Self> {
-      let mut generator: Vec<Generator> = vec![];
-      for (name, weight) in names.iter().zip(weights.iter()) {
-         if let Some(id) = FactionLoad::get(factions, name) {
-            generator.push(Generator {
-               id,
-               weight: *weight,
-            })
-         }
-      }
-      generator
-   }
+
+#[derive(Debug, Default)]
+struct FactionLoad {
+   // Generators
+   generator: Vec<(String, f32)>,
+
+   // Relationships
+   enemies: Vec<String>,
+   allies: Vec<String>,
+   neutrals: Vec<String>,
 }
 
 #[derive(Debug, Default)]
 pub struct FactionData {
-   id: usize,
+   id: FactionRef,
    pub name: String,
    pub longname: Option<String>,
    pub displayname: Option<String>,
@@ -410,9 +390,9 @@ pub struct FactionData {
    pub colour: Vector3<f32>,
 
    // Relationships
-   enemies: Vec<usize>,
-   allies: Vec<usize>,
-   neutrals: Vec<usize>,
+   enemies: Vec<FactionRef>,
+   allies: Vec<FactionRef>,
+   neutrals: Vec<FactionRef>,
 
    // Player stuff
    pub player_def: f32,
@@ -454,122 +434,15 @@ pub struct FactionData {
    ccolour: Vector4<f32>,
 }
 impl FactionData {
-   fn init_lua(&self, lua: &NLua) -> Result<()> {
-      fn init_env(lua: &NLua, env: &Option<LuaEnv>, script: &str) -> Result<()> {
-         if let Some(env) = env {
-            let path = format!("factions/equip/{}.lua", script);
-            let data = ndata::read(&path)?;
-            let func = lua
-               .lua
-               .load(std::str::from_utf8(&data)?)
-               .set_name(path)
-               .into_function()?;
-            env.call::<()>(lua, &func, ())?;
-         }
-         Ok(())
-      }
-
-      init_env(lua, &self.equip_env, &self.script_equip)?;
-      init_env(lua, &self.sched_env, &self.script_spawn)?;
-      init_env(lua, &self.lua_env, &self.script_standing)?;
-
-      Ok(())
-   }
-
-   /// Checks to see if two factions are allies
-   fn are_allies(&self, other: &Self) -> bool {
-      for a in &self.allies {
-         if other.id == *a {
-            return true;
-         }
-      }
-      for a in &other.allies {
-         if self.id == *a {
-            return true;
-         }
-      }
-      false
-   }
-
-   /// Checks to see if two factions are enemies
-   fn are_enemies(&self, other: &Self) -> bool {
-      for a in &self.enemies {
-         if other.id == *a {
-            return true;
-         }
-      }
-      for a in &other.enemies {
-         if self.id == *a {
-            return true;
-         }
-      }
-      false
-   }
-
-   /// Checks to see if two factions are truly neutral to each other
-   fn are_neutrals(&self, other: &Self) -> bool {
-      for a in &self.neutrals {
-         if other.id == *a {
-            return true;
-         }
-      }
-      for a in &other.neutrals {
-         if self.id == *a {
-            return true;
-         }
-      }
-      false
-   }
-}
-
-#[derive(Default)]
-struct FactionSocial {
-   enemies: Vec<usize>,
-   allies: Vec<usize>,
-   neutrals: Vec<usize>,
-}
-impl FactionSocial {
-   pub fn new(fct: &FactionLoad, factions: &[FactionLoad]) -> Self {
-      let mut social = FactionSocial::default();
-      for name in &fct.enemies {
-         if let Some(f) = FactionLoad::get(factions, name) {
-            social.enemies.push(f)
-         };
-      }
-      for name in &fct.allies {
-         if let Some(f) = FactionLoad::get(factions, name) {
-            social.allies.push(f)
-         };
-      }
-      for name in &fct.neutrals {
-         if let Some(f) = FactionLoad::get(factions, name) {
-            social.neutrals.push(f)
-         };
-      }
-      social
-   }
-}
-
-#[derive(Debug, Default)]
-struct FactionLoad {
-   /// Base data
-   data: FactionData,
-
-   // Generators
-   generator_name: Vec<String>,
-   generator_weight: Vec<f32>,
-
-   // Relationships
-   enemies: Vec<String>,
-   allies: Vec<String>,
-   neutrals: Vec<String>,
-}
-impl FactionLoad {
    /// Loads the elementary faction stuff, does not fill out information dependent on other
    /// factions
-   fn new<P: AsRef<Path>>(ctx: &ContextWrapper, lua: &NLua, filename: P) -> Result<Self> {
+   fn new<P: AsRef<Path>>(
+      ctx: &ContextWrapper,
+      lua: &NLua,
+      filename: P,
+   ) -> Result<(Self, FactionLoad)> {
       let mut fctload = FactionLoad::default();
-      let fct = &mut fctload.data;
+      let mut fct = FactionData::default();
 
       // TODO use default_field_values when stabilized
       // https://github.com/rust-lang/rust/issues/132162
@@ -670,13 +543,11 @@ impl FactionLoad {
                }
             }
             "generator" => {
-               fctload.generator_name.push(nxml::node_string(node)?);
-               fctload
-                  .generator_weight
-                  .push(match node.attribute("weight") {
-                     Some(str) => str.parse::<f32>()?,
-                     None => 1.0,
-                  });
+               let weight = match node.attribute("weight") {
+                  Some(str) => str.parse::<f32>()?,
+                  None => 1.0,
+               };
+               fctload.generator.push((nxml::node_string(node)?, weight));
             }
 
             // Case we missed everything
@@ -709,118 +580,171 @@ impl FactionLoad {
          }
       }
 
-      Ok(fctload)
+      Ok((fct, fctload))
    }
 
-   fn apply_social(&mut self, social: FactionSocial) {
-      let fct = &mut self.data;
-      fct.enemies = social.enemies;
-      fct.allies = social.allies;
-      fct.neutrals = social.neutrals;
+   fn init_lua(&self, lua: &NLua) -> Result<()> {
+      fn init_env(lua: &NLua, env: &Option<LuaEnv>, script: &str) -> Result<()> {
+         if let Some(env) = env {
+            let path = format!("factions/equip/{}.lua", script);
+            let data = ndata::read(&path)?;
+            let func = lua
+               .lua
+               .load(std::str::from_utf8(&data)?)
+               .set_name(path)
+               .into_function()?;
+            env.call::<()>(lua, &func, ())?;
+         }
+         Ok(())
+      }
+
+      init_env(lua, &self.equip_env, &self.script_equip)?;
+      init_env(lua, &self.sched_env, &self.script_spawn)?;
+      init_env(lua, &self.lua_env, &self.script_standing)?;
+
+      Ok(())
    }
 
-   fn into_data(self) -> FactionData {
-      self.data
-   }
-
-   fn get(factions: &[FactionLoad], name: &str) -> Option<usize> {
-      match binary_search_by_key_ref(factions, name, |fctload: &FactionLoad| &fctload.data.name) {
-         Ok(id) => Some(id),
-         Err(err) => {
-            warn!("Faction '{name}' not found during loading!");
-            None
+   /// Checks to see if two factions are allies
+   fn are_allies(&self, other: &Self) -> bool {
+      for a in &self.allies {
+         if other.id == *a {
+            return true;
          }
       }
+      for a in &other.allies {
+         if self.id == *a {
+            return true;
+         }
+      }
+      false
+   }
+
+   /// Checks to see if two factions are enemies
+   fn are_enemies(&self, other: &Self) -> bool {
+      for a in &self.enemies {
+         if other.id == *a {
+            return true;
+         }
+      }
+      for a in &other.enemies {
+         if self.id == *a {
+            return true;
+         }
+      }
+      false
+   }
+
+   /// Checks to see if two factions are truly neutral to each other
+   fn are_neutrals(&self, other: &Self) -> bool {
+      for a in &self.neutrals {
+         if other.id == *a {
+            return true;
+         }
+      }
+      for a in &other.neutrals {
+         if self.id == *a {
+            return true;
+         }
+      }
+      false
    }
 }
 
-/// Static factions that are never modified after creation
-pub static FACTIONDATA: OnceLock<Vec<FactionData>> = OnceLock::new();
-
+/// Loads all the Data
 pub fn load() -> Result<()> {
    let ctx = Context::get().as_safe_wrap();
    let base: PathBuf = "factions/".into();
-   let files = ndata::read_dir_filter(&base, |filename| {
-      filename.extension() == Some(OsStr::new("xml"))
-   })?;
-
-   // First pass: set up factions
-   let mut factionload: Vec<FactionLoad> = files
-      //.par_iter()
-      .iter()
-      .filter_map(|filename| match FactionLoad::new(&ctx, &NLUA, filename) {
-         Ok(sp) => Some(sp),
-         Err(e) => {
-            warn!("Unable to load Faction '{}': {e}", filename.display());
-            None
-         }
-      })
+   let files: Vec<_> = ndata::read_dir(&base)?
+      .into_iter()
+      .filter(|filename| filename.extension() == Some(OsStr::new("xml")))
       .collect();
-   // Add Player before sorting
-   factionload.push(FactionLoad {
-      data: FactionData {
+   let mut data = FACTIONS.write().unwrap();
+   let mut load = SecondaryMap::new();
+   let mut fctmap: HashMap<String, FactionRef> = HashMap::new();
+
+   // Add play faction before parsing files
+   std::iter::once((
+      FactionData {
          name: String::from(PLAYER_FACTION_NAME),
          cname: CString::new(PLAYER_FACTION_NAME)?,
          f_static: true,
          f_invisible: true,
          ..Default::default()
       },
-      ..Default::default()
+      FactionLoad::default(),
+   ))
+   .chain(
+      files
+         //.par_iter()
+         .iter()
+         .filter_map(
+            |filename| match FactionData::new(&ctx, &NLUA, &base.join(filename)) {
+               Ok(sp) => Some(sp),
+               Err(e) => {
+                  warn!("Unable to load Faction '{}': {e}", filename.display());
+                  None
+               }
+            },
+         ),
+   )
+   .for_each(|(mut fd, fl)| {
+      let name = fd.name.clone();
+      let id = data.insert_with_key(|k| {
+         fd.id = k;
+         Faction {
+            api: OnceLock::new(),
+            standing: RwLock::new(Standing {
+               player: fd.player_def,
+               p_override: None,
+               f_known: fd.f_known,
+               f_invisible: fd.f_invisible,
+            }),
+            data: fd,
+         }
+      });
+      load.insert(id, fl);
+      fctmap.insert(name, id);
    });
-   sort_by_key_ref(&mut factionload, |fctload: &FactionLoad| &fctload.data.name);
 
-   // Second pass: set allies/enemies and generators
-   let factionsocial: Vec<FactionSocial> = factionload
-      //.par_iter()
-      .iter()
-      .map(|fct| FactionSocial::new(fct, &factionload))
-      .collect();
-   for (id, social) in factionsocial.into_iter().enumerate() {
-      factionload[id].apply_social(social);
+   // Seconda pass, social and generators
+   for (id, fd) in data.iter_mut() {
+      let fl = load.get(id).unwrap();
+      // Load generators
+      for (name, weight) in &fl.generator {
+         if let Some(id) = fctmap.get(name) {
+            fd.data.generators.push(Generator {
+               id: *id,
+               weight: *weight,
+            });
+         }
+      }
+      // Load social
+      for name in &fl.enemies {
+         if let Some(id) = fctmap.get(name) {
+            fd.data.enemies.push(*id);
+         }
+      }
+      for name in &fl.allies {
+         if let Some(id) = fctmap.get(name) {
+            fd.data.allies.push(*id);
+         }
+      }
+      for name in &fl.neutrals {
+         if let Some(id) = fctmap.get(name) {
+            fd.data.neutrals.push(*id);
+         }
+      }
    }
-
-   // Third pass: set faction generators
-   let factiongenerator: Vec<Vec<Generator>> = factionload
-      //.par_iter()
-      .iter()
-      .map(|fct| Generator::new(&factionload, &fct.generator_name, &fct.generator_weight))
-      .collect();
-   for (id, generator) in factiongenerator.into_iter().enumerate() {
-      factionload[id].data.generators = generator;
-      factionload[id].data.id = id; // Also set the ID here
-   }
-
-   // Convert to factions
-   let factions: Vec<FactionData> = factionload
-      .into_iter()
-      .map(|fctload| fctload.into_data())
-      .collect();
 
    // Save the data
-   FACTIONDATA.set(factions).unwrap_or_else(|err| {
-      warn!("unable to set factions");
-   });
+   drop(data);
    match FactionRef::new(PLAYER_FACTION_NAME) {
       Some(id) => PLAYER.set(id).unwrap_or_else(|_| {
          warn!("unable to set player faction ID");
       }),
       None => unreachable!(),
    };
-
-   // Populate the arena with the static factions
-   let mut data = FACTIONS.write().unwrap();
-   for fct in FACTIONDATA.get().unwrap() {
-      data.insert(Faction {
-         api: OnceLock::new(),
-         standing: RwLock::new(Standing {
-            player: fct.player_def,
-            p_override: None,
-            f_known: fct.f_known,
-            f_invisible: fct.f_invisible,
-         }),
-         data: DataWrapper::Static(fct),
-      });
-   }
 
    // Compute grid
    GRID.write().unwrap().recompute()
