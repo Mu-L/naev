@@ -175,6 +175,17 @@ impl FactionRef {
       }
    }
 
+   pub fn call_mut<F, R>(&self, f: F) -> Result<R>
+   where
+      F: Fn(&mut Faction) -> R,
+   {
+      let mut factions = FACTIONS.write().unwrap();
+      match factions.get_mut(*self) {
+         Some(fct) => Ok(f(fct)),
+         None => anyhow::bail!("faction not found"),
+      }
+   }
+
    pub fn hit(&self, val: f32, system: &mlua::Value, source: &str, single: bool) -> Result<f32> {
       let factions = FACTIONS.read().unwrap();
       match factions.get(*self) {
@@ -1332,9 +1343,9 @@ impl UserData for FactionRef {
             Option<mlua::Table>,
          )|
           -> mlua::Result<Self> {
-            let data = FACTIONS.write().unwrap();
+            let mut data = FACTIONS.write().unwrap();
             let params = params.unwrap_or_else(|| lua.create_table().unwrap());
-            let base = if let Some(reference) = base {
+            let mut fd = if let Some(reference) = base {
                let base = &data.get(*reference).context("faction not found")?.data;
                let ai = params
                   .get::<Option<String>>("ai")?
@@ -1387,7 +1398,88 @@ impl UserData for FactionRef {
                   ..Default::default()
                }
             };
-            todo!();
+            let id = data.insert_with_key(|k| {
+               fd.id = k;
+               Faction {
+                  // TODO API
+                  api: OnceLock::new(),
+                  standing: RwLock::new(Standing {
+                     player: fd.player_def,
+                     p_override: None,
+                     f_known: fd.f_known,
+                     f_invisible: fd.f_invisible,
+                  }),
+                  data: fd,
+               }
+            });
+
+            GRID.write().unwrap().recompute()?;
+            Ok(id)
+         },
+      );
+      /*@
+       * @brief Adds or removes allies to a faction. Only works with dynamic factions.
+       *
+       *    @luatparam Faction fac Faction to add ally to.
+       *    @luatparam Faction ally Faction to add as an ally.
+       *    @luatparam[opt=false] boolean remove Whether or not to remove the ally
+       * from the faction instead of adding it.
+       * @luafunc dynAlly
+       */
+      methods.add_method_mut(
+         "dynAlly",
+         |_, this, (ally, remove): (UserDataRef<FactionRef>, Option<bool>)| -> mlua::Result<()> {
+            let remove = remove.unwrap_or(false);
+            this.call_mut(|fct| {
+               if !fct.data.f_dynamic {
+                  return Err(mlua::Error::RuntimeError(
+                     "Can only add allies to dynamic factions".to_string(),
+                  ));
+               }
+               if remove {
+                  let a = &mut fct.data.allies;
+                  if let Some(p) = a.iter().position(|f| *ally == *f) {
+                     a.remove(p);
+                  }
+                  Ok(())
+               } else {
+                  fct.data.allies.push(*ally);
+                  Ok(())
+               }
+            })?
+         },
+      );
+      /*@
+       * @brief Adds or removes enemies to a faction. Only works with dynamic
+       * factions.
+       *
+       *    @luatparam Faction fac Faction to add enemy to.
+       *    @luatparam Faction enemy Faction to add as an enemy.
+       *    @luatparam[opt=false] boolean remove Whether or not to remove the enemy
+       * from the faction instead of adding it.
+       * @luafunc dynEnemy
+       */
+      methods.add_method_mut(
+         "dynEnemy",
+         |_, this, (enemy, remove): (UserDataRef<FactionRef>, Option<bool>)| -> mlua::Result<()> {
+            let remove = remove.unwrap_or(false);
+            this.call_mut(|fct| {
+               if !fct.data.f_dynamic {
+                  return Err(mlua::Error::RuntimeError(
+                     "Can only add allies to dynamic factions".to_string(),
+                  ));
+               }
+               if remove {
+                  let e = &mut fct.data.enemies;
+                  if let Some(p) = e.iter().position(|f| *enemy == *f) {
+                     e.remove(p);
+                  }
+                  Ok(())
+               } else {
+                  fct.data.enemies.push(*enemy);
+                  Ok(())
+               }
+            })?
          },
       );
    }
@@ -1735,4 +1827,13 @@ pub extern "C" fn _faction_setKnown(id: i64, state: i64) -> c_int {
       warn_err!(err);
       -1
    })
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn _faction_clearDynamic() {
+   FACTIONS
+      .write()
+      .unwrap()
+      .retain(|_id, fct| !fct.data.f_dynamic);
+   let _ = GRID.write().unwrap().recompute();
 }
