@@ -3,7 +3,7 @@ title: "Fabricators"
 ---
 # Fabricators
 
-There is a diversity of fabricators that produce different ships and outfits.
+There are a variety of fabricators that produce different ships and outfits.
 
 ## Independent
 
