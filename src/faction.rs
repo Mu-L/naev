@@ -2131,10 +2131,7 @@ pub extern "C" fn faction_reputationMax(id: i64) -> c_double {
 
 #[unsafe(no_mangle)]
 pub extern "C" fn faction_usesHiddenJumps(id: i64) -> c_int {
-   faction_c_call(id, |fct| fct.data.f_useshiddenjumps).unwrap_or_else(|err| {
-      warn_err!(err);
-      false
-   }) as c_int
+   (faction_c_call(id, |fct| fct.data.f_useshiddenjumps).unwrap_or(false)) as c_int
 }
 
 #[unsafe(no_mangle)]
@@ -2410,10 +2407,7 @@ pub extern "C" fn faction_generators(id: i64) -> *const naevc::FactionGenerator 
          })
          .collect::<Vec<_>>()
    })
-   .unwrap_or_else(|err| {
-      warn_err!(err);
-      vec![]
-   });
+   .unwrap_or_else(|err| vec![]);
 
    static GENERATOR_ARRAY: Mutex<Array<naevc::FactionGenerator>> = Mutex::new(Array::default());
    let mut array = GENERATOR_ARRAY.lock().unwrap();
