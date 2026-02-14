@@ -205,11 +205,16 @@ impl FactionRef {
       }
    }
 
-   /// Checks to see if two factions are allies
-   pub fn are_allies(&self, other: &Self) -> bool {
-      if self == other {
-         true
-      } else if other == PLAYER.get().unwrap() {
+   fn player_ally(&self, sys: Option<&naevc::StarSystem>) -> bool {
+      if let Some(sys) = sys {
+         let threshold = self
+            .call(|fct| {
+               let api = fct.api.get().unwrap();
+               api.friendly_at
+            })
+            .unwrap_or(std::f32::INFINITY);
+         unsafe { naevc::system_getReputationOrGlobal(sys, self.as_ffi()) as f32 > threshold }
+      } else {
          self
             .call(|fct| {
                let std = fct.standing.read().unwrap();
@@ -220,22 +225,49 @@ impl FactionRef {
                warn_err!(err);
                false
             })
-      } else {
-         GRID.read().unwrap()[(*self, *other)] == GridEntry::Enemies
       }
    }
 
-   /// Checks to see if two factions are enemies
-   pub fn are_enemies(&self, other: &Self) -> bool {
+   /// Checks to see if two factions are allies
+   pub fn are_allies(&self, other: &Self, sys: Option<&naevc::StarSystem>) -> bool {
       if self == other {
-         false
-      } else if other == PLAYER.get().unwrap() {
+         return true;
+      }
+
+      let player_fct = PLAYER.get().unwrap();
+      if self == player_fct {
+         other.player_ally(sys)
+      } else if other == player_fct {
+         self.player_ally(sys)
+      } else {
+         GRID.read().unwrap()[(*self, *other)] == GridEntry::Allies
+      }
+   }
+
+   fn player_enemy(&self, sys: Option<&naevc::StarSystem>) -> bool {
+      if let Some(sys) = sys {
+         unsafe { naevc::system_getReputationOrGlobal(sys, self.as_ffi()) > 0.0 }
+      } else {
          self
             .call(|fct| fct.standing.read().unwrap().player < 0.)
             .unwrap_or_else(|err| {
                warn_err!(err);
                false
             })
+      }
+   }
+
+   /// Checks to see if two factions are enemies
+   pub fn are_enemies(&self, other: &Self, sys: Option<&naevc::StarSystem>) -> bool {
+      if self == other {
+         return false;
+      }
+
+      let player_fct = PLAYER.get().unwrap();
+      if self == player_fct {
+         other.player_enemy(sys)
+      } else if other == player_fct {
+         self.player_enemy(sys)
       } else {
          GRID.read().unwrap()[(*self, *other)] == GridEntry::Enemies
       }
@@ -992,9 +1024,26 @@ impl UserData for FactionRef {
        */
       methods.add_method(
          "areEnemies",
-         |_, this, other: UserDataRef<Self>| -> mlua::Result<bool> {
-            // TODO system check
-            Ok(this.call2(&other, |fct1, fct2| fct1.data.are_enemies(&fct2.data))?)
+         |_,
+          this,
+          (other, sys): (UserDataRef<Self>, Option<mlua::AnyUserData>)|
+          -> mlua::Result<bool> {
+            if let Some(sys) = sys {
+               // HORRIBLE HACK UNTIL STARSYSTEMS ARE IN MLUA
+               // TODO fix this ASAP
+               let ptr = sys.to_pointer() as *const naevc::LuaSystem;
+               let sys = unsafe { naevc::system_getIndex(*ptr) };
+               let sys = if sys.is_null() {
+                  return Err(mlua::Error::RuntimeError(
+                     "StarSystem not found".to_string(),
+                  ));
+               } else {
+                  unsafe { &*sys }
+               };
+               Ok(this.are_enemies(&other, Some(sys)))
+            } else {
+               Ok(this.are_enemies(&other, None))
+            }
          },
       );
       /*@
@@ -1011,9 +1060,26 @@ impl UserData for FactionRef {
        */
       methods.add_method(
          "areAllies",
-         |_, this, other: UserDataRef<Self>| -> mlua::Result<bool> {
-            // TODO system check
-            Ok(this.call2(&other, |fct1, fct2| fct1.data.are_allies(&fct2.data))?)
+         |_,
+          this,
+          (other, sys): (UserDataRef<Self>, Option<mlua::AnyUserData>)|
+          -> mlua::Result<bool> {
+            if let Some(sys) = sys {
+               // HORRIBLE HACK UNTIL STARSYSTEMS ARE IN MLUA
+               // TODO fix this ASAP
+               let ptr = sys.to_pointer() as *const naevc::LuaSystem;
+               let sys = unsafe { naevc::system_getIndex(*ptr) };
+               let sys = if sys.is_null() {
+                  return Err(mlua::Error::RuntimeError(
+                     "StarSystem not found".to_string(),
+                  ));
+               } else {
+                  unsafe { &*sys }
+               };
+               Ok(this.are_allies(&other, Some(sys)))
+            } else {
+               Ok(this.are_allies(&other, None))
+            }
          },
       );
 

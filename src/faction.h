@@ -11,7 +11,7 @@
 #include "space_fdecl.h"
 
 // typedef void *FactionRef;
-typedef int FactionRef;
+typedef int64_t FactionRef;
 
 #define FACTION_NULL ( ( FactionRef ) - 1 )
 
