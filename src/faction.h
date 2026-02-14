@@ -15,10 +15,10 @@ typedef int64_t FactionRef;
 
 #define FACTION_NULL ( ( FactionRef ) - 1 )
 
-extern FactionRef faction_player;
+FactionRef faction_player( void );
 
 #define FACTION_PLAYER                                                         \
-   faction_player          /**< Hardcoded player faction identifier. */
+   faction_player()        /**< Hardcoded player faction identifier. */
 #define FACTION_LOGO_SM 64 /**< Size of "small" logo. */
 
 typedef struct FactionGenerator_ {
