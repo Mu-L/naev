@@ -81,5 +81,5 @@ This value is divided by the **Detection Range** and **Signature Range** values 
 ## System Modifiers
 
 System modifiers such as asteroid fields and interference can further affect electronic warfare.
-In particular, being in an asteroid will affect the detection range, and consequently, signature range and stealth range depending on the density of asteroids.
+In particular, being in an asteroid field will affect the detection range, and consequently, signature range and stealth range depending on the density of asteroids.
 Furthermore, the system interference will lower signature and stealth ranges, but not the detection range, making it harder to track and identify ships.
