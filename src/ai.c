@@ -1126,12 +1126,14 @@ static void ai_create( Pilot *pilot )
    if ( !pilot_isFlag( pilot, PILOT_NO_OUTFITS ) &&
         !pilot_isFlag( pilot, PILOT_NO_EQUIP ) &&
         ( aiL_status == AI_STATUS_CREATE ) ) {
-      nlua_env *env  = equip_env;
-      char     *func = "equip_generic";
+      const nlua_env *env = faction_getEquipper( pilot->faction );
+      char           *func;
 
-      if ( faction_getEquipper( pilot->faction ) != NULL ) {
-         env  = faction_getEquipper( pilot->faction );
+      if ( env != NULL ) {
          func = "equip";
+      } else {
+         env  = equip_env;
+         func = "equip_generic";
       }
       nlua_getenv( naevL, env, func );
       lua_pushpilot( naevL, pilot->id );

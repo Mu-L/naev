@@ -18,7 +18,7 @@ use slotmap::{Key, KeyData, SecondaryMap, SlotMap};
 use std::collections::HashMap;
 use std::ffi::{CStr, CString, OsStr};
 use std::path::{Path, PathBuf};
-use std::sync::{LazyLock, Mutex, OnceLock, RwLock};
+use std::sync::{Arc, LazyLock, Mutex, OnceLock, RwLock};
 
 #[derive(Copy, Clone, Debug, PartialEq)]
 enum GridEntry {
@@ -357,6 +357,45 @@ impl Faction {
       self.data.f_dynamic
    }
 
+   pub fn add_enemy(&mut self, other: FactionRef) {
+      if !self.data.enemies.contains(&other) {
+         self.data.enemies.push(other);
+      }
+   }
+
+   pub fn remove_enemy(&mut self, other: FactionRef) {
+      let lst = &mut self.data.enemies;
+      if let Some(p) = lst.iter().position(|f| other == *f) {
+         lst.swap_remove(p);
+      }
+   }
+
+   pub fn add_neutral(&mut self, other: FactionRef) {
+      if !self.data.neutrals.contains(&other) {
+         self.data.neutrals.push(other);
+      }
+   }
+
+   pub fn remove_neutral(&mut self, other: FactionRef) {
+      let lst = &mut self.data.neutrals;
+      if let Some(p) = lst.iter().position(|f| other == *f) {
+         lst.swap_remove(p);
+      }
+   }
+
+   pub fn add_ally(&mut self, other: FactionRef) {
+      if !self.data.allies.contains(&other) {
+         self.data.allies.push(other);
+      }
+   }
+
+   pub fn remove_ally(&mut self, other: FactionRef) {
+      let lst = &mut self.data.allies;
+      if let Some(p) = lst.iter().position(|f| other == *f) {
+         lst.swap_remove(p);
+      }
+   }
+
    fn init_lua(&self, lua: &NLua) -> Result<()> {
       self.data.init_lua(lua)?;
       if let Some(env) = &self.data.lua_env {
@@ -489,13 +528,13 @@ pub struct FactionData {
    pub player_def: f32,
 
    // Scheduler
-   sched_env: Option<LuaEnv>,
+   sched_env: Option<Arc<LuaEnv>>,
 
    // Behaviour
-   lua_env: Option<LuaEnv>,
+   lua_env: Option<Arc<LuaEnv>>,
 
    // Equipping
-   equip_env: Option<LuaEnv>,
+   equip_env: Option<Arc<LuaEnv>>,
 
    // Safe lanes
    lane_length_per_presence: f32,
@@ -651,21 +690,21 @@ impl FactionData {
             fct.sched_env = Some({
                let mut env = lua.environment_new(&fct.script_spawn)?;
                env.load_standard(lua)?;
-               env
+               Arc::new(env)
             });
          }
          if !fct.script_equip.is_empty() {
             fct.equip_env = Some({
                let mut env = lua.environment_new(&fct.script_equip)?;
                env.load_standard(lua)?;
-               env
+               Arc::new(env)
             });
          }
          if !fct.script_standing.is_empty() {
             fct.lua_env = Some({
                let mut env = lua.environment_new(&fct.script_standing)?;
                env.load_standard(lua)?;
-               env
+               Arc::new(env)
             });
          }
       }
@@ -674,7 +713,7 @@ impl FactionData {
    }
 
    fn init_lua(&self, lua: &NLua) -> Result<()> {
-      fn init_env(lua: &NLua, env: &Option<LuaEnv>, script: &str) -> Result<()> {
+      fn init_env(lua: &NLua, env: &Option<Arc<LuaEnv>>, script: &str) -> Result<()> {
          if let Some(env) = env {
             let path = format!("factions/equip/{}.lua", script);
             let data = ndata::read(&path)?;
@@ -1503,15 +1542,11 @@ impl UserData for FactionRef {
                   ));
                }
                if remove {
-                  let a = &mut fct.data.allies;
-                  if let Some(p) = a.iter().position(|f| *ally == *f) {
-                     a.remove(p);
-                  }
-                  Ok(())
+                  fct.remove_ally(*ally);
                } else {
-                  fct.data.allies.push(*ally);
-                  Ok(())
+                  fct.add_ally(*ally);
                }
+               Ok(())
             })?
          },
       );
@@ -1536,15 +1571,11 @@ impl UserData for FactionRef {
                   ));
                }
                if remove {
-                  let e = &mut fct.data.enemies;
-                  if let Some(p) = e.iter().position(|f| *enemy == *f) {
-                     e.remove(p);
-                  }
-                  Ok(())
+                  fct.remove_enemy(*enemy);
                } else {
-                  fct.data.enemies.push(*enemy);
-                  Ok(())
+                  fct.add_enemy(*enemy);
                }
+               Ok(())
             })?
          },
       );
@@ -1984,6 +2015,108 @@ pub extern "C" fn faction_reputationOverride(id: i64, set: *mut c_int) -> c_doub
 }
 
 #[unsafe(no_mangle)]
+pub extern "C" fn faction_isPlayerFriend(id: i64) -> c_int {
+   FactionRef::from_ffi(id).player_ally(None) as c_int
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn faction_isPlayerEnemy(id: i64) -> c_int {
+   FactionRef::from_ffi(id).player_enemy(None) as c_int
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn faction_isPlayerFriendSystem(id: i64, sys: *const naevc::StarSystem) -> c_int {
+   let sys = if sys.is_null() {
+      None
+   } else {
+      Some(unsafe { &*sys })
+   };
+   FactionRef::from_ffi(id).player_ally(sys) as c_int
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn faction_isPlayerEnemySystem(id: i64, sys: *const naevc::StarSystem) -> c_int {
+   let sys = if sys.is_null() {
+      None
+   } else {
+      Some(unsafe { &*sys })
+   };
+   FactionRef::from_ffi(id).player_enemy(sys) as c_int
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn areEnemies(a: i64, b: i64) -> c_int {
+   areEnemiesSystem(a, b, std::ptr::null())
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn areNeutral(a: i64, b: i64) -> c_int {
+   let a = FactionRef::from_ffi(a);
+   let b = FactionRef::from_ffi(b);
+   a.are_neutrals(&b) as c_int
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn areAllies(a: i64, b: i64) -> c_int {
+   areAlliesSystem(a, b, std::ptr::null())
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn areEnemiesSystem(a: i64, b: i64, sys: *const naevc::StarSystem) -> c_int {
+   let sys = if sys.is_null() {
+      None
+   } else {
+      Some(unsafe { &*sys })
+   };
+   let a = FactionRef::from_ffi(a);
+   let b = FactionRef::from_ffi(b);
+   a.are_enemies(&b, sys) as c_int
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn areAlliesSystem(a: i64, b: i64, sys: *const naevc::StarSystem) -> c_int {
+   let sys = if sys.is_null() {
+      None
+   } else {
+      Some(unsafe { &*sys })
+   };
+   let a = FactionRef::from_ffi(a);
+   let b = FactionRef::from_ffi(b);
+   a.are_allies(&b, sys) as c_int
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn faction_getStandingText(f: i64) -> *const c_char {
+   faction_getStandingTextAtValue(f, faction_reputation(f))
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn faction_getStandingTextAtValue(f: i64, value: c_double) -> *const c_char {
+   let f = FactionRef::from_ffi(f);
+   // TODO
+   std::ptr::null()
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn faction_reputationMax(id: i64) -> c_double {
+   faction_c_call(id, |fct| {
+      let std = fct.standing.read().unwrap();
+      let api = fct.api.get().unwrap();
+      if let Some(rmax) = &api.reputation_max {
+         rmax.call::<f32>(()).map_err(|e| anyhow::anyhow!(e))
+      } else {
+         Ok(0.0)
+      }
+   })
+   .flatten()
+   .unwrap_or_else(|err| {
+      warn_err!(err);
+      0.0
+   })
+   .into()
+}
+
+#[unsafe(no_mangle)]
 pub extern "C" fn faction_usesHiddenJumps(id: i64) -> c_int {
    faction_c_call(id, |fct| fct.data.f_useshiddenjumps).unwrap_or_else(|err| {
       warn_err!(err);
@@ -2001,6 +2134,86 @@ pub extern "C" fn faction_hit(
 ) -> c_double {
    // FactionRef::from_ffi(id).hit( sys, mod, src, single!=0 )
    0.0
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn faction_addEnemy(id: i64, other: i64) {
+   faction_c_call_mut(id, |fct| fct.add_enemy(FactionRef::from_ffi(other))).unwrap_or_else(|err| {
+      warn_err!(err);
+   })
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn faction_rmEnemy(id: i64, other: i64) {
+   faction_c_call_mut(id, |fct| fct.remove_enemy(FactionRef::from_ffi(other))).unwrap_or_else(
+      |err| {
+         warn_err!(err);
+      },
+   )
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn faction_addAlly(id: i64, other: i64) {
+   faction_c_call_mut(id, |fct| fct.add_ally(FactionRef::from_ffi(other))).unwrap_or_else(|err| {
+      warn_err!(err);
+   })
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn faction_rmAlly(id: i64, other: i64) {
+   faction_c_call_mut(id, |fct| fct.remove_ally(FactionRef::from_ffi(other))).unwrap_or_else(
+      |err| {
+         warn_err!(err);
+      },
+   )
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn faction_addNeutral(id: i64, other: i64) {
+   faction_c_call_mut(id, |fct| fct.add_neutral(FactionRef::from_ffi(other))).unwrap_or_else(
+      |err| {
+         warn_err!(err);
+      },
+   )
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn faction_rmNeutral(id: i64, other: i64) {
+   faction_c_call_mut(id, |fct| fct.remove_neutral(FactionRef::from_ffi(other))).unwrap_or_else(
+      |err| {
+         warn_err!(err);
+      },
+   )
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn faction_getEquipper(id: i64) -> *const naevc::nlua_env {
+   faction_c_call(id, |fct| {
+      if let Some(env) = &fct.data.equip_env {
+         Arc::as_ptr(&env) as *const naevc::nlua_env
+      } else {
+         std::ptr::null()
+      }
+   })
+   .unwrap_or_else(|err| {
+      warn_err!(err);
+      std::ptr::null()
+   })
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn faction_getScheduler(id: i64) -> *const naevc::nlua_env {
+   faction_c_call(id, |fct| {
+      if let Some(env) = &fct.data.sched_env {
+         Arc::as_ptr(&env) as *const naevc::nlua_env
+      } else {
+         std::ptr::null()
+      }
+   })
+   .unwrap_or_else(|err| {
+      warn_err!(err);
+      std::ptr::null()
+   })
 }
 
 #[unsafe(no_mangle)]
@@ -2067,4 +2280,32 @@ pub extern "C" fn factions_reset() {
 #[unsafe(no_mangle)]
 pub extern "C" fn faction_player() -> i64 {
    PLAYER.get().unwrap().as_ffi()
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn faction_reputationColourChar(id: i64, sys: *const naevc::StarSystem) -> c_char {
+   faction_reputationColourCharSystem(id, std::ptr::null())
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn faction_reputationColourCharSystem(
+   id: i64,
+   sys: *const naevc::StarSystem,
+) -> c_char {
+   let sys = if sys.is_null() {
+      None
+   } else {
+      Some(unsafe { &*sys })
+   };
+   let f = FactionRef::from_ffi(id);
+   let player = PLAYER.get().unwrap();
+   (if FACTIONS.read().unwrap().get(f).is_none() {
+      'I'
+   } else if f.are_enemies(player, sys) {
+      'H'
+   } else if f.are_allies(player, sys) {
+      'F'
+   } else {
+      'N'
+   }) as c_char
 }

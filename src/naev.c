@@ -435,7 +435,7 @@ void unload_all( void )
    effect_exit();
    missions_free();
    events_exit(); /* Clean up events. */
-   factions_free();
+   // factions_free();
    commodity_free();
    var_cleanup(); /* cleans up mission variables */
 }

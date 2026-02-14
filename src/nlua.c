@@ -25,8 +25,8 @@
 
 typedef struct nlua_env nlua_env;
 
-lua_State *naevL         = NULL; /**< Global Naev Lua state. */
-nlua_env  *__NLUA_CURENV = NULL; /**< Current environment. */
+lua_State      *naevL         = NULL; /**< Global Naev Lua state. */
+const nlua_env *__NLUA_CURENV = NULL; /**< Current environment. */
 // static char *common_script; /**< Common script to run when creating
 // environments. */
 //  static size_t common_sz; /**< Common script size. */
@@ -207,7 +207,7 @@ int nlua_dochunkenv( nlua_env *env, int chunk, const char *name )
  *    @param env Environment.
  *    @param name Name of variable.
  */
-void nlua_getenv( lua_State *L, nlua_env *env, const char *name )
+void nlua_getenv( lua_State *L, const nlua_env *env, const char *name )
 {
    nlua_pushenv( L, env );      /* env */
    lua_getfield( L, -1, name ); /* env, value */
@@ -222,7 +222,7 @@ void nlua_getenv( lua_State *L, nlua_env *env, const char *name )
  *    @param env Environment.
  *    @param name Name of variable.
  */
-void nlua_setenv( lua_State *L, nlua_env *env, const char *name )
+void nlua_setenv( lua_State *L, const nlua_env *env, const char *name )
 {
    /* value */
    nlua_pushenv( L, env );      /* value, env */
@@ -424,10 +424,10 @@ static int nlua_errTraceInternal( lua_State *L, int idx )
  *    @param nresults Number of return values to take.
  *    @return 0 on success, or -1 on error with message pushed on stack.
  */
-int nlua_pcall( nlua_env *env, int nargs, int nresults )
+int nlua_pcall( const nlua_env *env, int nargs, int nresults )
 {
-   int       errf, ret;
-   nlua_env *prev_env;
+   int             errf, ret;
+   const nlua_env *prev_env;
 
 #if DEBUGGING
    errf = lua_gettop( naevL ) - nargs;

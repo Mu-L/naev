@@ -1343,12 +1343,11 @@ static void system_scheduler( double dt, int init )
    /* Go through all the factions and reduce the timer. */
    for ( int i = 0; i < array_size( cur_system->presence ); i++ ) {
       int             n;
-      nlua_env       *env;
       SystemPresence *p = &cur_system->presence[i];
       if ( p->value <= 0. )
          continue;
 
-      env = faction_getScheduler( p->faction );
+      const nlua_env *env = faction_getScheduler( p->faction );
 
       /* Must have a valid scheduler. */
       if ( env == NULL )
@@ -4733,8 +4732,6 @@ int system_hasSpob( const StarSystem *sys )
 void system_rmCurrentPresence( StarSystem *sys, FactionRef faction,
                                double amount )
 {
-   nlua_env *env;
-
    /* Ignore dynamic factions. */
    if ( faction_isDynamic( faction ) )
       return;
@@ -4746,7 +4743,7 @@ void system_rmCurrentPresence( StarSystem *sys, FactionRef faction,
    presence->curUsed = MAX( 0, presence->curUsed - amount );
 
    /* Run lower hook. */
-   env = faction_getScheduler( faction );
+   const nlua_env *env = faction_getScheduler( faction );
 
    /* Run decrease function if applicable. */
    nlua_getenv( naevL, env, "decrease" ); /* f */

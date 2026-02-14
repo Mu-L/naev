@@ -526,6 +526,7 @@ impl LuaEnv {
       open_lib("file", ndata::luafile::open_file)?;
       open_lib("tex", renderer::texture::open_texture)?;
       //open_lib("gfx", renderer::open_gfx)?;
+      open_lib("faction", crate::faction::open_faction)?;
 
       let ret = unsafe {
          let env = self as *mut LuaEnv as *mut naevc::nlua_env;
@@ -537,7 +538,7 @@ impl LuaEnv {
          r |= naevc::nlua_loadPlayer(env);
          r |= naevc::nlua_loadPilot(env);
          r |= naevc::nlua_loadDiff(env);
-         r |= naevc::nlua_loadFaction(env);
+         //r |= naevc::nlua_loadFaction(env);
          r |= naevc::nlua_loadOutfit(env);
          r |= naevc::nlua_loadCommodity(env);
          r |= naevc::nlua_loadNews(env);
@@ -608,9 +609,9 @@ pub extern "C" fn nlua_newEnv(name: *const c_char) -> *mut LuaEnv {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn nlua_dupEnv(env: *mut LuaEnv) -> *mut LuaEnv {
+pub extern "C" fn nlua_dupEnv(env: *const LuaEnv) -> *mut LuaEnv {
    if env.is_null() {
-      return env;
+      return std::ptr::null_mut();
    }
    let env = unsafe { &*env };
    Box::into_raw(Box::new(env.clone()))
@@ -624,7 +625,7 @@ pub extern "C" fn nlua_freeEnv(env: *mut LuaEnv) {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn nlua_pushenv(lua: *mut mlua::lua_State, env: *mut LuaEnv) {
+pub extern "C" fn nlua_pushenv(lua: *mut mlua::lua_State, env: *const LuaEnv) {
    let env = unsafe { &*env };
    unsafe {
       mlua::ffi::lua_rawgeti(lua, mlua::ffi::LUA_REGISTRYINDEX, env.rk.id().into());
