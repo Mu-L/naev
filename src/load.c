@@ -76,7 +76,7 @@ extern int news_loadArticles( xmlNodePtr parent );
 /* nlua_var.c */
 extern int var_load( xmlNodePtr parent ); /**< Loads mission variables. */
 /* faction.c */
-extern int pfaction_load( xmlNodePtr parent ); /**< Loads faction data. */
+static int pfaction_load( xmlNodePtr parent ); /**< Loads faction data. */
 /* hook.c */
 extern int hook_load( xmlNodePtr parent ); /**< Loads hooks. */
 /* economy.c */
@@ -1451,4 +1451,53 @@ static xmlDocPtr load_xml_parsePhysFS( const char *filename )
    char buf[PATH_MAX];
    snprintf( buf, sizeof( buf ), "%s/%s", PHYSFS_getWriteDir(), filename );
    return xmlParseFile( buf );
+}
+
+/**
+ * @brief Loads the player's faction standings.
+ *
+ *    @param parent Parent xml node to read from.
+ *    @return 0 on success.
+ */
+int pfaction_load( xmlNodePtr parent )
+{
+   xmlNodePtr node = parent->xmlChildrenNode;
+
+   do {
+      if ( xml_isNode( node, "factions" ) ) {
+         xmlNodePtr cur = node->xmlChildrenNode;
+         do {
+            if ( xml_isNode( cur, "faction" ) ) {
+               char *str;
+               xmlr_attr_strd( cur, "name", str );
+               FactionRef fct = faction_get( str );
+               free( str );
+               if ( fct == FACTION_NULL )
+                  continue;
+
+               xmlNodePtr sub = cur->xmlChildrenNode;
+               do {
+                  if ( xml_isNode( sub, "standing" ) ) {
+
+                     /* Must not be static. */
+                     if ( !faction_isStatic( fct ) )
+                        faction_setReputation( fct, xml_getFloat( sub ) );
+                     continue;
+                  }
+                  if ( xml_isNode( sub, "known" ) ) {
+                     faction_setKnown( fct, 1 );
+                     continue;
+                  }
+                  if ( xml_isNode( sub, "override" ) ) {
+                     faction_setReputationOverride( fct, 1,
+                                                    xml_getFloat( sub ) );
+                     continue;
+                  }
+               } while ( xml_nextNode( sub ) );
+            }
+         } while ( xml_nextNode( cur ) );
+      }
+   } while ( xml_nextNode( node ) );
+
+   return 0;
 }

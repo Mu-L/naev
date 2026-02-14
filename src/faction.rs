@@ -1986,6 +1986,13 @@ pub extern "C" fn faction_reputation(id: i64) -> c_double {
 }
 
 #[unsafe(no_mangle)]
+pub extern "C" fn faction_setReputation(id: i64, value: c_double) {
+   faction_c_call(id, |fct| fct.set_player(value as f32)).unwrap_or_else(|err| {
+      warn_err!(err);
+   })
+}
+
+#[unsafe(no_mangle)]
 pub extern "C" fn faction_reputationOverride(id: i64, set: *mut c_int) -> c_double {
    faction_c_call(id, |fct| match fct.r#override() {
       Some(v) => {
@@ -2008,6 +2015,16 @@ pub extern "C" fn faction_reputationOverride(id: i64, set: *mut c_int) -> c_doub
       }
       0.0
    }) as c_double
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn faction_setReputationOverride(id: i64, set: c_int, value: c_double) {
+   faction_c_call_mut(id, |fct| {
+      fct.set_override(if set == 0 { None } else { Some(value as f32) });
+   })
+   .unwrap_or_else(|err| {
+      warn_err!(err);
+   })
 }
 
 #[unsafe(no_mangle)]

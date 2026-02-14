@@ -17,6 +17,7 @@
 #include "array.h"
 #include "conf.h"
 #include "dialogue.h"
+#include "faction.h"
 #include "load.h"
 #include "log.h"
 #include "mission.h"
@@ -42,8 +43,6 @@ extern int events_saveActive( xmlTextWriterPtr writer );
 extern int news_saveArticles( xmlTextWriterPtr writer );
 /* nlua_var.c */
 extern int var_save( xmlTextWriterPtr writer ); /**< Saves mission variables. */
-/* faction.c */
-extern int pfaction_save( xmlTextWriterPtr writer ); /**< Saves faction data. */
 /* hook.c */
 extern int hook_save( xmlTextWriterPtr writer ); /**< Saves hooks. */
 /* economy.c */
@@ -54,6 +53,7 @@ extern int
 diff_save( xmlTextWriterPtr writer ); /**< Saves the universe diffs. */
 /* static */
 static int save_data( xmlTextWriterPtr writer );
+static int pfaction_save( xmlTextWriterPtr writer );
 
 /**
  * @brief Saves all the player's game data.
@@ -233,4 +233,36 @@ void save_reload( void )
       return;
    }
    load_game( &ns[0] );
+}
+
+int pfaction_save( xmlTextWriterPtr writer )
+{
+   xmlw_startElem( writer, "factions" );
+
+   FactionRef *faction_stack = faction_getAll();
+   for ( int i = 0; i < array_size( faction_stack ); i++ ) {
+      const FactionRef f = faction_stack[i];
+
+      /* Must not be static. */
+      if ( faction_isStatic( f ) )
+         continue;
+
+      xmlw_startElem( writer, "faction" );
+
+      xmlw_attr( writer, "name", "%s", faction_name( f ) );
+      xmlw_elem( writer, "standing", "%f", faction_reputation( f ) );
+      int    set = 0;
+      double ovr = faction_reputationOverride( f, &set );
+      if ( set )
+         xmlw_elem( writer, "override", "%f", ovr );
+
+      if ( faction_isKnown( f ) )
+         xmlw_elemEmpty( writer, "known" );
+
+      xmlw_endElem( writer ); /* "faction" */
+   }
+   array_free( faction_stack );
+
+   xmlw_endElem( writer ); /* "factions" */
+   return 0;
 }
