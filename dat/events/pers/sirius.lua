@@ -47,6 +47,17 @@ return function ()
                end
                return p
             end,
+         }, {
+            spawn = function ()
+               local p = pilot.add("Sirius Starbridge", "Sirius", nil, _("Star Voyager"), {naked=true, ai="pers"})
+               p:outfitAddIntrinsic("Escape Pod")
+               equipopt.sirius( p, { flow_ability=outfit.get("Astral Projection") } )
+               local m = p:memory()
+               m.capturable = true
+               m.comm_greet = _([["The skies of Mutris are ever so beautiful."]])
+               m.taunt = _("Such senseless violence!")
+               return p
+            end,
          }
       } do
          table.insert( pers, v )
