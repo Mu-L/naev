@@ -1551,6 +1551,74 @@ impl UserData for FactionRef {
    }
 }
 
+use mlua::{Value, ffi};
+use std::ffi::c_void;
+pub fn open_faction(lua: &mlua::Lua) -> anyhow::Result<mlua::AnyUserData> {
+   let proxy = lua.create_proxy::<FactionRef>()?;
+
+   if let mlua::Value::Nil = lua.named_registry_value("push_faction")? {
+      let push_faction = lua.create_function(|lua, fct: i64| {
+         let fct = FactionRef::from_ffi(fct);
+         lua.create_userdata(fct)
+      })?;
+      lua.set_named_registry_value("push_faction", push_faction)?;
+
+      let get_faction = lua.create_function(|_, mut ud: mlua::UserDataRefMut<FactionRef>| {
+         let fct: *mut FactionRef = &mut *ud;
+         Ok(Value::LightUserData(mlua::LightUserData(
+            fct as *mut c_void,
+         )))
+      })?;
+      lua.set_named_registry_value("get_faction", get_faction)?;
+   }
+
+   Ok(proxy)
+}
+
+#[allow(non_snake_case)]
+#[unsafe(no_mangle)]
+pub extern "C" fn _luaL_checkfaction(L: *mut mlua::lua_State, idx: c_int) -> *mut FactionRef {
+   unsafe {
+      let fct = _lua_tofaction(L, idx);
+      if fct.is_null() {
+         ffi::luaL_typerror(L, idx, c"faction".as_ptr() as *const c_char);
+      }
+      fct
+   }
+}
+
+#[allow(non_snake_case)]
+#[unsafe(no_mangle)]
+pub extern "C" fn _lua_isfaction(L: *mut mlua::lua_State, idx: c_int) -> c_int {
+   !_lua_tofaction(L, idx).is_null() as c_int
+}
+
+#[allow(non_snake_case)]
+#[unsafe(no_mangle)]
+pub extern "C" fn _lua_pushfaction(L: *mut mlua::lua_State, fct: i64) {
+   unsafe {
+      ffi::lua_getfield(L, ffi::LUA_REGISTRYINDEX, c"push_faction".as_ptr());
+      ffi::lua_pushinteger(L, fct);
+      ffi::lua_call(L, 1, 1);
+   }
+}
+
+#[allow(non_snake_case)]
+#[unsafe(no_mangle)]
+pub extern "C" fn _lua_tofaction(L: *mut mlua::lua_State, idx: c_int) -> *mut FactionRef {
+   unsafe {
+      let idx = ffi::lua_absindex(L, idx);
+      ffi::lua_getfield(L, ffi::LUA_REGISTRYINDEX, c"get_faction".as_ptr());
+      ffi::lua_pushvalue(L, idx);
+      let fct = match ffi::lua_pcall(L, 1, 1, 0) {
+         ffi::LUA_OK => ffi::lua_touserdata(L, -1) as *mut FactionRef,
+         _ => std::ptr::null_mut(),
+      };
+      ffi::lua_pop(L, 1);
+      fct
+   }
+}
+
 // Here be C API
 use std::mem::ManuallyDrop;
 use std::os::raw::{c_char, c_double, c_int};
