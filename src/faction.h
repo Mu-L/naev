@@ -61,7 +61,7 @@ const glTexture        *faction_logo( FactionRef f );
 const glColour         *faction_colour( FactionRef f );
 const FactionRef       *faction_getEnemies( FactionRef f );
 const FactionRef       *faction_getAllies( FactionRef f );
-FactionRef             *faction_getGroup( int which );
+FactionRef             *faction_getGroup( int which, const StarSystem *sys );
 int                     faction_usesHiddenJumps( FactionRef f );
 const FactionGenerator *faction_generators( FactionRef f );
 

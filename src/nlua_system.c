@@ -798,13 +798,13 @@ static int systemL_presence( lua_State *L )
 
       /* Check the command string and get the appropriate faction group.*/
       if ( strcmp( cmd, "all" ) == 0 )
-         fct = faction_getGroup( 0 );
+         fct = faction_getGroup( 0, sys );
       else if ( strcmp( cmd, "friendly" ) == 0 )
-         fct = faction_getGroup( 1 );
+         fct = faction_getGroup( 1, sys );
       else if ( strcmp( cmd, "hostile" ) == 0 )
-         fct = faction_getGroup( 3 );
+         fct = faction_getGroup( 3, sys );
       else if ( strcmp( cmd, "neutral" ) == 0 )
-         fct = faction_getGroup( 2 );
+         fct = faction_getGroup( 2, sys );
       else /* Invalid command string. */
          used = 0;
    }

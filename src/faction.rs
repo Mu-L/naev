@@ -1,6 +1,6 @@
 #![allow(dead_code, unused_variables, unused_imports)]
 use crate::array;
-use crate::array::ArrayCString;
+use crate::array::{Array, ArrayCString};
 use crate::nlua::LuaEnv;
 use crate::nlua::{NLUA, NLua};
 use anyhow::Context as AnyhowContext;
@@ -1674,7 +1674,6 @@ pub extern "C" fn lua_tofaction(L: *mut mlua::lua_State, idx: c_int) -> *mut Fac
 }
 
 // Here be C API
-use std::mem::ManuallyDrop;
 use std::os::raw::{c_char, c_double, c_int};
 
 #[unsafe(no_mangle)]
@@ -1711,37 +1710,34 @@ pub extern "C" fn faction_get(name: *const c_char) -> i64 {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn faction_getAll() -> *const i64 {
+pub extern "C" fn faction_getAll() -> *mut i64 {
    let mut fcts: Vec<i64> = vec![];
    for (id, val) in FACTIONS.read().unwrap().iter() {
       fcts.push(id.as_ffi());
    }
-   let arr = ManuallyDrop::new(array::Array::new(&fcts).unwrap());
-   arr.as_ptr() as *const i64
+   Array::new(&fcts).unwrap().into_ptr() as *mut i64
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn faction_getAllVisible() -> *const i64 {
+pub extern "C" fn faction_getAllVisible() -> *mut i64 {
    let mut fcts: Vec<i64> = vec![];
    for (id, fct) in FACTIONS.read().unwrap().iter() {
       if !fct.data.f_invisible {
          fcts.push(id.as_ffi());
       }
    }
-   let arr = ManuallyDrop::new(array::Array::new(&fcts).unwrap());
-   arr.as_ptr() as *const i64
+   Array::new(&fcts).unwrap().into_ptr() as *mut i64
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn faction_getKnown() -> *const i64 {
+pub extern "C" fn faction_getKnown() -> *mut i64 {
    let mut fcts: Vec<i64> = vec![];
    for (id, val) in FACTIONS.read().unwrap().iter() {
       if !val.data.f_invisible && !val.standing.read().unwrap().f_known {
          fcts.push(id.as_ffi());
       }
    }
-   let arr = ManuallyDrop::new(array::Array::new(&fcts).unwrap());
-   arr.as_ptr() as *const i64
+   Array::new(&fcts).unwrap().into_ptr() as *mut i64
 }
 
 #[unsafe(no_mangle)]
@@ -2308,4 +2304,102 @@ pub extern "C" fn faction_reputationColourCharSystem(
    } else {
       'N'
    }) as c_char
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn faction_getEnemies(id: i64) -> *const i64 {
+   static ENEMY_ARRAY: Mutex<Array<i64>> = Mutex::new(Array::default());
+   // TODO case player
+   faction_c_call(id, |fct| {
+      let data: Vec<_> = fct.data.enemies.iter().map(|f| f.as_ffi()).collect();
+      let mut array = ENEMY_ARRAY.lock().unwrap();
+      *array = Array::new(&data).unwrap();
+      array.as_ptr() as *const i64
+   })
+   .unwrap_or_else(|err| {
+      warn_err!(err);
+      std::ptr::null_mut()
+   })
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn faction_getAllies(id: i64) -> *const i64 {
+   static ALLY_ARRAY: Mutex<Array<i64>> = Mutex::new(Array::default());
+   // TODO case player
+   faction_c_call(id, |fct| {
+      let data: Vec<_> = fct.data.allies.iter().map(|f| f.as_ffi()).collect();
+      let mut array = ALLY_ARRAY.lock().unwrap();
+      *array = Array::new(&data).unwrap();
+      array.as_ptr() as *const i64
+   })
+   .unwrap_or_else(|err| {
+      warn_err!(err);
+      std::ptr::null_mut()
+   })
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn faction_getGroup(which: c_int, sys: *const naevc::StarSystem) -> *mut i64 {
+   let sys = if sys.is_null() {
+      None
+   } else {
+      Some(unsafe { &*sys })
+   };
+   let mut fcts: Vec<i64> = vec![];
+   // TODO speed this up and do it in one pass
+   if which == 0 {
+      for (id, val) in FACTIONS.read().unwrap().iter() {
+         fcts.push(id.as_ffi());
+      }
+   } else if which == 1 {
+      // friendly
+      let ids: Vec<_> = FACTIONS.read().unwrap().keys().collect();
+      for id in ids {
+         if id.player_ally(sys) {
+            fcts.push(id.as_ffi());
+         }
+      }
+   } else if which == 2 {
+      // neutral
+      let ids: Vec<_> = FACTIONS.read().unwrap().keys().collect();
+      for id in ids {
+         if !id.player_enemy(sys) && !id.player_ally(sys) {
+            fcts.push(id.as_ffi());
+         }
+      }
+   } else if which == 3 {
+      // enemy
+      let ids: Vec<_> = FACTIONS.read().unwrap().keys().collect();
+      for id in ids {
+         if id.player_enemy(sys) {
+            fcts.push(id.as_ffi());
+         }
+      }
+   } else {
+      return std::ptr::null_mut();
+   }
+   Array::new(&fcts).unwrap().into_ptr() as *mut i64
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn faction_generators(id: i64) -> *const naevc::FactionGenerator {
+   let generators = faction_c_call_mut(id, |fct| {
+      fct.data
+         .generators
+         .iter()
+         .map(|g| naevc::FactionGenerator {
+            id: g.id.as_ffi(),
+            weight: g.weight.into(),
+         })
+         .collect::<Vec<_>>()
+   })
+   .unwrap_or_else(|err| {
+      warn_err!(err);
+      vec![]
+   });
+
+   static GENERATOR_ARRAY: Mutex<Array<naevc::FactionGenerator>> = Mutex::new(Array::default());
+   let mut array = GENERATOR_ARRAY.lock().unwrap();
+   *array = Array::new(&generators).unwrap();
+   array.as_ptr() as *const naevc::FactionGenerator
 }
