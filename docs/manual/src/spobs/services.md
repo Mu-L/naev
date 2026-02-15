@@ -17,5 +17,6 @@ You can only specify services from the list below:
     authorization.
   * **refuel**: Ships will automatically refuel when landing. The game will also save automatically if the spob has refuelling or another landable spob has refuelling in the system.
 
-> [!CAUTION!]
-> These services might be affected by special tags.
+> [!CAUTION]
+> These services might be affected by special tags, e.g. _noshipcapture_.
+> See related section.
