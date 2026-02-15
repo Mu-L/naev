@@ -501,7 +501,9 @@ int ai_pinit( Pilot *p, const char *ai )
    /* Set up the profile. */
    prof = ai_getProfile( buf );
    if ( prof == NULL ) {
-      WARN( _( "AI Profile '%s' not found, using dummy fallback." ), buf );
+      WARN(
+         _( "Pilot '%s' has unknown AI Profile '%s', using dummy fallback." ),
+         p->name, buf );
       prof = ai_getProfile( "dummy" );
    }
    if ( prof == NULL ) {

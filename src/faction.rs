@@ -39,7 +39,14 @@ struct Grid {
 impl std::ops::Index<(FactionRef, FactionRef)> for Grid {
    type Output = GridEntry;
    fn index(&self, index: (FactionRef, FactionRef)) -> &Self::Output {
-      &self.data[self.offset(index)]
+      match &self.data.get(self.offset(index)) {
+         Some(v) => v,
+         None => {
+            warn!("trying to access '{:?}' x '{:?}'", index.0, index.1);
+            &GridEntry::None
+         }
+      }
+      //&self.data[self.offset(index)]
    }
 }
 impl std::ops::IndexMut<(FactionRef, FactionRef)> for Grid {
@@ -832,6 +839,8 @@ pub fn load() -> Result<()> {
          cdisplayname: Some(CString::new("Escort")?),
          f_static: true,
          f_invisible: true,
+         ai: "player".to_string(),
+         cai: CString::new("player").unwrap(),
          ..Default::default()
       },
       FactionLoad::default(),
@@ -1435,6 +1444,16 @@ impl UserData for FactionRef {
          Ok(this.call(|fct| fct.fixed())?)
       });
       /*@
+       * @brief Gets the default AI of the faction.
+       *
+       *    @luatparam Faction f Faction to check the default AI of.
+       *    @luatreturn string The default AI of the faction.
+       * @luafunc default_ai
+       */
+      methods.add_method("default_ai", |_, this, ()| -> mlua::Result<String> {
+         Ok(this.call(|fct| fct.data.ai.clone())?)
+      });
+      /*@
        * @brief Gets the overridden reputation value of a faction.
        *
        *    @luatparam Faction f Faction to get whether or not the reputation is
@@ -1980,7 +1999,14 @@ pub extern "C" fn faction_description(id: i64) -> *const c_char {
 
 #[unsafe(no_mangle)]
 pub extern "C" fn faction_default_ai(id: i64) -> *const c_char {
-   faction_c_call(id, |fct| fct.data.cai.as_ptr()).unwrap_or_else(|err| {
+   faction_c_call(id, |fct| {
+      if fct.data.ai.is_empty() {
+         std::ptr::null()
+      } else {
+         fct.data.cai.as_ptr()
+      }
+   })
+   .unwrap_or_else(|err| {
       warn_err!(err);
       std::ptr::null()
    })
