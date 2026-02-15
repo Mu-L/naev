@@ -121,7 +121,7 @@ static GRID: RwLock<Grid> = RwLock::new(Grid::new());
 pub static FACTIONS: LazyLock<RwLock<SlotMap<FactionRef, Faction>>> =
    LazyLock::new(|| RwLock::new(SlotMap::with_key()));
 pub static PLAYER: OnceLock<FactionRef> = OnceLock::new();
-const PLAYER_FACTION_NAME: &str = "Escort";
+const PLAYER_FACTION_NAME: &str = "Player";
 
 slotmap::new_key_type! {
 pub struct FactionRef;
@@ -819,6 +819,8 @@ pub fn load() -> Result<()> {
       FactionData {
          name: String::from(PLAYER_FACTION_NAME),
          cname: CString::new(PLAYER_FACTION_NAME)?,
+         displayname: Some(String::from("Escort")),
+         cdisplayname: Some(CString::new("Escort")?),
          f_static: true,
          f_invisible: true,
          ..Default::default()
@@ -1090,9 +1092,9 @@ impl UserData for FactionRef {
        *    @luatreturn boolean true if they are truly neutral, false if they aren't.
        * @luafunc areNeutral
        */
-      methods.add_method(
+      methods.add_function(
          "areNeutral",
-         |_, this, other: FactionRef| -> mlua::Result<bool> {
+         |_, (this, other): (FactionRef, FactionRef)| -> mlua::Result<bool> {
             Ok(this.call2(&other, |fct1, fct2| fct1.data.are_neutrals(&fct2.data))?)
          },
       );
@@ -1108,9 +1110,11 @@ impl UserData for FactionRef {
        *    @luatreturn boolean true if they are enemies, false if they aren't.
        * @luafunc areEnemies
        */
-      methods.add_method(
+      methods.add_function(
          "areEnemies",
-         |_, this, (other, sys): (FactionRef, Option<mlua::AnyUserData>)| -> mlua::Result<bool> {
+         |_,
+          (this, other, sys): (FactionRef, FactionRef, Option<mlua::AnyUserData>)|
+          -> mlua::Result<bool> {
             if let Some(sys) = sys {
                // HORRIBLE HACK UNTIL STARSYSTEMS ARE IN MLUA
                // TODO fix this ASAP
@@ -1141,9 +1145,11 @@ impl UserData for FactionRef {
        *    @luatreturn boolean true if they are enemies, false if they aren't.
        * @luafunc areAllies
        */
-      methods.add_method(
+      methods.add_function(
          "areAllies",
-         |_, this, (other, sys): (FactionRef, Option<mlua::AnyUserData>)| -> mlua::Result<bool> {
+         |_,
+          (this, other, sys): (FactionRef, FactionRef, Option<mlua::AnyUserData>)|
+          -> mlua::Result<bool> {
             if let Some(sys) = sys {
                // HORRIBLE HACK UNTIL STARSYSTEMS ARE IN MLUA
                // TODO fix this ASAP
@@ -1186,11 +1192,11 @@ impl UserData for FactionRef {
        * was run.
        * @luafunc hit
        */
-      methods.add_method(
+      methods.add_function(
          "hit",
          |_,
-          this,
-          (modifier, system, extent, reason, ignore_others): (
+          (this, modifier, system, extent, reason, ignore_others): (
+            FactionRef,
             f32,
             mlua::Value,
             Option<BorrowedStr>,
@@ -1218,11 +1224,11 @@ impl UserData for FactionRef {
        * was run.
        * @luafunc hitTest
        */
-      methods.add_method(
+      methods.add_function(
          "hitTest",
          |_,
-          this,
-          (modifier, system, extent, reason): (
+          (this, modifier, system, extent, reason): (
+            FactionRef,
             f32,
             mlua::Value,
             Option<BorrowedStr>,
@@ -1243,9 +1249,10 @@ impl UserData for FactionRef {
        *    @luatreturn number The value of the standing.
        * @luafunc reputationGlobal
        */
-      methods.add_method("reputationGlobal", |_, this, ()| -> mlua::Result<f32> {
-         Ok(this.call(|fct| fct.player())?)
-      });
+      methods.add_function(
+         "reputationGlobal",
+         |_, this: FactionRef| -> mlua::Result<f32> { Ok(this.call(|fct| fct.player())?) },
+      );
       /*@
        * @brief Gets the human readable standing text corresponding (translated).
        *
@@ -1255,9 +1262,9 @@ impl UserData for FactionRef {
        *    @luatreturn string Translated text corresponding to the faction value.
        * @luafunc reputationText
        */
-      methods.add_method(
+      methods.add_function(
          "reputationText",
-         |_, this, value: Option<f32>| -> mlua::Result<String> {
+         |_, (this, value): (FactionRef, Option<f32>)| -> mlua::Result<String> {
             Ok(this.call(|fct| {
                if let Some(api) = &fct.api {
                   let value = value.unwrap_or(fct.player());
