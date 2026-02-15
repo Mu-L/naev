@@ -8,7 +8,7 @@ use anyhow::Result;
 use gettext::gettext;
 use helpers::{binary_search_by_key_ref, sort_by_key_ref};
 use mlua::ErrorContext as MluaContext;
-use mlua::{BorrowedStr, Either, Function, UserData, UserDataMethods, UserDataRef};
+use mlua::{BorrowedStr, Either, FromLua, Function, UserData, UserDataMethods, UserDataRef};
 use naev_core::{nxml, nxml_err_attr_missing, nxml_warn_node_unknown};
 use nalgebra::{Vector3, Vector4};
 use nlog::warn_err;
@@ -20,10 +20,7 @@ use std::collections::HashMap;
 use std::ffi::{CStr, CString, OsStr};
 use std::path::{Path, PathBuf};
 use std::sync::{Arc, LazyLock, OnceLock};
-#[cfg(not(debug_assertions))]
 use std::sync::{Mutex, RwLock};
-#[cfg(debug_assertions)]
-use tracing_mutex::stdsync::{Mutex, RwLock};
 
 #[derive(Copy, Clone, Debug, PartialEq)]
 enum GridEntry {
@@ -905,7 +902,7 @@ pub fn load_lua() -> Result<()> {
    let lua = &NLUA;
 
    // Load the APIs
-   let apis: Vec<_> = FACTIONS
+   let apis = FACTIONS
       .read()
       .unwrap()
       .iter()
@@ -920,7 +917,7 @@ pub fn load_lua() -> Result<()> {
             }
          }
       })
-      .collect();
+      .collect::<Vec<_>>();
 
    // Write out
    let mut data = FACTIONS.write().unwrap();
@@ -928,6 +925,22 @@ pub fn load_lua() -> Result<()> {
       data.get_mut(id).unwrap().api = Some(api.into());
    }
    Ok(())
+}
+
+impl FromLua for FactionRef {
+   fn from_lua(value: mlua::Value, _: &mlua::Lua) -> mlua::Result<Self> {
+      match value {
+         Value::UserData(ud) => Ok(*ud.borrow::<Self>()?),
+         Value::String(name) => {
+            let name = &name.to_str()?;
+            Ok(FactionRef::new(name).with_context(|| format!("faction '{name}' not found"))?)
+         }
+         val => Err(mlua::Error::RuntimeError(format!(
+            "unable to convert {} to FactionRef",
+            val.type_name()
+         ))),
+      }
+   }
 }
 
 /*@
@@ -974,16 +987,24 @@ impl UserData for FactionRef {
        *    @luatreturn Faction The faction matching name.
        * @luafunc get
        */
-      methods.add_function("get", |_, name: BorrowedStr| -> mlua::Result<Self> {
-         for (id, fct) in FACTIONS.read().unwrap().iter() {
-            if name == fct.data.name {
-               return Ok(id);
+      methods.add_function(
+         "get",
+         |_, name: Either<UserDataRef<FactionRef>, BorrowedStr>| -> mlua::Result<Self> {
+            match name {
+               Either::Left(fr) => Ok(fr.clone()),
+               Either::Right(name) => {
+                  for (id, fct) in FACTIONS.read().unwrap().iter() {
+                     if name == fct.data.name {
+                        return Ok(id);
+                     }
+                  }
+                  Err(mlua::Error::RuntimeError(format!(
+                     "Faction '{name}' not found."
+                  )))
+               }
             }
-         }
-         Err(mlua::Error::RuntimeError(format!(
-            "Faction '{name}' not found."
-         )))
-      });
+         },
+      );
       /*@
        * @brief Gets all the factions.
        *
@@ -1035,7 +1056,7 @@ impl UserData for FactionRef {
        *    @luatreturn string The name of the faction.
        * @luafunc nameRaw
        */
-      methods.add_method("shortname", |_, this, ()| -> mlua::Result<String> {
+      methods.add_method("nameRaw", |_, this, ()| -> mlua::Result<String> {
          Ok(this.call(|fct| fct.data.name.clone())?)
       });
       /*@
@@ -1065,7 +1086,7 @@ impl UserData for FactionRef {
        */
       methods.add_method(
          "areNeutral",
-         |_, this, other: UserDataRef<Self>| -> mlua::Result<bool> {
+         |_, this, other: FactionRef| -> mlua::Result<bool> {
             Ok(this.call2(&other, |fct1, fct2| fct1.data.are_neutrals(&fct2.data))?)
          },
       );
@@ -1083,10 +1104,7 @@ impl UserData for FactionRef {
        */
       methods.add_method(
          "areEnemies",
-         |_,
-          this,
-          (other, sys): (UserDataRef<Self>, Option<mlua::AnyUserData>)|
-          -> mlua::Result<bool> {
+         |_, this, (other, sys): (FactionRef, Option<mlua::AnyUserData>)| -> mlua::Result<bool> {
             if let Some(sys) = sys {
                // HORRIBLE HACK UNTIL STARSYSTEMS ARE IN MLUA
                // TODO fix this ASAP
@@ -1119,10 +1137,7 @@ impl UserData for FactionRef {
        */
       methods.add_method(
          "areAllies",
-         |_,
-          this,
-          (other, sys): (UserDataRef<Self>, Option<mlua::AnyUserData>)|
-          -> mlua::Result<bool> {
+         |_, this, (other, sys): (FactionRef, Option<mlua::AnyUserData>)| -> mlua::Result<bool> {
             if let Some(sys) = sys {
                // HORRIBLE HACK UNTIL STARSYSTEMS ARE IN MLUA
                // TODO fix this ASAP
@@ -1462,7 +1477,7 @@ impl UserData for FactionRef {
          "dynAdd",
          |lua,
           (base, name, display, params): (
-            Option<UserDataRef<Self>>,
+            Option<FactionRef>,
             String,
             Option<String>,
             Option<mlua::Table>,
@@ -1471,7 +1486,7 @@ impl UserData for FactionRef {
             let mut data = FACTIONS.write().unwrap();
             let params = params.unwrap_or_else(|| lua.create_table().unwrap());
             let (mut fd, api) = if let Some(reference) = base {
-               let fct = &data.get(*reference).context("faction not found")?;
+               let fct = &data.get(reference).context("faction not found")?;
                let base = &fct.data;
                let ai = params
                   .get::<Option<String>>("ai")?
@@ -1559,7 +1574,7 @@ impl UserData for FactionRef {
        */
       methods.add_method_mut(
          "dynAlly",
-         |_, this, (ally, remove): (UserDataRef<FactionRef>, Option<bool>)| -> mlua::Result<()> {
+         |_, this, (ally, remove): (FactionRef, Option<bool>)| -> mlua::Result<()> {
             let remove = remove.unwrap_or(false);
             this.call_mut(|fct| {
                if !fct.data.f_dynamic {
@@ -1568,9 +1583,9 @@ impl UserData for FactionRef {
                   ));
                }
                if remove {
-                  fct.remove_ally(*ally);
+                  fct.remove_ally(ally);
                } else {
-                  fct.add_ally(*ally);
+                  fct.add_ally(ally);
                }
                Ok(())
             })?
@@ -1588,7 +1603,7 @@ impl UserData for FactionRef {
        */
       methods.add_method_mut(
          "dynEnemy",
-         |_, this, (enemy, remove): (UserDataRef<FactionRef>, Option<bool>)| -> mlua::Result<()> {
+         |_, this, (enemy, remove): (FactionRef, Option<bool>)| -> mlua::Result<()> {
             let remove = remove.unwrap_or(false);
             this.call_mut(|fct| {
                if !fct.data.f_dynamic {
@@ -1597,9 +1612,9 @@ impl UserData for FactionRef {
                   ));
                }
                if remove {
-                  fct.remove_enemy(*enemy);
+                  fct.remove_enemy(enemy);
                } else {
-                  fct.add_enemy(*enemy);
+                  fct.add_enemy(enemy);
                }
                Ok(())
             })?
