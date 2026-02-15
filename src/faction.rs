@@ -7,6 +7,7 @@ use anyhow::Context as AnyhowContext;
 use anyhow::Result;
 use gettext::gettext;
 use helpers::{binary_search_by_key_ref, sort_by_key_ref};
+use mlua::ErrorContext as MluaContext;
 use mlua::{BorrowedStr, Either, Function, UserData, UserDataMethods, UserDataRef};
 use naev_core::{nxml, nxml_err_attr_missing, nxml_warn_node_unknown};
 use nalgebra::{Vector3, Vector4};
@@ -18,7 +19,11 @@ use slotmap::{Key, KeyData, SecondaryMap, SlotMap};
 use std::collections::HashMap;
 use std::ffi::{CStr, CString, OsStr};
 use std::path::{Path, PathBuf};
-use std::sync::{Arc, LazyLock, Mutex, OnceLock, RwLock};
+use std::sync::{Arc, LazyLock, OnceLock};
+#[cfg(not(debug_assertions))]
+use std::sync::{Mutex, RwLock};
+#[cfg(debug_assertions)]
+use tracing_mutex::stdsync::{Mutex, RwLock};
 
 #[derive(Copy, Clone, Debug, PartialEq)]
 enum GridEntry {
@@ -62,8 +67,7 @@ impl Grid {
       }
    }
 
-   fn recompute(&mut self) -> Result<()> {
-      let factions = FACTIONS.read().unwrap();
+   fn recompute(&mut self, factions: &SlotMap<FactionRef, Faction>) -> Result<()> {
       self.size = factions.capacity();
       self.data.clear();
       self.data.resize(self.size * self.size, GridEntry::None);
@@ -208,9 +212,9 @@ impl FactionRef {
    fn player_ally(&self, sys: Option<&naevc::StarSystem>) -> bool {
       if let Some(sys) = sys {
          let threshold = self
-            .call(|fct| {
-               let api = fct.api.get().unwrap();
-               api.friendly_at
+            .call(|fct| match &fct.api {
+               Some(api) => api.friendly_at,
+               None => std::f32::INFINITY,
             })
             .unwrap_or(std::f32::INFINITY);
          unsafe { naevc::system_getReputationOrGlobal(sys, self.as_ffi()) as f32 > threshold }
@@ -218,8 +222,11 @@ impl FactionRef {
          self
             .call(|fct| {
                let std = fct.standing.read().unwrap();
-               let api = fct.api.get().unwrap();
-               std.player >= api.friendly_at
+               if let Some(api) = &fct.api {
+                  std.player >= api.friendly_at
+               } else {
+                  false
+               }
             })
             .unwrap_or_else(|err| {
                warn_err!(err);
@@ -284,13 +291,92 @@ impl FactionRef {
 }
 
 #[derive(Debug)]
-struct StandingAPI {
+struct LuaAPI {
+   // Scheduler
+   sched_env: Arc<LuaEnv>,
+   // Equipping
+   equip_env: Arc<LuaEnv>,
+   // Standing Behaviour
+   lua_env: LuaEnv,
    friendly_at: f32,
-   hit: Option<mlua::Function>,
-   hit_test: Option<mlua::Function>,
-   text_rank: Option<mlua::Function>,
-   text_broad: Option<mlua::Function>,
-   reputation_max: Option<mlua::Function>,
+   hit: mlua::Function,
+   hit_test: mlua::Function,
+   text_rank: mlua::Function,
+   text_broad: mlua::Function,
+   reputation_max: mlua::Function,
+}
+impl LuaAPI {
+   fn new(lua: &NLua, data: &FactionData) -> Result<Self> {
+      fn new_env(lua: &NLua, script: &str, dir: &str) -> Result<LuaEnv> {
+         let mut env = lua.environment_new(script)?;
+         if script.is_empty() {
+            return Ok(env);
+         }
+         env.load_standard(lua)?;
+         let path = format!("factions//{}/{}.lua", dir, script);
+         let data = ndata::read(&path)?;
+         let func = lua
+            .lua
+            .load(std::str::from_utf8(&data)?)
+            .set_name(path)
+            .into_function()?;
+         env.call::<()>(lua, &func, ())?;
+         Ok(env)
+      }
+      let equip_env = new_env(lua, &data.script_equip, "equip")?;
+      let sched_env = new_env(lua, &data.script_spawn, "spawn")?;
+      let lua_env = new_env(lua, &data.script_standing, "standing")?;
+      let equip_env = Arc::new(equip_env);
+      let sched_env = Arc::new(sched_env);
+
+      fn load_func(env: &LuaEnv, name: &str) -> Result<mlua::Function> {
+         match env.get(name) {
+            Ok(f) => Ok(f),
+            Err(e) => Err(
+               e.with_context(|_| {
+                  format!(
+                     "getting function '{name}' from env '{}'",
+                     env.get::<String>("__name").unwrap_or("???".to_string())
+                  )
+               })
+               .into(),
+            ),
+         }
+      }
+
+      if data.f_static {
+         let noop = lua.lua.create_function(|_, ()| Ok(()))?;
+         Ok(LuaAPI {
+            equip_env,
+            sched_env,
+            lua_env,
+            friendly_at: std::f32::INFINITY,
+            hit: noop.clone(),
+            hit_test: noop.clone(),
+            text_rank: noop.clone(),
+            text_broad: noop.clone(),
+            reputation_max: noop,
+         })
+      } else {
+         let friendly_at = lua_env.get("friendly_at").unwrap_or(70.0);
+         let hit = load_func(&lua_env, "hit")?;
+         let hit_test = load_func(&lua_env, "hit_test")?;
+         let text_rank = load_func(&lua_env, "text_rank")?;
+         let text_broad = load_func(&lua_env, "text_broad")?;
+         let reputation_max = load_func(&lua_env, "reputation_max")?;
+         Ok(LuaAPI {
+            equip_env,
+            sched_env,
+            lua_env,
+            friendly_at,
+            hit,
+            hit_test,
+            text_rank,
+            text_broad,
+            reputation_max,
+         })
+      }
+   }
 }
 
 #[derive(Debug)]
@@ -303,7 +389,7 @@ struct Standing {
 
 #[derive(Debug)]
 pub struct Faction {
-   api: OnceLock<StandingAPI>,
+   api: Option<Arc<LuaAPI>>,
    standing: RwLock<Standing>,
    data: FactionData,
 }
@@ -396,40 +482,6 @@ impl Faction {
       }
    }
 
-   fn init_lua(&self, lua: &NLua) -> Result<()> {
-      self.data.init_lua(lua)?;
-      if let Some(env) = &self.data.lua_env {
-         fn load_func(env: &LuaEnv, name: &str) -> Option<mlua::Function> {
-            match env.get(name) {
-               Ok(f) => Some(f),
-               Err(e) => {
-                  warn_err!(e);
-                  None
-               }
-            }
-         }
-
-         // Store important non-changing stuff here
-         self
-            .api
-            .set(StandingAPI {
-               friendly_at: env.get("friendly_at")?,
-               hit: load_func(env, "hit"),
-               hit_test: load_func(env, "hit_test"),
-               text_rank: load_func(env, "text_rank"),
-               text_broad: load_func(env, "text_broad"),
-               reputation_max: load_func(env, "reputation_max"),
-            })
-            .map_err(|_| {
-               anyhow::anyhow!(
-                  "Failed to load StandingAPI for faction '{}'",
-                  self.data.name
-               )
-            })?;
-      }
-      Ok(())
-   }
-
    fn hit_lua(
       &self,
       val: f32,
@@ -446,12 +498,13 @@ impl Faction {
             return Ok(0.);
          }
       }
-      let ret: f32 = match &self.api.get().unwrap().hit {
-         // (sys, mod, source, secondary, primary_fct)
-         Some(hit) => hit.call((system, val, source, secondary, parent.map(|f| f.data.id)))?,
-         None => anyhow::bail!("hit function not defined for faction '{}'", &self.data.name),
-      };
-      Ok(ret)
+      if let Some(api) = &self.api {
+         Ok(api
+            .hit
+            .call((system, val, source, secondary, parent.map(|f| f.data.id)))?)
+      } else {
+         anyhow::bail!("hit function not defined for faction '{}'", &self.data.name)
+      }
    }
 
    fn hit_test_lua(
@@ -469,14 +522,14 @@ impl Faction {
             return Ok(0.);
          }
       }
-      let ret: f32 = match &self.api.get().unwrap().hit_test {
-         Some(hit) => hit.call((system, val, source, secondary))?,
-         None => anyhow::bail!(
+      if let Some(api) = &self.api {
+         Ok(api.hit_test.call((system, val, source, secondary))?)
+      } else {
+         anyhow::bail!(
             "hit_test function not defined for faction '{}'",
             &self.data.name
-         ),
-      };
-      Ok(ret)
+         )
+      }
    }
 }
 
@@ -526,15 +579,6 @@ pub struct FactionData {
 
    // Player stuff
    pub player_def: f32,
-
-   // Scheduler
-   sched_env: Option<Arc<LuaEnv>>,
-
-   // Behaviour
-   lua_env: Option<Arc<LuaEnv>>,
-
-   // Equipping
-   equip_env: Option<Arc<LuaEnv>>,
 
    // Safe lanes
    lane_length_per_presence: f32,
@@ -684,54 +728,7 @@ impl FactionData {
          }
       }
 
-      // Initaialize Lua scripts
-      {
-         if !fct.script_spawn.is_empty() {
-            fct.sched_env = Some({
-               let mut env = lua.environment_new(&fct.script_spawn)?;
-               env.load_standard(lua)?;
-               Arc::new(env)
-            });
-         }
-         if !fct.script_equip.is_empty() {
-            fct.equip_env = Some({
-               let mut env = lua.environment_new(&fct.script_equip)?;
-               env.load_standard(lua)?;
-               Arc::new(env)
-            });
-         }
-         if !fct.script_standing.is_empty() {
-            fct.lua_env = Some({
-               let mut env = lua.environment_new(&fct.script_standing)?;
-               env.load_standard(lua)?;
-               Arc::new(env)
-            });
-         }
-      }
-
       Ok((fct, fctload))
-   }
-
-   fn init_lua(&self, lua: &NLua) -> Result<()> {
-      fn init_env(lua: &NLua, env: &Option<Arc<LuaEnv>>, script: &str) -> Result<()> {
-         if let Some(env) = env {
-            let path = format!("factions/equip/{}.lua", script);
-            let data = ndata::read(&path)?;
-            let func = lua
-               .lua
-               .load(std::str::from_utf8(&data)?)
-               .set_name(path)
-               .into_function()?;
-            env.call::<()>(lua, &func, ()).unwrap(); //?;
-         }
-         Ok(())
-      }
-
-      init_env(lua, &self.equip_env, &self.script_equip)?;
-      init_env(lua, &self.sched_env, &self.script_spawn)?;
-      init_env(lua, &self.lua_env, &self.script_standing)?;
-
-      Ok(())
    }
 
    /// Checks to see if two factions are allies
@@ -844,7 +841,7 @@ pub fn load() -> Result<()> {
       let id = data.insert_with_key(|k| {
          fd.id = k;
          Faction {
-            api: OnceLock::new(),
+            api: None,
             standing: RwLock::new(Standing {
                player: fd.player_def,
                p_override: None,
@@ -888,6 +885,9 @@ pub fn load() -> Result<()> {
       }
    }
 
+   // Compute grid
+   GRID.write().unwrap().recompute(&*data)?;
+
    // Save the data
    drop(data);
    match FactionRef::new(PLAYER_FACTION_NAME) {
@@ -897,17 +897,35 @@ pub fn load() -> Result<()> {
       None => unreachable!(),
    };
 
-   // Compute grid
-   GRID.write().unwrap().recompute()
+   Ok(())
 }
 
+/// Load the Lua scripts, needs to be run after most things are loaded up
 pub fn load_lua() -> Result<()> {
-   // Last pass: initialize Lua
    let lua = &NLUA;
-   for (id, fct) in FACTIONS.read().unwrap().iter() {
-      if let Err(e) = fct.init_lua(lua) {
-         warn_err!(e);
-      }
+
+   // Load the APIs
+   let apis: Vec<_> = FACTIONS
+      .read()
+      .unwrap()
+      .iter()
+      .filter_map(|(id, fct)| {
+         let api = LuaAPI::new(lua, &fct.data)
+            .with_context(|| format!("initializing Lua for faction '{}'", fct.data.name));
+         match api {
+            Ok(api) => Some((id, api)),
+            Err(e) => {
+               warn_err!(e);
+               None
+            }
+         }
+      })
+      .collect();
+
+   // Write out
+   let mut data = FACTIONS.write().unwrap();
+   for (id, api) in apis {
+      data.get_mut(id).unwrap().api = Some(api.into());
    }
    Ok(())
 }
@@ -1220,9 +1238,9 @@ impl UserData for FactionRef {
          "reputationText",
          |_, this, value: Option<f32>| -> mlua::Result<String> {
             Ok(this.call(|fct| {
-               if let Some(f) = &fct.api.get().unwrap().text_rank {
+               if let Some(api) = &fct.api {
                   let value = value.unwrap_or(fct.player());
-                  f.call(value)
+                  api.text_rank.call(value)
                } else {
                   Ok(String::from("???"))
                }
@@ -1452,8 +1470,9 @@ impl UserData for FactionRef {
           -> mlua::Result<Self> {
             let mut data = FACTIONS.write().unwrap();
             let params = params.unwrap_or_else(|| lua.create_table().unwrap());
-            let mut fd = if let Some(reference) = base {
-               let base = &data.get(*reference).context("faction not found")?.data;
+            let (mut fd, api) = if let Some(reference) = base {
+               let fct = &data.get(*reference).context("faction not found")?;
+               let base = &fct.data;
                let ai = params
                   .get::<Option<String>>("ai")?
                   .unwrap_or(base.ai.clone());
@@ -1475,41 +1494,46 @@ impl UserData for FactionRef {
                } else {
                   base.enemies.clone()
                };
-               FactionData {
-                  id: FactionRef::null(),
-                  cname: CString::new(name.as_str()).unwrap(),
-                  name,
-                  cdisplayname: display.clone().map(|s| CString::new(s.as_str()).unwrap()),
-                  displayname: display,
-                  ai,
-                  logo: base.logo.as_ref().map(|l| l.try_clone()).transpose()?,
-                  colour: colour.into(),
-                  player_def,
-                  allies,
-                  enemies,
-                  // TODO more stuff
-                  f_static: base.f_static,
-                  tags: base.tags.clone(),
-                  f_dynamic: true,
-                  ..Default::default()
-               }
+               (
+                  FactionData {
+                     id: FactionRef::null(),
+                     cname: CString::new(name.as_str()).unwrap(),
+                     name,
+                     cdisplayname: display.clone().map(|s| CString::new(s.as_str()).unwrap()),
+                     displayname: display,
+                     ai,
+                     logo: base.logo.as_ref().map(|l| l.try_clone()).transpose()?,
+                     colour: colour.into(),
+                     player_def,
+                     allies,
+                     enemies,
+                     // TODO more stuff
+                     f_static: base.f_static,
+                     tags: base.tags.clone(),
+                     f_dynamic: true,
+                     ..Default::default()
+                  },
+                  fct.api.clone(),
+               )
             } else {
                let ai: String = params.get("ai").unwrap_or(String::new());
-               FactionData {
-                  cname: CString::new(name.as_str()).unwrap(),
-                  name,
-                  cdisplayname: display.clone().map(|s| CString::new(s.as_str()).unwrap()),
-                  displayname: display,
-                  ai,
-                  f_dynamic: true,
-                  ..Default::default()
-               }
+               (
+                  FactionData {
+                     cname: CString::new(name.as_str()).unwrap(),
+                     name,
+                     cdisplayname: display.clone().map(|s| CString::new(s.as_str()).unwrap()),
+                     displayname: display,
+                     ai,
+                     f_dynamic: true,
+                     ..Default::default()
+                  },
+                  None,
+               )
             };
             let id = data.insert_with_key(|k| {
                fd.id = k;
                Faction {
-                  // TODO API
-                  api: OnceLock::new(),
+                  api,
                   standing: RwLock::new(Standing {
                      player: fd.player_def,
                      p_override: None,
@@ -1520,7 +1544,7 @@ impl UserData for FactionRef {
                }
             });
 
-            GRID.write().unwrap().recompute()?;
+            GRID.write().unwrap().recompute(&*data)?;
             Ok(id)
          },
       );
@@ -2115,10 +2139,10 @@ pub extern "C" fn faction_getStandingTextAtValue(f: i64, value: c_double) -> *co
 #[unsafe(no_mangle)]
 pub extern "C" fn faction_reputationMax(id: i64) -> c_double {
    faction_c_call(id, |fct| {
-      let std = fct.standing.read().unwrap();
-      let api = fct.api.get().unwrap();
-      if let Some(rmax) = &api.reputation_max {
-         rmax.call::<f32>(()).map_err(|e| anyhow::anyhow!(e))
+      if let Some(api) = &fct.api {
+         api.reputation_max
+            .call::<f32>(())
+            .map_err(|e| anyhow::anyhow!(e))
       } else {
          Ok(0.0)
       }
@@ -2201,8 +2225,8 @@ pub extern "C" fn faction_rmNeutral(id: i64, other: i64) {
 #[unsafe(no_mangle)]
 pub extern "C" fn faction_getEquipper(id: i64) -> *const naevc::nlua_env {
    faction_c_call(id, |fct| {
-      if let Some(env) = &fct.data.equip_env {
-         Arc::as_ptr(&env) as *const naevc::nlua_env
+      if let Some(api) = &fct.api {
+         Arc::as_ptr(&api.equip_env) as *const naevc::nlua_env
       } else {
          std::ptr::null()
       }
@@ -2216,8 +2240,8 @@ pub extern "C" fn faction_getEquipper(id: i64) -> *const naevc::nlua_env {
 #[unsafe(no_mangle)]
 pub extern "C" fn faction_getScheduler(id: i64) -> *const naevc::nlua_env {
    faction_c_call(id, |fct| {
-      if let Some(env) = &fct.data.sched_env {
-         Arc::as_ptr(&env) as *const naevc::nlua_env
+      if let Some(api) = &fct.api {
+         Arc::as_ptr(&api.sched_env) as *const naevc::nlua_env
       } else {
          std::ptr::null()
       }
@@ -2230,11 +2254,9 @@ pub extern "C" fn faction_getScheduler(id: i64) -> *const naevc::nlua_env {
 
 #[unsafe(no_mangle)]
 pub extern "C" fn factions_clearDynamic() {
-   FACTIONS
-      .write()
-      .unwrap()
-      .retain(|_id, fct| !fct.data.f_dynamic);
-   let _ = GRID.write().unwrap().recompute();
+   let mut data = FACTIONS.write().unwrap();
+   data.retain(|_id, fct| !fct.data.f_dynamic);
+   let _ = GRID.write().unwrap().recompute(&*data);
 }
 
 #[unsafe(no_mangle)]
@@ -2399,7 +2421,7 @@ pub extern "C" fn faction_getGroup(which: c_int, sys: *const naevc::StarSystem) 
 
 #[unsafe(no_mangle)]
 pub extern "C" fn faction_generators(id: i64) -> *const naevc::FactionGenerator {
-   let generators = faction_c_call_mut(id, |fct| {
+   let generators = faction_c_call(id, |fct| {
       fct.data
          .generators
          .iter()
