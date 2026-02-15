@@ -24,7 +24,7 @@ wgtfct = require("naevpedia.lore.faction").init( "Pirate" )
 
 # Galactic Space Pirates
 
-The Galactic Space Pirates are split into two main groups, the clans and independent pirates.
+The Galactic Space Pirates are split into two main groups: the clans and independent pirates.
 Among the independent pirates are marauders who are extremely aggressive and not very well-equipped.
 Other pirates tend to be better equipped and usually strive to join one of the major pirate clans.
 
@@ -55,10 +55,10 @@ Usually occurring once a cycle, pirate assemblies are as formal of a gathering a
 They are usually held at a more neutral pirate clansworld, such as those of the <%= strravenclan %>, and consist of several [decaperiods](mechanics/time) of partying and lawmaking.
 The main event consists of the meeting of the Pirate Lords who will listen to proposals and decide on courses of actions, while letting their crew loose.
 
-The assemblies tend to be a good opportunity for the Pirate Lords to calculate each other strengths, where they tend to bring significant ships from their fleet.
-In many ways, the pirate assemblies tend to not only determine the future of the space pirates, but also tend to shape the future of the galaxy.
+The assemblies tend to be a good opportunity for the Pirate Lords to calculate each others' strengths, where they tend to bring significant ships from their fleet.
+In many ways, the pirate assemblies tend to not only determine the future of the space pirates, but also to shape the future of the galaxy.
 
-The events tend to also attract the attention of other actors in the galaxy, with most Great Houses and [the Empire](lore/factions/empire) sending somewhat undercover agents to try to get a glimpse of what is going on and gain advantage over other Great Houses.
+The events also attract the attention of other actors in the galaxy, with most Great Houses and [the Empire](lore/factions/empire) sending somewhat undercover agents to try to get a glimpse of what is going on and gain advantage over other Great Houses.
 It is also common for less scrupulous merchants to show up as it can be a very profitable opportunity to sell grog and equipment to the drunken pirates.
 
 <% if fwildones:known() then %>
@@ -98,7 +98,7 @@ Members follow strict recruitment policies to slowly go up in the ranks and gain
 Discipline is swift and punishment is carried out in public form to make sure everyone follows the rules, making them one of the most rigid pirate clans.
 
 They inhabit the pocket of space between [House Za'lek](lore/factions/zalek) and [House Dvaered](lore/factions/dvaered), where they make a fortune from specializing in stolen research equipment and oddities from the universe.
-They also tend to run protection rackets, which are often favoured over the whimsical [Dvaered](lore/factions/dvaered) Warlords and can provide more stability to the area.
+They also run protection rackets, which are often favoured over the capricious [Dvaered](lore/factions/dvaered) Warlords and can provide more stability to the area.
 While the price of these protection contracts is quite high, wealthy citizens have found that they are well worth the money, as any failed protection contract is met with swift discipline for those who failed, making failure rates extremely low.
 <% end %>
 
@@ -109,7 +109,7 @@ The newest of the main pirate clans, the Dreamer Clan was able to capitalize on 
 Formed mainly by refugees and outcasts of the so-called "civilized society", the Dreamer Clan is formed by individuals who do not want to follow rules.
 They have no hierarchy and form an eclectic and anarchistic bunch, giving lots of leeway for personal freedom and using voting and other systems to decide how to take action.
 Although they rely heavily on piracy, most individuals pursue artistic talents when not raiding nearby convoys or scavenging from wrecks from [the Incident](lore/history/incident).
-They are also renowned for being a large hub of illicit substances, which their members use freely and some claim to get Sirius-like psychic powers from substance abuse.
+They are also renowned for being a large hub of illicit substances, which their members use freely and some claim to get Sirius-like psychic powers from.
 
 They are located in the Nebula, near [House Sirius](lore/factions/sirius) and [the Frontier](lore/factions/frontier), making use of abandoned planets and stations, which they adapt to their purposes.
 Although they tend to have little contact with other pirates outside of assemblies, they have lots of trade with the <%= strravenclan %>, which wants access to the lucrative drug trade.
