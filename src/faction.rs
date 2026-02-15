@@ -22,6 +22,8 @@ use std::path::{Path, PathBuf};
 use std::sync::{Arc, LazyLock, OnceLock};
 use std::sync::{Mutex, RwLock};
 
+//static_assertions::const_assert_eq!( (1i64<<32) + ((1i64<<32)-1), FactionRef::null() );
+
 #[derive(Copy, Clone, Debug, PartialEq)]
 enum GridEntry {
    None,
@@ -56,11 +58,11 @@ impl Grid {
 
    fn offset(&self, idx: (FactionRef, FactionRef)) -> usize {
       let a = idx.0.slot();
-      let b = idx.0.slot();
+      let b = idx.1.slot();
       if a <= b {
          a * self.size + b
       } else {
-         a * self.size + b
+         b * self.size + a
       }
    }
 
@@ -804,6 +806,13 @@ impl FactionData {
 
 /// Loads all the Data
 pub fn load() -> Result<()> {
+   // Since we hardcode this C side, we have to make sure it is in-fact correct.
+   // Not static, so we have to do it runtime at the moment.
+   assert_eq!(
+      (1i64 << 32) + ((1i64 << 32) - 1),
+      FactionRef::null().as_ffi()
+   );
+
    let ctx = Context::get().as_safe_wrap();
    let base: PathBuf = "factions/".into();
    let files: Vec<_> = ndata::read_dir(&base)?
@@ -1729,6 +1738,11 @@ pub extern "C" fn lua_tofaction(L: *mut mlua::lua_State, idx: c_int) -> *mut Fac
 
 // Here be C API
 use std::os::raw::{c_char, c_double, c_int};
+
+#[unsafe(no_mangle)]
+pub extern "C" fn faction_null() -> i64 {
+   FactionRef::null().as_ffi()
+}
 
 #[unsafe(no_mangle)]
 pub extern "C" fn faction_isFaction(f: i64) -> c_int {

@@ -13,7 +13,8 @@
 // typedef void *FactionRef;
 typedef int64_t FactionRef;
 
-#define FACTION_NULL ( ( FactionRef ) - 1 )
+// #define FACTION_NULL ( ( FactionRef ) - 1 )
+#define FACTION_NULL ( ( 1l << 32l ) + ( 1l << 32l ) - 1l )
 
 FactionRef faction_player( void );
 
@@ -27,6 +28,7 @@ typedef struct FactionGenerator_ {
 } FactionGenerator;
 
 /* Get stuff */
+FactionRef              faction_null( void );
 int                     faction_isFaction( FactionRef f );
 FactionRef              faction_exists( const char *name );
 FactionRef              faction_get( const char *name );
