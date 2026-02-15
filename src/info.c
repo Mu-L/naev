@@ -1271,7 +1271,7 @@ static void info_openStandings( unsigned int wid )
    /* Gets the faction standings. */
    info_factions = faction_getKnown();
    str           = malloc( sizeof( char * ) * array_size( info_factions ) );
-   qsort( info_factions, array_size( info_factions ), sizeof( int ),
+   qsort( info_factions, array_size( info_factions ), sizeof( FactionRef ),
           factionsSort );
 
    /* Create list. */
