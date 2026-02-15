@@ -28,33 +28,36 @@ Most others will only have one or two tags - they are supposed to represent impo
 
 These tags allow missions to randomly target spobs with specific properties, so they may have fairly localized specific effects.
 
-* **station**: the spob is a space station or gas giant spaceport
-* **ruined**: the spob is ruined (currently only matters for hypergates)
-* **new**: recently colonised worlds / recently built stations (definitely post-Incident)
-* **old**: long-time colonised worlds / old stations (definitely pre-Incident)
-* **rich**: the population living on the spob is rich by the standards of the faction
-* **poor**: the population living on the spob is poor by the standards of the faction
-* **urban**: the spob consists of mainly heavily developed cities and urban environments
-* **rural**: the spob consists of mainly undeveloped and virgin lands
-* **tourism**: spob has interests and draws in tourists
-* **mining**: mining is an important part of the spob economy
-* **agriculture**: agriculture is an important part of the spob economy
-* **industrial**: industry is an important part of the spob economy
-* **medical**: medicine is an important part of the spob economy
-* **trade**: trade is an important part of the spob economy
-* **shipbuilding**: shipbuilding is an important part of the spob economy
-* **research**: the spob has a strong focus in research (special research laboratories, etc...) **UNUSED**
-* **immigration**: the spob draws in many immigrants or is being colonised
-* **government**: the spob has important government functions or hosts the central government
-* **military**: the spob has an important factional military presence
-* **religious**: the spob has an important religious significance or presence **UNUSED**
-* **prison**: the spob has important prison installations
-* **criminal**: the spob has a large criminal element such as important pirate or mafia presence
+* **station**: the spob is a space station or gas giant spaceport.
+* **ruined**: the spob is ruined (currently only matters for hypergates).
+* **new**: recently colonised worlds / recently built stations (definitely post-Incident).
+* **old**: long-time colonised worlds / old stations (definitely pre-Incident).
+* **rich**: the population living on the spob is rich by the standards of the faction.
+* **poor**: the population living on the spob is poor by the standards of the faction.
+* **urban**: the spob consists of mainly heavily developed cities and urban environments.
+* **rural**: the spob consists of mainly undeveloped and virgin lands.
+* **tourism**: spob has interests and draws in tourists.
+* **mining**: mining is an important part of the spob economy.
+* **agriculture**: agriculture is an important part of the spob economy.
+* **industrial**: industry is an important part of the spob economy.
+* **medical**: medicine is an important part of the spob economy.
+* **trade**: trade is an important part of the spob economy.
+* **shipbuilding**: shipbuilding is an important part of the spob economy.
+* **research**: the spob has a strong focus in research (special research laboratories, etc...).
+* **immigration**: the spob draws in many immigrants or is being colonised.
+* **government**: the spob has important government functions or hosts the central government.
+* **military**: the spob has an important factional military presence.
+* **religious**: the spob has an important religious significance or presence.
+* **prison**: the spob has important prison installations.
+* **criminal**: the spob has a large criminal element such as important pirate or mafia presence.
 * **ringworld**: Is a ring world.
 * **toxic**: Is a toxic location, dangerous to stay too long.
 * **refuel**: Is mainly used as a refuelling location with few or no other services.
+* **refugee**: The spob has a significant influx of refugees or refugee ghettos. Usually used similarly to **poor**.
 
-## Undocumented
- - **mining_vrata**:
- - **melendez**:
- - **refugee**:
+### Specific Tags
+
+Some more specific tags that probably don't need much care are below:
+
+* **mining_vrata**: Mining Vratas has headquarters here.
+* **melendez**: Melendez Corporation owns this spob.
