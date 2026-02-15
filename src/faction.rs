@@ -290,9 +290,9 @@ impl FactionRef {
 #[derive(Debug)]
 struct LuaAPI {
    // Scheduler
-   sched_env: Arc<LuaEnv>,
+   sched_env: Option<Arc<LuaEnv>>,
    // Equipping
-   equip_env: Arc<LuaEnv>,
+   equip_env: Option<Arc<LuaEnv>>,
    // Standing Behaviour
    lua_env: LuaEnv,
    friendly_at: f32,
@@ -320,11 +320,17 @@ impl LuaAPI {
          env.call::<()>(lua, &func, ())?;
          Ok(env)
       }
-      let equip_env = new_env(lua, &data.script_equip, "equip")?;
-      let sched_env = new_env(lua, &data.script_spawn, "spawn")?;
+      let equip_env = if data.script_equip.is_empty() {
+         None
+      } else {
+         Some(Arc::new(new_env(lua, &data.script_equip, "equip")?))
+      };
+      let sched_env = if data.script_spawn.is_empty() {
+         None
+      } else {
+         Some(Arc::new(new_env(lua, &data.script_spawn, "spawn")?))
+      };
       let lua_env = new_env(lua, &data.script_standing, "standing")?;
-      let equip_env = Arc::new(equip_env);
-      let sched_env = Arc::new(sched_env);
 
       fn load_func(env: &LuaEnv, name: &str) -> Result<mlua::Function> {
          match env.get(name) {
@@ -2240,8 +2246,10 @@ pub extern "C" fn faction_rmNeutral(id: i64, other: i64) {
 #[unsafe(no_mangle)]
 pub extern "C" fn faction_getEquipper(id: i64) -> *const naevc::nlua_env {
    faction_c_call(id, |fct| {
-      if let Some(api) = &fct.api {
-         Arc::as_ptr(&api.equip_env) as *const naevc::nlua_env
+      if let Some(api) = &fct.api
+         && let Some(env) = &api.equip_env
+      {
+         Arc::as_ptr(env) as *const naevc::nlua_env
       } else {
          std::ptr::null()
       }
@@ -2255,8 +2263,10 @@ pub extern "C" fn faction_getEquipper(id: i64) -> *const naevc::nlua_env {
 #[unsafe(no_mangle)]
 pub extern "C" fn faction_getScheduler(id: i64) -> *const naevc::nlua_env {
    faction_c_call(id, |fct| {
-      if let Some(api) = &fct.api {
-         Arc::as_ptr(&api.sched_env) as *const naevc::nlua_env
+      if let Some(api) = &fct.api
+         && let Some(env) = &api.sched_env
+      {
+         Arc::as_ptr(env) as *const naevc::nlua_env
       } else {
          std::ptr::null()
       }
