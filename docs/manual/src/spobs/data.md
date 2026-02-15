@@ -5,12 +5,12 @@
  * `<pos>`: Position of the spob within its parent system, defined by `x` and `y` coordinates relative to the system center.
  * `<GFX>`: Category relating to graphics.
   * `<space>`: Defines the image which represents the spob when travelling through the parent system. The dimensions of the graphic can also influence the area at which a ship can begin its landing sequence. If extension is omitted, it will be auto-detected.
-  * `<exterior>`: Defines the image displayed on the spob's "Landing Main" tab. If extensio is omitted, it will be auto-detected.
+  * `<exterior>`: Defines the image displayed on the spob's "Landing Main" tab. If extension is omitted, it will be auto-detected.
  * `<presence>`: Category relating to faction presence, used to generate patrol lanes within the parent system.
   * `<faction>`: Defines the spob's owning or dominant faction.
   * `<base>`: Defines the base presence of the spob. The maximum base presence of all spobs of the same faction is used as the base presence of the faction in the system. For example, if there are two spobs with base 50 and 100 for a faction in a system, the system's base presence for the faction is 100 and the 50 value is ignored.
   * `<bonus>`: Defines the bonus presence of the spob. The bonus presence of all the spobs of the same faction in a system are added together and added to the presence of the system. For example, for a system with a base presence of 100, if there are two spobs with a bonus of 50 each, the total presence becomes $100+50+50=200$.
-  * `<range>`: The range at which the presence of the spob extends. A value of 0 indicates that the presence range only extends to the current system, while a presence of 2 would indicate that it extends to up to 2 systems away. The presence falloff is defined as $1-\frac{dist}{range+1}$, and is multiplied to both base presence and bonus presence. For example, a spob with 100 presence and a range of 3 would give 75 presesnce to 1 system away, 50 presence to 2 systems away, and 25 presence to 3 systems away.
+  * `<range>`: The range at which the presence of the spob extends. A value of 0 indicates that the presence range only extends to the current system, while a presence of 2 would indicate that it extends to up to 2 systems away. The presence falloff is defined as $1-\frac{dist}{range+1}$, and is multiplied to both base presence and bonus presence. For example, a spob with 100 presence and a range of 3 would give 75 presence to 1 system away, 50 presence to 2 systems away, and 25 presence to 3 systems away.
  * `<general>`: Category relating to many functions of the spob including world statistics, available services, etc.
   * `<class>`: Defines the spob's planetary or station class as listed above in the Station Classes and Planetary Classes categories above. This may be referenced by missions or scripts.
   * `<population>`: Defines the spob's habitating population.
@@ -22,7 +22,7 @@
    * `<missions>`: Includes the Mission Computer tab, where the player can accept generic missions.
    * `<commodity>`: Includes the Commodities Exchange tab, where the player can buy and sell trade goods.
    * `<outfits>`: Includes the Outfitter tab, allowing the player to buy and sell ship outfits. Also grants access to the Equipment tab where the player can swap outfits to and from their active ship.
-   * `<shipyard>`: Includes the Shipyard tab, allowing the player to purchase new ships. Grants access to the Equipment tab as above; also allows the player to swap their active and fleet ships and change the oufits on all player-owned ships.
+   * `<shipyard>`: Includes the Shipyard tab, allowing the player to purchase new ships. Grants access to the Equipment tab as above; also allows the player to swap their active and fleet ships and change the outfits on all player-owned ships.
   * `<commodities>`: Declares the spob as having ready access to commodities, independent of the Commodities Exchange service.
   * `<description>`: Text string presented to the player on the Landing Main tab. This text body is perhaps the primary method of presenting the spob's lore to the player.
   * `<bar>`: Text string presented to the player on the Bar tab. Compared to the `description` tag's lore regarding the spob as a whole, this text describes only the Spaceport Bar and its surroundings.

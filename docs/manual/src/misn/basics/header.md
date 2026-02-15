@@ -126,7 +126,7 @@ The full example is shown below (`--[[` and `--]]` are omitted):
 
 ## Example: Antlejos
 
-Terraforming antlejos missions form a chain.
+Terraforming Antlejos missions form a chain.
 Each mission requires the previous one and are available at the same planet (Antlejos V) with 100% chance.
 The priority is slightly lower than default to try to ensure the claims get through.
 Most missions trigger on *Land* (`<location>Land</location>`) because Antlejos V does not have a spaceport bar at the beginning.

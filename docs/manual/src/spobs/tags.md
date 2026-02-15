@@ -12,7 +12,7 @@ These tags significantly change the functionality of the spob:
 * **nonews**: There is no news at the spaceport bar.
 * **noshipcapture**: The player will not be able to capture ships here.
 * **nosightseeing**: Will never be a point of interest for sightseeing missions.
-* **garbage**: Can be used as a garbage dump for the waste desposal missions.
+* **garbage**: Can be used as a garbage dump for the waste disposal missions.
 * **wormhole**: The spob is a wormhole.
   Doesn't really do anything yet though.
 * **hypergate**: The spob is a hypergate, is necessary for the spob to be a valid hypergate target.

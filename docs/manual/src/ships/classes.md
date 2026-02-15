@@ -17,7 +17,7 @@ An overview of all the ship classes is shown below:
   * **Yacht**: very small ship often with only few crew members (size 1)
   * **Courier**: small transport ship (size 2)
   * **Freighter**: medium transport ship (size 3)
-  * **Amoured Transport**: medium ship with some combat abilities (size 4)
+  * **Armoured Transport**: medium ship with some combat abilities (size 4)
   * **Bulk Freighter**: large transport ship (size 5)
 * **Military**
   * **Small**

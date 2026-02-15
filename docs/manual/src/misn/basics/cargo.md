@@ -3,7 +3,7 @@
 Cargo given to the player by missions using `misn.cargoAdd` is known as **Mission Cargo**.
 This differs from normal cargo in that only the player's ship can carry it (escorts are not allowed to), and that if the player jettisons it, the mission gets aborted.
 Missions and events can still add normal cargo through `pilot.cargoAdd` or `player.fleetCargoAdd`, however, only missions can have mission cargo.
-It is important to note that *when the mission finishes, all associated mission cargos of the mission are also removed!*
+It is important to note that *when the mission finishes, all associated mission cargoes of the mission are also removed!*
 
 The API for mission cargo is fairly simple and relies on three functions:
 

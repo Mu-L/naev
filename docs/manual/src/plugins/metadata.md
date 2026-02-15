@@ -24,7 +24,7 @@ source = { git = "https://my.awesome.website/plugin/repo.git" }
 * **abstract**: contains the abstract of the plugin.
   This is required and must not exceed 200 characters.
   It is what players see when searching.
-* **naev_version**: specifies which verisons of naev are compatible.
+* **naev_version**: specifies which versions of naev are compatible.
   This is based on [semver](https://semver.org/) and allows comparisons with existing versions.
   For example, `>= 0.13` would mean a version after 0.13.0 (including betas), while something like `>= 0.13, < 0.14` would specify something newer than `0.13.0` but older than `0.14.0`.
 
@@ -66,6 +66,6 @@ By using the appropriate blacklists, you increase compatibility with future vers
 Furthermore, given the popularity of *total conversion*-type plugins, you can use the `total_conversion = true` tag to apply a large set of blacklist rules which will remove all explicit content from Naev.
 This means you will have to define at least a star system, a spob, and a flyable ship for the game to run.
 
-In additiona to the blacklist, a whitelist can also be defined with `whitelist`, which takes priority over the blacklist.
-In other words, whitlelist stuff will ignore the blacklist.
+In addition to the blacklist, a whitelist can also be defined with `whitelist`, which takes priority over the blacklist.
+In other words, whitelist stuff will ignore the blacklist.
 *Total conversions* automatically get a few critical files such as the `settings.lua` event included, although they can still be overwritten.

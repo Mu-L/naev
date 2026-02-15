@@ -18,7 +18,7 @@ Naev planetary classes are based on [Star Trek planetary classes](https://stexpa
 * Class D: Asteroid/Moon-like (barren with no or little atmosphere)
 * Class E: Geoplastic (molten, high temperature)
 * Class F: Geometallic (volcanic)
-* Class G: Geocrystaline (crystalizing)
+* Class G: Geocrystaline (crystallizing)
 * Class H: Desert (hot and arid, little or no water)
 * Class I: Gas Giant (comprised of gaseous compounds, Saturn-like)
 * Class J: Gas Giant (comprised of gaseous compounds, Jupiter-like)

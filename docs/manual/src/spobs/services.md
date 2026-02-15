@@ -1,9 +1,9 @@
 # Services
 
-Space objects can have services specified which change the behaviour baked into the engine and by extention what the player can or can not do at the space object.
+Space objects can have services specified which change the behaviour baked into the engine and by extension what the player can or can not do at the space object.
 You can only specify services from the list below:
 
-  * **shipyard**: Ships can be boughten and sold.
+  * **shipyard**: Ships can be bought and sold.
   * **bar**: Has a bar, with potential related mission unless _nomissionspawn_
     is set.
   * **missions**: Has a mission terminal.
@@ -12,10 +12,10 @@ You can only specify services from the list below:
   * **land**: Ships can land on this space object, however, this does not include refueling and game saving.
   * **nocommodities**: Disables standard commodities from appearing at the commodity exchange.
   * **blackmarket**: Weapon/ship licences won't be checked here.
-  * **outfits**: Outfits can be boughten and sold.
+  * **outfits**: Outfits can be bought and sold.
   * **uninhabited**: Automatically set when the population is 0. Disables landing
     authorization.
-  * **refuel**: Ships will automatically refuel when landing. The game will also save automaticalyl if the spob has refuelling or another landable spob has refuelling in the system.
+  * **refuel**: Ships will automatically refuel when landing. The game will also save automatically if the spob has refuelling or another landable spob has refuelling in the system.
 
 > [!CAUTION!]
 > These services might be affected by special tags.

@@ -50,7 +50,7 @@ With the Incident in recent history and the Empire on the decline, House Sirius 
 
 ## In-Game Database
 
-The following article is written from an **in-universe** perspective. It may contain biassed information or omit facts for dramatic purposes.
+The following article is written from an **in-universe** perspective. It may contain biased information or omit facts for dramatic purposes.
 
 ### The Nasin
 
