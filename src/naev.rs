@@ -528,8 +528,8 @@ fn load_all(sdlctx: &sdl::Sdl, env: &nlua::LuaEnv) -> Result<()> {
          naevc::safelanes_init()
       }),
       // Run Lua and shit
+      LoadStage::new(gettext("Finalizing data…"), || faction::load_lua()),
       LoadStage::new_c(gettext("Finalizing data…"), || unsafe {
-         faction::load_lua().unwrap_or_else(|err| warn_err!(err));
          0
          //naevc::factions_loadPost()
             + naevc::difficulty_load()

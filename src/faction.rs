@@ -722,7 +722,7 @@ impl FactionData {
                .load(std::str::from_utf8(&data)?)
                .set_name(path)
                .into_function()?;
-            env.call::<()>(lua, &func, ())?;
+            env.call::<()>(lua, &func, ()).unwrap(); //?;
          }
          Ok(())
       }
@@ -905,7 +905,9 @@ pub fn load_lua() -> Result<()> {
    // Last pass: initialize Lua
    let lua = &NLUA;
    for (id, fct) in FACTIONS.read().unwrap().iter() {
-      fct.init_lua(lua)?;
+      if let Err(e) = fct.init_lua(lua) {
+         warn_err!(e);
+      }
    }
    Ok(())
 }
