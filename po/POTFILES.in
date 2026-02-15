@@ -3765,6 +3765,7 @@ dat/ships/lua/sirius_preacher.lua
 dat/ships/lua/sirius_projection.lua
 dat/ships/lua/sirius_providence.lua
 dat/ships/lua/sirius_shaman.lua
+dat/ships/lua/sirius_starbridge.lua
 dat/ships/lua/soromid.lua
 dat/ships/lua/thurion.lua
 dat/ships/lua/vendetta_whiplash.lua

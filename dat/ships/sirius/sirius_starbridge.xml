@@ -1,9 +1,13 @@
 <ship name="Sirius Starbridge" inherits="Starbridge">
  <lua>sirius_starbridge.lua</lua>
+ <gfx sy="10" sx="10" size="80">starbridge_sirius.gltf</gfx>
+ <sound>engine_sirius</sound>
  <rarity>2</rarity>
  <price>2600000</price>
  <cond>require("buyrep")("Sirius", 50)</cond>
- <condstr>You need at least 50% reputation with House Sirius.</condstr> 
+ <condstr>You need at least 50% reputation with House Sirius.</condstr>
+ <fabricator>Sirius Systems</fabricator>
+ <faction>Sirius</faction>
  <description>Sirius Systems has imported limited numbers of the Krain Starbridge, which they have retrofitted into a luxury fast passenger liner for high-echelon citizens. Featuring shuttle bays, premium passenger cabins, hot water showers, and a built-in meditation chamber, this remodel doesn't come cheap.</description>
  <health>
   <armour>400</armour>
@@ -36,7 +40,7 @@
   <structure size="medium"/>
   <structure size="medium"/>
  </slots>
-  <intrinsics>
+ <intrinsics>
   <intrinsic>Internal Flow Amplifier</intrinsic>
  </intrinsics>
  <stats>
