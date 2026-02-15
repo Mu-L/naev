@@ -512,8 +512,8 @@ static void safelanes_initStacks_edge( void )
 
    lane_faction = array_create_size( FactionRef, array_size( edge_stack ) );
    array_resize( &lane_faction, array_size( edge_stack ) );
-   memset( lane_faction, 0,
-           array_size( lane_faction ) * sizeof( lane_faction[0] ) );
+   for ( int i = 0; i < array_size( lane_faction ); i++ )
+      lane_faction[i] = FACTION_NULL;
 }
 
 /**
@@ -684,7 +684,8 @@ static void safelanes_initStiff( void )
 static double safelanes_initialConductivity( int e )
 {
    double *sv = stiff->x;
-   return lane_faction[e] ? sv[3 * e] / ( 1 + ALPHA ) : sv[3 * e];
+   return ( lane_faction[e] != FACTION_NULL ) ? sv[3 * e] / ( 1 + ALPHA )
+                                              : sv[3 * e];
 }
 
 /**
@@ -815,9 +816,9 @@ static int safelanes_activateByGradient( const cholmod_dense *Lambda_tilde,
    int            *facind_opts, *edgeind_opts, turns_next_time;
    double         *facind_vals, Linv;
    cholmod_dense **lal; /**< Per faction index, the Lambda_tilde[myDofs,:] @
-                           PPl[fi] matrices. Calloced and lazily populated. */
+                          PPl[fi] matrices. Calloced and lazily populated. */
    size_t *lal_bases, lal_base; /**< System si's U and Lambda rows start at
-                                   sys_base; its lal rows start at lal_base. */
+                                  sys_base; its lal rows start at lal_base. */
 
    lal       = calloc( array_size( faction_stack ), sizeof( cholmod_dense * ) );
    lal_bases = calloc( array_size( faction_stack ), sizeof( size_t ) );
@@ -872,7 +873,7 @@ static int safelanes_activateByGradient( const cholmod_dense *Lambda_tilde,
             double cost = 1. / safelanes_initialConductivity( ei ) /
                              faction_stack[fi].lane_length_per_presence +
                           faction_stack[fi].lane_base_cost;
-            if ( !lane_faction[ei] && !disconnecting &&
+            if ( ( lane_faction[ei] == FACTION_NULL ) && !disconnecting &&
                  presence_budget[fi][si] >= cost &&
                  ( lane_fmask[ei] & ( MASK_1 << fi ) ) )
                array_push_back( &edgeind_opts, ei );
@@ -1048,8 +1049,7 @@ static const vec2 *vertex_pos( int vi )
  */
 static inline int FACTION_ID_TO_INDEX( FactionRef id )
 {
-   for ( int i = 0;
-         i < array_size( faction_stack ) && faction_stack[i].id <= id; i++ )
+   for ( int i = 0; i < array_size( faction_stack ); i++ )
       if ( faction_stack[i].id == id )
          return i;
    return -1;
