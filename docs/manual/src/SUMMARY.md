@@ -46,6 +46,7 @@
    - [Data Format](./spobs/data.md)
    - [Lua Scripting]()
    - [Technologies]()
+   - [Services](./spobs/services.md)
    - [Common Tags](./spobs/tags.md)
 - [Ships](./ships/overview.md)
    - [Classes](./ships/classes.md)

@@ -291,7 +291,7 @@ def _unparse_elt( v, k, indent):
       for ka, va in v.attr.items():
          out += ' ' + ka[1:] + '="' + str(va).replace('&', '&amp;') + '"'
       if dict.__contains__(v, '#text'):
-         content = v['#text']
+         content = str(v['#text'])
       elif sub := unparse(v, indent+1):
          content = '\n' + sub + indent*' '
    elif v or v == 0:
