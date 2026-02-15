@@ -43,13 +43,18 @@ These tags allow missions to randomly target spobs with specific properties, so 
 * **medical**: medicine is an important part of the spob economy
 * **trade**: trade is an important part of the spob economy
 * **shipbuilding**: shipbuilding is an important part of the spob economy
-* **research**: the spob has a strong focus in research (special research laboratories, etc...)
+* **research**: the spob has a strong focus in research (special research laboratories, etc...) **UNUSED**
 * **immigration**: the spob draws in many immigrants or is being colonised
 * **government**: the spob has important government functions or hosts the central government
 * **military**: the spob has an important factional military presence
-* **religious**: the spob has an important religious significance or presence
+* **religious**: the spob has an important religious significance or presence **UNUSED**
 * **prison**: the spob has important prison installations
 * **criminal**: the spob has a large criminal element such as important pirate or mafia presence
 * **ringworld**: Is a ring world.
 * **toxic**: Is a toxic location, dangerous to stay too long.
 * **refuel**: Is mainly used as a refuelling location with few or no other services.
+
+## Undocumented
+ - **mining_vrata**:
+ - **melendez**:
+ - **refugee**:
