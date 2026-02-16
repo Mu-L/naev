@@ -525,6 +525,26 @@ impl Faction {
       }
    }
 
+   fn reputation_max(&self) -> Result<f32> {
+      if let Some(api) = &self.api {
+         Ok(api.lua_env.call(&NLUA, &api.reputation_max, ())?)
+      } else {
+         anyhow::bail!(
+            "reputation_max function not defined for faction '{}'",
+            &self.data.name
+         )
+      }
+   }
+
+   fn text_rank(&self, value: Option<f32>) -> Result<String> {
+      if let Some(api) = &self.api {
+         let value = value.unwrap_or(self.player());
+         api.lua_env.call(&NLUA, &api.text_rank, value)
+      } else {
+         Ok(String::from("???"))
+      }
+   }
+
    fn hit_lua(
       &self,
       val: f32,
@@ -542,9 +562,11 @@ impl Faction {
          }
       }
       if let Some(api) = &self.api {
-         Ok(api
-            .hit
-            .call((system, val, source, secondary, parent.map(|f| f.data.id)))?)
+         Ok(api.lua_env.call(
+            &NLUA,
+            &api.hit,
+            (system, val, source, secondary, parent.map(|f| f.data.id)),
+         )?)
       } else {
          anyhow::bail!("hit function not defined for faction '{}'", &self.data.name)
       }
@@ -566,7 +588,9 @@ impl Faction {
          }
       }
       if let Some(api) = &self.api {
-         Ok(api.hit_test.call((system, val, source, secondary))?)
+         Ok(api
+            .lua_env
+            .call(&NLUA, &api.hit_test, (system, val, source, secondary))?)
       } else {
          anyhow::bail!(
             "hit_test function not defined for faction '{}'",
@@ -1295,14 +1319,7 @@ impl UserData for FactionRef {
       methods.add_function(
          "reputationText",
          |_, (this, value): (FactionRef, Option<f32>)| -> mlua::Result<String> {
-            Ok(this.call(|fct| {
-               if let Some(api) = &fct.api {
-                  let value = value.unwrap_or(fct.player());
-                  api.text_rank.call(value)
-               } else {
-                  Ok(String::from("???"))
-               }
-            })??)
+            Ok(this.call(|fct| fct.text_rank(value))??)
          },
       );
       /*@
@@ -2215,21 +2232,13 @@ pub extern "C" fn faction_getStandingTextAtValue(f: i64, value: c_double) -> *co
 
 #[unsafe(no_mangle)]
 pub extern "C" fn faction_reputationMax(id: i64) -> c_double {
-   faction_c_call(id, |fct| {
-      if let Some(api) = &fct.api {
-         api.reputation_max
-            .call::<f32>(())
-            .map_err(|e| anyhow::anyhow!(e))
-      } else {
-         Ok(0.0)
-      }
-   })
-   .flatten()
-   .unwrap_or_else(|err| {
-      warn_err!(err);
-      0.0
-   })
-   .into()
+   faction_c_call(id, |fct| fct.reputation_max())
+      .flatten()
+      .unwrap_or_else(|err| {
+         warn_err!(err);
+         0.0
+      })
+      .into()
 }
 
 #[unsafe(no_mangle)]
@@ -2245,7 +2254,12 @@ pub extern "C" fn faction_hit(
    source: *const c_char,
    secondary: c_int,
 ) -> c_double {
-   // FactionRef::from_ffi(id).hit( sys, mod, src, single!=0 )
+   /*
+   FactionRef::from_ffi(id).hit( sys, value, src, secondary != 0 ).unwrap_or_else( |e| {
+      warn_err!(e);
+      0.0
+   })
+   */
    0.0
 }
 
