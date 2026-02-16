@@ -4,6 +4,7 @@
 *.pyc
 *.swp
 *.swo
+*.bak
 .hgignore
 Cargo.lock
 appImageBuild/

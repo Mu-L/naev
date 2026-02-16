@@ -22,7 +22,7 @@ Each ship has to be defined in a separate file and has to have a single `<ship>`
 * `price`: Credits value of the ship in its "dry" state with no outfits.
 * `time_mod` (*optional*): Time compression factor during normal flight.
   A value of `1` means the ship will fly in "real time", <1 speeds up the game and >1 slows down the game.
-* `trail_generator` (unecessary with 3D ships): Creates a particle trail during flight.
+* `trail_generator` (unnecessary with 3D ships): Creates a particle trail during flight.
   * `x`, `y` (*attributes*): Trail origin coordinates, relative to the ship sprite in a "90 degree" heading.
   * `h` (*attributes*): Trail coordinate y-offset, used to modify the origin point on a "perspective" camera.
 * `fabricator`: Flavour text stating the ship's manufacturer.

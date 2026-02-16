@@ -18,7 +18,7 @@ TODO
 
 TODO
 
-## Outift Tags $\naev$
+## Outfit Tags $\naev$
 
 These are some tags mainly used by the Naev files, but can be useful for plugins that make use of existing infrastructure.
 

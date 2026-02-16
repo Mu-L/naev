@@ -42,5 +42,5 @@ Some of the known differences with the Love2D API are as follows:
 * You can call images or canvases to render them with `object:draw( ... )` instead of only `love.graphics.draw( obj, ... )`.
 * Fonts default to Naev fonts.
 * You can use Naev colour strings such as `"#b"` in `love.graphics.print` and `love.graphics.printf`.
-* `audio.newSource` defaults to second paramater `"static"` unless specified (older Love2D versions defaulted to `"stream"`, and it must be set explicity in newer versions).
+* `audio.newSource` defaults to second parameter `"static"` unless specified (older Love2D versions defaulted to `"stream"`, and it must be set explicitly in newer versions).
 * `love.graphics.setBackgroundColor` uses alpha colour to set the alpha of the window, with 0 making the Love2D window not drawn.
