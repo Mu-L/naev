@@ -400,10 +400,45 @@ struct Standing {
 }
 
 #[derive(Debug)]
+struct FactionC {
+   cname: CString,
+   clongname: Option<CString>,
+   cdisplayname: Option<CString>,
+   cmapname: Option<CString>,
+   cdescription: CString,
+   cai: CString,
+   ctags: ArrayCString,
+}
+impl FactionC {
+   fn new(fd: &FactionData) -> Self {
+      let cs = |s: &str| CString::new(&*s).unwrap();
+      let cname = cs(&fd.name);
+      let clongname = fd.longname.as_ref().map(|s| cs(s));
+      let cdisplayname = fd.displayname.as_ref().map(|s| cs(s));
+      let cmapname = fd.mapname.as_ref().map(|s| cs(s));
+      let cdescription = cs(&fd.description);
+      let cai = cs(&fd.ai);
+      let ctags = ArrayCString::new(&fd.tags).unwrap();
+      FactionC {
+         cname,
+         clongname,
+         cdisplayname,
+         cmapname,
+         cdescription,
+         cai,
+         ctags,
+      }
+   }
+}
+
+#[derive(Debug)]
 pub struct Faction {
    api: Option<Arc<LuaAPI>>,
    standing: RwLock<Standing>,
    data: FactionData,
+
+   // C stuff, TODO remove when unnecessary
+   c: FactionC,
 }
 impl Faction {
    pub fn player(&self) -> f32 {
@@ -608,15 +643,6 @@ pub struct FactionData {
 
    // Tags
    pub tags: Vec<String>,
-
-   // C stuff, TODO remove when unnecessary
-   cname: CString,
-   clongname: Option<CString>,
-   cdisplayname: Option<CString>,
-   cmapname: Option<CString>,
-   cdescription: CString,
-   cai: CString,
-   ctags: ArrayCString,
 }
 impl FactionData {
    /// Loads the elementary faction stuff, does not fill out information dependent on other
@@ -642,7 +668,6 @@ impl FactionData {
             return nxml_err_attr_missing!("Damage Type", "name");
          }
       });
-      fct.cname = CString::new(fct.name.as_str())?;
 
       for node in root.children() {
          if !node.is_element() {
@@ -652,23 +677,18 @@ impl FactionData {
             "player" => fct.player_def = nxml::node_f32(node)?,
             "longname" => {
                fct.longname = Some(nxml::node_string(node)?);
-               fct.clongname = Some(nxml::node_cstring(node)?);
             }
             "display" => {
                fct.displayname = Some(nxml::node_string(node)?);
-               fct.cdisplayname = Some(nxml::node_cstring(node)?);
             }
             "mapname" => {
                fct.mapname = Some(nxml::node_string(node)?);
-               fct.cmapname = Some(nxml::node_cstring(node)?);
             }
             "description" => {
                fct.description = nxml::node_string(node)?;
-               fct.cdescription = nxml::node_cstring(node)?;
             }
             "ai" => {
                fct.ai = nxml::node_string(node)?;
-               fct.cai = nxml::node_cstring(node)?;
             }
             "local_th" => fct.local_th = nxml::node_f32(node)?,
             "lane_length_per_presence" => fct.lane_length_per_presence = nxml::node_f32(node)?,
@@ -699,8 +719,6 @@ impl FactionData {
                      fct.tags.push(String::from(t));
                   }
                }
-               // Remove when not needed for C interface
-               fct.ctags = ArrayCString::new(&fct.tags)?;
             }
             // Temporary scaoffolding stuff
             "allies" => {
@@ -834,13 +852,10 @@ pub fn load() -> Result<()> {
    std::iter::once((
       FactionData {
          name: String::from(PLAYER_FACTION_NAME),
-         cname: CString::new(PLAYER_FACTION_NAME)?,
          displayname: Some(String::from("Escort")),
-         cdisplayname: Some(CString::new("Escort")?),
          f_static: true,
          f_invisible: true,
          ai: "player".to_string(),
-         cai: CString::new("player").unwrap(),
          ..Default::default()
       },
       FactionLoad::default(),
@@ -871,6 +886,7 @@ pub fn load() -> Result<()> {
                f_known: fd.f_known,
                f_invisible: fd.f_invisible,
             }),
+            c: FactionC::new(&fd),
             data: fd,
          }
       });
@@ -1553,9 +1569,7 @@ impl UserData for FactionRef {
                (
                   FactionData {
                      id: FactionRef::null(),
-                     cname: CString::new(name.as_str()).unwrap(),
                      name,
-                     cdisplayname: display.clone().map(|s| CString::new(s.as_str()).unwrap()),
                      displayname: display,
                      ai,
                      logo: base.logo.as_ref().map(|l| l.try_clone()).transpose()?,
@@ -1575,9 +1589,7 @@ impl UserData for FactionRef {
                let ai: String = params.get("ai").unwrap_or(String::new());
                (
                   FactionData {
-                     cname: CString::new(name.as_str()).unwrap(),
                      name,
-                     cdisplayname: display.clone().map(|s| CString::new(s.as_str()).unwrap()),
                      displayname: display,
                      ai,
                      f_dynamic: true,
@@ -1596,6 +1608,7 @@ impl UserData for FactionRef {
                      f_known: fd.f_known,
                      f_invisible: fd.f_invisible,
                   }),
+                  c: FactionC::new(&fd),
                   data: fd,
                }
             });
@@ -1926,7 +1939,7 @@ pub extern "C" fn faction_isDynamic(id: i64) -> i64 {
 pub extern "C" fn faction_name(id: i64) -> *const c_char {
    faction_c_call(id, |fct| {
       // Not translated on purpose
-      fct.data.cname.as_ptr()
+      fct.c.cname.as_ptr()
    })
    .unwrap_or_else(|err| {
       warn_err!(err);
@@ -1937,9 +1950,9 @@ pub extern "C" fn faction_name(id: i64) -> *const c_char {
 #[unsafe(no_mangle)]
 pub extern "C" fn faction_shortname(id: i64) -> *const c_char {
    faction_c_call(id, |fct| {
-      let ptr = match &fct.data.cdisplayname {
+      let ptr = match &fct.c.cdisplayname {
          Some(name) => name.as_ptr(),
-         None => fct.data.cname.as_ptr(),
+         None => fct.c.cname.as_ptr(),
       };
       unsafe { naevc::gettext_rust(ptr) }
    })
@@ -1952,11 +1965,11 @@ pub extern "C" fn faction_shortname(id: i64) -> *const c_char {
 #[unsafe(no_mangle)]
 pub extern "C" fn faction_longname(id: i64) -> *const c_char {
    faction_c_call(id, |fct| {
-      let ptr = match &fct.data.clongname {
+      let ptr = match &fct.c.clongname {
          Some(name) => name.as_ptr(),
-         None => match &fct.data.cdisplayname {
+         None => match &fct.c.cdisplayname {
             Some(name) => name.as_ptr(),
-            None => fct.data.cname.as_ptr(),
+            None => fct.c.cname.as_ptr(),
          },
       };
       unsafe { naevc::gettext_rust(ptr) }
@@ -1970,11 +1983,11 @@ pub extern "C" fn faction_longname(id: i64) -> *const c_char {
 #[unsafe(no_mangle)]
 pub extern "C" fn faction_mapname(id: i64) -> *const c_char {
    faction_c_call(id, |fct| {
-      let ptr = match &fct.data.cmapname {
+      let ptr = match &fct.c.cmapname {
          Some(name) => name.as_ptr(),
-         None => match &fct.data.cdisplayname {
+         None => match &fct.c.cdisplayname {
             Some(name) => name.as_ptr(),
-            None => fct.data.cname.as_ptr(),
+            None => fct.c.cname.as_ptr(),
          },
       };
       unsafe { naevc::gettext_rust(ptr) }
@@ -1988,7 +2001,7 @@ pub extern "C" fn faction_mapname(id: i64) -> *const c_char {
 #[unsafe(no_mangle)]
 pub extern "C" fn faction_description(id: i64) -> *const c_char {
    faction_c_call(id, |fct| {
-      let ptr = fct.data.cdescription.as_ptr();
+      let ptr = fct.c.cdescription.as_ptr();
       unsafe { naevc::gettext_rust(ptr) }
    })
    .unwrap_or_else(|err| {
@@ -2003,7 +2016,7 @@ pub extern "C" fn faction_default_ai(id: i64) -> *const c_char {
       if fct.data.ai.is_empty() {
          std::ptr::null()
       } else {
-         fct.data.cai.as_ptr()
+         fct.c.cai.as_ptr()
       }
    })
    .unwrap_or_else(|err| {
@@ -2014,7 +2027,7 @@ pub extern "C" fn faction_default_ai(id: i64) -> *const c_char {
 
 #[unsafe(no_mangle)]
 pub extern "C" fn faction_tags(id: i64) -> *mut *const c_char {
-   faction_c_call(id, |fct| fct.data.ctags.as_ptr()).unwrap_or_else(|err| {
+   faction_c_call(id, |fct| fct.c.ctags.as_ptr()).unwrap_or_else(|err| {
       warn_err!(err);
       std::ptr::null_mut()
    })
