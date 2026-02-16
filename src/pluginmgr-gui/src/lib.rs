@@ -572,7 +572,7 @@ impl App {
                   .depends
                   .iter()
                   .filter_map(|d| {
-                     if let Some(d) = lock.get(&d)
+                     if let Some(d) = lock.get(d)
                         && d.state != PluginState::Installed
                      {
                         Some(d.plugin_prefer_local().name.clone())
@@ -581,7 +581,7 @@ impl App {
                      }
                   })
                   .collect();
-               if missing_deps.len() > 0 {
+               if !missing_deps.is_empty() {
                   let msg = formatx!(
                      pgettext(
                         "plugins",
@@ -624,7 +624,7 @@ impl App {
                   .depends
                   .iter()
                   .filter_map(|p| {
-                     if let Some(d) = lock.get(&p) {
+                     if let Some(d) = lock.get(p) {
                         Some(d.clone())
                      } else {
                         self.log.push(LogEntry::error(
@@ -744,7 +744,7 @@ impl App {
          Message::Exit(force) => {
             if !force
                && let Ok((issues, _plugins)) = self.catalog.check_issues()
-               && issues.len() > 0
+               && !issues.is_empty()
             {
                let msg = formatx!(
                   pgettext(
@@ -1176,7 +1176,7 @@ impl App {
          main = main.push(over);
       }
       if let Some(modal) = &self.modal {
-         modal.show(main).into()
+         modal.show(main)
       } else {
          main.into()
       }
