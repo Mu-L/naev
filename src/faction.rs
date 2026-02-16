@@ -54,11 +54,11 @@ impl Grid {
 
    fn offset(&self, idx: (FactionRef, FactionRef)) -> usize {
       let a = idx.0.slot();
-      let b = idx.0.slot();
+      let b = idx.1.slot();
       if a <= b {
          a * self.size + b
       } else {
-         a * self.size + b
+         b * self.size + a
       }
    }
 
@@ -212,7 +212,7 @@ impl FactionRef {
                let api = fct.api.get().unwrap();
                api.friendly_at
             })
-            .unwrap_or(std::f32::INFINITY);
+            .unwrap_or(f32::INFINITY);
          unsafe { naevc::system_getReputationOrGlobal(sys, self.as_ffi()) as f32 > threshold }
       } else {
          self
@@ -532,11 +532,10 @@ impl FactionData {
       filename: P,
    ) -> Result<(Self, FactionLoad)> {
       let mut fctload = FactionLoad::default();
-      let mut fct = FactionData::default();
-
-      // TODO use default_field_values when stabilized
-      // https://github.com/rust-lang/rust/issues/132162
-      fct.local_th = 10.;
+      let mut fct = FactionData {
+         local_th: 10.0,
+         ..Default::default()
+      };
 
       let data = ndata::read(filename)?;
       let doc = roxmltree::Document::parse(std::str::from_utf8(&data)?)?;
@@ -791,7 +790,7 @@ pub fn load() -> Result<()> {
          //.par_iter()
          .iter()
          .filter_map(
-            |filename| match FactionData::new(&ctx, &NLUA, &base.join(filename)) {
+            |filename| match FactionData::new(&ctx, &NLUA, base.join(filename)) {
                Ok(sp) => Some(sp),
                Err(e) => {
                   warn!("Unable to load Faction '{}': {e}", filename.display());
@@ -1178,14 +1177,14 @@ impl UserData for FactionRef {
       methods.add_method(
          "reputationText",
          |_, this, value: Option<f32>| -> mlua::Result<String> {
-            Ok(this.call(|fct| {
+            this.call(|fct| {
                if let Some(f) = &fct.api.get().unwrap().text_rank {
                   let value = value.unwrap_or(fct.player());
                   f.call(value)
                } else {
                   Ok(String::from("???"))
                }
-            })??)
+            })?
          },
       );
       /*@
