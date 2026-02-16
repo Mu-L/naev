@@ -5,7 +5,7 @@ use palette::{Hsv, LinSrgb, Srgb};
 use std::sync::LazyLock;
 use trie_rs::map::{Trie, TrieBuilder};
 
-#[derive(Copy, Clone, derive_more::From, derive_more::Into, PartialEq)]
+#[derive(Debug, Default, Copy, Clone, derive_more::From, derive_more::Into, PartialEq)]
 pub struct Colour(Vector4<f32>);
 
 macro_rules! colour {

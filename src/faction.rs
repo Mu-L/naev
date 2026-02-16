@@ -8,9 +8,9 @@ use gettext::gettext;
 use mlua::ErrorContext as MluaContext;
 use mlua::{BorrowedStr, Either, FromLua, Function, UserData, UserDataMethods, UserDataRef};
 use naev_core::{nxml, nxml_err_attr_missing, nxml_warn_node_unknown};
-use nalgebra::Vector4;
 use nlog::warn_err;
 use nlog::{warn, warnx};
+use renderer::colour::Colour;
 use renderer::{Context, ContextWrapper, colour, texture};
 use slotmap::{Key, KeyData, SecondaryMap, SlotMap};
 use std::collections::HashMap;
@@ -634,7 +634,7 @@ pub struct FactionData {
 
    // Graphics
    pub logo: Option<texture::Texture>,
-   pub colour: Vector4<f32>,
+   pub colour: Colour,
 
    // Relationships
    enemies: Vec<FactionRef>,
@@ -706,8 +706,9 @@ impl FactionData {
             "local_th" => fct.local_th = nxml::node_f32(node)?,
             "lane_length_per_presence" => fct.lane_length_per_presence = nxml::node_f32(node)?,
             "lane_base_cost" => fct.lane_base_cost = nxml::node_f32(node)?,
-            // TODO COLOUR
-            "colour" => continue,
+            "colour" => {
+               fct.colour = Colour::from_name(nxml::node_str(node)?).unwrap_or(colour::WHITE)
+            }
             "logo" => {
                let gfxname = nxml::node_texturepath(node, "gfx/logo/")?;
                fct.logo = Some(
@@ -1407,7 +1408,7 @@ impl UserData for FactionRef {
        *    @luatreturn Colour|nil The faction colour or nil if not applicable.
        * @luafunc colour
        */
-      methods.add_method("colour", |_, this, ()| -> mlua::Result<colour::Colour> {
+      methods.add_method("colour", |_, this, ()| -> mlua::Result<Colour> {
          Ok(this.call(|fct| fct.data.colour)?.into())
       });
       /*@
@@ -1553,7 +1554,7 @@ impl UserData for FactionRef {
                   .get::<Option<f32>>("player")?
                   .unwrap_or(base.player_def);
                let colour = params
-                  .get::<Option<colour::Colour>>("colour")?
+                  .get::<Option<Colour>>("colour")?
                   .unwrap_or(base.colour.into());
                let allies = if clear_allies {
                   Vec::new()
@@ -2063,7 +2064,7 @@ pub extern "C" fn faction_logo(id: i64) -> *const naevc::glTexture {
 #[unsafe(no_mangle)]
 pub extern "C" fn faction_colour(id: i64) -> *const naevc::glColour {
    faction_c_call(id, |fct| {
-      &fct.data.colour as *const Vector4<f32> as *const naevc::glColour
+      &fct.data.colour as *const Colour as *const naevc::glColour
    })
    .unwrap_or_else(|err| {
       warn_err!(err);
