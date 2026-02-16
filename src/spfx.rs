@@ -314,7 +314,7 @@ impl UserData for LuaSpfxRef {
             // If being called from another spfx it will deadlock, so we use a message in that
             // case. Downside is that no ID is returned.
             match LUASPFX.try_write() {
-               std::sync::TryLockResult::Ok(mut guard) => Ok(Some(guard.insert(spfx).into())),
+               std::sync::TryLockResult::Ok(mut guard) => Ok(Some(guard.insert(spfx))),
                std::sync::TryLockResult::Err(std::sync::TryLockError::WouldBlock) => {
                   MESSAGES
                      .lock()

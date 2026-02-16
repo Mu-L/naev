@@ -219,7 +219,7 @@ impl FactionRef {
                Some(api) => api.friendly_at,
                None => std::f32::INFINITY,
             })
-            .unwrap_or(std::f32::INFINITY);
+            .unwrap_or(f32::INFINITY);
          unsafe { naevc::system_getReputationOrGlobal(sys, self.as_ffi()) as f32 > threshold }
       } else {
          self
@@ -666,11 +666,10 @@ impl FactionData {
    /// factions
    fn new<P: AsRef<Path>>(ctx: &ContextWrapper, filename: P) -> Result<(Self, FactionLoad)> {
       let mut fctload = FactionLoad::default();
-      let mut fct = FactionData::default();
-
-      // TODO use default_field_values when stabilized
-      // https://github.com/rust-lang/rust/issues/132162
-      fct.local_th = 10.;
+      let mut fct = FactionData {
+         local_th: 10.0,
+         ..Default::default()
+      };
 
       let data = ndata::read(filename)?;
       let doc = roxmltree::Document::parse(std::str::from_utf8(&data)?)?;
