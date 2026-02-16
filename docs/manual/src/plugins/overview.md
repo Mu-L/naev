@@ -42,5 +42,5 @@ Where:
   This is what the player and other plugins will see when searching or installing the plugin.
 * **source**: defines where the source is located to try to update the plugin when possible.
   Valid options are `source = { git = "url" }` or `source = { download = "url" }` depending on whether it is a direct download or a git repository.
-* **metadata**: should be a url pointing to where the plugin's `plugin.toml` is available.
+* **metadata**: should be a URL pointing to where the plugin's `plugin.toml` is available.
   The plugin manager will use this file to see if updates are necessary.

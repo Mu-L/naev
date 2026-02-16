@@ -14,7 +14,7 @@ cd my_naev_repo
 ### Step 1: modify the contents of `dat/` as you see fit
 
 In this example, we replace the Za'lek-Reiben-Regas line with just
-Zal'ek-Regas, and remove Regas spobs.
+Za'lek-Regas, and remove Regas spobs.
 
 Commit your changes:
 ```

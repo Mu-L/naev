@@ -6,7 +6,7 @@ The Soromid are a major faction in Naev.
 
 * Leader: Tribal Representatives
 * Leading Structure: Tribal Council
-* Government: Neotribal Communitariasm
+* Government: Neotribal Communitarianism
 * Formation: UST 387
 * Homeworld: Kataka (Feye)
 * Important Figures:
@@ -54,6 +54,6 @@ Today, the Soromid have laid claim to a considerable part of the northern galaxy
 
 Instead of having a fixed political structure, the Soromid have a very loose and organic political structure that revolves around the idea of tribes. Generally, each tribe has a council that oversees the day to day management, where all individuals delegate most responsibility. The members of the council are not necessarily fixed, and fluidly change over time. Periodically, and when needed, the tribe will gather in councils to decide positions on particular issues or proposals, where efforts are made to reach a consensus. The same structure of councils happens at a larger scale, where instead of all individuals, tribal representatives get together to reach consensus over matters that affect the Soromid as a whole.
 
-Although it would seem that the overhead of such a system would make it unmanageable at a large scale, due to historic issues and through strong education, young Soromid new humans are raised with a strong focus on putting the community over the individual. Such a social education, combinade with strong customs, helps keep most friction at a minimum, allowing fast and effective decision making. When frictions arise, each tribe tends to have mechanisms for dealing with this, while for inter-tribal issues, duels or competitions are often used to solve issues and foster camaraderie.
+Although it would seem that the overhead of such a system would make it unmanageable at a large scale, due to historic issues and through strong education, young Soromid new humans are raised with a strong focus on putting the community over the individual. Such a social education, combined with strong customs, helps keep most friction at a minimum, allowing fast and effective decision making. When frictions arise, each tribe tends to have mechanisms for dealing with this, while for inter-tribal issues, duels or competitions are often used to solve issues and foster camaraderie.
 
 The tribes can consist of a single world or even various star systems. Each tribe usually consists of largely similarly modified individuals that are genetically compatible, however, some tribes can consist of various dominant genotypes. As with most of the Soromid structure, it is very flexible and fluid where exceptions are the norm.

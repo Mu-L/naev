@@ -28,7 +28,7 @@ The Bureaucracy also manages the Imperial military, with rather more success tha
 
 ## In-Game Database
 
-The following section is written from an **in-universe** perspective. It may contain biassed information or omit facts for dramatic purposes.
+The following section is written from an **in-universe** perspective. It may contain biased information or omit facts for dramatic purposes.
 
 ### History
 

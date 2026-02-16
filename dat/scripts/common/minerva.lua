@@ -284,7 +284,7 @@ end
 -- Spawns the pink demon at location pos
 function minerva.pink_demon( pos, params )
    params = tmerge( {naked=true}, params or {} )
-   local p = pilot.add( "Pirate Kestrel", "Wild Ones", pos, _("Pink Demon"), params )
+   local p = pilot.add( "Pirate Kestrel Yuri's Kiss", "Wild Ones", pos, _("Pink Demon"), params )
    equipopt.pirate( p, {
       type_range = {
          ["Launcher"] = { max = 0 },

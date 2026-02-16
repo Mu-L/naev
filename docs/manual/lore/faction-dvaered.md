@@ -44,7 +44,7 @@ While every Dvaered controlled world is governed by a Warlord at any given time,
 
 * Dvaered fleets' main strategy consists in destroying enemy heavy ships in order to force lighter ones to retreat.
 * Most Dvaered ships' characteristics are: heavy, slow, bad manoeuvrability, good armour, good cannons.
-* Exception: the Phalanx has no speed malus and can more or less keep up with the bombers and fighters to support them with turreted missiles. But it has very bad manoeuvrability and as a result is nearly forced to use turrets.
+* Exception: the Phalanx has no speed penalty and can more or less keep up with the bombers and fighters to support them with turreted missiles. But it has very bad manoeuvrability and as a result is nearly forced to use turrets.
 * Civilian versions are limited because of the high base weight of the designs, but military versions have higher engine mass limit to compensate. As a result, Dvaered ships are less able to stealth.
 * Civilian Goddard is quite different from Dvaered version because it is used differently by civilians and Dvaered.
 * Most Dvaered designs (except for the Goddard) are modified versions of other factions' obsolete ships.
@@ -86,8 +86,8 @@ As stealth and speed are not prominent needs, the Dvaered engineers prefer to re
    + History: This is a redesign of an old model that was obsolete before the civil war.
 
 * Phalanx (Corvette)
-   + Role: Support fighters and bombers squadrons with turreted missiles, and bring cover if needed. Can also be used to skirt a blocus with supplies.
-   + Characteristics: heavy, bad manoeuvrability, good armour, good launchers, no speed malus (ie fast by Dvaered standards)
+   + Role: Support fighters and bombers squadrons with turreted missiles, and bring cover if needed. Can also be used to skirt a blockade with supplies.
+   + Characteristics: heavy, bad manoeuvrability, good armour, good launchers, no speed penalty (i.e. fast by Dvaered standards)
    + Interest for player: A very capable corvette when equipped with turrets.
    + History: After the independence war, analysts noticed that many fighters and bomber squadrons had been lost because of harassment by enemy light ships. This is why an engineering program was initiated from an imperial prototype recovered on one of the freshly conquered planets. This prototype was a fast but badly manoeuvrable corvette on which the dvaered managed to adapt more ammo space and armour. The design eventually became a missile-platform able to more or less catch up with Dvaered fighters in terms of top speed.
 

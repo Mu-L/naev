@@ -548,13 +548,7 @@ local function maikki_arrives ()
    end
 end
 function maikki_arrives_real( pos )
-   local p = pilot.add( "Pirate Kestrel", "Wild Ones", pos, _("Pink Demon"), {naked=true} )
-   equipopt.pirate( p, {
-      type_range = {
-         ["Launcher"] = { max = 0 },
-         ["Turret Launcher"] = { max = 0 },
-      }
-   } )
+   local p = minerva.pink_demon( pos )
    p:setFriendly(true)
    p:control()
    p:attack( pmalik )

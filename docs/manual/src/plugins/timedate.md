@@ -4,7 +4,7 @@ It is possible to change the time and date system of the engine.
 This is done by changing some [constants](./constants.md), and also modifying the auxiliary `timedate.lua` file.
 
 The engine supports specifying time as sets of three components: Major, Minor, and Increment, such that Major > Minor > Increment.
-To give an example, the base Naev scenario uses Cycles, Periods, and Seconds, where there are 10,000 periods in a cyle, and 5,000 seconds in a period.
+To give an example, the base Naev scenario uses Cycles, Periods, and Seconds, where there are 10,000 periods in a cycle, and 5,000 seconds in a period.
 Additionally, a number of increments increases per real-time second in game.
 All these features are controlled by setting constants.
 
@@ -17,7 +17,7 @@ The main constants are:
 * `TIMEDATE_HYPERSPACE_INCREMENTS`: Amount of Increment units that pass by default when the player jumps through hyperspace.
 * `TIMEDATE_LAND_INCREMENTS`: Amount of Increment units that pass by default when the player lands on a space object.
 
-It is possible to, for example, have the game use something similar to the Gregorian calendar by using the folowing setting:
+It is possible to, for example, have the game use something similar to the Gregorian calendar by using the following setting:
 ```lua
    TIMEDATE_MINOR_IN_MAJOR = 365, -- Days in a year
    TIMEDATE_INCREMENT_IN_MINOR = 24*60*60, -- Seconds in a day
@@ -36,7 +36,7 @@ Note that `timedate.lua` runs in a separate sandboxed Lua environment, and you c
 
 This is mainly used when loading time settings in configuration files.
 Currently it is only used with `start.toml` that defines the starting in-game time.
-The function takes a string as a parameter and must return a time structer that you can build with `time.new( major, minor, increment )`.
+The function takes a string as a parameter and must return a time structure that you can build with `time.new( major, minor, increment )`.
 
 ### `to_string`
 

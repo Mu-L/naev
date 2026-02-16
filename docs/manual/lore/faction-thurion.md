@@ -9,7 +9,7 @@ The Thurion are a major faction which is unknown to the modern Empire. Project T
 * Formation: UST 84:8324 (start of the project) / UST 387 (established colony on Sabe)
 * Homeworld: Sabe (Nava system)
 * Important Figures:
-    * Gestalt Conciousness
+    * Gestalt Consciousness
 
 ## History
 
