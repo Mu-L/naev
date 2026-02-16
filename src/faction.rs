@@ -1,19 +1,16 @@
-#![allow(dead_code, unused_variables, unused_imports)]
-use crate::array;
+#![allow(dead_code)]
 use crate::array::{Array, ArrayCString};
 use crate::nlua::LuaEnv;
 use crate::nlua::{NLUA, NLua};
 use anyhow::Context as AnyhowContext;
 use anyhow::Result;
 use gettext::gettext;
-use helpers::{binary_search_by_key_ref, sort_by_key_ref};
 use mlua::ErrorContext as MluaContext;
 use mlua::{BorrowedStr, Either, FromLua, Function, UserData, UserDataMethods, UserDataRef};
 use naev_core::{nxml, nxml_err_attr_missing, nxml_warn_node_unknown};
-use nalgebra::{Vector3, Vector4};
+use nalgebra::Vector4;
 use nlog::warn_err;
 use nlog::{warn, warnx};
-use rayon::prelude::*;
 use renderer::{Context, ContextWrapper, colour, texture};
 use slotmap::{Key, KeyData, SecondaryMap, SlotMap};
 use std::collections::HashMap;
@@ -78,7 +75,7 @@ impl Grid {
       self.data.clear();
       self.data.resize(self.size * self.size, GridEntry::None);
 
-      for (id, fct) in factions.iter() {
+      for (_, fct) in factions.iter() {
          let dat = &fct.data;
          self[(dat.id, dat.id)] = GridEntry::Allies;
          for a in &dat.allies {
@@ -305,11 +302,11 @@ struct LuaAPI {
    // Standing Behaviour
    lua_env: LuaEnv,
    friendly_at: f32,
-   hit: mlua::Function,
-   hit_test: mlua::Function,
-   text_rank: mlua::Function,
-   text_broad: mlua::Function,
-   reputation_max: mlua::Function,
+   hit: Function,
+   hit_test: Function,
+   text_rank: Function,
+   text_broad: Function,
+   reputation_max: Function,
 }
 impl LuaAPI {
    fn new(lua: &NLua, data: &FactionData) -> Result<Self> {
@@ -337,7 +334,7 @@ impl LuaAPI {
       };
       let lua_env = new_env(lua, &data.script_standing, "standing")?;
 
-      fn load_func(env: &LuaEnv, name: &str) -> Result<mlua::Function> {
+      fn load_func(env: &LuaEnv, name: &str) -> Result<Function> {
          match env.get(name) {
             Ok(f) => Ok(f),
             Err(e) => Err(
@@ -667,11 +664,7 @@ pub struct FactionData {
 impl FactionData {
    /// Loads the elementary faction stuff, does not fill out information dependent on other
    /// factions
-   fn new<P: AsRef<Path>>(
-      ctx: &ContextWrapper,
-      lua: &NLua,
-      filename: P,
-   ) -> Result<(Self, FactionLoad)> {
+   fn new<P: AsRef<Path>>(ctx: &ContextWrapper, filename: P) -> Result<(Self, FactionLoad)> {
       let mut fctload = FactionLoad::default();
       let mut fct = FactionData::default();
 
@@ -885,7 +878,7 @@ pub fn load() -> Result<()> {
          //.par_iter()
          .iter()
          .filter_map(
-            |filename| match FactionData::new(&ctx, &NLUA, &base.join(filename)) {
+            |filename| match FactionData::new(&ctx, &base.join(filename)) {
                Ok(sp) => Some(sp),
                Err(e) => {
                   warn!("Unable to load Faction '{}': {e}", filename.display());
@@ -1249,18 +1242,17 @@ impl UserData for FactionRef {
       methods.add_function(
          "hit",
          |_,
-          (this, modifier, system, extent, reason, ignore_others): (
+          (this, modifier, extent, reason, ignore_others): (
             FactionRef,
             f32,
             mlua::Value,
-            Option<BorrowedStr>,
             Option<BorrowedStr>,
             Option<bool>,
          )|
           -> mlua::Result<f32> {
             let reason = reason.as_ref().map_or("script", |v| v);
             let ignore_others = ignore_others.unwrap_or(false);
-            Ok(this.hit(modifier, &system, reason, ignore_others)?)
+            Ok(this.hit(modifier, &extent, reason, ignore_others)?)
          },
       );
       /*@
@@ -1281,17 +1273,11 @@ impl UserData for FactionRef {
       methods.add_function(
          "hitTest",
          |_,
-          (this, modifier, system, extent, reason): (
-            FactionRef,
-            f32,
-            mlua::Value,
-            Option<BorrowedStr>,
-            Option<BorrowedStr>,
-         )|
+          (this, modifier, extent, reason): (FactionRef, f32, mlua::Value, Option<BorrowedStr>)|
           -> mlua::Result<f32> {
             let reason = reason.as_ref().map_or("script", |v| v);
             let ignore_others = true;
-            Ok(this.call(|fct| fct.hit_test_lua(modifier, &system, reason, ignore_others))??)
+            Ok(this.call(|fct| fct.hit_test_lua(modifier, &extent, reason, ignore_others))??)
          },
       );
       /*@
@@ -1825,7 +1811,7 @@ pub extern "C" fn faction_get(name: *const c_char) -> i64 {
 #[unsafe(no_mangle)]
 pub extern "C" fn faction_getAll() -> *mut i64 {
    let mut fcts: Vec<i64> = vec![];
-   for (id, val) in FACTIONS.read().unwrap().iter() {
+   for (id, _) in FACTIONS.read().unwrap().iter() {
       fcts.push(id.as_ffi());
    }
    Array::new(&fcts).unwrap().into_ptr() as *mut i64
@@ -1855,7 +1841,7 @@ pub extern "C" fn faction_getKnown() -> *mut i64 {
 
 #[unsafe(no_mangle)]
 pub extern "C" fn faction_clearKnown() {
-   for (id, val) in FACTIONS.read().unwrap().iter() {
+   for (_, val) in FACTIONS.read().unwrap().iter() {
       val.standing.write().unwrap().f_known = val.data.f_known;
    }
 }
@@ -2256,12 +2242,13 @@ pub extern "C" fn faction_usesHiddenJumps(id: i64) -> c_int {
 
 #[unsafe(no_mangle)]
 pub extern "C" fn faction_hit(
-   id: i64,
-   sys: *const naevc::StarSystem,
-   value: c_double,
-   source: *const c_char,
-   secondary: c_int,
+   _id: i64,
+   _sys: *const naevc::StarSystem,
+   _value: c_double,
+   _source: *const c_char,
+   _secondary: c_int,
 ) -> c_double {
+   // TODO
    /*
    FactionRef::from_ffi(id).hit( sys, value, src, secondary != 0 ).unwrap_or_else( |e| {
       warn_err!(e);
@@ -2420,7 +2407,7 @@ pub extern "C" fn faction_player() -> i64 {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn faction_reputationColourChar(id: i64, sys: *const naevc::StarSystem) -> c_char {
+pub extern "C" fn faction_reputationColourChar(id: i64) -> c_char {
    faction_reputationColourCharSystem(id, std::ptr::null())
 }
 
@@ -2489,7 +2476,7 @@ pub extern "C" fn faction_getGroup(which: c_int, sys: *const naevc::StarSystem) 
    let mut fcts: Vec<i64> = vec![];
    // TODO speed this up and do it in one pass
    if which == 0 {
-      for (id, val) in FACTIONS.read().unwrap().iter() {
+      for (id, _) in FACTIONS.read().unwrap().iter() {
          fcts.push(id.as_ffi());
       }
    } else if which == 1 {
@@ -2534,7 +2521,10 @@ pub extern "C" fn faction_generators(id: i64) -> *const naevc::FactionGenerator 
          })
          .collect::<Vec<_>>()
    })
-   .unwrap_or_else(|err| vec![]);
+   .unwrap_or_else(|e| {
+      warn_err!(e);
+      vec![]
+   });
 
    static GENERATOR_ARRAY: Mutex<Array<naevc::FactionGenerator>> = Mutex::new(Array::default());
    let mut array = GENERATOR_ARRAY.lock().unwrap();
