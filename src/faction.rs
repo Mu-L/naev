@@ -539,7 +539,7 @@ impl Faction {
    fn text_rank(&self, value: Option<f32>) -> Result<String> {
       if let Some(api) = &self.api {
          let value = value.unwrap_or(self.player());
-         api.lua_env.call(&NLUA, &api.text_rank, value)
+         api.lua_env.call::<String>(&NLUA, &api.text_rank, value)
       } else {
          Ok(String::from("???"))
       }
@@ -2219,15 +2219,23 @@ pub extern "C" fn areAlliesSystem(a: i64, b: i64, sys: *const naevc::StarSystem)
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn faction_getStandingText(f: i64) -> *const c_char {
-   faction_getStandingTextAtValue(f, faction_reputation(f))
+pub extern "C" fn faction_getStandingText(id: i64) -> *const c_char {
+   faction_getStandingTextAtValue(id, faction_reputation(id))
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn faction_getStandingTextAtValue(f: i64, value: c_double) -> *const c_char {
-   let f = FactionRef::from_ffi(f);
-   // TODO
-   std::ptr::null()
+pub extern "C" fn faction_getStandingTextAtValue(id: i64, value: c_double) -> *const c_char {
+   static STANDING: Mutex<Option<CString>> = Mutex::new(None);
+   let rank = match faction_c_call(id, |fct| fct.text_rank(Some(value as f32))).flatten() {
+      Ok(r) => r,
+      Err(e) => {
+         warn_err!(e);
+         return std::ptr::null();
+      }
+   };
+   let mut txt = STANDING.lock().unwrap();
+   *txt = Some(CString::new(rank).unwrap());
+   txt.as_ref().unwrap().as_ptr()
 }
 
 #[unsafe(no_mangle)]
