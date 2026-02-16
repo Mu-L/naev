@@ -217,7 +217,7 @@ impl FactionRef {
          let threshold = self
             .call(|fct| match &fct.api {
                Some(api) => api.friendly_at,
-               None => std::f32::INFINITY,
+               None => f32::INFINITY,
             })
             .unwrap_or(f32::INFINITY);
          unsafe { naevc::system_getReputationOrGlobal(sys, self.as_ffi()) as f32 > threshold }
@@ -355,7 +355,7 @@ impl LuaAPI {
             equip_env,
             sched_env,
             lua_env,
-            friendly_at: std::f32::INFINITY,
+            friendly_at: f32::INFINITY,
             hit: noop.clone(),
             hit_test: noop.clone(),
             text_rank: noop.clone(),
@@ -404,7 +404,7 @@ struct FactionC {
 }
 impl FactionC {
    fn new(fd: &FactionData) -> Self {
-      let cs = |s: &str| CString::new(&*s).unwrap();
+      let cs = |s: &str| CString::new(s).unwrap();
       let cname = cs(&fd.name);
       let clongname = fd.longname.as_ref().map(|s| cs(s));
       let cdisplayname = fd.displayname.as_ref().map(|s| cs(s));
@@ -878,7 +878,7 @@ pub fn load() -> Result<()> {
          //.par_iter()
          .iter()
          .filter_map(
-            |filename| match FactionData::new(&ctx, &base.join(filename)) {
+            |filename| match FactionData::new(&ctx, base.join(filename)) {
                Ok(sp) => Some(sp),
                Err(e) => {
                   warn!("Unable to load Faction '{}': {e}", filename.display());
@@ -938,7 +938,7 @@ pub fn load() -> Result<()> {
    }
 
    // Compute grid
-   GRID.write().unwrap().recompute(&*data)?;
+   GRID.write().unwrap().recompute(&data)?;
 
    // Save the data
    drop(data);
@@ -1046,7 +1046,7 @@ impl UserData for FactionRef {
          "get",
          |_, name: Either<UserDataRef<FactionRef>, BorrowedStr>| -> mlua::Result<Self> {
             match name {
-               Either::Left(fr) => Ok(fr.clone()),
+               Either::Left(fr) => Ok(*fr),
                Either::Right(name) => {
                   for (id, fct) in FACTIONS.read().unwrap().iter() {
                      if name == fct.data.name {
@@ -1408,7 +1408,7 @@ impl UserData for FactionRef {
        * @luafunc colour
        */
       methods.add_method("colour", |_, this, ()| -> mlua::Result<Colour> {
-         Ok(this.call(|fct| fct.data.colour)?.into())
+         Ok(this.call(|fct| fct.data.colour)?)
       });
       /*@
        * @brief Checks to see if a faction is known by the player.
@@ -1554,7 +1554,7 @@ impl UserData for FactionRef {
                   .unwrap_or(base.player_def);
                let colour = params
                   .get::<Option<Colour>>("colour")?
-                  .unwrap_or(base.colour.into());
+                  .unwrap_or(base.colour);
                let allies = if clear_allies {
                   Vec::new()
                } else {
@@ -1572,7 +1572,7 @@ impl UserData for FactionRef {
                      displayname: display,
                      ai,
                      logo: base.logo.as_ref().map(|l| l.try_clone()).transpose()?,
-                     colour: colour.into(),
+                     colour,
                      player_def,
                      allies,
                      enemies,
@@ -1612,7 +1612,7 @@ impl UserData for FactionRef {
                }
             });
 
-            GRID.write().unwrap().recompute(&*data)?;
+            GRID.write().unwrap().recompute(&data)?;
             Ok(id)
          },
       );
@@ -2346,7 +2346,7 @@ pub extern "C" fn faction_getScheduler(id: i64) -> *const naevc::nlua_env {
 pub extern "C" fn factions_clearDynamic() {
    let mut data = FACTIONS.write().unwrap();
    data.retain(|_id, fct| !fct.data.f_dynamic);
-   let _ = GRID.write().unwrap().recompute(&*data);
+   let _ = GRID.write().unwrap().recompute(&data);
 }
 
 #[unsafe(no_mangle)]

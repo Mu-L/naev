@@ -495,7 +495,7 @@ fn load_all(sdlctx: &sdl::Sdl, env: &nlua::LuaEnv) -> Result<()> {
       LoadStage::new_c(gettext("Loading Effects…"), || unsafe {
          naevc::effect_load()
       }), /* no dep */
-      LoadStage::new(gettext("Loading Factions…"), || faction::load()), /* dep for space, missions, AI, commodities */
+      LoadStage::new(gettext("Loading Factions…"), faction::load), /* dep for space, missions, AI, commodities */
       //LoadStage::new_c(gettext("Loading Factions…"), || unsafe {
       //   naevc::factions_load()
       //}), /* dep for space, missions, AI, commodities */
@@ -528,11 +528,9 @@ fn load_all(sdlctx: &sdl::Sdl, env: &nlua::LuaEnv) -> Result<()> {
          naevc::safelanes_init()
       }),
       // Run Lua and shit
-      LoadStage::new(gettext("Finalizing data…"), || faction::load_lua()),
+      LoadStage::new(gettext("Finalizing data…"), faction::load_lua),
       LoadStage::new_c(gettext("Finalizing data…"), || unsafe {
-         0
-         //naevc::factions_loadPost()
-            + naevc::difficulty_load()
+         naevc::difficulty_load()
             + naevc::background_init()
             + naevc::map_load()
             + naevc::map_system_load()
