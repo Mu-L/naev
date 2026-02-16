@@ -349,7 +349,7 @@ impl Catalog {
       where
          F: FnMut(&&Plugin) -> bool,
       {
-         let plugs: Vec<_> = plugins.into_iter().cloned().filter(f).collect();
+         let plugs: Vec<_> = plugins.iter().cloned().filter(f).collect();
          if !plugs.is_empty() {
             issues.push(format!(
                "{msg}:\n * {}",
@@ -376,7 +376,7 @@ impl Catalog {
 
       // TC are incompatible with other outfits unless they depend
       let tc_depends = if tc.len() == 1
-         && let Some(tc) = tc.get(0)
+         && let Some(tc) = tc.first()
       {
          test(
             &plugins,
@@ -428,10 +428,10 @@ impl Catalog {
       // Collect them up
       let badplugs = tc
          .into_iter()
-         .chain(tc_depends.into_iter())
-         .chain(incompat.into_iter())
-         .chain(depends.into_iter())
-         .chain(conflicts.into_iter())
+         .chain(tc_depends)
+         .chain(incompat)
+         .chain(depends)
+         .chain(conflicts)
          .map(|p| p.identifier.clone())
          .unique()
          .collect::<Vec<_>>();
