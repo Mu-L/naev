@@ -321,12 +321,8 @@ impl LuaAPI {
          env.load_standard(lua)?;
          let path = format!("factions//{}/{}.lua", dir, script);
          let data = ndata::read(&path)?;
-         let func = lua
-            .lua
-            .load(std::str::from_utf8(&data)?)
-            .set_name(path)
-            .into_function()?;
-         env.call::<()>(lua, &func, ())?;
+         let chunk = lua.lua.load(std::str::from_utf8(&data)?).set_name(path);
+         env.eval::<()>(lua, chunk)?;
          Ok(env)
       }
       let equip_env = if data.script_equip.is_empty() {

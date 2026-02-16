@@ -427,6 +427,22 @@ impl NLua {
       Ok(ret?)
    }
 
+   /// Evaluates a chunk with the environment
+   pub fn environment_eval<R: FromLuaMulti>(
+      &self,
+      env: mlua::Table,
+      chunk: mlua::Chunk,
+   ) -> Result<R> {
+      let globals = self.lua.globals();
+      let prev_env: Option<mlua::Table> = globals.raw_get(ENV)?;
+      globals.raw_set(ENV, env)?;
+      let ret = chunk.eval();
+      if let Some(prev_env) = prev_env {
+         globals.raw_set(ENV, prev_env)?;
+      }
+      Ok(ret?)
+   }
+
    /// Handles resizing
    pub fn resize(&self, width: i32, height: i32) -> Result<()> {
       for pair in self.envs.pairs::<i32, mlua::Table>() {
@@ -491,6 +507,11 @@ impl LuaEnv {
       args: impl IntoLuaMulti,
    ) -> Result<R> {
       lua.environment_call(self.table.clone(), func, args)
+   }
+
+   /// Calls a function with the environment
+   pub fn eval<R: FromLuaMulti>(&self, lua: &NLua, chunk: mlua::Chunk) -> Result<R> {
+      lua.environment_eval(self.table.clone(), chunk)
    }
 
    pub fn load_standard(&mut self, lua: &NLua) -> Result<()> {
