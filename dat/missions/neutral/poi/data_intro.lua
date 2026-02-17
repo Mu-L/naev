@@ -56,7 +56,7 @@ It sounds like the atmosphere is being vented. You hear some struggling before t
             vn.func( function ()
                poi.data_set_known()
             end )
-            vn.na(_([[Whlile searching, you find the mummified remains of the pilot. You leave the ship behind.]]))
+            vn.na(_([[While searching, you find the mummified remains of the pilot. You leave the ship behind.]]))
          else
             vn.na(fmt.f(_([[While searching, you find {reward} and the mummified remains of the pilot. With nothing left to do, you leave the ship behind.]]),
                {reward=reward}))
