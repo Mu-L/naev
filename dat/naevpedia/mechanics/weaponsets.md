@@ -14,7 +14,7 @@ The outfits are not assigned directly, but the outfit slots can be assigned to t
 ## Activating
 
 Primary weapons are fired by holding <%= "#b"..naev.keyGet("primary").."#0" %> and secondary weapons are fired by holding <%= "#b"..naev.keyGet("secondary").."#0" %>.
-Furthermore, the weapon set key bindings (such as <%= "#b"..naev.keyGet("weapset1").."#0" %> key for the first weapon set or the <%= "#b"..naev.keyGet("weapset2").."#0" %> for the second) will activate the weapon set.
+Furthermore, the weapon set key bindings (such as <%= "#b"..naev.keyGet("weapset1").."#0" %> key for the first weapon set or the <%= "#b"..naev.keyGet("weapset2").."#0" %> for the second one) will activate the weapon set.
 For non-primary and secondary weapon sets, you can either tap them to toggle them on or off, or hold them to keep them on as they are held and turn off when released.
 
 ## Options
