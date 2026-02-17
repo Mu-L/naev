@@ -231,7 +231,7 @@ You dock at the spaceport and step out on the platform. Workers immediately take
       vn.na(_([[You observe the soldiers, looking for imperial insignias, in vain. You accidentally make eye contact with one of the cyborgs, which cause the blood in your veins to instantly freeze. Does this guy have scars INSIDE the eyes? How is that even possible!?
 A seemingly-unarmed man steps forward. He must be the imperial agent in charge of the operation.]]))
       agent2(_([["Hello, pilot. Hello, Boudica, nice to meet you again, how do you do?"]]))
-      agent1(_([["Not so bad on my side. Glad to see you too, Ak-Ak. Though I would have preferred we meet in different circumstances. . . Any news of your pilot?"]]))
+      agent1(_([["Not so bad on my side. Glad to see you too, Ak-Ak. Though I would have preferred we meet in different circumstances... Any news of your pilot?"]]))
       agent2(_([["Neh. Not a single clue. I'd say the safest bet is that the FLF is implicated."]]))
       agent1(_([["How would they have known?"]]))
       agent2(_([["Dunno. Anyway, you remember when I told ya we didn't know where "Shaky Swan" was?"]]))
