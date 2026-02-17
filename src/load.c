@@ -170,15 +170,31 @@ static int load_load( nsave_t *save )
 
             /* Time. */
             if ( xml_isNode( node, "time" ) ) {
-               int        cycles, periods, seconds;
-               xmlNodePtr cur = node->xmlChildrenNode;
-               cycles = periods = seconds = 0;
-               do {
-                  xmlr_int( cur, "SCU", cycles );
-                  xmlr_int( cur, "STP", periods );
-                  xmlr_int( cur, "STU", seconds );
-               } while ( xml_nextNode( cur ) );
-               save->date = ntime_create( cycles, periods, seconds );
+               double rem = -1.;
+               xmlr_attr_float_opt( node, "remainder", rem );
+               if ( rem >= 0. ) {
+                  const char *val = xml_get( node );
+                  if ( val != NULL ) {
+                     ntime_t nt = atoll( val );
+                     ntime_set_remainder( nt, rem );
+                  } else
+                     WARN( _( "Malformed time in save game!" ) );
+               } else {
+                  /* Old save format, deprecated in 0.14.0-alpha.3.
+                   * TODO remove in 0.16.0? */
+                  int        cycles = -1, periods = -1, seconds = -1;
+                  xmlNodePtr cur = node->xmlChildrenNode;
+                  do {
+                     xmlr_int( cur, "SCU", cycles );
+                     xmlr_int( cur, "STP", periods );
+                     xmlr_int( cur, "STU", seconds );
+                     xmlr_float( cur, "Remainder", rem );
+                  } while ( xml_nextNode( cur ) );
+                  if ( ( cycles < 0 ) || ( periods < 0 ) || ( seconds < 0 ) ||
+                       ( rem < 0. ) )
+                     WARN( _( "Malformed time in save game!" ) );
+                  ntime_setR( cycles, periods, seconds, rem );
+               }
                continue;
             }
 
