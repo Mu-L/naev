@@ -82,6 +82,7 @@ source_rust = files(
    'ship.rs',
    'slots.rs',
    'spfx.rs',
+   'system.rs',
    'lua/ryaml.rs',
    'lua/collide.rs',
 )

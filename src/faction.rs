@@ -2350,7 +2350,7 @@ pub extern "C" fn factions_clearDynamic() {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn faction_updateSingle() {
+pub extern "C" fn faction_updateSingle(id: i64) {
    // TODO
    //int         n         = 0;
    //double      v         = 0.;
@@ -2371,34 +2371,32 @@ pub extern "C" fn faction_updateSingle() {
 
 #[unsafe(no_mangle)]
 pub extern "C" fn faction_updateGlobal() {
-   // TODO
-   //for ( int i = 0; i < array_size( faction_stack ); i++ )
-   //   faction_updateSingle( i );
+   for (id, _fct) in FACTIONS.read().unwrap().iter() {
+      faction_updateSingle(id.as_ffi());
+   }
 }
 
 #[unsafe(no_mangle)]
 pub extern "C" fn factions_resetLocal() {
-   // TODO
-   //StarSystem *sys_stack = system_getAll();
-   //for ( int i = 0; i < array_size( sys_stack ); i++ ) {
-   //   StarSystem *sys = &sys_stack[i];
-   //   for ( int j = 0; j < array_size( sys->presence ); j++ ) {
-   //      SystemPresence *sp = &sys->presence[j];
-   //      sp->local          = faction_reputation( sp->faction );
-   //   }
-   //}
+   for sys in crate::system::get_mut() {
+      for sp in sys.presence_mut() {
+         sp.local = faction_reputation(sp.faction);
+      }
+   }
 }
 
 #[unsafe(no_mangle)]
 pub extern "C" fn factions_reset() {
-   // TODO
-   //factions_clearDynamic();
-   /* Reset global standing. */
-   //for ( int i = 0; i < array_size( faction_stack ); i++ ) {
-   //   faction_stack[i].player = faction_stack[i].player_def;
-   //   faction_stack[i].flags  = faction_stack[i].oflags;
-   //}
-   //factions_resetLocal();
+   factions_clearDynamic();
+   // Reset global standing.
+   for (_id, fct) in FACTIONS.read().unwrap().iter() {
+      let mut standing = fct.standing.write().unwrap();
+      standing.p_override = None;
+      standing.player = fct.data.player_def;
+      // TODO more flags?
+      standing.f_known = fct.data.f_known;
+   }
+   factions_resetLocal();
 }
 
 #[unsafe(no_mangle)]

@@ -29,6 +29,7 @@ mod rng;
 mod ship;
 mod slots;
 mod spfx;
+mod system;
 mod lua {
    pub mod collide;
    pub mod ryaml;
