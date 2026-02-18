@@ -36,3 +36,28 @@ pub fn get_mut() -> &'static mut [SystemWrapper] {
       std::slice::from_raw_parts_mut(systems as *mut SystemWrapper, n)
    }
 }
+
+unsafe extern "C-unwind" fn lua_system(lua: *mut mlua::ffi::lua_State) -> i32 {
+   unsafe {
+      if mlua::ffi::lua_isinteger(lua, 1) != 0 {
+         let sys = mlua::ffi::lua_tointeger(lua, 1);
+         naevc::lua_pushsystem(lua as *mut naevc::lua_State, sys as i32);
+      } else {
+         mlua::ffi::lua_pushstring(lua, c"lua_system recived a non-integer value!".as_ptr());
+         mlua::ffi::lua_error(lua);
+      }
+   }
+   return 1;
+}
+pub fn to_lua(lua: &mlua::Lua, sys: *const naevc::StarSystem) -> mlua::Result<mlua::Value> {
+   let f = match lua.named_registry_value::<mlua::Function>("lua_system") {
+      Ok(f) => f,
+      Err(_e) => {
+         let f = unsafe { lua.create_c_function(lua_system)? };
+         lua.set_named_registry_value("lua_system", f.clone())?;
+         f
+      }
+   };
+   let id = unsafe { naevc::system_index(sys) };
+   f.call::<mlua::Value>(id)
+}

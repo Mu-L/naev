@@ -2242,20 +2242,21 @@ pub extern "C" fn faction_usesHiddenJumps(id: i64) -> c_int {
 
 #[unsafe(no_mangle)]
 pub extern "C" fn faction_hit(
-   _id: i64,
-   _sys: *const naevc::StarSystem,
-   _value: c_double,
-   _source: *const c_char,
-   _secondary: c_int,
+   id: i64,
+   sys: *const naevc::StarSystem,
+   value: c_double,
+   source: *const c_char,
+   secondary: c_int,
 ) -> c_double {
-   // TODO
-   /*
-   FactionRef::from_ffi(id).hit( sys, value, src, secondary != 0 ).unwrap_or_else( |e| {
-      warn_err!(e);
-      0.0
-   })
-   */
-   0.0
+   let sys = crate::system::to_lua(&NLUA.lua, sys).unwrap();
+   let src = unsafe { CStr::from_ptr(source) }.to_str().unwrap();
+   FactionRef::from_ffi(id)
+      .hit(value as f32, &sys, src, secondary != 0)
+      .unwrap_or_else(|e| {
+         warn_err!(e);
+         0.0
+      })
+      .into()
 }
 
 #[unsafe(no_mangle)]
