@@ -7,7 +7,7 @@ Universal Synchronized Time (UST) is the standard time system used by human civi
 
 ## Explanation
 
-UST consists of three basic components describing different amounts of time: the standard time unit (stu), which is equivalent to an Earth second; the period, which is equal to 10,000 stu (or earth seconds); and the cycle, which is equal to 5,000 periods (50,000,000 stu).
+UST consists of three basic components describing different amounts of time: the standard time unit (stu), which is equivalent to an Earth second; the period, which is equal to 10,000 stu (or Earth seconds); and the cycle, which is equal to 5,000 periods (50,000,000 stu).
 In colloquial usage, the terms "decaperiod" (equivalent to 10 periods) and "hectostu" (equivalent to 100 stu ) are also common.
 UST dates are written in the form:
 
@@ -19,8 +19,8 @@ So for example, the following hypothetical date indicates cycle 493, period 42, 
 * UST 493:0042.2089
 
 When describing lengths of time, it is commonplace for computer systems to indicate a number of periods with either "p" or "stp", and a number of standard time units with "stu".
-This convention is not used for cycles, which are always spelled out in full as "cycles", but is also partially adopted in spoken form where periods are just referred as "periods", however, earth seconds are referred to as "stu" (pronounced like stew).
-This also happens to solve the confusion between real-time seconds, and in-game earth seconds or stu.
+This convention is not used for cycles, which are always spelled out in full as "cycles", but is also partially adopted in spoken form where periods are just referred as "periods", however, Earth seconds are referred to as "stu" (pronounced like stew).
+This also happens to solve the confusion between real-time seconds, and in-game Earth seconds or stu.
 Additionally, due to the metric nature of the time system, periods and stu can be written out as a single unit, although in spoken conversation people report the periods and cycles separately.
 Some examples:
 
