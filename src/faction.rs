@@ -2467,39 +2467,59 @@ pub extern "C" fn faction_getGroup(which: c_int, sys: *const naevc::StarSystem) 
    } else {
       Some(unsafe { &*sys })
    };
-   let mut fcts: Vec<i64> = vec![];
    // TODO speed this up and do it in one pass
-   if which == 0 {
-      for (id, _) in FACTIONS.read().unwrap().iter() {
-         fcts.push(id.as_ffi());
-      }
+   let fcts: Vec<i64> = if which == 0 {
+      FACTIONS
+         .read()
+         .unwrap()
+         .keys()
+         .map(|id| id.as_ffi())
+         .collect()
    } else if which == 1 {
       // friendly
-      let ids: Vec<_> = FACTIONS.read().unwrap().keys().collect();
-      for id in ids {
-         if id.player_ally(sys) {
-            fcts.push(id.as_ffi());
-         }
-      }
+      FACTIONS
+         .read()
+         .unwrap()
+         .keys()
+         .filter_map(|id| {
+            if id.player_ally(sys) {
+               Some(id.as_ffi())
+            } else {
+               None
+            }
+         })
+         .collect()
    } else if which == 2 {
       // neutral
-      let ids: Vec<_> = FACTIONS.read().unwrap().keys().collect();
-      for id in ids {
-         if !id.player_enemy(sys) && !id.player_ally(sys) {
-            fcts.push(id.as_ffi());
-         }
-      }
+      FACTIONS
+         .read()
+         .unwrap()
+         .keys()
+         .filter_map(|id| {
+            if !id.player_enemy(sys) && !id.player_ally(sys) {
+               Some(id.as_ffi())
+            } else {
+               None
+            }
+         })
+         .collect()
    } else if which == 3 {
       // enemy
-      let ids: Vec<_> = FACTIONS.read().unwrap().keys().collect();
-      for id in ids {
-         if id.player_enemy(sys) {
-            fcts.push(id.as_ffi());
-         }
-      }
+      FACTIONS
+         .read()
+         .unwrap()
+         .keys()
+         .filter_map(|id| {
+            if id.player_enemy(sys) {
+               Some(id.as_ffi())
+            } else {
+               None
+            }
+         })
+         .collect()
    } else {
       return std::ptr::null_mut();
-   }
+   };
    Array::new(&fcts).unwrap().into_ptr() as *mut i64
 }
 
