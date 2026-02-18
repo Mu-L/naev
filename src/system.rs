@@ -1,4 +1,3 @@
-#![allow(dead_code)]
 use std::ffi::c_void;
 
 pub struct SystemWrapper(naevc::StarSystem);

@@ -2350,23 +2350,19 @@ pub extern "C" fn factions_clearDynamic() {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn faction_updateSingle(id: i64) {
-   // TODO
-   //int         n         = 0;
-   //double      v         = 0.;
-   //StarSystem *sys_stack = system_getAll();
-   //for ( int j = 0; j < array_size( sys_stack ); j++ ) {
-   //   StarSystem *sys = &sys_stack[j];
-   //   for ( int k = 0; k < array_size( sys->presence ); k++ ) {
-   //      SystemPresence *sp = &sys->presence[k];
-   //      if ( sp->faction != f )
-   //         continue;
-   //      v += sp->local;
-   //      n++;
-   //   }
-   // }
-   //if ( n > 0 )
-   //   faction_stack[f].player = v / (double)n;
+pub extern "C" fn faction_updateSingle(id: i64) -> f64 {
+   let mut v = (0.0, 0.0);
+   for sys in crate::system::get() {
+      let p = sys.presence();
+      v = p.iter().fold(v, |val, sp| {
+         if sp.faction == id {
+            (val.0 + sp.local as f32, val.1 + 1.0)
+         } else {
+            val
+         }
+      });
+   }
+   (if v.1 > 0.0 { v.0 / v.1 } else { 0.0 }) as f64
 }
 
 #[unsafe(no_mangle)]
