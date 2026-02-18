@@ -104,12 +104,13 @@ if [ "${#identifier}" -gt 25 ] ; then
 fi
 
 git diff --name-status "$ref" "$SCRIPT_DIR"/../dat/ |
+grep -v "^."$'\t'"dat/utils/" |
 grep -q \
    -v -e "^M"$'\t'"dat/.*\.xml$" \
    -v -e "^M"$'\t'"dat/outfits/bioship/generate.py$" \
    -v -e "^M"$'\t'"dat/outfits/generated/"
 
-if ! [ "${PIPESTATUS[1]}" = 0 ] ; then
+if ! [ "${PIPESTATUS[2]}" = 0 ] ; then
    safe="(mainline-safe)"
 else
    echo "Your plugin either adds/removes files or includes modifications "
@@ -142,6 +143,7 @@ EOF
 CHANGES=$(mktemp)
 trap 'rm "$CHANGES"' exit
 git diff --name-status "$ref" "$SCRIPT_DIR"/../dat/ |
+grep -v "^."$'\t'"dat/utils/" |
 sed 's/^R[0-9]*\t\([^\t]\+\)\t\([^\t]\+\)/D\t\1\nA\t\2/' > "$CHANGES"
 
 readarray -t ADDED_FILES <<< "$(sed "s/^[AM]\t//; t; d" "$CHANGES")"
