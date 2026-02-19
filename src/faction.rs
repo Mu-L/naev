@@ -6,7 +6,9 @@ use anyhow::Context as AnyhowContext;
 use anyhow::Result;
 use gettext::gettext;
 use mlua::ErrorContext as MluaContext;
-use mlua::{BorrowedStr, Either, FromLua, Function, UserData, UserDataMethods, UserDataRef};
+use mlua::{
+   BorrowedStr, Either, FromLua, Function, MetaMethod, UserData, UserDataMethods, UserDataRef,
+};
 use naev_core::{nxml, nxml_err_attr_missing, nxml_warn_node_unknown};
 use nlog::warn_err;
 use nlog::{warn, warnx};
@@ -1021,6 +1023,18 @@ impl FromLua for FactionRef {
  */
 impl UserData for FactionRef {
    fn add_methods<M: UserDataMethods<Self>>(methods: &mut M) {
+      /*@
+       * @brief Gets the faction's translated short name.
+       *
+       * @note Equivalent to faction:shortname()
+       *
+       *    @luatparam Faction f The faction to get the name of.
+       *    @luatreturn string The name of the faction.
+       * @luafunc __tostring
+       */
+      methods.add_meta_function(MetaMethod::ToString, |_, this: Self| {
+         Ok(this.call(|fct| fct.data.shortname().to_string())?)
+      });
       /*@
        * @brief Gets a faction if it exists.
        *
