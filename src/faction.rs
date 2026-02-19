@@ -1116,7 +1116,7 @@ impl UserData for FactionRef {
        *    @luatreturn string The name of the faction.
        * @luafunc name
        */
-      methods.add_method("shortname", |_, this, ()| -> mlua::Result<String> {
+      methods.add_method("name", |_, this, ()| -> mlua::Result<String> {
          Ok(this.call(|fct| fct.data.shortname().to_string())?)
       });
       /*@
