@@ -186,7 +186,14 @@ impl FactionRef {
    where
       F: Fn(&mut Faction) -> R,
    {
-      let mut factions = FACTIONS.write().unwrap();
+      let mut factions = match FACTIONS.try_write() {
+         Ok(d) => d,
+         Err(e) => {
+            return Err(anyhow::anyhow!(format!(
+               "unable to lock modify factions: {e}"
+            )));
+         }
+      };
       match factions.get_mut(*self) {
          Some(fct) => Ok(f(fct)),
          None => anyhow::bail!("faction not found"),
@@ -1570,7 +1577,14 @@ impl UserData for FactionRef {
             Option<mlua::Table>,
          )|
           -> mlua::Result<Self> {
-            let mut data = FACTIONS.write().unwrap();
+            let mut data = match FACTIONS.try_write() {
+               Ok(d) => d,
+               Err(e) => {
+                  return Err(mlua::Error::RuntimeError(format!(
+                     "unable to lock to add dynamic faction: {e}"
+                  )));
+               }
+            };
             let params = params.unwrap_or_else(|| lua.create_table().unwrap());
             let (mut fd, api) = if let Some(reference) = base {
                let fct = &data.get(reference).context("faction not found")?;
