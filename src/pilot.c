@@ -2754,6 +2754,8 @@ void pilot_update( Pilot *pilot, double dt )
 
       /* Cooldown still updates outfits. */
       pilot_shipLUpdate( pilot, dt );
+      if ( pilot_isFlag( pilot, PILOT_DELETE ) )
+         return;
 
       /* Update outfits if necessary. */
       pilot->otimer += dt;
@@ -2858,6 +2860,8 @@ void pilot_update( Pilot *pilot, double dt )
 
    /* Update pilot Lua. */
    pilot_shipLUpdate( pilot, dt );
+   if ( pilot_isFlag( pilot, PILOT_DELETE ) )
+      return;
 
    /* Update outfits if necessary. */
    pilot->otimer += dt;
