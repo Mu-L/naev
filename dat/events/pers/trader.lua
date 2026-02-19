@@ -66,7 +66,7 @@ return function ()
             p:intrinsicSet( "energy_mod", 50 )
             p:intrinsicSet( "energy_regen_mod", 50 )
             p:intrinsicSet( "shield_mod", 50 )
-            p:intrinsicSet( "shield_regen_od", 50 )
+            p:intrinsicSet( "shield_regen_mod", 50 )
             p:intrinsicSet( "armour_mod", 50 )
             equipopt.sirius( p, {
                pointdefence   = 10,
