@@ -1863,7 +1863,7 @@ pub extern "C" fn faction_getAllVisible() -> *mut i64 {
 pub extern "C" fn faction_getKnown() -> *mut i64 {
    let mut fcts: Vec<i64> = vec![];
    for (id, val) in FACTIONS.read().unwrap().iter() {
-      if !val.data.f_invisible && !val.standing.read().unwrap().f_known {
+      if !val.data.f_invisible && val.standing.read().unwrap().f_known {
          fcts.push(id.as_ffi());
       }
    }
