@@ -4332,6 +4332,9 @@ void pilots_update( double dt )
          if ( !pilot_isFlag( p, PILOT_HYPERSPACE ) )
             ai_think( p, dt, 0 );
          pilot_hyperspace( p, dt );
+         // hyperspace can delete the pilot, so check that case.
+         if ( pilot_isFlag( p, PILOT_DELETE ) )
+            continue;
       }
       /* Entering hyperspace. */
       else if ( pilot_isFlag( p, PILOT_HYP_END ) ) {
