@@ -86,15 +86,13 @@ LuaCanvas_t *luaL_checkcanvas( lua_State *L, int ind )
  *
  *    @param L Lua state to push canvas into.
  *    @param canvas Canvas to push.
- *    @return Newly pushed canvas.
  */
-LuaCanvas_t *lua_pushcanvas( lua_State *L, LuaCanvas_t canvas )
+void lua_pushcanvas( lua_State *L, LuaCanvas_t canvas )
 {
    LuaCanvas_t *c = (LuaCanvas_t *)lua_newuserdata( L, sizeof( LuaCanvas_t ) );
    *c             = canvas;
    luaL_getmetatable( L, CANVAS_METATABLE );
    lua_setmetatable( L, -2 );
-   return c;
 }
 /**
  * @brief Checks to see if ind is a canvas.

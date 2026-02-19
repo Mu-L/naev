@@ -197,13 +197,13 @@ impl FactionRef {
       let factions = FACTIONS.read().unwrap();
       match factions.get(*self) {
          Some(fct) => {
-            let ret = fct.hit_lua(val, system, source, false, None)?;
+            let ret = fct.hit_lua(val, system, source, 0, None)?;
             if !single {
                for a in &fct.data.allies {
-                  factions[*a].hit_lua(val, system, source, true, Some(fct))?;
+                  factions[*a].hit_lua(val, system, source, 1, Some(fct))?;
                }
                for e in &fct.data.enemies {
-                  factions[*e].hit_lua(-val, system, source, true, Some(fct))?;
+                  factions[*e].hit_lua(-val, system, source, -1, Some(fct))?;
                }
             }
             Ok(ret)
@@ -548,7 +548,7 @@ impl Faction {
       val: f32,
       system: &mlua::Value,
       source: &str,
-      secondary: bool,
+      secondary: i32,
       parent: Option<&Faction>,
    ) -> Result<f32> {
       if self.data.f_static {
@@ -1352,7 +1352,7 @@ impl UserData for FactionRef {
                   let qsys = &mut systems[i];
 
                   let srep = unsafe { naevc::system_getFactionPresence(qsys.as_ptr_mut(), fid) };
-                  if !srep.is_null() {
+                  if !srep.is_null() && th.is_finite() {
                      let srep = unsafe { &mut *srep };
                      srep.local = srep.local.clamp(rep - n * th, rep + n * th);
                   }
@@ -1733,10 +1733,10 @@ pub fn open_faction(lua: &mlua::Lua) -> anyhow::Result<mlua::AnyUserData> {
 
 #[allow(non_snake_case)]
 #[unsafe(no_mangle)]
-pub extern "C" fn luaL_checkfaction(L: *mut mlua::lua_State, idx: c_int) -> *mut FactionRef {
+pub extern "C" fn luaL_checkfaction(L: *mut mlua::lua_State, idx: c_int) -> naevc::FactionRef {
    unsafe {
       let fct = lua_tofaction(L, idx);
-      if fct.is_null() {
+      if fct == FactionRef::null().as_ffi() {
          ffi::luaL_typerror(L, idx, c"faction".as_ptr() as *const c_char);
       }
       fct
@@ -1745,7 +1745,7 @@ pub extern "C" fn luaL_checkfaction(L: *mut mlua::lua_State, idx: c_int) -> *mut
 
 #[allow(non_snake_case)]
 #[unsafe(no_mangle)]
-pub extern "C" fn luaL_validfaction(L: *mut mlua::lua_State, idx: c_int) -> i64 {
+pub extern "C" fn luaL_validfaction(L: *mut mlua::lua_State, idx: c_int) -> naevc::FactionRef {
    unsafe {
       if ffi::lua_isstring(L, idx) != 0 {
          let ptr = ffi::lua_tostring(L, idx);
@@ -1759,22 +1759,22 @@ pub extern "C" fn luaL_validfaction(L: *mut mlua::lua_State, idx: c_int) -> i64 
          };
       }
       let fct = lua_tofaction(L, idx);
-      if fct.is_null() {
+      if fct == FactionRef::null().as_ffi() {
          ffi::luaL_typerror(L, idx, c"faction".as_ptr() as *const c_char);
       }
-      (*fct).as_ffi()
+      fct
    }
 }
 
 #[allow(non_snake_case)]
 #[unsafe(no_mangle)]
 pub extern "C" fn lua_isfaction(L: *mut mlua::lua_State, idx: c_int) -> c_int {
-   !lua_tofaction(L, idx).is_null() as c_int
+   (lua_tofaction(L, idx) != FactionRef::null().as_ffi()) as c_int
 }
 
 #[allow(non_snake_case)]
 #[unsafe(no_mangle)]
-pub extern "C" fn lua_pushfaction(L: *mut mlua::lua_State, fct: i64) {
+pub extern "C" fn lua_pushfaction(L: *mut mlua::lua_State, fct: naevc::FactionRef) {
    unsafe {
       ffi::lua_getfield(L, ffi::LUA_REGISTRYINDEX, c"push_faction".as_ptr());
       ffi::lua_pushinteger(L, fct);
@@ -1784,14 +1784,21 @@ pub extern "C" fn lua_pushfaction(L: *mut mlua::lua_State, fct: i64) {
 
 #[allow(non_snake_case)]
 #[unsafe(no_mangle)]
-pub extern "C" fn lua_tofaction(L: *mut mlua::lua_State, idx: c_int) -> *mut FactionRef {
+pub extern "C" fn lua_tofaction(L: *mut mlua::lua_State, idx: c_int) -> naevc::FactionRef {
    unsafe {
       let idx = ffi::lua_absindex(L, idx);
       ffi::lua_getfield(L, ffi::LUA_REGISTRYINDEX, c"get_faction".as_ptr());
       ffi::lua_pushvalue(L, idx);
       let fct = match ffi::lua_pcall(L, 1, 1, 0) {
-         ffi::LUA_OK => ffi::lua_touserdata(L, -1) as *mut FactionRef,
-         _ => std::ptr::null_mut(),
+         ffi::LUA_OK => {
+            let ptr = ffi::lua_touserdata(L, -1) as *mut FactionRef;
+            if ptr.is_null() {
+               FactionRef::null().as_ffi()
+            } else {
+               (*ptr).as_ffi()
+            }
+         }
+         _ => FactionRef::null().as_ffi(),
       };
       ffi::lua_pop(L, 1);
       fct

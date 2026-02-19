@@ -26,7 +26,7 @@ int nlua_loadCanvas( nlua_env *env );
 /* Basic operations. */
 LuaCanvas_t *lua_tocanvas( lua_State *L, int ind );
 LuaCanvas_t *luaL_checkcanvas( lua_State *L, int ind );
-LuaCanvas_t *lua_pushcanvas( lua_State *L, LuaCanvas_t canvas );
+void         lua_pushcanvas( lua_State *L, LuaCanvas_t canvas );
 int          lua_iscanvas( lua_State *L, int ind );
 
 /*

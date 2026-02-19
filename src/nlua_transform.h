@@ -24,5 +24,5 @@ int nlua_loadTransform( nlua_env *env );
  */
 mat3 *lua_totransform( lua_State *L, int ind );
 mat3 *luaL_checktransform( lua_State *L, int ind );
-mat3 *lua_pushtransform( lua_State *L, mat3 Transform );
+void  lua_pushtransform( lua_State *L, mat3 Transform );
 int   lua_istransform( lua_State *L, int ind );

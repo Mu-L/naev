@@ -17,5 +17,5 @@
  */
 vec2 *lua_tovector( lua_State *L, int ind );
 vec2 *luaL_checkvector( lua_State *L, int ind );
-vec2 *lua_pushvector( lua_State *L, vec2 vec );
+void  lua_pushvector( lua_State *L, vec2 vec );
 int   lua_isvector( lua_State *L, int ind );

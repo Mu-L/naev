@@ -21,8 +21,8 @@ int nlua_loadFaction( nlua_env *env );
 /*
  * Faction operations
  */
-LuaFaction  lua_tofaction( lua_State *L, int ind );
-LuaFaction  lua_checkfaction( lua_State *L, int ind );
-LuaFaction *lua_pushfaction( lua_State *L, LuaFaction faction );
-LuaFaction  luaL_validfaction( lua_State *L, int ind );
-int         lua_isfaction( lua_State *L, int ind );
+LuaFaction lua_tofaction( lua_State *L, int ind );
+LuaFaction lua_checkfaction( lua_State *L, int ind );
+void       lua_pushfaction( lua_State *L, LuaFaction faction );
+LuaFaction luaL_validfaction( lua_State *L, int ind );
+int        lua_isfaction( lua_State *L, int ind );

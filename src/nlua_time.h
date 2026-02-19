@@ -18,6 +18,6 @@ int nlua_loadTime( nlua_env *env );
  */
 ntime_t *lua_totime( lua_State *L, int ind );
 ntime_t *luaL_checktime( lua_State *L, int ind );
-ntime_t *lua_pushtime( lua_State *L, ntime_t time );
+void     lua_pushtime( lua_State *L, ntime_t time );
 ntime_t  luaL_validtime( lua_State *L, int ind );
 int      lua_istime( lua_State *L, int ind );
