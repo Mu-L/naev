@@ -349,18 +349,19 @@ impl LuaAPI {
          }
       }
 
-      if data.f_static {
-         let noop = lua.lua.create_function(|_, ()| Ok(()))?;
+      if data.script_standing.is_empty() {
+         let noop_f32 = lua.lua.create_function(|_, ()| Ok(0.0f32))?;
+         let noop_string = lua.lua.create_function(|_, ()| Ok(String::new()))?;
          Ok(LuaAPI {
             equip_env,
             sched_env,
             lua_env,
             friendly_at: f32::INFINITY,
-            hit: noop.clone(),
-            hit_test: noop.clone(),
-            text_rank: noop.clone(),
-            text_broad: noop.clone(),
-            reputation_max: noop,
+            hit: noop_f32.clone(),
+            hit_test: noop_f32.clone(),
+            text_rank: noop_string.clone(),
+            text_broad: noop_string,
+            reputation_max: noop_f32,
          })
       } else {
          let friendly_at = lua_env.get("friendly_at").unwrap_or(70.0);
