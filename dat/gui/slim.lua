@@ -507,6 +507,9 @@ local effects = {}
 function update_effects()
    local pp = player.pilot()
    effects = {}
+   if not pp then
+      return
+   end
    local effects_added = {}
    for k,e in ipairs(pp:effects()) do
       local a = effects_added[ e.name ]
