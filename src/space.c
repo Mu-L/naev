@@ -1046,6 +1046,12 @@ StarSystem *system_get( const char *sysname )
  */
 StarSystem *system_getIndex( int id )
 {
+   /* Validity check. */
+   if ( ( id < 0 ) || ( id >= array_size( systems_stack ) ) ) {
+      WARN( "System index '%d' out of range (max %d)", id,
+            array_size( spob_stack ) );
+      return NULL;
+   }
    return &systems_stack[id];
 }
 

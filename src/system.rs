@@ -92,3 +92,15 @@ pub fn from_lua_index(lua: &mlua::Lua, value: &mlua::Value) -> mlua::Result<i64>
    };
    f.call::<i64>(value)
 }
+pub fn from_lua(lua: &mlua::Lua, value: &mlua::Value) -> mlua::Result<&'static naevc::StarSystem> {
+   let id = from_lua_index(lua, value)?;
+   let sys = unsafe { naevc::system_getIndex(id as i32) };
+   let sys = if sys.is_null() {
+      return Err(mlua::Error::RuntimeError(
+         "StarSystem not found".to_string(),
+      ));
+   } else {
+      unsafe { &*sys }
+   };
+   Ok(sys)
+}

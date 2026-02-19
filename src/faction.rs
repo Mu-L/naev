@@ -1159,21 +1159,11 @@ impl UserData for FactionRef {
        */
       methods.add_function(
          "areEnemies",
-         |_,
-          (this, other, sys): (FactionRef, FactionRef, Option<mlua::AnyUserData>)|
+         |lua,
+          (this, other, sys): (FactionRef, FactionRef, Option<mlua::Value>)|
           -> mlua::Result<bool> {
             if let Some(sys) = sys {
-               // HORRIBLE HACK UNTIL STARSYSTEMS ARE IN MLUA
-               // TODO fix this ASAP
-               let ptr = sys.to_pointer() as *const naevc::LuaSystem;
-               let sys = unsafe { naevc::system_getIndex(*ptr) };
-               let sys = if sys.is_null() {
-                  return Err(mlua::Error::RuntimeError(
-                     "StarSystem not found".to_string(),
-                  ));
-               } else {
-                  unsafe { &*sys }
-               };
+               let sys = crate::system::from_lua(lua, &sys)?;
                Ok(this.are_enemies(&other, Some(sys)))
             } else {
                Ok(this.are_enemies(&other, None))
@@ -1198,17 +1188,7 @@ impl UserData for FactionRef {
           (this, other, sys): (FactionRef, FactionRef, Option<mlua::AnyUserData>)|
           -> mlua::Result<bool> {
             if let Some(sys) = sys {
-               // HORRIBLE HACK UNTIL STARSYSTEMS ARE IN MLUA
-               // TODO fix this ASAP
-               let ptr = sys.to_pointer() as *const naevc::LuaSystem;
-               let sys = unsafe { naevc::system_getIndex(*ptr) };
-               let sys = if sys.is_null() {
-                  return Err(mlua::Error::RuntimeError(
-                     "StarSystem not found".to_string(),
-                  ));
-               } else {
-                  unsafe { &*sys }
-               };
+               let sys = crate::system::from_lua(lua, &sys)?;
                Ok(this.are_allies(&other, Some(sys)))
             } else {
                Ok(this.are_allies(&other, None))
