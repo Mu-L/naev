@@ -1160,12 +1160,6 @@ static int getFriendOrFoeTest( const Pilot *p, const Pilot *plt, int friend,
       }
    } else {
       if ( p == NULL ) {
-         if ( !faction_isFaction( lf ) )
-            DEBUG( "Pilot '%s' has bad faction '%ld'",
-                   p != NULL ? p->name : "NULL", lf );
-         if ( !faction_isFaction( plt->faction ) )
-            DEBUG( "Pilot '%s' has bad faction '%ld'", plt->name,
-                   plt->faction );
          if ( !areEnemies( lf, plt->faction ) )
             return 0;
       } else {
