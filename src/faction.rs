@@ -1343,7 +1343,6 @@ impl UserData for FactionRef {
       methods.add_method(
          "applyLocalThreshold",
          |lua, this, sys: mlua::Value| -> mlua::Result<()> {
-            use std::collections::VecDeque;
             let systems = crate::system::get_mut();
             let sysid = crate::system::from_lua_index(lua, &sys)? as usize;
             let sys = unsafe { naevc::system_getIndex(sysid as i32) };
@@ -1362,13 +1361,13 @@ impl UserData for FactionRef {
 
             let rep = srep.local;
             let mut n = 0.0;
-            let mut done = VecDeque::from([sysid]);
-            let mut queuea = VecDeque::from([sysid]);
-            let mut queueb = VecDeque::<usize>::new();
+            let mut done = Vec::from([sysid]);
+            let mut queuea = Vec::from([sysid]);
+            let mut queueb = Vec::<usize>::new();
             // We want to expand out one jump at a time
             while queuea.len() > 0 {
                // Clear first queue
-               while let Some(i) = queuea.pop_front() {
+               for i in queuea.drain(..) {
                   let qsys = &mut systems[i];
 
                   let srep = unsafe { naevc::system_getFactionPresence(qsys.as_ptr_mut(), fid) };
@@ -1389,9 +1388,9 @@ impl UserData for FactionRef {
                      }
 
                      if unsafe { naevc::system_getPresence(nsys, fid) } > 0. {
-                        queueb.push_back(nsysid);
+                        queueb.push(nsysid);
                      }
-                     done.push_back(nsysid);
+                     done.push(nsysid);
                   }
                }
                // Add jump, swap buffers, and expand again
