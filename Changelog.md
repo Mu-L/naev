@@ -1,5 +1,6 @@
 ## v0.13.4 (unreleased)
 
+   * Fixed rare crash when NPCs jump out
    * Fixed online resizing on high dpi screens
    * Fixed faction hits being larger than expected in some cases
    * Spelling and grammar fixes
