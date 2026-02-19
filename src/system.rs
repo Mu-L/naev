@@ -4,6 +4,10 @@ pub struct SystemWrapper(naevc::StarSystem);
 unsafe impl Send for SystemWrapper {}
 
 impl SystemWrapper {
+   pub fn as_ptr_mut(&mut self) -> *mut naevc::StarSystem {
+      &mut self.0 as *mut naevc::StarSystem
+   }
+
    pub fn presence(&self) -> &[naevc::SystemPresence] {
       let presences = self.0.presence;
       unsafe {
@@ -17,6 +21,14 @@ impl SystemWrapper {
       unsafe {
          let n = naevc::array_size_rust(presences as *const c_void) as usize;
          std::slice::from_raw_parts_mut(presences, n)
+      }
+   }
+
+   pub fn jumps(&self) -> &[naevc::JumpPoint] {
+      let jumps = self.0.jumps;
+      unsafe {
+         let n = naevc::array_size_rust(jumps as *const c_void) as usize;
+         std::slice::from_raw_parts(jumps as *const naevc::JumpPoint, n)
       }
    }
 }
@@ -60,4 +72,23 @@ pub fn to_lua(lua: &mlua::Lua, sys: *const naevc::StarSystem) -> mlua::Result<ml
    };
    let id = unsafe { naevc::system_index(sys) };
    f.call::<mlua::Value>(id)
+}
+
+unsafe extern "C-unwind" fn lua_system_index(lua: *mut mlua::ffi::lua_State) -> i32 {
+   unsafe {
+      let sysid = naevc::luaL_checksystem(lua as *mut naevc::lua_State, 1);
+      mlua::ffi::lua_pushinteger(lua, sysid.into());
+   }
+   return 1;
+}
+pub fn from_lua_index(lua: &mlua::Lua, value: &mlua::Value) -> mlua::Result<i64> {
+   let f = match lua.named_registry_value::<mlua::Function>("lua_system_index") {
+      Ok(f) => f,
+      Err(_e) => {
+         let f = unsafe { lua.create_c_function(lua_system_index)? };
+         lua.set_named_registry_value("lua_system_index", f.clone())?;
+         f
+      }
+   };
+   f.call::<i64>(value)
 }

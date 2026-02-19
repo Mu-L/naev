@@ -1340,16 +1340,67 @@ impl UserData for FactionRef {
        * be the reference and will not have its value modified.
        * @luafunc applyLocalThreshold
        */
-      // TODO
-      /*
-      static int factionL_applyLocalThreshold( lua_State *L )
-      {
-         FactionRef  f   = luaL_validfaction( L, 1 );
-         StarSystem *sys = luaL_validsystem( L, 2 );
-         faction_applyLocalThreshold( f, sys );
-         return 0;
-      }
-            */
+      methods.add_method(
+         "applyLocalThreshold",
+         |lua, this, sys: mlua::Value| -> mlua::Result<()> {
+            use std::collections::VecDeque;
+            let systems = crate::system::get_mut();
+            let sysid = crate::system::from_lua_index(lua, &sys)? as usize;
+            let sys = unsafe { naevc::system_getIndex(sysid as i32) };
+            let (th, usehidden) =
+               this.call(|fct| (fct.data.local_th as f64, fct.data.f_useshiddenjumps))?;
+            let fid = this.as_ffi();
+
+            let srep = unsafe { naevc::system_getFactionPresence(sys, fid) };
+            if srep.is_null() {
+               return Ok(());
+            }
+            let srep = unsafe { &*srep };
+            if srep.value <= 0. {
+               return Ok(());
+            }
+
+            let rep = srep.local;
+            let mut n = 0.0;
+            let mut done = VecDeque::from([sysid]);
+            let mut queuea = VecDeque::from([sysid]);
+            let mut queueb = VecDeque::<usize>::new();
+            // We want to expand out one jump at a time
+            while queuea.len() > 0 {
+               // Clear first queue
+               while let Some(i) = queuea.pop_front() {
+                  let qsys = &mut systems[i];
+
+                  let srep = unsafe { naevc::system_getFactionPresence(qsys.as_ptr_mut(), fid) };
+                  if !srep.is_null() {
+                     let srep = unsafe { &mut *srep };
+                     srep.local = srep.local.clamp(rep - n * th, rep + n * th);
+                  }
+
+                  for j in qsys.jumps() {
+                     if (j.flags & naevc::JP_HIDDEN) > 0 && !usehidden {
+                        continue;
+                     }
+
+                     let nsys = unsafe { &*j.target };
+                     let nsysid = nsys.id as usize;
+                     if done.contains(&nsysid) {
+                        continue;
+                     }
+
+                     if unsafe { naevc::system_getPresence(nsys, fid) } > 0. {
+                        queueb.push_back(nsysid);
+                     }
+                     done.push_back(nsysid);
+                  }
+               }
+               // Add jump, swap buffers, and expand again
+               n += 1.0;
+               (queuea, queueb) = (queueb, queuea);
+            }
+            Ok(())
+         },
+      );
       /*@
        * @brief Gets the enemies of the faction.
        *
@@ -2468,8 +2519,8 @@ pub extern "C" fn faction_getGroup(which: c_int, sys: *const naevc::StarSystem) 
    } else {
       Some(unsafe { &*sys })
    };
-   // TODO speed this up and do it in one pass
    let fcts: Vec<i64> = if which == 0 {
+      // all factions
       FACTIONS
          .read()
          .unwrap()
