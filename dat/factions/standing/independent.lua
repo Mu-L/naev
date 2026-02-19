@@ -30,7 +30,9 @@ sbase.init({
       end
       if not do_hit then
          -- Set to default just in case
-         sys:setReputation( sbase.fct, sbase.fct:reputationDefault() )
+         if sys then
+            sys:setReputation( sbase.fct, sbase.fct:reputationDefault() )
+         end
          return min, max, 0
       end
       return min, max, mod
