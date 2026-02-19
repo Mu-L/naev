@@ -3,7 +3,7 @@ title: "Factions"
 ---
 # Factions
 
-There are a diversity of factions that vie for control of the universe.
+There are a variety of factions that vie for control of the universe.
 
 ## The Empire
 

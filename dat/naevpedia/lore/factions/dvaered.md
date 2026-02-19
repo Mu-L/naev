@@ -11,13 +11,13 @@ wgtfct = require("naevpedia.lore.faction").init( "Dvaered" )
 House Dvaered is one of the Great Houses of [the Empire](lore/factions/empire).
 It evolved from the working class of [the Empire](lore/factions/empire) during the [Second Growth and the Faction Wars](lore/history) and was granted the status of a Great House by the Emperor during the Golden Age of [the Empire](lore/factions/empire).
 Today, it is governed by the military and the armed forces dominate much of the everyday lives of the Dvaered citizens.
-Planets are governed by Warlords, former members of the Dvaered High Command, which makes all the most important decisions about the House.
+Planets are governed by Warlords, former members of the Dvaered High Command, who make all the most important decisions about the House.
 The Warlords regulate life on a local basis, while the High Command directs the Faction as a whole.
 The only way of rising up is through military achievement, recognized through medals and commendations.
 
 ## Organization
 
-* **Leader:** None
+* **Leader:** Warlords of various lesser houses
 * **Leading Structure:** High Command Generals
 * **Government:** Military Meritocracy
 * **Formation:** [UST 331](lore/history)
@@ -51,7 +51,7 @@ In fact, it is the one thing universally agreed upon and honoured in Dvaered soc
 ### Warlords
 
 When a General retires from High Command, they often take with them a small contingent of the armed forces.
-These are soldiers and sailors have sworn allegiance to the person, not the banner, and they will continue to serve until the bitter end.
+These soldiers and sailors have sworn allegiance to the person, not the banner, and they will continue to serve until the bitter end.
 The General, now known as a Warlord, will then use their private military to secure rule over one or more Dvaered worlds, usually by usurping the position from another Warlord.
 This method of local government is commonly accepted, and no Dvaered citizen will be surprised when suddenly a new set of local laws will be passed.
 
@@ -60,12 +60,12 @@ This method of local government is commonly accepted, and no Dvaered citizen wil
 The Dvaered citizenry itself is barely worthy of the name.
 There is often more squalor than culture, with military employment being seen as necessary and expected.
 For those citizens that are unable to join the military, Dvaered society is exceptionally harsh, often condemning these individuals to working for barely livible wages in barely acceptable conditions.
-Nevertheless, there certainly is a Dvaered elite.
+Nevertheless, there certainly is a civilian elite.
 They often concentrate on the few truly hospitable worlds in Dvaered space, where they pursue their idea of luxury.
 
 ### Warlords and Dvaered High Command
 
 While every Dvaered controlled world is governed by a Warlord at any given time, it is Dvaered High Command that the Warlords ultimately answer to.
-Though Dvaered High Command is more military than government, it needs a steady stream of funds, manpower and materials to further its agenda.
+Though Dvaered High Command is more military than government, it needs a steady stream of funds, manpower, and materials to further its agenda.
 Each Warlord is required to pay a certain portion of their worlds' resources in tax.
 Failure to do so results in a swift and permanent removal by Dvaered High Command, after which the worlds previously held by that warlord become available to any other Warlords with the will to take them (which is to say, all of them).

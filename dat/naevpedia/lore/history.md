@@ -52,7 +52,7 @@ That would change, abruptly and dramatically.
 ## The Second Growth (roughly UST -400 to UST -100)
 
 While the eleven colonies painstakingly tried to develop themselves into economies resembling Earth's, Earth itself continued to progress scientifically.
-Though no new colonization efforts were made after the first twenty, as this was deemed too costly, different avenues of deep space exploration were being invented, tested and discarded on a regular basis.
+Though no new colonization efforts were made after the first twenty, as this was deemed too costly, different avenues of deep space exploration were being invented, tested, and discarded on a regular basis.
 Then, there was the breakthrough that lies at the foundation of space travel as we know it today: the discovery of hyperspace.
 
 Hyperspace was found to allow travel between one point to another point without having to cross the space in between.
@@ -75,7 +75,7 @@ Though each colony was granted the right of self-government, the Federation was 
 Interstellar trade and security came to fall under the Federation's jurisdiction, and each standard cycle the planetary governments would convene in an interstellar summit, discussing the current state of affairs.
 On paper, it looked good.
 
-Over the course of many years, many new planets were settled, converted or exploited.
+Over the course of many years, many new planets were settled, converted, or exploited.
 Interstellar trade became immensely lucrative, new fortunes were made.
 But humanity, even in times of prosperity, tends to find strife and conflict.
 Not only did piracy manifest itself in the vast stretches of space, there appeared a growing discontent between the various colonies.

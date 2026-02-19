@@ -43,7 +43,7 @@ return function ( mem )
          -- Game starts at 603:3726.2871
          log(_([[It's all starting to come together! I've managed to find several planets where the Astral Orchids have been able to thrive, but it hasn't been easy. The necessary biochemical conditions are much stricter than my calculations had originally anticipated. Seeing the orchids bloom in the wild makes it all worth it. I look forward to seeing them bloom, it will be truly a triumph for this species.
 
-And to believe that it was driven to extinction so long ago! It was risky, but extracting the last embryos and flasking them. It may have cost all my savings, but I would do it again given half the chance.]]))
+And to believe that it was driven to extinction so long ago! It was risky, but extracting the last embryos and flasking them was worth it. It may have cost all my savings, but I would do it again given half the chance.]]))
          -- TODO maybe do something better for the locations? Probably player will forget / not notice in seconds, but may just make sense to have the Oracle character or whatever to nudge the player instead
          log(fmt.f(_([[I have currently got some viable populations started at {locations} systems, however, long-term viability is still not clear. I am still going down the list of other potential candidates, however, they are at much riskier locations. I am not certain I will be able to get to them all, I just hope my Llama Voyager's fuel regeneration module doesn't break down.]]),
             {locations="#b"..fmt.list(SYSTEMS).."#0"}))

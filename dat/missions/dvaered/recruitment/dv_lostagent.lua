@@ -186,7 +186,7 @@ function land()
       vn.scene()
       local agent = vn.newCharacter( _("Agent"), { image=portrait.getFullPath(agentPort) } )
       vn.transition( )
-      vn.na(_([[When you step out from your ship, you remark a woman that was waiting for you on the dock. She matches the description that was made to you.]]))
+      vn.na(_([[When you step out from your ship, you notice a woman that was waiting for you on the dock who matches the description that was given to you.]]))
       agent(fmt.f(_([["Glad to see that you made it to our rendezvous point, {player}. My name is Bony Boudica... I mean, it's my codename, of course."]]),
          {player=player.name()}))
       agent(fmt.f(_([["I am afraid we might have an issue to deal with, you and me. The other pilot, who was supposed to take your cargo did not show up.
@@ -228,24 +228,24 @@ But it is too risky to wait for them here. This means that we have to take the c
       vn.transition( )
       vn.na(_([[A group is waiting at your dock. Before you proceed with the final landing procedure, Boudica looks at them with binoculars, and then confirms they are the Imperial team.
 You dock at the spaceport and step out on the platform. Workers immediately take your cargo in charge, under the protection of armed cyborgs.]]))
-      vn.na(_([[You observe the soldiers, looking for imperial insignias or gallons, in vain. You accidentally make eye contact with one of the cyborgs, which cause the blood in your veins to instantly freeze. Does this guy have scars INSIDE the eyes? How is it only possible?
+      vn.na(_([[You observe the soldiers, looking for imperial insignias, in vain. You accidentally make eye contact with one of the cyborgs, which cause the blood in your veins to instantly freeze. Does this guy have scars INSIDE the eyes? How is that even possible!?
 A seemingly-unarmed man steps forward. He must be the imperial agent in charge of the operation.]]))
       agent2(_([["Hello, pilot. Hello, Boudica, nice to meet you again, how do you do?"]]))
-      agent1(_([["Not so bad on my side. Glad to see you too, Ak-Ak. I would just have preferred we meet in different circumstances. Any news of your pilot?"]]))
-      agent2(_([["Neh. Not a single clue. I'd say the safest bet is that the FLF is implied."]]))
+      agent1(_([["Not so bad on my side. Glad to see you too, Ak-Ak. Though I would have preferred we meet in different circumstances... Any news of your pilot?"]]))
+      agent2(_([["Neh. Not a single clue. I'd say the safest bet is that the FLF is implicated."]]))
       agent1(_([["How would they have known?"]]))
       agent2(_([["Dunno. Anyway, you remember when I told ya we didn't know where "Shaky Swan" was?"]]))
       agent1(_([["Yep."]]))
       agent2(_([["It was not true."]]))
       agent1(_([["Oooh. I'm sooo surprised! I totally was not expecting you to lie at all about that!]]))
-      agent2(fmt.f(_([["Come on... Anyway, I think it's time to get that swan. If the FLF is implied in the disappearance, so is the swan. The good thing is that we know that he is supposed to have business in {sys} soon."]]),
+      agent2(fmt.f(_([["Come on... Anyway, I think it's time to get that Swan. If the FLF is implicated in the disappearance, so is the Swan. The good thing is that we know that he is supposed to have business in {sys} soon."]]),
          {sys=mem.flfsys}))
-      agent1(_([["Nice to hear that from you. But why do you tell it to me? Just send the flying circus after him."]])) -- Flying Circus is the surname of the squadron of the red baron during WWI, And in game, I plan it to be the surname of an imperial black ops squadron.
-      agent2(_([["Yeah, I've made a backup request to the Imperial Lair's Secretary, but the Second Archbishop of Mayhem has opposed a veto, so I only have access to the squadrons that are outside his jurisdiction. And I finally got squadron 138..."]]))
-      agent1(_([["Man, I don't care of your Bishop of Myass, nor of the ID of your squadron. Just get them to intercept the swan."]]))
-      agent2(_([["I can't. Squadron 138 has army transponders, and as you obviously know, the swan can identify them. I need an unrelated pilot to disable his ship before the squadron jumps in to catch him."]]))
+      agent1(_([["Nice to hear that from you. But why bother telling me? Just send the flying circus after him."]])) -- Flying Circus is the surname of the squadron of the red baron during WWI, And in game, I plan it to be the surname of an imperial black ops squadron.
+      agent2(_([["Yeah, I've made a backup request to the Imperial Lair's Secretary, but the Second Archbishop of Mayhem has threatened a veto, so I only have access to the squadrons that are outside his jurisdiction. And I finally got squadron 138..."]]))
+      agent1(_([["Man, I don't care about your Bishop of My-ass, nor the ID of your squadron. Just get them to intercept the Swan."]]))
+      agent2(_([["I can't. Squadron 138 has army transponders, and as you obviously know, the Swan can identify them. I need an unrelated pilot to disable his ship before the squadron jumps in to catch him."]]))
       vn.na(_([[Both agents turn their faces towards you. You try to pretend you are not here, looking at the roof and scratching your nose, but soon Boudica breaks the silence.]]))
-      agent1(fmt.f(_([["Okay, {player}. Once you are ready, just meet me at the bar. We'll put up a plan to catch the swan."]]),
+      agent1(fmt.f(_([["Okay, {player}. Once you are ready, just meet me at the bar. We'll put together a plan to catch the Swan."]]),
          {player=player.name()}))
       vn.done()
       vn.run()
@@ -368,7 +368,7 @@ function discussWithAg()
    local agent = vn.newCharacter( _("Bony Boudica"), { image=portrait.getFullPath(agentPort) } )
    vn.transition()
 
-   agent(fmt.f(_([["I don't know how much you did understand of our conversation on the spaceport, but we need you now to disable the ship of a pilot surnamed 'Shaky Swan'. He is supposed to be hanging around {sys} in the near future."]]),
+   agent(fmt.f(_([["I don't know how much you understood of our conversation at the spaceport, but now we need you to disable the ship of a pilot named 'Shaky Swan'. He is supposed to be hanging around {sys} in the near future."]]),
       {sys=mem.flfsys}))
 
    vn.label("menu")
@@ -380,17 +380,17 @@ function discussWithAg()
    }
 
    vn.label("details")
-   agent(fmt.f(_([["According to our information, Shaky Swan is in the Frontier sector right now, flying a Tristan, presumably under FLF transponder. He might soon enter {sys1} from the jump point to {sys2}.
-Your task will be to approach, engage and disable his ship. Only afterwards, squadron 138 will enter the system and load the swan's ship into a Pacifier's hangar. After that, you will come back here to collect your payment."]]),
+   agent(fmt.f(_([["According to our information, Shaky Swan is in the Frontier sector right now, flying a Tristan, presumably under FLF transponder. It might soon enter {sys1} from the jump point to {sys2}.
+Your task will be to approach, engage and disable the ship. Only afterwards, squadron 138 will enter the system and load the swan's ship into a Pacifier's hangar. After that, you will come back here to collect your payment."]]),
       {sys1=mem.flfsys,sys2=mem.flfoys}))
-   agent(_([["Very important point: the Imperials insist that they want to catch the swan by themselves. Do not board his ship under any circumstances."]]))
+   agent(_([["Very important point: the Imperials insist that they want to catch the swan by themselves. Do not board the ship under any circumstances."]]))
    vn.jump("menu")
 
    vn.label("lore_menu")
    vn.na(_([[What do you want to ask Boudica?]]))
    vn.menu{
-      {_([["What was actually in that box I was transporting?"]]), "box"},
-      {_([["Who are that Imperial agent and those cyborgs?"]]), "imperial"},
+      {_([["What was actually in that box I transported?"]]), "box"},
+      {_([["Who is that Imperial agent and those cyborgs?"]]), "imperial"},
       {_([["Who is 'Shaky Swan'?"]]), "swan"},
       {_([["What is the 'Flying Circus'?"]]), "circus"},
       {_([["Who is the Second Archbishop of Mayhem?"]]), "bishop"},
@@ -414,19 +414,19 @@ Your task will be to approach, engage and disable his ship. Only afterwards, squ
    vn.jump("lore_menu")
 
    vn.label("swan")
-   agent(_([["Shaky Swan is a shifty individual. Really. I don't know much about them, except for some of their deeds. Some say they used to be an Imperial agent as well. But nowadays, they are more into stuff like assassinations, weapons dealing or even terrorism..."]]))
+   agent(_([["Shaky Swan is a shifty individual. Really. I don't know much about them, except for some of their deeds. Some say they used to be an Imperial agent as well. But nowadays, they are more into stuff like assassinations, weapons dealing, or even terrorism..."]]))
    vn.na(_([[Boudica stops talking and seems to think.]]))
-   agent(_([["... Actually, that are the kind of things Imperial agents do.
-But Shaky Swan is also in touch with the FLF and provides them with all kinds of information and weapons. The Dvaered counter-insurrection task-force, led by Colonel Urnus, has wanted to capture this swan for quite long now."]]))
-   agent(_([["We have always suspected that the Imperials are protecting the swan. Anyway, now that a pilot employed by the Empire is missing, they are disposed to capture that individual. The only thing I hope is that they don't set the swan free once they have recovered their pilot."]]))
+   agent(_([["... Actually, those are the kind of things Imperial agents do.
+But Shaky Swan is also in touch with the FLF and provides them with all kinds of information and weapons. The Dvaered counter-insurrection task-force, led by Colonel Urnus, has wanted to capture this Swan for quite a while now."]]))
+   agent(_([["We have always suspected that the Imperials are protecting the Swan. Anyway, now that a pilot employed by the Empire is missing, they are disposed to capture that individual. The only thing I hope is that they don't set the Swan free once they have recovered their pilot."]]))
    vn.jump("lore_menu")
 
    vn.label("circus")
-   agent(_([["Forget about the Flying Circus. Just remember you don't want to get in affairs with them."]]))
+   agent(_([["Forget about the Flying Circus. Just remember you don't want to get involved with them."]]))
    vn.jump("lore_menu")
 
    vn.label("bishop")
-   agent(_([["Second Archbishop of Mayhem? Who knows who this other comic is? Probably one of the numerous Imperial dignitaries that live at the Emperor's lair. You know, those are a pack of decadent weirdos who tend to veto things just because there was not enough honey on their ostrich pudding of last night's orgy."]]))
+   agent(_([["Second Archbishop of Mayhem? Who knows who this other clown is? Probably one of the numerous Imperial dignitaries that live at the Emperor's lair. You know, they are a pack of decadent weirdos who tend to veto things just because there was not enough honey on their ostrich pudding at last night's orgy."]]))
    vn.jump("lore_menu")
 
    vn.label("protest")
@@ -443,14 +443,14 @@ But Shaky Swan is also in touch with the FLF and provides them with all kinds of
    agent(_([["You obviously have no idea what you are talking about.
 Shall you see the death squadrons taking off from Halir, loaded with all the kinds of deadly viruses only human madness can breed. Shall you see the fleet of the united Warlords silently flying towards humanity's doom before a helpless sky of horrified stars. Shall you see them hide the sun of Doranthex as would the black wings of death."]]))
    agent(_([["Shall you hear the frenetic lament of sirens while the sky of Antica gets torn apart by the trails of hypersonic bombs. Shall you hear the roaring of space stations, wounded to death by torpedoes, disseminating into the void the helpless bodies of their inhabitants."]]))
-   agent(_([["Maybe you think that as a pilot, you won't endure starvation, contrary to the billions of poor souls who will struggle to survive the nuclear winter on their sterilized planets. Maybe you think you won't have to endure the gaze of the slowly dying victims of incendiary bombs, bio-weapons, climatic and seismic bombs..."]]))
-   agent(_([["But this won't be the worst! Because I've got my information. And the Empire has weapons even more powerful. Even more abominable. Even more unmentionable and unimaginable. Some say the Incident was provoked by a such weapon. Imagine if they decide to make a new incident happen!
-Then you would have to bare that monstrous responsibility on your shoulders. Just because you refused to catch that shaky bastard!"]])) -- Clearly, she is not well informed about the Incident.
+   agent(_([["Maybe you think that as a pilot, you won't endure starvation, contrary to the billions of poor souls who will struggle to survive the nuclear winter on their sterilized planets. Maybe you think you won't have to endure the gaze of the slowly dying victims of incendiary bombs, bio-weapons, climatic, and seismic bombs..."]]))
+   agent(_([["But this won't be the worst! Because I've got my information. And the Empire has weapons even more powerful. Even more abominable. Even more unmentionable and unimaginable. Some say the Incident was provoked by such a weapon. Imagine if they decide to make a new incident happen!
+Then you would have to bear that monstrous responsibility on your shoulders. Just because you refused to catch that Shaky bastard!"]])) -- Clearly, she is not well informed about the Incident.
    vn.jump("peace")
 
    vn.label("peace")
-   agent(_([["Because war is not that far away, you know. Galactopolitics has not been that unstable since the end of the Faction's war. Our work is to do our best to have the Empire and House Dvaered barely tolerate each other. If there were not, they would soon start a war, and House Sirius, Za'lek and Soromids would follow."]]))
-   agent(_([["I know you were only asked to transport a random parcel, but this pilot who disappears is serious business. We have to find who is behind that disappearance. And by the way, you can be ensured that you will be paid more than whatever initial reward was promised to you."]]))
+   agent(_([["Because war is not that far away, you know. Galactopolitics has not been this unstable since the end of the Faction Wars. Our work is to do our best to have the Empire and House Dvaered barely tolerate each other. If they don't, they will soon start a war, and House Sirius, Za'lek, and the Soromids would have to follow."]]))
+   agent(_([["I know you were only asked to transport a random parcel, but this pilot who disappeared is serious business. We have to find who is behind that disappearance. And by the way, you can be ensured that you will be paid more than whatever initial reward was promised to you."]]))
    vn.jump("menu")
 
    vn.label("accept")
