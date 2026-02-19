@@ -678,6 +678,7 @@ impl FactionData {
       let mut fctload = FactionLoad::default();
       let mut fct = FactionData {
          local_th: 10.0,
+         colour: colour::WHITE,
          ..Default::default()
       };
 
