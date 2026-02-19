@@ -1415,7 +1415,7 @@ impl AudioBuilder {
          audio.play();
       }
       let groupid = audio.groupid();
-      let id: AudioRef = voices.insert(audio).into();
+      let id: AudioRef = voices.insert(audio);
       drop(voices);
       if let Some(groupid) = groupid {
          match AUDIO.groups.lock().unwrap().get_mut(groupid) {
@@ -2148,7 +2148,7 @@ impl AudioRef {
          }
          None => anyhow::bail!("Audio not found"),
       };
-      Ok(voices.insert(audio).into())
+      Ok(voices.insert(audio))
    }
 
    /// Like call, but allows specifying a default value.

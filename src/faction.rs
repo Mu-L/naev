@@ -623,9 +623,9 @@ pub struct FactionData {
    pub longname: Option<String>,
    pub displayname: Option<String>,
    pub mapname: Option<String>,
-   ai: String,
-   description: String,
-   local_th: f32,
+   pub ai: String,
+   pub description: String,
+   pub local_th: f32,
 
    // Scripts
    script_standing: String,
@@ -637,19 +637,19 @@ pub struct FactionData {
    pub colour: Colour,
 
    // Relationships
-   enemies: Vec<FactionRef>,
-   allies: Vec<FactionRef>,
-   neutrals: Vec<FactionRef>,
+   pub enemies: Vec<FactionRef>,
+   pub allies: Vec<FactionRef>,
+   pub neutrals: Vec<FactionRef>,
 
    // Player stuff
    pub player_def: f32,
 
    // Safe lanes
-   lane_length_per_presence: f32,
-   lane_base_cost: f32,
+   pub lane_length_per_presence: f32,
+   pub lane_base_cost: f32,
 
    // Presence
-   generators: Vec<Generator>,
+   pub generators: Vec<Generator>,
 
    // Flags
    pub f_static: bool,
@@ -1345,7 +1345,7 @@ impl UserData for FactionRef {
             let mut queuea = Vec::from([sysid]);
             let mut queueb = Vec::<usize>::new();
             // We want to expand out one jump at a time
-            while queuea.len() > 0 {
+            while !queuea.is_empty() {
                // Clear first queue
                for i in queuea.drain(..) {
                   let qsys = &mut systems[i];

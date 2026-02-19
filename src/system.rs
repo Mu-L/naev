@@ -59,7 +59,7 @@ unsafe extern "C-unwind" fn lua_system(lua: *mut mlua::ffi::lua_State) -> i32 {
          mlua::ffi::lua_error(lua);
       }
    }
-   return 1;
+   1
 }
 pub fn to_lua(lua: &mlua::Lua, sys: *const naevc::StarSystem) -> mlua::Result<mlua::Value> {
    let f = match lua.named_registry_value::<mlua::Function>("lua_system") {
@@ -79,7 +79,7 @@ unsafe extern "C-unwind" fn lua_system_index(lua: *mut mlua::ffi::lua_State) -> 
       let sysid = naevc::luaL_checksystem(lua as *mut naevc::lua_State, 1);
       mlua::ffi::lua_pushinteger(lua, sysid.into());
    }
-   return 1;
+   1
 }
 pub fn from_lua_index(lua: &mlua::Lua, value: &mlua::Value) -> mlua::Result<i64> {
    let f = match lua.named_registry_value::<mlua::Function>("lua_system_index") {
