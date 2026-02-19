@@ -29,7 +29,7 @@ You don't see it, you don't pay attention to it, you often don't even think abou
 But without it, you can not live.
 
 The population of House Sirius is divided in three "echelons".
-They are the Shaira, the Fyrra and the Serra.
+They are the Shaira, the Fyrra, and the Serra.
 Each echelon has its own specific rituals and rules of conduct, though all share the same basic values and beliefs.
 Any Sirius citizen may move up through the echelons through effort and skill, but on the whole most Sirii are locked in their social status.
 
@@ -46,8 +46,8 @@ Naturally, military academies are attended almost exclusively by Serra Sirii, wh
 
 The Echelons are each led by a dedicated low-level theocratic government.
 Its clerks range from minor executive acolytes to high priests, who are responsible for justice and security.
-At the head of each government stands an Arch-Canter, a zealot who can be considered the head of state for his particular echelon.
-The three Arch Canters combined form the political government of House Sirius, and it is they who deal with any outside influence, including the Empire.
+At the head of each government stands an Arch-Canter, a zealot who can be considered the head of state for that particular echelon.
+The three Arch-Canters combined form the political government of House Sirius, and it is they who deal with any outside influence, including the Empire.
 
 But higher still, at the pinnacle of House Sirius, stands Sirichana.
 
@@ -57,7 +57,7 @@ Sirichana, loosely translated "lord of the Sirii", is the focus of Sirius worshi
 Unlike more traditional religions, the Sirii do not worship an abstract, omnipresent God.
 Sirichana is a human.
 This man was originally an early-era colonist by the name of Richard Summers, though that name has all but faded in history.
-Since that time there have been many Sirichanas, but all are assumed to be reincarnations of the original Sirichana, and so distinction is never made other than in a historical context.
+Since that time there have been many Sirichanas, but all are assumed to be reincarnations of the original Sirichana, and no distinction is made other than in historical contexts.
 
 As legend has it, Sirichana led the first of his followers through the times of conflict following the collapse of the old Federation.
 In a time where nobody could count on waking up alive tomorrow, Sirichana guided those who would listen on a path of relative safety, always correctly predicting where the next strike would come, always one step ahead of the violence of war.
@@ -67,15 +67,15 @@ He is there still.
 
 Sirichana's influence grew, and more and more came to believe in his wisdom and protection.
 His followers spread through the galaxy, gaining root on many worlds around Mutris.
-So great was their conviction that planet after planet began to slip from the Emperor's grasp, its inhabitants preferring to follow their faith than the Emperor's will.
+So great was their conviction that planet after planet began to slip from the Emperor's grasp, its inhabitants preferring to follow their faith rather than the Emperor's will.
 Eventually, the situation became such that it forced the hand of the 7th Emperor.
-The Emperor knew that he was no longer in control of the worlds following Sirichana, but to re-assert authority through force of arms on that scale would set a precedent unheard of since the end of the Faction Wars.
-And so he chose to grant Sirichana a Great House of his own, House Sirius, on the conditions that Sirichana would not attempt to spread his religion beyond the worlds that would be rightfully his, and that Imperial Decrees would carry the force of law among his people.
-Sirichana agreed, knowing that refusal would give the Emperor the justification he needed to start an all out war.
+The Emperor knew that the worlds following Sirichana no longer obeyed the Empire, but to re-assert authority through force of arms on that scale would set a precedent unheard of since the end of the Faction Wars.
+And so Sirichana was offered a Great House: House Sirius, on the condition that Sirichana would not attempt to spread the religion beyond the worlds of House Sirius, and that Imperial Decrees would carry the force of law among his people.
+Sirichana agreed, knowing that refusal would give the Emperor the justification needed to start an all out war.
 And so matters would remain for a very long time.
 
 One may wonder how Sirichana could inspire faith in so many souls, spread over so many worlds.
-After all, it is difficult to believe in a man who resides on a planet far from one's home. In point of fact, there is a good reason why people believe as strongly as they do.
+After all, it is difficult to believe in one person who resides on a planet far from one's home. In point of fact, there is a good reason why people believe as strongly as they do.
 
 ## The Touched
 
@@ -95,12 +95,12 @@ Nobody knows how long they will stay in Crater City, only that they have come fo
 And then it happens.
 The one thing all the pilgrims have waited for.
 From the top of his Tower, Sirichana speaks to them.
-All who live in Crater City leave whatever they're doing and stand in the streets to hear his words.
+All who live in Crater City leave whatever they're doing and stand in the streets to hear the words.
 There are no records of this event, so nobody knows how long it lasts or what he says to them.
-But when he finishes speaking, his listeners are no longer the pilgrims they were before.
+But when the speech is finished, the listeners are no longer the pilgrims they were before.
 They are now the Touched, those who carry a fragment of Sirichana's will within themselves.
 
-The Touched then leave Crater City, abandoning it completely, leaving its houses, its tools, its resources behind for those pilgrims who will be coming.
+The Touched then leave Crater City, abandoning it completely, leaving its houses, its tools, and its resources behind for those pilgrims who will be coming after them.
 They journey forth across Sirius space, and preach Sirichana's word to the echelons.
 And all who listen, all who look into the eyes of a Touched are themselves overcome.
 So strong is the experience that their faith becomes deeply ingrained into their very souls.

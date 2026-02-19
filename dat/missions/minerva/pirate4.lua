@@ -231,7 +231,7 @@ function mainship_board ()
 Some crew members escort the Dvaered mole towards the inner part of the ship. They have fairly rough and burly complexions.]]))
    pir(_([["Don't worry about the mole, we'll take care of them from now on."
 She beams you a smile.
-"If all goes well, we'll get the information we were looking for in the next few periods and we can all go ]]))
+"If all goes well, we'll get the information we were looking for in the next few periods and we can all go celebrate with drinks back at the bar."]]))
    maikki(_([[You faintly hear an angry voice that sounds strangely familiar.
 "What the hell are you guys doing loafing around? We have work to do! I don't pay you to sit on your bums all day!"]])) -- codespell:ignore loafing
    pir(_([[They visibly wince when they hear the angry voice.

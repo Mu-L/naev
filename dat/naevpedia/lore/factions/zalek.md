@@ -48,13 +48,13 @@ This changed when [the Empire](lore/factions/empire) was finally starved of its 
 Without scientists to keep up with the rapid pace of the Za'lek advancement, the Emperor found that the latest discoveries were poorly understood by his subjects, if they were understood at all.
 Measures were taken to reverse the process, but the damage had been done.
 House Za'lek's momentum could no longer be stopped.
-Before long, all [the Empire](lore/factions/empire) was getting out of its former Great Project was a yearly file of unintelligible reports, articles and theorems, many of which used forms of mathematics the Imperial engineers had never even heard of before.
-When asked to provide [the Empire](lore/factions/empire) with tangible results such as pre-produced weapons or ships, the Za'lek indignantly replied that things like manufacturing things that had been successfully prototyped were beneath them.
+Before long, all [the Empire](lore/factions/empire) was getting out of its former Great Project was a yearly file of unintelligible reports, articles, and theorems, many of which used forms of mathematics the Imperial engineers had never even heard of before.
+When asked to provide [the Empire](lore/factions/empire) with tangible results such as mass-produced weapons or ships, the Za'lek indignantly replied that things like manufacturing things that had been successfully prototyped were beneath them.
 They could not be coaxed to change their disposition.
 [The Empire](lore/factions/empire), in short, was left behind.
 
 Over the years, House Za'lek built up an impressive technological lead.
-At the same time, it became more isolated, its scientists choosing to devote their time to working on their myriad of projects rather than waste it on "the simpletons elsewhere".
+At the same time, it became more isolated; its scientists choosing to devote their time to working on their myriad of projects rather than waste it on "the simpletons elsewhere".
 The Empire in turn lost its motivation to seek gain from the Za'lek, as it became clear nobody within its borders was ever going to grasp what any of them were talking about.
 House Za'lek became the equivalent of an ivory tower, forgotten by some, ignored by most.
 

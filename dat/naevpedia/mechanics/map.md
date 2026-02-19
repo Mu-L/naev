@@ -11,7 +11,7 @@ What the map shows can be toggled with the different map modes.
 
 When clicking on a system in the map, the shortest autonav route from the current position is selected.
 The bold green line indicates the next jump, bold yellow lines indicate subsequent jumps you still have fuel for, and bold red lines indicate jumps you will no longer have enough fuel to perform.
-By clicking the "Autonav" button at the bottom, you can directly start autonav and close the map.
+By clicking the "Autonav" button at the bottom or pressing #bA#0, you can directly start autonav and close the map.
 
 If you wish to manually create a route, by holding the #bshift#0 key while clicking, you can add routes from your current selected system.
 This allows you to manually create your autonav route as you wish.
@@ -37,6 +37,6 @@ Finally, the "Minimal Mode" button toggles a simplified view of the map, without
 
 ## Find
 
-The "Find" button at the button at the bottom can be used to find systems, space objects, outfits, or ships from text.
+The "Find" button at the bottom can be used to find systems, space objects, outfits, or ships from text.
 This will list all found partial matches in descending order of distance, and can be used to find things easily.
 As an alternative, the [outfits](outfits) and [ships](ships) that you know about and their locations can also be explored on the Archives.

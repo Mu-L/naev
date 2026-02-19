@@ -217,7 +217,7 @@ function land ()
       end )
       vn.sfxVictory()
       vn.na(fmt.reward(reward))
-      vn.na(_([[Lucas seems euphoric to get away from the troubles of his past and begin anew. The question that remains unanswered is whether pirate society is truly more free than other societies, or is the problem at core human nature itself.]]))
+      vn.na(_([[Lucas seems euphoric to get away from the troubles of his past and begin anew. The question that remains unanswered is whether pirate society is truly more free than other societies. Or is the problem at the core of human nature itself?]]))
       vn.na(_([[You wish him the best, and he tells you to look for him next time you are near Raven space.]]))
       vn.done( lcs.lucas.transition )
 

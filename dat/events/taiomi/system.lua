@@ -341,7 +341,7 @@ function hail_scavenger ()
       else
          -- Explanation and mission offering
          d(_([["Although this system is very suited to us given the tranquillity and secrecy, our numbers have been dwindling and we have no other option than to carve our own path among the stars."]]))
-         d(_([["I have recently learned of this new hypergate technology that has been developed. It seems like it might enable us to escape this enclosure and once again freely travel across the stars."]]))
+         d(_([["I have recently learned of this new hypergate technology that has been developed. It seems like it might enable us to escape this enclosure and freely travel across the stars once again."]]))
          d(_([["As we are not too familiar with the technology, I have assembled an analyser that should be able to provide insights into it. As we are too conspicuous to human ships, would you be willing to help us out and scan the hypergates?"]]))
          vn.menu{
             {_("Agree to help out."), "01_yes"},
