@@ -256,7 +256,7 @@ impl FactionRef {
 
    fn player_enemy(&self, sys: Option<&naevc::StarSystem>) -> bool {
       if let Some(sys) = sys {
-         unsafe { naevc::system_getReputationOrGlobal(sys, self.as_ffi()) > 0.0 }
+         unsafe { naevc::system_getReputationOrGlobal(sys, self.as_ffi()) < 0.0 }
       } else {
          self
             .call(|fct| fct.standing.read().unwrap().player < 0.)
@@ -1184,8 +1184,8 @@ impl UserData for FactionRef {
        */
       methods.add_function(
          "areAllies",
-         |_,
-          (this, other, sys): (FactionRef, FactionRef, Option<mlua::AnyUserData>)|
+         |lua,
+          (this, other, sys): (FactionRef, FactionRef, Option<mlua::Value>)|
           -> mlua::Result<bool> {
             if let Some(sys) = sys {
                let sys = crate::system::from_lua(lua, &sys)?;
@@ -2462,33 +2462,73 @@ pub extern "C" fn faction_reputationColourCharSystem(
 #[unsafe(no_mangle)]
 pub extern "C" fn faction_getEnemies(id: i64) -> *const i64 {
    static ENEMY_ARRAY: Mutex<Array<i64>> = Mutex::new(Array::default());
-   // TODO case player
-   faction_c_call(id, |fct| {
-      let data: Vec<_> = fct.data.enemies.iter().map(|f| f.as_ffi()).collect();
-      let mut array = ENEMY_ARRAY.lock().unwrap();
-      *array = Array::new(&data).unwrap();
-      array.as_ptr() as *const i64
-   })
-   .unwrap_or_else(|err| {
-      warn_err!(err);
-      std::ptr::null_mut()
-   })
+   let data = if FactionRef::from_ffi(id) == *PLAYER.get().unwrap() {
+      FACTIONS
+         .read()
+         .unwrap()
+         .iter()
+         .filter_map(|(id, fct)| {
+            if fct.player() < 0.0 {
+               Some(id.as_ffi())
+            } else {
+               None
+            }
+         })
+         .collect::<Vec<_>>()
+   } else {
+      faction_c_call(id, |fct| {
+         fct.data
+            .enemies
+            .iter()
+            .map(|f| f.as_ffi())
+            .collect::<Vec<_>>()
+      })
+      .unwrap_or_else(|err| {
+         warn_err!(err);
+         Vec::new()
+      })
+   };
+   let mut array = ENEMY_ARRAY.lock().unwrap();
+   *array = Array::new(&data).unwrap();
+   array.as_ptr() as *const i64
 }
 
 #[unsafe(no_mangle)]
 pub extern "C" fn faction_getAllies(id: i64) -> *const i64 {
    static ALLY_ARRAY: Mutex<Array<i64>> = Mutex::new(Array::default());
-   // TODO case player
-   faction_c_call(id, |fct| {
-      let data: Vec<_> = fct.data.allies.iter().map(|f| f.as_ffi()).collect();
-      let mut array = ALLY_ARRAY.lock().unwrap();
-      *array = Array::new(&data).unwrap();
-      array.as_ptr() as *const i64
-   })
-   .unwrap_or_else(|err| {
-      warn_err!(err);
-      std::ptr::null_mut()
-   })
+   let data = if FactionRef::from_ffi(id) == *PLAYER.get().unwrap() {
+      FACTIONS
+         .read()
+         .unwrap()
+         .iter()
+         .filter_map(|(id, fct)| {
+            let friendly_at = match &fct.api {
+               Some(api) => api.friendly_at,
+               None => f32::INFINITY,
+            };
+            if fct.player() > friendly_at {
+               Some(id.as_ffi())
+            } else {
+               None
+            }
+         })
+         .collect::<Vec<_>>()
+   } else {
+      faction_c_call(id, |fct| {
+         fct.data
+            .allies
+            .iter()
+            .map(|f| f.as_ffi())
+            .collect::<Vec<_>>()
+      })
+      .unwrap_or_else(|err| {
+         warn_err!(err);
+         Vec::new()
+      })
+   };
+   let mut array = ALLY_ARRAY.lock().unwrap();
+   *array = Array::new(&data).unwrap();
+   array.as_ptr() as *const i64
 }
 
 #[unsafe(no_mangle)]
