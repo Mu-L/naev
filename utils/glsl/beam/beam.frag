@@ -482,14 +482,12 @@ vec4 beam_leech( vec4 colour, vec2 pos_tex, vec2 pos_px )
    colour.a *= beamfade( pos_px.x, pos_tex.x );
 
    vec2 pos = pos_tex;
-   //pos.y += 0.2*snoise( vec2(pos_tex.x, dt) );
    pos.y += 0.15*snoise( pos_px/50.0 + vec2( 9.0*ANIM_SPEED*dt, dt ) );
    pos.y -= 0.1*snoise( pos_px/25.0 + vec2( -6.0*ANIM_SPEED*dt, dt ) );
 
    // Normal beam
    float a = smoothbeam( pos.y, 0.8 );
    colour.rgb = mix( colour.rgb, vec3(1.0), 7.0*smoothbeam( pos.y, 0.05 ) );
-   colour.a *= a;
 
    float posx = pos.x * 25.0 - 37.0 * ANIM_SPEED* dt;
    float s = sin( posx );
@@ -498,8 +496,9 @@ vec4 beam_leech( vec4 colour, vec2 pos_tex, vec2 pos_px )
    c = c * sc;
    float sm = min( 1.0, c-0.5 ) * step( c, 0.0 );
    pos.y += 0.3 * s * sc;
-   a = smoothbeam( pos.y, 0.5 ) * step( abs(pos.y), 1.0 ) * sm;
-   colour.rgb -= 0.5*pow(a,4.0);
+   float b = smoothbeam( pos.y, 0.5 ) * step( abs(pos.y), 1.0 ) * sm;
+   colour.rgb *= 1.0 - 0.5*pow(b,4.0);
+   colour.a *= max( a, b );
 
    return colour;
 }
