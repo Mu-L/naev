@@ -1026,7 +1026,7 @@ impl UserData for FactionRef {
       /*@
        * @brief Gets the faction's translated short name.
        *
-       * @note Equivalent to faction:shortname()
+       * @note Equivalent to faction:name()
        *
        *    @luatparam Faction f The faction to get the name of.
        *    @luatreturn string The name of the faction.
