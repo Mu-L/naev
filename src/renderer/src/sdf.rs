@@ -1,26 +1,37 @@
+use crate::colour::Colour;
 use crate::{
-   Buffer, BufferBuilder, BufferTarget, BufferUsage, Context, ProgramBuilder, Shader,
-   TextureUniform, Uniform, VertexArray,
+   Buffer, BufferBuilder, BufferTarget, BufferUsage, Context, ProgramBuilder, Shader, Uniform,
+   VertexArray,
 };
 use anyhow::Result;
 use encase::ShaderType;
 use glow::HasContext;
 use nalgebra::{Matrix3, Vector4};
+use nlog::warn_err;
 
 #[repr(C)]
-#[derive(Debug, Copy, Clone, ShaderType)]
+#[derive(Debug, Copy, Clone, Default, ShaderType)]
 pub struct CrossUniform {
    pub transform: Matrix3<f32>,
-   pub colour: Vector4<f32>,
+   pub colour: Colour,
    pub radius: f32,
 }
 
 #[repr(C)]
-#[derive(Debug, Copy, Clone, ShaderType)]
+#[derive(Debug, Copy, Clone, Default, ShaderType)]
 pub struct CircleUniform {
    pub transform: Matrix3<f32>,
-   pub colour: Vector4<f32>,
+   pub colour: Colour,
    pub radius: f32,
+}
+
+#[repr(C)]
+#[derive(Debug, Copy, Clone, Default, ShaderType)]
+pub struct CircleHollowUniform {
+   pub transform: Matrix3<f32>,
+   pub colour: Colour,
+   pub radius: f32,
+   pub width: f32,
 }
 
 macro_rules! draw_sdf_func_ex {
@@ -45,6 +56,8 @@ pub struct SdfRenderer {
    buffer_cross: Buffer,
    program_circle: Shader,
    buffer_circle: Buffer,
+   program_circle_hollow: Shader,
+   buffer_circle_hollow: Buffer,
 }
 impl SdfRenderer {
    pub fn new(gl: &glow::Context) -> Result<Self> {
@@ -55,7 +68,7 @@ impl SdfRenderer {
       let buffer_cross = BufferBuilder::new(Some("Cross Buffer"))
          .target(BufferTarget::Uniform)
          .usage(BufferUsage::Dynamic)
-         .data(&TextureUniform::default().buffer()?)
+         .data(&CrossUniform::default().buffer()?)
          .build(gl)?;
 
       let program_circle = ProgramBuilder::new(Some("Circle Shader"))
@@ -65,7 +78,17 @@ impl SdfRenderer {
       let buffer_circle = BufferBuilder::new(Some("Circle Buffer"))
          .target(BufferTarget::Uniform)
          .usage(BufferUsage::Dynamic)
-         .data(&TextureUniform::default().buffer()?)
+         .data(&CircleUniform::default().buffer()?)
+         .build(gl)?;
+
+      let program_circle_hollow = ProgramBuilder::new(Some("Circle Hollow Shader"))
+         .uniform_buffer("circledata", 0)
+         .wgsl_file("circle_hollow.wgsl")
+         .build(gl)?;
+      let buffer_circle_hollow = BufferBuilder::new(Some("Circle Hollow Buffer"))
+         .target(BufferTarget::Uniform)
+         .usage(BufferUsage::Dynamic)
+         .data(&CircleHollowUniform::default().buffer()?)
          .build(gl)?;
 
       Ok(Self {
@@ -73,17 +96,12 @@ impl SdfRenderer {
          buffer_cross,
          program_circle,
          buffer_circle,
+         program_circle_hollow,
+         buffer_circle_hollow,
       })
    }
 
-   pub fn draw_cross(
-      &self,
-      ctx: &Context,
-      x: f32,
-      y: f32,
-      r: f32,
-      colour: Vector4<f32>,
-   ) -> Result<()> {
+   pub fn draw_cross(&self, ctx: &Context, x: f32, y: f32, r: f32, colour: Colour) -> Result<()> {
       let dims = ctx.dimensions.read().unwrap();
       #[rustfmt::skip]
         let transform: Matrix3<f32> = dims.projection * Matrix3::new(
@@ -100,14 +118,7 @@ impl SdfRenderer {
    }
    draw_sdf_func_ex!(draw_cross_ex, CrossUniform, program_cross, buffer_cross);
 
-   pub fn draw_circle(
-      &self,
-      ctx: &Context,
-      x: f32,
-      y: f32,
-      r: f32,
-      colour: Vector4<f32>,
-   ) -> Result<()> {
+   pub fn draw_circle(&self, ctx: &Context, x: f32, y: f32, r: f32, colour: Colour) -> Result<()> {
       let dims = ctx.dimensions.read().unwrap();
       #[rustfmt::skip]
         let transform: Matrix3<f32> = dims.projection * Matrix3::new(
@@ -123,38 +134,78 @@ impl SdfRenderer {
       self.draw_circle_ex(ctx, &uniform)
    }
    draw_sdf_func_ex!(draw_circle_ex, CircleUniform, program_circle, buffer_circle);
+
+   pub fn draw_circle_hollow(
+      &self,
+      ctx: &Context,
+      x: f32,
+      y: f32,
+      r: f32,
+      colour: Colour,
+      w: f32,
+   ) -> Result<()> {
+      let dims = ctx.dimensions.read().unwrap();
+      #[rustfmt::skip]
+        let transform: Matrix3<f32> = dims.projection * Matrix3::new(
+             r,  0.0,  x,
+            0.0,  r,   y,
+            0.0, 0.0, 1.0,
+        );
+      let uniform = CircleHollowUniform {
+         transform,
+         colour,
+         radius: r,
+         width: w,
+      };
+      self.draw_circle_hollow_ex(ctx, &uniform)
+   }
+   draw_sdf_func_ex!(
+      draw_circle_hollow_ex,
+      CircleHollowUniform,
+      program_circle_hollow,
+      buffer_circle_hollow
+   );
 }
 
-use std::ffi::c_double; //{c_double, c_int};
+use std::ffi::{c_double, c_int};
 
 #[unsafe(no_mangle)]
 pub extern "C" fn gl_renderCross(x: c_double, y: c_double, r: c_double, c: *const Vector4<f32>) {
    let ctx = Context::get();
    let colour = match c.is_null() {
-      true => Vector4::<f32>::from([1.0, 1.0, 1.0, 1.0]),
-      false => unsafe { *c },
+      true => Colour::default(),
+      false => unsafe { *c }.into(),
    };
-   let _ = ctx
+   if let Err(e) = ctx
       .sdf
-      .draw_cross(ctx, x as f32, y as f32, r as f32, colour);
+      .draw_cross(ctx, x as f32, y as f32, r as f32, colour)
+   {
+      warn_err!(e);
+   }
 }
 
-/*
 #[unsafe(no_mangle)]
 pub extern "C" fn gl_renderCircle(
-    x: c_double,
-    y: c_double,
-    r: c_double,
-    c: *const Vector4<f32>,
-    _filled: c_int,
+   x: c_double,
+   y: c_double,
+   r: c_double,
+   c: *const Vector4<f32>,
+   filled: c_int,
 ) {
-    let ctx = Context::get();
-    let colour = match c.is_null() {
-        true => Vector4::<f32>::from([1.0, 1.0, 1.0, 1.0]),
-        false => unsafe { *c },
-    };
-    let _ = ctx
-        .sdf
-        .draw_circle(&ctx, x as f32, y as f32, r as f32, colour);
+   let ctx = Context::get();
+   let colour = match c.is_null() {
+      true => Colour::default(),
+      false => unsafe { *c }.into(),
+   };
+   let x = x as f32;
+   let y = y as f32;
+   let r = r as f32;
+   let res = if filled != 0 {
+      ctx.sdf.draw_circle(&ctx, x, y, r, colour)
+   } else {
+      ctx.sdf.draw_circle_hollow(&ctx, x, y, r, colour, 1.0)
+   };
+   if let Err(e) = res {
+      warn_err!(e);
+   }
 }
-*/

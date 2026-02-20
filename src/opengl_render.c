@@ -1218,6 +1218,7 @@ void gl_renderShaderH( const SimpleShader *shd, const mat4 *H,
    gl_checkErr();
 }
 
+#if 0
 /**
  * @brief Draws a circle.
  *
@@ -1237,6 +1238,7 @@ void gl_renderCircle( double cx, double cy, double r, const glColour *c,
    /* Draw! */
    gl_renderCircleH( &projection, c, filled );
 }
+#endif
 
 /**
  * @brief Draws a circle.
