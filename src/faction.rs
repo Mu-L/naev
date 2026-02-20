@@ -455,7 +455,52 @@ impl Faction {
    pub fn set_player(&self, std: f32) {
       let mut standing = self.standing.write().unwrap();
       if standing.p_override.is_none() {
+         let delta = std - standing.player;
          standing.player = std;
+         for sys in crate::system::get_mut() {
+            for sp in sys.presence_mut() {
+               if FactionRef::from_ffi(sp.faction) != self.data.id {
+                  continue;
+               }
+               sp.local = std.into();
+            }
+         }
+
+         let hparam = [
+            naevc::HookParam {
+               type_: naevc::HookParamType_e_HOOK_PARAM_FACTION,
+               u: naevc::HookParam_s__bindgen_ty_1 {
+                  lf: self.data.id.as_ffi(),
+               },
+            },
+            naevc::HookParam {
+               type_: naevc::HookParamType_e_HOOK_PARAM_NIL,
+               u: naevc::HookParam_s__bindgen_ty_1 { num: 0.0 },
+            },
+            naevc::HookParam {
+               type_: naevc::HookParamType_e_HOOK_PARAM_NUMBER,
+               u: naevc::HookParam_s__bindgen_ty_1 { num: delta as f64 },
+            },
+            naevc::HookParam {
+               type_: naevc::HookParamType_e_HOOK_PARAM_STRING,
+               u: naevc::HookParam_s__bindgen_ty_1 {
+                  str_: c"script".as_ptr(),
+               },
+            },
+            naevc::HookParam {
+               type_: naevc::HookParamType_e_HOOK_PARAM_NUMBER,
+               u: naevc::HookParam_s__bindgen_ty_1 { num: 0.0 },
+            },
+            naevc::HookParam {
+               type_: naevc::HookParamType_e_HOOK_PARAM_NIL,
+               u: naevc::HookParam_s__bindgen_ty_1 { num: 0.0 },
+            },
+            naevc::HookParam {
+               type_: naevc::HookParamType_e_HOOK_PARAM_SENTINEL,
+               u: naevc::HookParam_s__bindgen_ty_1 { num: 0.0 },
+            },
+         ];
+         unsafe { naevc::hooks_runParam(c"standing".as_ptr(), hparam.as_ptr()) };
       }
    }
 
@@ -569,11 +614,72 @@ impl Faction {
          }
       }
       if let Some(api) = &self.api {
-         Ok(api.lua_env.call(
+         let delta: f32 = api.lua_env.call(
             &NLUA,
             &api.hit,
             (system, val, source, secondary, parent.map(|f| f.data.id)),
-         )?)
+         )?;
+         if delta.abs() > 1e-3 {
+            let hsys = if system.is_nil() {
+               naevc::HookParam {
+                  type_: naevc::HookParamType_e_HOOK_PARAM_NIL,
+                  u: naevc::HookParam_s__bindgen_ty_1 { num: 0.0 },
+               }
+            } else {
+               let sysid = crate::system::from_lua_index(&NLUA.lua, &system)?;
+               naevc::HookParam {
+                  type_: naevc::HookParamType_e_HOOK_PARAM_SSYS,
+                  u: naevc::HookParam_s__bindgen_ty_1 { ls: sysid as i32 },
+               }
+            };
+            let hparent = if let Some(parent) = parent {
+               naevc::HookParam {
+                  type_: naevc::HookParamType_e_HOOK_PARAM_FACTION,
+                  u: naevc::HookParam_s__bindgen_ty_1 {
+                     lf: parent.data.id.as_ffi(),
+                  },
+               }
+            } else {
+               naevc::HookParam {
+                  type_: naevc::HookParamType_e_HOOK_PARAM_NIL,
+                  u: naevc::HookParam_s__bindgen_ty_1 { num: 0.0 },
+               }
+            };
+            let source = CString::new(source)?;
+            let hparam = [
+               naevc::HookParam {
+                  type_: naevc::HookParamType_e_HOOK_PARAM_FACTION,
+                  u: naevc::HookParam_s__bindgen_ty_1 {
+                     lf: self.data.id.as_ffi(),
+                  },
+               },
+               hsys,
+               naevc::HookParam {
+                  type_: naevc::HookParamType_e_HOOK_PARAM_NUMBER,
+                  u: naevc::HookParam_s__bindgen_ty_1 { num: delta as f64 },
+               },
+               naevc::HookParam {
+                  type_: naevc::HookParamType_e_HOOK_PARAM_STRING,
+                  u: naevc::HookParam_s__bindgen_ty_1 {
+                     str_: source.as_ptr(),
+                  },
+               },
+               naevc::HookParam {
+                  type_: naevc::HookParamType_e_HOOK_PARAM_NUMBER,
+                  u: naevc::HookParam_s__bindgen_ty_1 {
+                     num: secondary as f64,
+                  },
+               },
+               hparent,
+               naevc::HookParam {
+                  type_: naevc::HookParamType_e_HOOK_PARAM_SENTINEL,
+                  u: naevc::HookParam_s__bindgen_ty_1 { num: 0.0 },
+               },
+            ];
+            unsafe { naevc::hooks_runParam(c"standing".as_ptr(), hparam.as_ptr()) };
+         }
+         unsafe { naevc::space_factionChange() };
+         Ok(delta)
       } else {
          anyhow::bail!("hit function not defined for faction '{}'", &self.data.name)
       }
