@@ -500,7 +500,7 @@ impl Faction {
                u: naevc::HookParam_s__bindgen_ty_1 { num: 0.0 },
             },
          ];
-         unsafe { naevc::hooks_runParam(c"standing".as_ptr(), hparam.as_ptr()) };
+         unsafe { naevc::hooks_runParamDeferred(c"standing".as_ptr(), hparam.as_ptr()) };
       }
    }
 
@@ -674,9 +674,9 @@ impl Faction {
                   u: naevc::HookParam_s__bindgen_ty_1 { num: delta as f64 },
                },
                naevc::HookParam {
-                  type_: naevc::HookParamType_e_HOOK_PARAM_STRING,
+                  type_: naevc::HookParamType_e_HOOK_PARAM_STRING_FREE,
                   u: naevc::HookParam_s__bindgen_ty_1 {
-                     str_: source.as_ptr(),
+                     str_: unsafe { naevc::strdup(source.as_ptr()) },
                   },
                },
                naevc::HookParam {
@@ -691,7 +691,7 @@ impl Faction {
                   u: naevc::HookParam_s__bindgen_ty_1 { num: 0.0 },
                },
             ];
-            unsafe { naevc::hooks_runParam(c"standing".as_ptr(), hparam.as_ptr()) };
+            unsafe { naevc::hooks_runParamDeferred(c"standing".as_ptr(), hparam.as_ptr()) };
          }
          unsafe { naevc::space_factionChange() };
          Ok(delta)

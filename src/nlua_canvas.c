@@ -2,7 +2,7 @@
  * See Licensing and Copyright notice in naev.h
  */
 /**
- * @canvas nlua_canvas.c
+ * @file nlua_canvas.c
  *
  * @brief Handles canvass.
  */
@@ -16,6 +16,15 @@
 #include "nlua_tex.h"
 #include "nluadef.h"
 #include "render.h"
+
+/**
+ * @brief Wrapper to canvass.
+ */
+typedef struct LuaCanvas_s {
+   GLuint     fbo;   /**< Frame buffer object. */
+   glTexture *tex;   /**< Texture object. */
+   GLuint     depth; /**< Depth texture if applicable. */
+} LuaCanvas_t;
 
 static int    nlua_canvas_counter = 0;
 static GLuint previous_fbo        = 0;
@@ -87,10 +96,10 @@ LuaCanvas_t *luaL_checkcanvas( lua_State *L, int ind )
  *    @param L Lua state to push canvas into.
  *    @param canvas Canvas to push.
  */
-void lua_pushcanvas( lua_State *L, LuaCanvas_t canvas )
+void lua_pushcanvas( lua_State *L, LuaCanvas_t *canvas )
 {
    LuaCanvas_t *c = (LuaCanvas_t *)lua_newuserdata( L, sizeof( LuaCanvas_t ) );
-   *c             = canvas;
+   *c             = *canvas;
    luaL_getmetatable( L, CANVAS_METATABLE );
    lua_setmetatable( L, -2 );
 }
@@ -154,15 +163,14 @@ static int canvasL_eq( lua_State *L )
 /**
  * @brief Initializes a new canvas.
  *
- *    @param lc Canvas to initialize.
  *    @param w Width to use.
  *    @param h Height to use.
+ *    @return New canvas.
  */
-int canvas_new( LuaCanvas_t *lc, int w, int h )
+LuaCanvas_t *canvas_new( int w, int h )
 {
-   char *name;
-
-   memset( lc, 0, sizeof( LuaCanvas_t ) );
+   char        *name;
+   LuaCanvas_t *lc = calloc( 1, sizeof( LuaCanvas_t ) );
 
    /* Create the texture. */
    SDL_asprintf( &name, "nlua_canvas_%03d", ++nlua_canvas_counter );
@@ -175,7 +183,22 @@ int canvas_new( LuaCanvas_t *lc, int w, int h )
       glObjectLabel( GL_FRAMEBUFFER, lc->fbo, strlen( name ), name );
    free( name );
 
-   return 0;
+   return lc;
+}
+
+GLuint canvas_fbo( const LuaCanvas_t *lc )
+{
+   return lc->fbo;
+}
+
+glTexture *canvas_tex( const LuaCanvas_t *lc )
+{
+   return lc->tex;
+}
+
+GLuint canvas_depth( const LuaCanvas_t *lc )
+{
+   return lc->depth;
 }
 
 /**
@@ -190,17 +213,17 @@ int canvas_new( LuaCanvas_t *lc, int w, int h )
  */
 static int canvasL_new( lua_State *L )
 {
-   LuaCanvas_t lc;
-
    int w     = luaL_checkint( L, 1 );
    int h     = luaL_checkint( L, 2 );
    int depth = lua_toboolean( L, 3 );
 
-   if ( canvas_new( &lc, w, h ) )
+   LuaCanvas_t *lc = canvas_new( w, h );
+   if ( lc == NULL )
       return NLUA_ERROR( L, _( "Error setting up framebuffer!" ) );
    if ( depth )
-      gl_fboAddDepth( lc.fbo, &lc.depth, w, h );
+      gl_fboAddDepth( lc->fbo, &lc->depth, w, h );
    lua_pushcanvas( L, lc );
+   free( lc );
    return 1;
 }
 

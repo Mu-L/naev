@@ -1099,21 +1099,21 @@ static int gfxL_screenshot( lua_State *L )
       lc       = luaL_checkcanvas( L, 1 );
       mustfree = 0;
    } else {
-      lc = calloc( 1, sizeof( LuaCanvas_t ) );
-      canvas_new( lc, gl_screen.rw, gl_screen.rh );
+      lc       = canvas_new( gl_screen.rw, gl_screen.rh );
       mustfree = 1;
    }
 
    /* Copy over. */
+   glTexture *tex = canvas_tex( lc );
    glBindFramebuffer( GL_READ_FRAMEBUFFER, 0 );
-   glBindFramebuffer( GL_DRAW_FRAMEBUFFER, lc->fbo );
+   glBindFramebuffer( GL_DRAW_FRAMEBUFFER, canvas_fbo( lc ) );
    /* We flip it over because that seems to be what love2d API wants. */
-   glBlitFramebuffer( 0, 0, gl_screen.rw, gl_screen.rh, 0, tex_h( lc->tex ),
-                      tex_w( lc->tex ), 0, GL_COLOR_BUFFER_BIT, GL_NEAREST );
+   glBlitFramebuffer( 0, 0, gl_screen.rw, gl_screen.rh, 0, tex_h( tex ),
+                      tex_w( tex ), 0, GL_COLOR_BUFFER_BIT, GL_NEAREST );
    glBindFramebuffer( GL_FRAMEBUFFER, 0 );
 
    /* Return new or old canvas. */
-   lua_pushcanvas( L, *lc );
+   lua_pushcanvas( L, lc );
    if ( mustfree )
       free( lc );
 

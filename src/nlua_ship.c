@@ -1002,7 +1002,6 @@ static int shipL_tags( lua_State *L )
  */
 static int shipL_render( lua_State *L )
 {
-   LuaCanvas_t lc;
    int         w, h, sx, sy;
    const Ship *s    = luaL_validship( L, 1 );
    double      dir  = luaL_checknumber( L, 2 );
@@ -1013,9 +1012,11 @@ static int shipL_render( lua_State *L )
 
    gl_getSpriteFromDir( &sx, &sy, s->sx, s->sy, dir );
 
-   w = s->size;
-   h = s->size;
-   if ( canvas_new( &lc, w, h ) )
+   w               = s->size;
+   h               = s->size;
+   LuaCanvas_t *lc = canvas_new( w, h );
+   ;
+   if ( lc == NULL )
       return NLUA_ERROR( L, _( "Error setting up framebuffer!" ) );
 
    /* The code path below is really buggy.
@@ -1023,9 +1024,10 @@ static int shipL_render( lua_State *L )
     * it's disabled.
     * 2. for some reason, have to pass real dimensions and not fbo dimensions.
     * TODO fix this shit. */
-   ship_renderFramebuffer( s, lc.fbo, gl_screen.rw, gl_screen.rh, dir, eg, tilt,
-                           0., sx, sy, NULL, NULL );
+   ship_renderFramebuffer( s, canvas_fbo( lc ), gl_screen.rw, gl_screen.rh, dir,
+                           eg, tilt, 0., sx, sy, NULL, NULL );
 
    lua_pushcanvas( L, lc );
+   free( lc );
    return 1;
 }

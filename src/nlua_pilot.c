@@ -7088,16 +7088,16 @@ static int pilotL_renderComm( lua_State *L )
  */
 static int pilotL_render( lua_State *L )
 {
-   LuaCanvas_t lc;
-   int         w, h;
-   double      eg;
-   Pilot      *p = luaL_validpilot( L, 1 );
+   int    w, h;
+   double eg;
+   Pilot *p = luaL_validpilot( L, 1 );
 
    /* TODO handle when effects make the ship render larger than it really is.
     */
-   w = p->ship->size;
-   h = p->ship->size;
-   if ( canvas_new( &lc, w, h ) )
+   w               = p->ship->size;
+   h               = p->ship->size;
+   LuaCanvas_t *lc = canvas_new( w, h );
+   if ( lc == NULL )
       return NLUA_ERROR( L, _( "Error setting up framebuffer!" ) );
 
    /* The code path below is really buggy.
@@ -7108,7 +7108,8 @@ static int pilotL_render( lua_State *L )
     * TODO fix this shit. */
    eg             = p->engine_glow;
    p->engine_glow = ( eg > 0.5 ) ? 1.0 : 0.0;
-   pilot_renderFramebuffer( p, lc.fbo, gl_screen.rw, gl_screen.rh, NULL );
+   pilot_renderFramebuffer( p, canvas_fbo( lc ), gl_screen.rw, gl_screen.rh,
+                            NULL );
    p->engine_glow = eg;
 
    lua_pushcanvas( L, lc );
@@ -7133,13 +7134,14 @@ static int pilotL_renderTo( lua_State *L )
 
    /* TODO handle when effects make the ship render larger than it really is.
     */
-   w = p->ship->size;
-   h = p->ship->size;
-   if ( ( tex_w( lc->tex ) < w ) || ( tex_h( lc->tex ) < h ) )
+   w              = p->ship->size;
+   h              = p->ship->size;
+   glTexture *tex = canvas_tex( lc );
+   if ( ( tex_w( tex ) < w ) || ( tex_h( tex ) < h ) )
       NLUA_WARN( L,
                  _( "Canvas is too small to fully render '%s': %.0f x %.0f "
                     "< %d x %d" ),
-                 p->name, tex_w( lc->tex ), tex_h( lc->tex ), w, h );
+                 p->name, tex_w( tex ), tex_h( tex ), w, h );
 
    /* The code path below is really buggy.
     * 1. engine_glow seems to scale 3D models improperly when interpolating,
@@ -7149,7 +7151,8 @@ static int pilotL_renderTo( lua_State *L )
     * TODO fix this shit. */
    eg             = p->engine_glow;
    p->engine_glow = ( eg > 0.5 ) ? 1.0 : 0.0;
-   pilot_renderFramebuffer( p, lc->fbo, gl_screen.rw, gl_screen.rh, NULL );
+   pilot_renderFramebuffer( p, canvas_fbo( lc ), gl_screen.rw, gl_screen.rh,
+                            NULL );
    p->engine_glow = eg;
 
    lua_pushnumber( L, w );

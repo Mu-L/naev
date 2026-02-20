@@ -265,6 +265,10 @@ static int hook_parseParam( const HookParam *param )
       case HOOK_PARAM_STRING:
          lua_pushstring( naevL, param[n].u.str );
          break;
+      case HOOK_PARAM_STRING_FREE:
+         lua_pushstring( naevL, param[n].u.str );
+         free( (char *)param[n].u.str );
+         break;
       case HOOK_PARAM_BOOL:
          lua_pushboolean( naevL, param[n].u.b );
          break;

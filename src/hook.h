@@ -17,21 +17,22 @@
  * @brief The hook parameter types.
  */
 typedef enum HookParamType_e {
-   HOOK_PARAM_NIL,       /**< No hook parameter. */
-   HOOK_PARAM_NUMBER,    /**< Number parameter. */
-   HOOK_PARAM_STRING,    /**< String parameter. */
-   HOOK_PARAM_BOOL,      /**< Boolean parameter. */
-   HOOK_PARAM_PILOT,     /**< Pilot hook parameter. */
-   HOOK_PARAM_SHIP,      /**< Ship hook parameter. */
-   HOOK_PARAM_OUTFIT,    /**< Outfit hook parameter. */
-   HOOK_PARAM_COMMODITY, /** Commodity hook parameter. */
-   HOOK_PARAM_FACTION,   /**< Faction hook parameter. */
-   HOOK_PARAM_SSYS,      /**< Star system hook paramet.r */
-   HOOK_PARAM_SPOB,      /**< Spob hook parameter. */
-   HOOK_PARAM_JUMP,      /**< Jump point hook parameter. */
-   HOOK_PARAM_ASTEROID,  /**< Asteroid hook parameter. */
-   HOOK_PARAM_REF,       /**< Upvalue parameter. */
-   HOOK_PARAM_SENTINEL   /**< Enum sentinel. */
+   HOOK_PARAM_NIL,         /**< No hook parameter. */
+   HOOK_PARAM_NUMBER,      /**< Number parameter. */
+   HOOK_PARAM_STRING,      /**< String parameter. */
+   HOOK_PARAM_STRING_FREE, /**< String parameter. */
+   HOOK_PARAM_BOOL,        /**< Boolean parameter. */
+   HOOK_PARAM_PILOT,       /**< Pilot hook parameter. */
+   HOOK_PARAM_SHIP,        /**< Ship hook parameter. */
+   HOOK_PARAM_OUTFIT,      /**< Outfit hook parameter. */
+   HOOK_PARAM_COMMODITY,   /** Commodity hook parameter. */
+   HOOK_PARAM_FACTION,     /**< Faction hook parameter. */
+   HOOK_PARAM_SSYS,        /**< Star system hook paramet.r */
+   HOOK_PARAM_SPOB,        /**< Spob hook parameter. */
+   HOOK_PARAM_JUMP,        /**< Jump point hook parameter. */
+   HOOK_PARAM_ASTEROID,    /**< Asteroid hook parameter. */
+   HOOK_PARAM_REF,         /**< Upvalue parameter. */
+   HOOK_PARAM_SENTINEL     /**< Enum sentinel. */
 } HookParamType;
 
 /**
