@@ -15,7 +15,8 @@ use physics::transform2::Transform2;
 pub struct RectHollowUniform {
    pub transform: Transform2,
    pub colour: Colour,
-   pub border: Vector2<f32>,
+   pub dims: Vector2<f32>,
+   pub border: f32,
 }
 
 #[repr(C)]
@@ -144,7 +145,8 @@ impl SdfRenderer {
       let uniform = RectHollowUniform {
          transform: transform.into(),
          colour,
-         border: Vector2::new(b / w, b / h),
+         dims: Vector2::new(w, h),
+         border: b,
       };
       self.draw_rect_hollow_ex(ctx, &uniform)
    }

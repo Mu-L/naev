@@ -1,6 +1,7 @@
 struct RectHollowData {
    transform: mat3x3f,
    colour: vec4f,
+   dims: vec2f,
    border: f32,
 }
 @binding(0) @group(0) var<uniform> rectdata: RectHollowData;
@@ -24,7 +25,7 @@ fn main_vs( vs: VertexInput ) -> VertexOutput {
    let H = rectdata.transform;
    output.position = vec4( ( H * vec3f( vs.vertex, 1.0 ) ).xy, 0.0, 1.0 );
    let scale   = vec2f( length(H[0].xy), length(H[1].xy) );
-   output.uv   = (vs.vertex * 2.0 - 1.0) * scale;
+   output.uv   = (vs.vertex * 2.0 - 1.0) * rectdata.dims;
    output.b    = rectdata.border * 0.5;
    return output;
 }
