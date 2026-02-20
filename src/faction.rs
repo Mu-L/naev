@@ -641,7 +641,7 @@ impl Faction {
                   u: naevc::HookParam_s__bindgen_ty_1 { num: 0.0 },
                }
             } else {
-               let sysid = crate::system::from_lua_index(&NLUA.lua, &system)?;
+               let sysid = crate::system::from_lua_index(&NLUA.lua, system)?;
                naevc::HookParam {
                   type_: naevc::HookParamType_e_HOOK_PARAM_SSYS,
                   u: naevc::HookParam_s__bindgen_ty_1 { ls: sysid as i32 },
