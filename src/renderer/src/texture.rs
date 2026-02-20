@@ -1686,8 +1686,8 @@ pub extern "C" fn gl_renderTexture(
 
    let ctx = Context::get();
    let colour = match c.is_null() {
-      true => Vector4::<f32>::from([1.0, 1.0, 1.0, 1.0]),
-      false => unsafe { *c },
+      true => Colour::default(),
+      false => unsafe { *c }.into(),
    };
    let dims = ctx.dimensions.read().unwrap();
    #[rustfmt::skip]
@@ -1749,8 +1749,8 @@ pub extern "C" fn gl_renderSDF(
 ) {
    let ctx = Context::get();
    let colour = match c.is_null() {
-      true => Vector4::<f32>::from([1.0, 1.0, 1.0, 1.0]),
-      false => unsafe { *c },
+      true => Colour::default(),
+      false => unsafe { *c }.into(),
    };
    let dims = ctx.dimensions.read().unwrap();
    #[rustfmt::skip]

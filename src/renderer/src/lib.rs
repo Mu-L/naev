@@ -1,4 +1,5 @@
 use anyhow::Result;
+use colour::Colour;
 use encase::{ShaderSize, ShaderType};
 use glow::*;
 use helpers::atomicfloat::AtomicF32;
@@ -97,14 +98,14 @@ impl<T: ShaderSize + encase::internal::WriteInto> Uniform for T {
 pub struct TextureUniform {
    pub texture: Matrix3<f32>,
    pub transform: Matrix3<f32>,
-   pub colour: Vector4<f32>,
+   pub colour: Colour,
 }
 impl Default for TextureUniform {
    fn default() -> Self {
       Self {
          texture: Matrix3::identity(),
          transform: Matrix3::identity(),
-         colour: Vector4::<f32>::from([1.0, 1.0, 1.0, 1.0]),
+         colour: Default::default(),
       }
    }
 }
@@ -121,7 +122,7 @@ pub struct TextureSDFUniform {
 pub struct TextureScaleUniform {
    pub texture: Matrix3<f32>,
    pub transform: Matrix3<f32>,
-   pub colour: Vector4<f32>,
+   pub colour: Colour,
    pub scale: f32,
    pub radius: f32,
 }
@@ -130,7 +131,7 @@ impl Default for TextureScaleUniform {
       Self {
          texture: Matrix3::identity(),
          transform: Matrix3::identity(),
-         colour: Vector4::<f32>::from([1.0, 1.0, 1.0, 1.0]),
+         colour: Colour::default(),
          scale: 1.0,
          radius: 4.0,
       }
@@ -138,18 +139,10 @@ impl Default for TextureScaleUniform {
 }
 
 #[repr(C)]
-#[derive(Debug, Copy, Clone, ShaderType)]
+#[derive(Default, Debug, Copy, Clone, ShaderType)]
 pub struct SolidUniform {
    pub transform: Matrix3<f32>,
-   pub colour: Vector4<f32>,
-}
-impl Default for SolidUniform {
-   fn default() -> Self {
-      Self {
-         transform: Matrix3::identity(),
-         colour: Vector4::<f32>::from([1.0, 1.0, 1.0, 1.0]),
-      }
-   }
+   pub colour: Colour,
 }
 
 #[allow(clippy::enum_variant_names)] // Remove when we add other messages
@@ -903,7 +896,7 @@ impl Context {
       }
    }
 
-   pub fn draw_rect(&self, x: f32, y: f32, w: f32, h: f32, colour: Vector4<f32>) -> Result<()> {
+   pub fn draw_rect(&self, x: f32, y: f32, w: f32, h: f32, colour: Colour) -> Result<()> {
       let dims = self.dimensions.read().unwrap();
       #[rustfmt::skip]
         let transform: Matrix3<f32> = dims.projection * Matrix3::new(
@@ -1019,7 +1012,11 @@ pub extern "C" fn gl_renderRect(
    c: *mut Vector4<f32>,
 ) {
    let ctx = Context::get();
-   let colour = unsafe { *c };
+   let colour = if c.is_null() {
+      Colour::default()
+   } else {
+      unsafe { *c }.into()
+   };
    if let Err(e) = ctx.draw_rect(x as f32, y as f32, w as f32, h as f32, colour) {
       warn_err!(e);
    }
