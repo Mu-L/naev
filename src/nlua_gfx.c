@@ -1091,8 +1091,8 @@ static int gfxL_setScissor( lua_State *L )
  */
 static int gfxL_screenshot( lua_State *L )
 {
-   LuaCanvas_t *lc;
-   int          mustfree;
+   const LuaCanvas_t *lc;
+   int                mustfree;
 
    /* Set up canvas or try to reuse. */
    if ( lua_iscanvas( L, 1 ) ) {
@@ -1113,13 +1113,14 @@ static int gfxL_screenshot( lua_State *L )
    glBindFramebuffer( GL_FRAMEBUFFER, 0 );
 
    /* Return new or old canvas. */
-   lua_pushcanvas( L, lc );
-   if ( mustfree )
-      free( lc );
-
+   gl_freeTexture( tex );
    if ( gl_checkErr() )
       NLUA_ERROR( L, _( "OpenGL Error!" ) );
-   return 1;
+   if ( mustfree ) {
+      lua_pushcanvas( L, lc );
+      return 1;
+   }
+   return 0;
 }
 
 /**

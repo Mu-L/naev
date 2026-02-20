@@ -548,6 +548,7 @@ impl LuaEnv {
       open_lib("tex", renderer::texture::open_texture)?;
       //open_lib("gfx", renderer::open_gfx)?;
       open_lib("faction", crate::faction::open_faction)?;
+      open_lib("canvas", renderer::framebuffer::open_canvas)?;
 
       let ret = unsafe {
          let env = self as *mut LuaEnv as *mut naevc::nlua_env;
@@ -572,7 +573,7 @@ impl LuaEnv {
          r |= naevc::nlua_loadGFX(env);
          r |= naevc::nlua_loadFont(env);
          r |= naevc::nlua_loadShader(env);
-         r |= naevc::nlua_loadCanvas(env);
+         //r |= naevc::nlua_loadCanvas(env);
          r
       };
       match ret {

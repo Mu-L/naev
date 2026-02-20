@@ -96,7 +96,7 @@ LuaCanvas_t *luaL_checkcanvas( lua_State *L, int ind )
  *    @param L Lua state to push canvas into.
  *    @param canvas Canvas to push.
  */
-void lua_pushcanvas( lua_State *L, LuaCanvas_t *canvas )
+void lua_pushcanvas( lua_State *L, const LuaCanvas_t *canvas )
 {
    LuaCanvas_t *c = (LuaCanvas_t *)lua_newuserdata( L, sizeof( LuaCanvas_t ) );
    *c             = *canvas;
@@ -154,8 +154,8 @@ static int canvasL_gc( lua_State *L )
  */
 static int canvasL_eq( lua_State *L )
 {
-   LuaCanvas_t *c1 = luaL_checkcanvas( L, 1 );
-   LuaCanvas_t *c2 = luaL_checkcanvas( L, 2 );
+   const LuaCanvas_t *c1 = luaL_checkcanvas( L, 1 );
+   const LuaCanvas_t *c2 = luaL_checkcanvas( L, 2 );
    lua_pushboolean( L, ( memcmp( c1, c2, sizeof( LuaCanvas_t ) ) == 0 ) );
    return 1;
 }
@@ -167,7 +167,7 @@ static int canvasL_eq( lua_State *L )
  *    @param h Height to use.
  *    @return New canvas.
  */
-LuaCanvas_t *canvas_new( int w, int h )
+const LuaCanvas_t *canvas_new( int w, int h )
 {
    char        *name;
    LuaCanvas_t *lc = calloc( 1, sizeof( LuaCanvas_t ) );
@@ -186,6 +186,11 @@ LuaCanvas_t *canvas_new( int w, int h )
    return lc;
 }
 
+void canvas_free( const LuaCanvas_t *lc )
+{
+   free( (LuaCanvas_t *)lc );
+}
+
 GLuint canvas_fbo( const LuaCanvas_t *lc )
 {
    return lc->fbo;
@@ -193,7 +198,7 @@ GLuint canvas_fbo( const LuaCanvas_t *lc )
 
 glTexture *canvas_tex( const LuaCanvas_t *lc )
 {
-   return lc->tex;
+   return gl_dupTexture( lc->tex );
 }
 
 GLuint canvas_depth( const LuaCanvas_t *lc )
@@ -217,7 +222,7 @@ static int canvasL_new( lua_State *L )
    int h     = luaL_checkint( L, 2 );
    int depth = lua_toboolean( L, 3 );
 
-   LuaCanvas_t *lc = canvas_new( w, h );
+   LuaCanvas_t *lc = (LuaCanvas_t *)canvas_new( w, h );
    if ( lc == NULL )
       return NLUA_ERROR( L, _( "Error setting up framebuffer!" ) );
    if ( depth )

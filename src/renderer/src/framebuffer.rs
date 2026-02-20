@@ -5,6 +5,7 @@ use anyhow::Result;
 use glow::*;
 use mlua::{MetaMethod, UserData, UserDataMethods, UserDataRef};
 use nalgebra::Vector4;
+use nlog::warn_err;
 use std::num::NonZero;
 use std::ops::Deref;
 use std::sync::Arc;
@@ -59,6 +60,7 @@ impl FramebufferTarget {
    }
 }
 
+#[derive(Debug)]
 pub struct Framebuffer {
    pub framebuffer: glow::Framebuffer,
    pub w: usize,
@@ -255,11 +257,12 @@ impl FramebufferBuilder {
    }
 }
 
+static PREVIOUS_FBO_SET: AtomicBool = AtomicBool::new(false);
 static PREVIOUS_FBO: AtomicU32 = AtomicU32::new(0);
 static WAS_SCISSORED: AtomicBool = AtomicBool::new(false);
-fn canvas_reset() {
-   let prev = PREVIOUS_FBO.load(Ordering::Relaxed);
-   if let Some(prev) = NonZero::new(prev) {
+fn reset() {
+   if PREVIOUS_FBO_SET.load(Ordering::Relaxed) {
+      let prev = PREVIOUS_FBO.load(Ordering::Relaxed);
       let ctx = Context::get();
       let gl = &ctx.gl;
       unsafe {
@@ -270,16 +273,29 @@ fn canvas_reset() {
             WAS_SCISSORED.store(false, Ordering::Relaxed);
          }
          gl.viewport(0, 0, naevc::gl_screen.rw, naevc::gl_screen.rh);
-         gl.bind_framebuffer(FRAMEBUFFER, Some(glow::NativeFramebuffer(prev)));
+         if let Some(prev) = NonZero::new(prev) {
+            gl.bind_framebuffer(FRAMEBUFFER, Some(glow::NativeFramebuffer(prev)));
+         } else {
+            gl.bind_framebuffer(FRAMEBUFFER, None);
+         }
       }
    }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct FramebufferWrap(Arc<Framebuffer>);
 impl FramebufferWrap {
    pub fn new(fb: Framebuffer) -> Self {
       Self(Arc::new(fb))
+   }
+
+   pub fn into_raw(self) -> *const Framebuffer {
+      Arc::into_raw(self.0)
+   }
+
+   pub unsafe fn from_raw(ptr: *const Framebuffer) -> Self {
+      let fb: Arc<Framebuffer> = unsafe { Arc::from_raw(ptr) };
+      Self(fb)
    }
 }
 impl Deref for FramebufferWrap {
@@ -343,8 +359,9 @@ impl UserData for FramebufferWrap {
             if let Some(canvas) = c {
                let ctx = Context::get();
                let gl = &ctx.gl;
-               if PREVIOUS_FBO.load(Ordering::Relaxed) == 0 {
+               if !PREVIOUS_FBO_SET.load(Ordering::Relaxed) {
                   PREVIOUS_FBO.store(unsafe { naevc::gl_screen.current_fbo }, Ordering::Relaxed);
+                  PREVIOUS_FBO_SET.store(true, Ordering::Relaxed);
                   WAS_SCISSORED.store(unsafe { gl.is_enabled(SCISSOR_TEST) }, Ordering::Relaxed);
                }
                unsafe {
@@ -355,7 +372,7 @@ impl UserData for FramebufferWrap {
                }
                canvas.bind_gl(gl);
             } else {
-               canvas_reset();
+               reset();
             }
             Ok(())
          },
@@ -399,7 +416,7 @@ impl UserData for FramebufferWrap {
       methods.add_method(
          "clear",
          |_, _canvas, colour: Option<Colour>| -> mlua::Result<()> {
-            let colour = colour.unwrap_or(Colour::new_alpha(0., 0., 0., 0.));
+            let colour = colour.unwrap_or_else(|| Colour::new_alpha(0., 0., 0., 0.));
             let ctx = Context::get();
             let gl = &ctx.gl;
             let v: Vector4<f32> = colour.into();
@@ -414,32 +431,32 @@ impl UserData for FramebufferWrap {
    }
 }
 
-/*
 use mlua::{Value, ffi};
-use std::ffi::{c_void, c_int, c_char};
+use std::ffi::{c_char, c_int, c_void};
 pub fn open_canvas(lua: &mlua::Lua) -> anyhow::Result<mlua::AnyUserData> {
    let proxy = lua.create_proxy::<FramebufferWrap>()?;
 
    if let mlua::Value::Nil = lua.named_registry_value("push_canvas")? {
       let push_canvas = lua.create_function(|lua, canvas: mlua::LightUserData| {
-         let canvas = canvas.0 as *mut FramebufferWrap;
+         let canvas = canvas.0 as *mut Framebuffer;
          if canvas.is_null() {
             Err(mlua::Error::RuntimeError(
                "push_canvas received NULL".to_string(),
             ))
          } else {
-            let canvas = unsafe { &*canvas };
-            lua.create_userdata(canvas.clone())
+            let canvas = unsafe { FramebufferWrap::from_raw(canvas) };
+            lua.create_userdata(canvas)
          }
       })?;
       lua.set_named_registry_value("push_canvas", push_canvas)?;
 
-      let get_canvas = lua.create_function(|_, mut ud: mlua::UserDataRefMut<FramebufferWrap>| {
-         let canvas: *mut FramebufferWrap = &mut *ud;
-         Ok(Value::LightUserData(mlua::LightUserData(
-            canvas as *mut c_void,
-         )))
-      })?;
+      let get_canvas =
+         lua.create_function(|_, mut ud: mlua::UserDataRefMut<FramebufferWrap>| {
+            let canvas: *mut FramebufferWrap = &mut *ud;
+            Ok(Value::LightUserData(mlua::LightUserData(
+               canvas as *mut c_void,
+            )))
+         })?;
       lua.set_named_registry_value("get_canvas", get_canvas)?;
    }
 
@@ -489,4 +506,46 @@ pub extern "C" fn lua_tocanvas(L: *mut mlua::lua_State, idx: c_int) -> *mut Fram
       canvas
    }
 }
-*/
+
+#[unsafe(no_mangle)]
+pub extern "C" fn canvas_new(w: c_int, h: c_int) -> *const Framebuffer {
+   static CANVAS_ID: AtomicU32 = AtomicU32::new(1);
+   let id = CANVAS_ID
+      .fetch_update(Ordering::SeqCst, Ordering::SeqCst, |x| Some(x + 1))
+      .unwrap_or(0);
+   let fb = match FramebufferBuilder::new(Some(&format!("C_nlua_canvas_{id}")))
+      .width(w as usize)
+      .height(h as usize)
+      .build(Context::get())
+   {
+      Ok(fb) => fb,
+      Err(e) => {
+         warn_err!(e);
+         return std::ptr::null_mut();
+      }
+   };
+   FramebufferWrap::new(fb).into_raw()
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn canvas_fbo(fb: *const Framebuffer) -> naevc::GLuint {
+   let fb = unsafe { &*fb };
+   fb.framebuffer.0.into()
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn canvas_tex(fb: *const Framebuffer) -> *mut Texture {
+   let fb = unsafe { &*fb };
+   if let Some(tex) = &fb.texture
+      && let Ok(tex) = tex.try_clone()
+   {
+      tex.into_ptr()
+   } else {
+      std::ptr::null_mut()
+   }
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn canvas_reset() {
+   reset();
+}

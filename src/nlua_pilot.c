@@ -7094,9 +7094,9 @@ static int pilotL_render( lua_State *L )
 
    /* TODO handle when effects make the ship render larger than it really is.
     */
-   w               = p->ship->size;
-   h               = p->ship->size;
-   LuaCanvas_t *lc = canvas_new( w, h );
+   w                     = p->ship->size;
+   h                     = p->ship->size;
+   const LuaCanvas_t *lc = canvas_new( w, h );
    if ( lc == NULL )
       return NLUA_ERROR( L, _( "Error setting up framebuffer!" ) );
 
@@ -7134,14 +7134,16 @@ static int pilotL_renderTo( lua_State *L )
 
    /* TODO handle when effects make the ship render larger than it really is.
     */
-   w              = p->ship->size;
-   h              = p->ship->size;
-   glTexture *tex = canvas_tex( lc );
+   w = p->ship->size;
+   h = p->ship->size;
+   /*
+   const glTexture *tex = canvas_tex( lc );
    if ( ( tex_w( tex ) < w ) || ( tex_h( tex ) < h ) )
       NLUA_WARN( L,
                  _( "Canvas is too small to fully render '%s': %.0f x %.0f "
                     "< %d x %d" ),
                  p->name, tex_w( tex ), tex_h( tex ), w, h );
+   */
 
    /* The code path below is really buggy.
     * 1. engine_glow seems to scale 3D models improperly when interpolating,

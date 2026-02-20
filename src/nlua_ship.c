@@ -1012,9 +1012,9 @@ static int shipL_render( lua_State *L )
 
    gl_getSpriteFromDir( &sx, &sy, s->sx, s->sy, dir );
 
-   w               = s->size;
-   h               = s->size;
-   LuaCanvas_t *lc = canvas_new( w, h );
+   w                     = s->size;
+   h                     = s->size;
+   const LuaCanvas_t *lc = canvas_new( w, h );
    ;
    if ( lc == NULL )
       return NLUA_ERROR( L, _( "Error setting up framebuffer!" ) );
@@ -1028,6 +1028,5 @@ static int shipL_render( lua_State *L )
                            eg, tilt, 0., sx, sy, NULL, NULL );
 
    lua_pushcanvas( L, lc );
-   free( lc );
    return 1;
 }
