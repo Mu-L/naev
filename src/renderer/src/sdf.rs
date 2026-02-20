@@ -6,9 +6,17 @@ use crate::{
 use anyhow::Result;
 use encase::ShaderType;
 use glow::HasContext;
-use nalgebra::{Matrix3, Vector4};
+use nalgebra::{Matrix3, Vector2, Vector4};
 use nlog::warn_err;
 use physics::transform2::Transform2;
+
+#[repr(C)]
+#[derive(Debug, Copy, Clone, Default, ShaderType)]
+pub struct RectHollowUniform {
+   pub transform: Transform2,
+   pub colour: Colour,
+   pub border: Vector2<f32>,
+}
 
 #[repr(C)]
 #[derive(Debug, Copy, Clone, Default, ShaderType)]
@@ -32,7 +40,7 @@ pub struct CircleHollowUniform {
    pub transform: Transform2,
    pub colour: Colour,
    pub radius: f32,
-   pub width: f32,
+   pub border: f32,
 }
 
 macro_rules! draw_sdf_func_ex {
@@ -53,6 +61,8 @@ macro_rules! draw_sdf_func_ex {
 }
 
 pub struct SdfRenderer {
+   program_rect_hollow: Shader,
+   buffer_rect_hollow: Buffer,
    program_cross: Shader,
    buffer_cross: Buffer,
    program_circle: Shader,
@@ -62,6 +72,16 @@ pub struct SdfRenderer {
 }
 impl SdfRenderer {
    pub fn new(gl: &glow::Context) -> Result<Self> {
+      let program_rect_hollow = ProgramBuilder::new(Some("Rect Hollow Shader"))
+         .uniform_buffer("rectdata", 0)
+         .wgsl_file("rect_hollow.wgsl")
+         .build(gl)?;
+      let buffer_rect_hollow = BufferBuilder::new(Some("Rect Hollow Buffer"))
+         .target(BufferTarget::Uniform)
+         .usage(BufferUsage::Dynamic)
+         .data(&RectHollowUniform::default().buffer()?)
+         .build(gl)?;
+
       let program_cross = ProgramBuilder::new(Some("Cross Shader"))
          .uniform_buffer("crossdata", 0)
          .wgsl_file("cross.wgsl")
@@ -93,6 +113,8 @@ impl SdfRenderer {
          .build(gl)?;
 
       Ok(Self {
+         program_rect_hollow,
+         buffer_rect_hollow,
          program_cross,
          buffer_cross,
          program_circle,
@@ -101,6 +123,37 @@ impl SdfRenderer {
          buffer_circle_hollow,
       })
    }
+
+   pub fn draw_rect_hollow(
+      &self,
+      ctx: &Context,
+      x: f32,
+      y: f32,
+      w: f32,
+      h: f32,
+      b: f32,
+      colour: Colour,
+   ) -> Result<()> {
+      let dims = ctx.dimensions.read().unwrap();
+      #[rustfmt::skip]
+      let transform: Matrix3<f32> = dims.projection * Matrix3::new(
+          w,  0.0,  x,
+         0.0,  h,   y,
+         0.0, 0.0, 1.0,
+      );
+      let uniform = RectHollowUniform {
+         transform: transform.into(),
+         colour,
+         border: Vector2::new(b / w, b / h),
+      };
+      self.draw_rect_hollow_ex(ctx, &uniform)
+   }
+   draw_sdf_func_ex!(
+      draw_rect_hollow_ex,
+      RectHollowUniform,
+      program_rect_hollow,
+      buffer_rect_hollow
+   );
 
    pub fn draw_cross(&self, ctx: &Context, x: f32, y: f32, r: f32, colour: Colour) -> Result<()> {
       let dims = ctx.dimensions.read().unwrap();
@@ -143,7 +196,7 @@ impl SdfRenderer {
       y: f32,
       r: f32,
       colour: Colour,
-      w: f32,
+      b: f32,
    ) -> Result<()> {
       let dims = ctx.dimensions.read().unwrap();
       #[rustfmt::skip]
@@ -156,7 +209,7 @@ impl SdfRenderer {
          transform: transform.into(),
          colour,
          radius: r,
-         width: w,
+         border: b,
       };
       self.draw_circle_hollow_ex(ctx, &uniform)
    }
@@ -204,7 +257,7 @@ pub extern "C" fn gl_renderCircle(
    let res = if filled != 0 {
       ctx.sdf.draw_circle(&ctx, x, y, r, colour)
    } else {
-      ctx.sdf.draw_circle_hollow(&ctx, x, y, r, colour, 1.0)
+      ctx.sdf.draw_circle_hollow(&ctx, x, y, r, colour, 0.0)
    };
    if let Err(e) = res {
       warn_err!(e);
