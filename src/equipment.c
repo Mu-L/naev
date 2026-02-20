@@ -2563,6 +2563,9 @@ static void equipment_changeShip( unsigned int wid )
 
    /* Regenerate ship widget. */
    equipment_regenLists( wid, 0, 1 );
+   unsigned int w = land_getWid( LAND_WINDOW_OUTFITS );
+   if ( w > 0 )
+      outfits_regenList( w, NULL );
 
    /* Focus new ship. */
    toolkit_setImageArrayPos( wid, EQUIPMENT_SHIPS, 0 );
