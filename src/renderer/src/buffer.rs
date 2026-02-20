@@ -4,6 +4,7 @@ use glow::*;
 use crate::Context;
 use crate::warn;
 
+#[derive(Debug)]
 pub struct Buffer {
    pub buffer: glow::Buffer,
    datalen: usize, // in u8
