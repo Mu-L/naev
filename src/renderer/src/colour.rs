@@ -1,3 +1,4 @@
+use encase::ShaderType;
 use mlua::{BorrowedStr, FromLua, Lua, MetaMethod, UserData, UserDataMethods, Value};
 use nalgebra::{Vector3, Vector4};
 use palette::FromColor;
@@ -5,8 +6,15 @@ use palette::{Hsv, LinSrgb, Srgb};
 use std::sync::LazyLock;
 use trie_rs::map::{Trie, TrieBuilder};
 
-#[derive(Debug, Default, Copy, Clone, derive_more::From, derive_more::Into, PartialEq)]
-pub struct Colour(Vector4<f32>);
+#[derive(Debug, Copy, Clone, derive_more::From, derive_more::Into, PartialEq, ShaderType)]
+pub struct Colour {
+   c: Vector4<f32>,
+}
+impl Default for Colour {
+   fn default() -> Self {
+      Vector4::<f32>::from([1.0, 1.0, 1.0, 1.0]).into()
+   }
+}
 
 macro_rules! colour {
    ($name: ident, $r: literal, $g: literal, $b: literal ) => {
@@ -155,7 +163,9 @@ impl Colour {
 
    /// Creates a new Linear colour with alpha.
    pub const fn new_alpha(r: f32, g: f32, b: f32, a: f32) -> Self {
-      Colour(Vector4::new(r, g, b, a))
+      Colour {
+         c: Vector4::new(r, g, b, a),
+      }
    }
 
    /// Creates a new Colour from a gamma-corrected colourspace.
@@ -176,12 +186,14 @@ impl Colour {
 
    /// Same as from_gamma_alpha, but is slower and const.
    pub const fn from_gamma_alpha_const(r: f32, g: f32, b: f32, a: f32) -> Self {
-      Colour(Vector4::new(
-         gamma_to_linear_const(r),
-         gamma_to_linear_const(g),
-         gamma_to_linear_const(b),
-         a,
-      ))
+      Colour {
+         c: Vector4::new(
+            gamma_to_linear_const(r),
+            gamma_to_linear_const(g),
+            gamma_to_linear_const(b),
+            a,
+         ),
+      }
    }
 
    /// Gets a colour from a name. Is case-insensitive.
@@ -195,7 +207,7 @@ impl Colour {
    }
 
    pub fn into_vector3(&self) -> Vector3<f32> {
-      Vector3::new(self.0.x, self.0.y, self.0.z)
+      Vector3::new(self.c.x, self.c.y, self.c.z)
    }
 }
 
@@ -247,10 +259,10 @@ impl FromLua for Colour {
  */
 impl UserData for Colour {
    fn add_fields<F: mlua::UserDataFields<Self>>(fields: &mut F) {
-      fields.add_field_method_get("r", |_, this| Ok(this.0.x));
-      fields.add_field_method_get("g", |_, this| Ok(this.0.y));
-      fields.add_field_method_get("b", |_, this| Ok(this.0.z));
-      fields.add_field_method_get("a", |_, this| Ok(this.0.w));
+      fields.add_field_method_get("r", |_, this| Ok(this.c.x));
+      fields.add_field_method_get("g", |_, this| Ok(this.c.y));
+      fields.add_field_method_get("b", |_, this| Ok(this.c.z));
+      fields.add_field_method_get("a", |_, this| Ok(this.c.w));
    }
 
    fn add_methods<M: UserDataMethods<Self>>(methods: &mut M) {
@@ -266,7 +278,7 @@ impl UserData for Colour {
          |_, this, ()| -> mlua::Result<String> {
             Ok(format!(
                "Colour( {}, {}, {}, {} )",
-               this.0.x, this.0.y, this.0.z, this.0.w
+               this.c.x, this.c.y, this.c.z, this.c.w
             ))
          },
       );
@@ -338,7 +350,7 @@ impl UserData for Colour {
             match Colour::from_name(&name) {
                Some(mut col) => {
                   if let Some(a) = a {
-                     col.0.w = a;
+                     col.c.w = a;
                   }
                   Ok(Some(col))
                }
@@ -405,7 +417,7 @@ impl UserData for Colour {
        *    @luatreturn number The alpha of the colour.
        * @luafunc alpha
        */
-      methods.add_method("alpha", |_, this, ()| -> mlua::Result<f32> { Ok(this.0.w) });
+      methods.add_method("alpha", |_, this, ()| -> mlua::Result<f32> { Ok(this.c.w) });
       /*@
        * @brief Gets the RGB values of a colour.
        *
@@ -426,9 +438,9 @@ impl UserData for Colour {
          |_, this, gamma: Option<bool>| -> mlua::Result<(f32, f32, f32)> {
             let gamma = gamma.unwrap_or(false);
             let (r, g, b) = if gamma {
-               Srgb::from_linear(LinSrgb::new(this.0.x, this.0.y, this.0.z)).into_components()
+               Srgb::from_linear(LinSrgb::new(this.c.x, this.c.y, this.c.z)).into_components()
             } else {
-               (this.0.x, this.0.y, this.0.z)
+               (this.c.x, this.c.y, this.c.z)
             };
             Ok((r, g, b))
          },
@@ -454,11 +466,11 @@ impl UserData for Colour {
          |_, this, gamma: Option<bool>| -> mlua::Result<(f32, f32, f32, f32)> {
             let gamma = gamma.unwrap_or(false);
             let (r, g, b) = if gamma {
-               Srgb::from_linear(LinSrgb::new(this.0.x, this.0.y, this.0.z)).into_components()
+               Srgb::from_linear(LinSrgb::new(this.c.x, this.c.y, this.c.z)).into_components()
             } else {
-               (this.0.x, this.0.y, this.0.z)
+               (this.c.x, this.c.y, this.c.z)
             };
-            Ok((r, g, b, this.0.w))
+            Ok((r, g, b, this.c.w))
          },
       );
       /*@
@@ -476,7 +488,7 @@ impl UserData for Colour {
        */
       methods.add_method("hsv", |_, this, ()| -> mlua::Result<(f32, f32, f32)> {
          let hsv = Hsv::from_color(Srgb::from_linear(LinSrgb::new(
-            this.0.x, this.0.y, this.0.z,
+            this.c.x, this.c.y, this.c.z,
          )));
          let (h, s, v) = hsv.into_components();
          Ok((h.into(), s, v))
@@ -538,9 +550,9 @@ impl UserData for Colour {
          this: &mut Colour,
          (r, g, b): (f32, f32, f32),
       ) -> mlua::Result<()> {
-         this.0.x = r;
-         this.0.y = g;
-         this.0.z = b;
+         this.c.x = r;
+         this.c.y = g;
+         this.c.z = b;
          Ok(())
       }
       methods.add_method_mut("set_rgb", set_rgb);
@@ -570,9 +582,9 @@ impl UserData for Colour {
          (h, s, v): (f32, f32, f32),
       ) -> mlua::Result<()> {
          let (r, g, b) = Srgb::from_color(Hsv::new(h, s, v)).into_components();
-         this.0.x = r;
-         this.0.y = g;
-         this.0.z = b;
+         this.c.x = r;
+         this.c.y = g;
+         this.c.z = b;
          Ok(())
       }
       methods.add_method_mut("set_hsv", set_hsv);
@@ -596,7 +608,7 @@ impl UserData for Colour {
        * @luafunc set_alpha
        */
       fn set_alpha(_lua: &mlua::Lua, this: &mut Colour, a: f32) -> mlua::Result<()> {
-         this.0.w = a;
+         this.c.w = a;
          Ok(())
       }
       methods.add_method_mut("set_alpha", set_alpha);
@@ -614,8 +626,8 @@ impl UserData for Colour {
        */
       methods.add_method("to_gamma", |_, this, ()| -> mlua::Result<Colour> {
          let (r, g, b) =
-            Srgb::from_linear(LinSrgb::new(this.0.x, this.0.y, this.0.z)).into_components();
-         Ok(Colour::new_alpha(r, g, b, this.0.w))
+            Srgb::from_linear(LinSrgb::new(this.c.x, this.c.y, this.c.z)).into_components();
+         Ok(Colour::new_alpha(r, g, b, this.c.w))
       });
       /*@
        * @brief Converts a colour from gamma corrected to linear.
@@ -625,10 +637,10 @@ impl UserData for Colour {
        * @luafunc to_linear
        */
       methods.add_method("to_linear", |_, this, ()| -> mlua::Result<Colour> {
-         let (r, g, b) = Srgb::new(this.0.x, this.0.y, this.0.z)
+         let (r, g, b) = Srgb::new(this.c.x, this.c.y, this.c.z)
             .into_linear()
             .into_components();
-         Ok(Colour::new_alpha(r, g, b, this.0.w))
+         Ok(Colour::new_alpha(r, g, b, this.c.w))
       });
    }
 }
