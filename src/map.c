@@ -1166,6 +1166,8 @@ void map_renderDecorators( double x, double y, double zoom, int editor,
    const glColour ccol = {
       .r = 1., .g = 1., .b = 1., .a = 2. / 3. * alpha }; /**< White */
 
+   gl_debugGroupStart();
+
    /* Fade in the decorators to allow toggling between commodity and nothing */
    for ( int i = 0; i < array_size( decorator_stack ); i++ ) {
       int                 visible;
@@ -1207,6 +1209,8 @@ void map_renderDecorators( double x, double y, double zoom, int editor,
                          &ccol );
       }
    }
+
+   gl_debugGroupEnd();
 }
 
 /**
@@ -1215,6 +1219,7 @@ void map_renderDecorators( double x, double y, double zoom, int editor,
 void map_renderFactionDisks( double x, double y, double zoom, double r,
                              int editor, double alpha )
 {
+   gl_debugGroupStart();
    for ( int i = 0; i < array_size( systems_stack ); i++ ) {
       glColour          c;
       double            tx, ty;
@@ -1245,6 +1250,7 @@ void map_renderFactionDisks( double x, double y, double zoom, double r,
          gl_renderShader( tx, ty, sr, sr, 0., &shaders.factiondisk, &c, 1 );
       }
    }
+   gl_debugGroupEnd();
 }
 
 /**
@@ -1253,6 +1259,7 @@ void map_renderFactionDisks( double x, double y, double zoom, double r,
 void map_renderSystemEnvironment( double x, double y, double zoom, int editor,
                                   double alpha )
 {
+   gl_debugGroupStart();
    for ( int i = 0; i < array_size( systems_stack ); i++ ) {
       double tx, ty;
       /* Fade in the disks to allow toggling between commodity and nothing */
@@ -1330,6 +1337,7 @@ void map_renderSystemEnvironment( double x, double y, double zoom, int editor,
          gl_checkErr();
       }
    }
+   gl_debugGroupEnd();
 }
 
 /**
@@ -1338,6 +1346,7 @@ void map_renderSystemEnvironment( double x, double y, double zoom, int editor,
 void map_renderJumps( double x, double y, double zoom, double radius,
                       int editor )
 {
+   gl_debugGroupStart();
    for ( int i = 0; i < array_size( systems_stack ); i++ ) {
       double            x1, y1;
       const StarSystem *sys = system_getIndex( i );
@@ -1396,6 +1405,7 @@ void map_renderJumps( double x, double y, double zoom, double radius,
                           &shaders.jumplane, col, 1 );
       }
    }
+   gl_debugGroupEnd();
 }
 
 /**
@@ -1404,6 +1414,7 @@ void map_renderJumps( double x, double y, double zoom, double radius,
 void map_renderSystems( double bx, double by, double x, double y, double zoom,
                         double w, double h, double r, MapMode mode )
 {
+   gl_debugGroupStart();
    for ( int i = 0; i < array_size( systems_stack ); i++ ) {
       double            tx, ty;
       const StarSystem *sys = system_getIndex( i );
@@ -1480,6 +1491,7 @@ void map_renderSystems( double bx, double by, double x, double y, double zoom,
             gl_renderCircle( tx, ty, 0.65 * r, &cGreen, 1 );
       }
    }
+   gl_debugGroupEnd();
 }
 
 /**
@@ -1498,6 +1510,7 @@ static void map_renderPath( double x, double y, double zoom, double radius,
    if ( player.p == NULL )
       return;
 
+   gl_debugGroupStart();
    jmax = pilot_getJumps( player.p ); /* Maximum jumps. */
    jcur = jmax;                       /* Jump range remaining. */
 
@@ -1536,6 +1549,7 @@ static void map_renderPath( double x, double y, double zoom, double radius,
       jcur--;
       sys1 = sys2;
    }
+   gl_debugGroupEnd();
 }
 
 /**
@@ -1612,6 +1626,7 @@ void map_renderNames( double bx, double by, double x, double y, double zoom,
    if ( zoom <= 0.5 )
       return;
 
+   gl_debugGroupStart();
    for ( int i = 0; i < array_size( systems_stack ); i++ ) {
       const StarSystem *sys = system_getIndex( i );
 
@@ -1633,6 +1648,7 @@ void map_renderNames( double bx, double by, double x, double y, double zoom,
       col.a = alpha;
       gl_printRaw( font, tx, ty, &col, -1, system_name( sys ) );
    }
+   gl_debugGroupEnd();
 
    /* Raw hidden values if we're in the editor. */
    if ( !editor || ( zoom <= 1.0 ) )
