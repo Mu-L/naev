@@ -1141,7 +1141,7 @@ impl FromLua for FactionRef {
  * end
  * @endcode
  *
- * @lua_mod faction
+ * @luamod faction
  */
 impl UserData for FactionRef {
    fn add_methods<M: UserDataMethods<Self>>(methods: &mut M) {

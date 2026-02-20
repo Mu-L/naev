@@ -119,7 +119,7 @@ int nlua_loadFaction( nlua_env *env )
  * end
  * @endcode
  *
- * @luamod faction
+ * @lua_mod faction
  */
 /**
  * @brief Gets a faction if it exists.

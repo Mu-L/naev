@@ -170,6 +170,48 @@ stds.time = {
       }
    }
 }
+stds.faction = {
+   read_globals = {
+      faction = {
+         fields = {
+            __tostring = {},
+            exists = {},
+            get = {},
+            getAll = {},
+            player = {},
+            name = {},
+            nameRaw = {},
+            longname = {},
+            areNeutral = {},
+            areEnemies = {},
+            areAllies = {},
+            hit = {},
+            hitTest = {},
+            reputationGlobal = {},
+            reputationText = {},
+            reputationDefault = {},
+            setReputationGlobal = {},
+            applyLocalThreshold = {},
+            enemies = {},
+            allies = {},
+            usesHiddenJumps = {},
+            logo = {},
+            colour = {},
+            known = {},
+            setKnown = {},
+            invisible = {},
+            static = {},
+            default_ai = {},
+            reputationOverride = {},
+            setReputationOverride = {},
+            tags = {},
+            dynAdd = {},
+            dynAlly = {},
+            dynEnemy = {},
+         }
+      }
+   }
+}
 stds.collide = {
    read_globals = {
       collide = {
@@ -312,47 +354,6 @@ stds.evt = {
             finish = {},
             save = {},
             claim = {},
-         }
-      }
-   }
-}
-stds.faction = {
-   read_globals = {
-      faction = {
-         fields = {
-            exists = {},
-            get = {},
-            getAll = {},
-            player = {},
-            __eq = {},
-            name = {},
-            nameRaw = {},
-            longname = {},
-            areNeutral = {},
-            areEnemies = {},
-            areAllies = {},
-            hit = {},
-            hitTest = {},
-            reputationGlobal = {},
-            reputationText = {},
-            reputationDefault = {},
-            setReputationGlobal = {},
-            applyLocalThreshold = {},
-            enemies = {},
-            allies = {},
-            usesHiddenJumps = {},
-            logo = {},
-            colour = {},
-            known = {},
-            setKnown = {},
-            invisible = {},
-            static = {},
-            reputationOverride = {},
-            setReputationOverride = {},
-            tags = {},
-            dynAdd = {},
-            dynAlly = {},
-            dynEnemy = {},
          }
       }
    }
@@ -1371,6 +1372,7 @@ stds.naev.read_globals.naev.fields.ai = stds.ai.read_globals.ai
 stds.naev.read_globals.naev.fields.audio = stds.audio.read_globals.audio
 stds.naev.read_globals.naev.fields.audiodata = stds.audiodata.read_globals.audiodata
 stds.naev.read_globals.naev.fields.time = stds.time.read_globals.time
+stds.naev.read_globals.naev.fields.faction = stds.faction.read_globals.faction
 stds.naev.read_globals.naev.fields.collide = stds.collide.read_globals.collide
 stds.naev.read_globals.naev.fields.data = stds.data.read_globals.data
 stds.naev.read_globals.naev.fields.file = stds.file.read_globals.file
@@ -1380,7 +1382,6 @@ stds.naev.read_globals.naev.fields.camera = stds.camera.read_globals.camera
 stds.naev.read_globals.naev.fields.commodity = stds.commodity.read_globals.commodity
 stds.naev.read_globals.naev.fields.diff = stds.diff.read_globals.diff
 stds.naev.read_globals.naev.fields.evt = stds.evt.read_globals.evt
-stds.naev.read_globals.naev.fields.faction = stds.faction.read_globals.faction
 stds.naev.read_globals.naev.fields.font = stds.font.read_globals.font
 stds.naev.read_globals.naev.fields.gfx = stds.gfx.read_globals.gfx
 stds.naev.read_globals.naev.fields.gui = stds.gui.read_globals.gui
