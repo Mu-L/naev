@@ -3,7 +3,7 @@ use crate::texture::{AddressMode, FilterMode, Texture, TextureBuilder, TextureFo
 use crate::{Context, ContextWrapper};
 use anyhow::Result;
 use glow::*;
-use mlua::{UserData, UserDataMethods, UserDataRef};
+use mlua::{MetaMethod, UserData, UserDataMethods, UserDataRef};
 use nalgebra::Vector4;
 use std::num::NonZero;
 use std::ops::Deref;
@@ -299,6 +299,9 @@ impl Deref for FramebufferWrap {
  */
 impl UserData for FramebufferWrap {
    fn add_methods<M: UserDataMethods<Self>>(methods: &mut M) {
+      methods.add_meta_function(MetaMethod::ToString, |_, this: UserDataRef<Self>| {
+         Ok(format!("Canvas( {} )", this.framebuffer.0))
+      });
       /*@
        * @brief Opens a new canvas.
        *
