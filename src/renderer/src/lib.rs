@@ -1020,14 +1020,18 @@ pub extern "C" fn gl_renderRect(
 ) {
    let ctx = Context::get();
    let colour = unsafe { *c };
-   let _ = ctx.draw_rect(x as f32, y as f32, w as f32, h as f32, colour);
+   if let Err(e) = ctx.draw_rect(x as f32, y as f32, w as f32, h as f32, colour) {
+      warn_err!(e);
+   }
 }
 
 #[unsafe(no_mangle)]
 pub extern "C" fn gl_resize() {
    {
       let ctx = CONTEXT.get().unwrap();
-      let _ = ctx.resize();
+      if let Err(e) = ctx.resize() {
+         warn_err!(e);
+      }
    }
    unsafe { naevc::gl_resize_c() };
 }

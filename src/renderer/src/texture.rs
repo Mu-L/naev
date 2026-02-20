@@ -1731,7 +1731,9 @@ pub extern "C" fn gl_renderTexture(
    };
 
    let tex = unsafe { &*ctex };
-   let _ = tex.draw_ex(ctx, &data);
+   if let Err(e) = tex.draw_ex(ctx, &data) {
+      warn_err!(e);
+   }
 }
 
 #[unsafe(no_mangle)]
@@ -1789,7 +1791,9 @@ pub extern "C" fn gl_renderSDF(
       m: 2.0 * tex.texture.vmax * (w as f32 + 2.) / tex.texture.w as f32,
       outline: outline as f32,
    };
-   let _ = tex.draw_sdf_ex(ctx, &data, &sdf);
+   if let Err(e) = tex.draw_sdf_ex(ctx, &data, &sdf) {
+      warn_err!(e);
+   }
 }
 
 #[unsafe(no_mangle)]
@@ -1817,8 +1821,10 @@ pub extern "C" fn gl_renderScaleAspectMagic(
 
    // TODO Disable for now, reactivate in a better way with Texture::scale caching into framebuffers in
    // the widgets
-   let _ = tex.draw(ctx, x, y, nw, nh);
-   //let _ = tex.draw_scale(ctx, x, y, nw, nh, scale);
+   if let Err(e) = tex.draw(ctx, x, y, nw, nh) {
+      //if let Err(e) = tex.draw_scale(ctx, x, y, nw, nh, scale) {
+      warn_err!(e);
+   }
 }
 
 /*@
