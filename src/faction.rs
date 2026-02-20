@@ -539,6 +539,11 @@ impl Faction {
    }
 
    pub fn add_enemy(&mut self, other: FactionRef) {
+      let player = *PLAYER.get().unwrap();
+      if other == player || self.data.id == player {
+         warn!("can't add player as enemy, set player reputation instead");
+         return;
+      }
       if !self.data.enemies.contains(&other) {
          self.data.enemies.push(other);
       }
@@ -552,6 +557,11 @@ impl Faction {
    }
 
    pub fn add_neutral(&mut self, other: FactionRef) {
+      let player = *PLAYER.get().unwrap();
+      if other == player || self.data.id == player {
+         warn!("can't add player as neutral, set player reputation instead");
+         return;
+      }
       if !self.data.neutrals.contains(&other) {
          self.data.neutrals.push(other);
       }
@@ -565,6 +575,11 @@ impl Faction {
    }
 
    pub fn add_ally(&mut self, other: FactionRef) {
+      let player = *PLAYER.get().unwrap();
+      if other == player || self.data.id == player {
+         warn!("can't add player as ally, set player reputation instead");
+         return;
+      }
       if !self.data.allies.contains(&other) {
          self.data.allies.push(other);
       }
