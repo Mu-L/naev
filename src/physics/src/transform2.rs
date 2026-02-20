@@ -3,7 +3,7 @@ use mlua::{Either, FromLua, Lua, MetaMethod, UserData, UserDataMethods, UserData
 use nalgebra::{Matrix3, Point2, Vector2};
 use std::os::raw::c_void;
 
-#[derive(Copy, Clone, derive_more::From, derive_more::Into, ShaderType)]
+#[derive(Debug, Copy, Clone, derive_more::From, derive_more::Into, ShaderType)]
 pub struct Transform2 {
    t: Matrix3<f32>,
 }
@@ -15,19 +15,19 @@ impl Default for Transform2 {
 impl Transform2 {
    #[rustfmt::skip]
    pub const fn new() -> Self {
-        Transform2{t: Matrix3::new(
-            1.0, 0.0, 0.0,
-            0.0, 1.0, 0.0,
-            0.0, 0.0, 1.0, )}
-    }
-    #[rustfmt::skip]
+      Transform2{t: Matrix3::new(
+         1.0, 0.0, 0.0,
+         0.0, 1.0, 0.0,
+         0.0, 0.0, 1.0, )}
+   }
+   #[rustfmt::skip]
    pub const fn new_from(data: &[f32; 6]) -> Self {
-        Transform2{ t: Matrix3::new(
-            data[0], data[1], data[2],
-            data[3], data[4], data[5],
-              0.0,     0.0,     1.0, )
-        }
-    }
+      Transform2{ t: Matrix3::new(
+         data[0], data[1], data[2],
+         data[3], data[4], data[5],
+           0.0,     0.0,     1.0, )
+      }
+   }
 }
 
 impl FromLua for Transform2 {

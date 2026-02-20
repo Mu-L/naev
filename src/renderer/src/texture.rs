@@ -532,7 +532,7 @@ impl Texture {
             0.0, 0.0, 1.0,
         );
       let uniform = TextureUniform {
-         transform,
+         transform: transform.into(),
          ..Default::default()
       };
       self.draw_ex(ctx, &uniform)
@@ -1691,42 +1691,42 @@ pub extern "C" fn gl_renderTexture(
    };
    let dims = ctx.dimensions.read().unwrap();
    #[rustfmt::skip]
-    let transform: Matrix3<f32> = dims.projection * {
-        if angle.abs() > 1e-5 {
-            let hw = 0.5 * w as f32;
-            let hh = 0.5 * h as f32;
-            let c = angle.cos() as f32;
-            let s = angle.sin() as f32;
-            Matrix3::new(
-                1.0, 0.0, x as f32 + hw,
-                0.0, 1.0, y as f32 + hh,
-                0.0, 0.0, 1.0,
-            ) * Matrix3::new(
-                 c,  -s,  0.0,
-                 s,   c,  0.0,
-                0.0, 0.0, 1.0,
-            ) * Matrix3::new(
-                w as f32, 0.0,      -hw,
-                0.0,      h as f32, -hh,
-                0.0,      0.0,      1.0,
-            )
-        } else {
-            Matrix3::new(
-                w as f32, 0.0,      x as f32,
-                0.0,      h as f32, y as f32,
-                0.0,      0.0,      1.0,
-            )
-        }
-    };
+   let transform: Matrix3<f32> = dims.projection * {
+      if angle.abs() > 1e-5 {
+         let hw = 0.5 * w as f32;
+         let hh = 0.5 * h as f32;
+         let c = angle.cos() as f32;
+         let s = angle.sin() as f32;
+         Matrix3::new(
+            1.0, 0.0, x as f32 + hw,
+            0.0, 1.0, y as f32 + hh,
+            0.0, 0.0, 1.0,
+         ) * Matrix3::new(
+             c,  -s,  0.0,
+             s,   c,  0.0,
+            0.0, 0.0, 1.0,
+         ) * Matrix3::new(
+            w as f32, 0.0,      -hw,
+            0.0,      h as f32, -hh,
+            0.0,      0.0,      1.0,
+         )
+      } else {
+         Matrix3::new(
+            w as f32, 0.0,      x as f32,
+            0.0,      h as f32, y as f32,
+            0.0,      0.0,      1.0,
+         )
+      }
+   };
    #[rustfmt::skip]
-    let texture: Matrix3<f32> = Matrix3::new(
-        tw as f32, 0.0,       tx as f32,
-        0.0,      th as f32, ty as f32,
-        0.0,       0.0,       1.0,
-    );
+   let texture: Matrix3<f32> = Matrix3::new(
+      tw as f32, 0.0,       tx as f32,
+      0.0,      th as f32, ty as f32,
+      0.0,       0.0,       1.0,
+   );
    let data = TextureUniform {
-      texture,
-      transform,
+      texture: texture.into(),
+      transform: transform.into(),
       colour,
    };
 
@@ -1782,7 +1782,7 @@ pub extern "C" fn gl_renderSDF(
         }
     };
    let data = TextureUniform {
-      transform,
+      transform: transform.into(),
       colour,
       ..Default::default()
    };

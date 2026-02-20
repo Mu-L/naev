@@ -5,6 +5,7 @@ use glow::*;
 use helpers::atomicfloat::AtomicF32;
 use naev_core::start;
 use nalgebra::{Matrix3, Matrix4, Point3, Vector2, Vector3, Vector4};
+use physics::transform2::Transform2;
 use physics::vec2::Vec2;
 use sdl3 as sdl;
 use std::ffi::CStr;
@@ -94,20 +95,11 @@ impl<T: ShaderSize + encase::internal::WriteInto> Uniform for T {
 }
 
 #[repr(C)]
-#[derive(Debug, Copy, Clone, ShaderType)]
+#[derive(Default, Debug, Copy, Clone, ShaderType)]
 pub struct TextureUniform {
-   pub texture: Matrix3<f32>,
-   pub transform: Matrix3<f32>,
+   pub texture: Transform2,
+   pub transform: Transform2,
    pub colour: Colour,
-}
-impl Default for TextureUniform {
-   fn default() -> Self {
-      Self {
-         texture: Matrix3::identity(),
-         transform: Matrix3::identity(),
-         colour: Default::default(),
-      }
-   }
 }
 
 #[repr(C)]

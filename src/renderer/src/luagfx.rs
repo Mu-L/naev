@@ -103,8 +103,8 @@ impl UserData for LuaGfx {
                 );
             let colour = col.unwrap_or(colour::WHITE);
             let data = TextureUniform {
-               texture,
-               transform,
+               texture: texture.into(),
+               transform: transform.into(),
                colour: colour.into(),
             };
             Ok(tex.draw_ex(Context::get(), &data)?)
@@ -212,8 +212,8 @@ impl UserData for LuaGfx {
                 );
             let colour = col.unwrap_or(colour::WHITE);
             let data = TextureUniform {
-               texture,
-               transform,
+               texture: texture.into(),
+               transform: transform.into(),
                colour: colour.into(),
             };
             Ok(tex.draw_ex(Context::get(), &data)?)
