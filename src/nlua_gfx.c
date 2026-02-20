@@ -1091,18 +1091,7 @@ static int gfxL_setScissor( lua_State *L )
  */
 static int gfxL_screenshot( lua_State *L )
 {
-   const LuaCanvas_t *lc;
-   int                mustfree;
-
-   /* Set up canvas or try to reuse. */
-   if ( lua_iscanvas( L, 1 ) ) {
-      lc       = luaL_checkcanvas( L, 1 );
-      mustfree = 0;
-   } else {
-      lc       = canvas_new( gl_screen.rw, gl_screen.rh );
-      mustfree = 1;
-   }
-
+   const LuaCanvas_t *lc = canvas_new( gl_screen.rw, gl_screen.rh );
    /* Copy over. */
    glTexture *tex = canvas_tex( lc );
    glBindFramebuffer( GL_READ_FRAMEBUFFER, 0 );
@@ -1116,11 +1105,8 @@ static int gfxL_screenshot( lua_State *L )
    gl_freeTexture( tex );
    if ( gl_checkErr() )
       NLUA_ERROR( L, _( "OpenGL Error!" ) );
-   if ( mustfree ) {
-      lua_pushcanvas( L, lc );
-      return 1;
-   }
-   return 0;
+   lua_pushcanvas( L, lc );
+   return 1;
 }
 
 /**

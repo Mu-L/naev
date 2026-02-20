@@ -458,6 +458,13 @@ pub fn open_canvas(lua: &mlua::Lua) -> anyhow::Result<mlua::AnyUserData> {
             )))
          })?;
       lua.set_named_registry_value("get_canvas", get_canvas)?;
+
+      let get_canvas_fbo = lua.create_function(
+         |_, ud: mlua::UserDataRef<FramebufferWrap>| -> mlua::Result<i32> {
+            Ok(Into::<u32>::into(ud.framebuffer.0) as i32)
+         },
+      )?;
+      lua.set_named_registry_value("get_canvas_fbo", get_canvas_fbo)?;
    }
 
    Ok(proxy)
@@ -501,6 +508,22 @@ pub extern "C" fn lua_tocanvas(L: *mut mlua::lua_State, idx: c_int) -> *mut Fram
       let canvas = match ffi::lua_pcall(L, 1, 1, 0) {
          ffi::LUA_OK => ffi::lua_touserdata(L, -1) as *mut FramebufferWrap,
          _ => std::ptr::null_mut(),
+      };
+      ffi::lua_pop(L, 1);
+      canvas
+   }
+}
+
+#[allow(non_snake_case)]
+#[unsafe(no_mangle)]
+pub extern "C" fn luaL_checkcanvasfbo(L: *mut mlua::lua_State, idx: c_int) -> i32 {
+   unsafe {
+      let idx = ffi::lua_absindex(L, idx);
+      ffi::lua_getfield(L, ffi::LUA_REGISTRYINDEX, c"get_canvas_fbo".as_ptr());
+      ffi::lua_pushvalue(L, idx);
+      let canvas = match ffi::lua_pcall(L, 1, 1, 0) {
+         ffi::LUA_OK => ffi::lua_tointeger(L, -1) as i32,
+         _ => -1,
       };
       ffi::lua_pop(L, 1);
       canvas

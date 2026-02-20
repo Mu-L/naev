@@ -7127,10 +7127,11 @@ static int pilotL_render( lua_State *L )
  */
 static int pilotL_renderTo( lua_State *L )
 {
-   Pilot       *p  = luaL_validpilot( L, 1 );
-   LuaCanvas_t *lc = luaL_checkcanvas( L, 2 );
-   int          w, h;
-   double       eg;
+   Pilot *p = luaL_validpilot( L, 1 );
+   // LuaCanvas_t *lc = luaL_checkcanvas( L, 2 );
+   GLuint fbo = luaL_checkcanvasfbo( L, 2 );
+   int    w, h;
+   double eg;
 
    /* TODO handle when effects make the ship render larger than it really is.
     */
@@ -7153,8 +7154,7 @@ static int pilotL_renderTo( lua_State *L )
     * TODO fix this shit. */
    eg             = p->engine_glow;
    p->engine_glow = ( eg > 0.5 ) ? 1.0 : 0.0;
-   pilot_renderFramebuffer( p, canvas_fbo( lc ), gl_screen.rw, gl_screen.rh,
-                            NULL );
+   pilot_renderFramebuffer( p, fbo, gl_screen.rw, gl_screen.rh, NULL );
    p->engine_glow = eg;
 
    lua_pushnumber( L, w );
