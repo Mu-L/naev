@@ -463,7 +463,7 @@ impl Texture {
       }
       let scale = (w as f32 / self.texture.w as f32).min(h as f32 / self.texture.h as f32);
       let uniform = TextureScaleUniform {
-         transform: crate::ortho3(0.0, 1.0, 0.0, 1.0),
+         transform: crate::ortho3(0.0, 1.0, 0.0, 1.0).into(),
          scale,
          ..Default::default()
       };
@@ -526,11 +526,11 @@ impl Texture {
    pub fn draw(&self, ctx: &Context, x: f32, y: f32, w: f32, h: f32) -> Result<()> {
       let dims = ctx.dimensions.read().unwrap();
       #[rustfmt::skip]
-        let transform: Matrix3<f32> = dims.projection * Matrix3::new(
-             w,  0.0,  x,
-            0.0,  h,   y,
-            0.0, 0.0, 1.0,
-        );
+      let transform: Matrix3<f32> = dims.projection * Matrix3::new(
+          w,  0.0,  x,
+         0.0,  h,   y,
+         0.0, 0.0, 1.0,
+      );
       let uniform = TextureUniform {
          transform: transform.into(),
          ..Default::default()
@@ -597,13 +597,13 @@ impl Texture {
    ) -> Result<()> {
       let dims = ctx.dimensions.read().unwrap();
       #[rustfmt::skip]
-        let transform: Matrix3<f32> = dims.projection * Matrix3::new(
-             w,  0.0,  x,
-            0.0,  h,   y,
-            0.0, 0.0, 1.0,
-        );
+      let transform: Matrix3<f32> = dims.projection * Matrix3::new(
+          w,  0.0,  x,
+         0.0,  h,   y,
+         0.0, 0.0, 1.0,
+      );
       let uniform = TextureScaleUniform {
-         transform,
+         transform: transform.into(),
          scale,
          ..Default::default()
       };

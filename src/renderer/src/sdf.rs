@@ -8,11 +8,12 @@ use encase::ShaderType;
 use glow::HasContext;
 use nalgebra::{Matrix3, Vector4};
 use nlog::warn_err;
+use physics::transform2::Transform2;
 
 #[repr(C)]
 #[derive(Debug, Copy, Clone, Default, ShaderType)]
 pub struct CrossUniform {
-   pub transform: Matrix3<f32>,
+   pub transform: Transform2,
    pub colour: Colour,
    pub radius: f32,
 }
@@ -20,7 +21,7 @@ pub struct CrossUniform {
 #[repr(C)]
 #[derive(Debug, Copy, Clone, Default, ShaderType)]
 pub struct CircleUniform {
-   pub transform: Matrix3<f32>,
+   pub transform: Transform2,
    pub colour: Colour,
    pub radius: f32,
 }
@@ -28,7 +29,7 @@ pub struct CircleUniform {
 #[repr(C)]
 #[derive(Debug, Copy, Clone, Default, ShaderType)]
 pub struct CircleHollowUniform {
-   pub transform: Matrix3<f32>,
+   pub transform: Transform2,
    pub colour: Colour,
    pub radius: f32,
    pub width: f32,
@@ -104,13 +105,13 @@ impl SdfRenderer {
    pub fn draw_cross(&self, ctx: &Context, x: f32, y: f32, r: f32, colour: Colour) -> Result<()> {
       let dims = ctx.dimensions.read().unwrap();
       #[rustfmt::skip]
-        let transform: Matrix3<f32> = dims.projection * Matrix3::new(
-             r,  0.0,  x,
-            0.0,  r,   y,
-            0.0, 0.0, 1.0,
-        );
+      let transform: Matrix3<f32> = dims.projection * Matrix3::new(
+          r,  0.0,  x,
+         0.0,  r,   y,
+         0.0, 0.0, 1.0,
+      );
       let uniform = CrossUniform {
-         transform,
+         transform: transform.into(),
          colour,
          radius: r,
       };
@@ -121,13 +122,13 @@ impl SdfRenderer {
    pub fn draw_circle(&self, ctx: &Context, x: f32, y: f32, r: f32, colour: Colour) -> Result<()> {
       let dims = ctx.dimensions.read().unwrap();
       #[rustfmt::skip]
-        let transform: Matrix3<f32> = dims.projection * Matrix3::new(
-             r,  0.0,  x,
-            0.0,  r,   y,
-            0.0, 0.0, 1.0,
-        );
+      let transform: Matrix3<f32> = dims.projection * Matrix3::new(
+          r,  0.0,  x,
+         0.0,  r,   y,
+         0.0, 0.0, 1.0,
+      );
       let uniform = CircleUniform {
-         transform,
+         transform: transform.into(),
          colour,
          radius: r,
       };
@@ -146,13 +147,13 @@ impl SdfRenderer {
    ) -> Result<()> {
       let dims = ctx.dimensions.read().unwrap();
       #[rustfmt::skip]
-        let transform: Matrix3<f32> = dims.projection * Matrix3::new(
-             r,  0.0,  x,
-            0.0,  r,   y,
-            0.0, 0.0, 1.0,
-        );
+      let transform: Matrix3<f32> = dims.projection * Matrix3::new(
+          r,  0.0,  x,
+         0.0,  r,   y,
+         0.0, 0.0, 1.0,
+      );
       let uniform = CircleHollowUniform {
-         transform,
+         transform: transform.into(),
          colour,
          radius: r,
          width: w,

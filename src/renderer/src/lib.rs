@@ -112,8 +112,8 @@ pub struct TextureSDFUniform {
 #[repr(C)]
 #[derive(Debug, Copy, Clone, ShaderType)]
 pub struct TextureScaleUniform {
-   pub texture: Matrix3<f32>,
-   pub transform: Matrix3<f32>,
+   pub texture: Transform2,
+   pub transform: Transform2,
    pub colour: Colour,
    pub scale: f32,
    pub radius: f32,
@@ -121,11 +121,11 @@ pub struct TextureScaleUniform {
 impl Default for TextureScaleUniform {
    fn default() -> Self {
       Self {
-         texture: Matrix3::identity(),
-         transform: Matrix3::identity(),
+         texture: Transform2::default(),
+         transform: Transform2::default(),
          colour: Colour::default(),
          scale: 1.0,
-         radius: 4.0,
+         radius: 4.0, // Not default
       }
    }
 }
@@ -133,7 +133,7 @@ impl Default for TextureScaleUniform {
 #[repr(C)]
 #[derive(Default, Debug, Copy, Clone, ShaderType)]
 pub struct SolidUniform {
-   pub transform: Matrix3<f32>,
+   pub transform: Transform2,
    pub colour: Colour,
 }
 
@@ -891,12 +891,15 @@ impl Context {
    pub fn draw_rect(&self, x: f32, y: f32, w: f32, h: f32, colour: Colour) -> Result<()> {
       let dims = self.dimensions.read().unwrap();
       #[rustfmt::skip]
-        let transform: Matrix3<f32> = dims.projection * Matrix3::new(
-             w,  0.0,  x,
-            0.0,  h,   y,
-            0.0, 0.0, 1.0,
-        );
-      let uniform = SolidUniform { transform, colour };
+      let transform = dims.projection * Matrix3::new(
+          w,  0.0,  x,
+         0.0,  h,   y,
+         0.0, 0.0, 1.0,
+      );
+      let uniform = SolidUniform {
+         transform: transform.into(),
+         colour,
+      };
       self.draw_rect_ex(&uniform)
    }
 
