@@ -1,9 +1,12 @@
+use encase::ShaderType;
 use mlua::{Either, FromLua, Lua, MetaMethod, UserData, UserDataMethods, UserDataRef, Value};
 use nalgebra::{Matrix3, Point2, Vector2};
 use std::os::raw::c_void;
 
-#[derive(Copy, Clone, derive_more::From, derive_more::Into)]
-pub struct Transform2(Matrix3<f32>);
+#[derive(Copy, Clone, derive_more::From, derive_more::Into, ShaderType)]
+pub struct Transform2 {
+   t: Matrix3<f32>,
+}
 impl Default for Transform2 {
    fn default() -> Self {
       Self::new()
@@ -12,17 +15,18 @@ impl Default for Transform2 {
 impl Transform2 {
    #[rustfmt::skip]
    pub const fn new() -> Self {
-        Transform2(Matrix3::new(
+        Transform2{t: Matrix3::new(
             1.0, 0.0, 0.0,
             0.0, 1.0, 0.0,
-            0.0, 0.0, 1.0, ))
+            0.0, 0.0, 1.0, )}
     }
     #[rustfmt::skip]
    pub const fn new_from(data: &[f32; 6]) -> Self {
-        Transform2(Matrix3::new(
+        Transform2{ t: Matrix3::new(
             data[0], data[1], data[2],
             data[3], data[4], data[5],
-              0.0,     0.0,     1.0, ))
+              0.0,     0.0,     1.0, )
+        }
     }
 }
 
@@ -92,12 +96,12 @@ impl UserData for Transform2 {
       methods.add_meta_function(MetaMethod::ToString, |_, this: Self| {
          Ok(format!(
             "transform2(\n   {}, {}, {},\n   {}, {}, {}\n)",
-            this.0[(0, 0)],
-            this.0[(0, 1)],
-            this.0[(0, 2)],
-            this.0[(1, 0)],
-            this.0[(1, 1)],
-            this.0[(1, 2)],
+            this.t[(0, 0)],
+            this.t[(0, 1)],
+            this.t[(0, 2)],
+            this.t[(1, 0)],
+            this.t[(1, 1)],
+            this.t[(1, 2)],
          ))
       });
       /*@
@@ -108,11 +112,12 @@ impl UserData for Transform2 {
        *    @luatreturn Transform Result of multiplication.
        * @luafunc __mul
        */
-      methods.add_meta_function(MetaMethod::Mul, |_, (this, val): (Self, Self)| {
-         Ok(Transform2(val.0 * this.0))
-      });
-      methods.add_method_mut("mul", |_, this, val: Self| {
-         this.0 = val.0 * this.0;
+      methods.add_meta_function(
+         MetaMethod::Mul,
+         |_, (this, val): (Self, Self)| -> mlua::Result<Self> { Ok((val.t * this.t).into()) },
+      );
+      methods.add_method_mut("mul", |_, this, val: Self| -> mlua::Result<Self> {
+         this.t = val.t * this.t;
          Ok(*this)
       });
       /*@
@@ -126,7 +131,7 @@ impl UserData for Transform2 {
        */
       methods.add_method("get", |lua, this, ()| -> mlua::Result<mlua::Table> {
          let t = lua.create_table()?;
-         for r in this.0.row_iter() {
+         for r in this.t.row_iter() {
             let tr = lua.create_table()?;
             for v in r {
                let _ = tr.push(*v);
@@ -147,7 +152,7 @@ impl UserData for Transform2 {
       methods.add_method_mut(
          "set",
          |_, this, (i, j, v): (usize, usize, f32)| -> mlua::Result<()> {
-            match this.0.get_mut((i, j)) {
+            match this.t.get_mut((i, j)) {
                Some(data) => {
                   *data = v;
                   Ok(())
@@ -171,7 +176,7 @@ impl UserData for Transform2 {
       methods.add_method(
          "scale",
          |_, this, (x, y): (f32, f32)| -> mlua::Result<Self> {
-            Ok(Self(this.0.prepend_nonuniform_scaling(&Vector2::new(x, y))))
+            Ok((this.t.prepend_nonuniform_scaling(&Vector2::new(x, y))).into())
          },
       );
       /*@
@@ -186,7 +191,7 @@ impl UserData for Transform2 {
       methods.add_method(
          "translate",
          |_, this, (x, y): (f32, f32)| -> mlua::Result<Self> {
-            Ok(Self(this.0.prepend_translation(&Vector2::new(x, y))))
+            Ok((this.t.prepend_translation(&Vector2::new(x, y))).into())
          },
       );
       /*@
@@ -199,7 +204,7 @@ impl UserData for Transform2 {
        */
       methods.add_method("rotate2d", |_, this, angle: f32| -> mlua::Result<Self> {
          let rot = nalgebra::Rotation2::new(angle);
-         Ok(Self(this.0 * rot.to_homogeneous()))
+         Ok((this.t * rot.to_homogeneous()).into())
       });
       /*@
        * @brief Creates an orthogonal matrix.
@@ -216,7 +221,7 @@ impl UserData for Transform2 {
       methods.add_function(
          "ortho",
          |_, (left, right, bottom, top): (f32, f32, f32, f32)| -> mlua::Result<Self> {
-            Ok(Self(Matrix3::new(
+            Ok((Matrix3::new(
                2.0 / (right - left),
                0.0,
                -(right + left) / (right - left),
@@ -226,7 +231,8 @@ impl UserData for Transform2 {
                0.0,
                0.0,
                1.0,
-            )))
+            ))
+            .into())
          },
       );
       /*@
@@ -242,7 +248,7 @@ impl UserData for Transform2 {
       methods.add_method(
          "applyPoint",
          |_, this, (x, y): (f32, f32)| -> mlua::Result<(f32, f32)> {
-            let vec = this.0.transform_point(&Point2::new(x, y));
+            let vec = this.t.transform_point(&Point2::new(x, y));
             Ok((vec.x, vec.y))
          },
       );
@@ -262,7 +268,7 @@ impl UserData for Transform2 {
       methods.add_method(
          "applyDim",
          |_, this, (x, y): (f32, f32)| -> mlua::Result<(f32, f32)> {
-            let vec = this.0.transform_vector(&Vector2::new(x, y));
+            let vec = this.t.transform_vector(&Vector2::new(x, y));
             Ok((vec.x, vec.y))
          },
       );
