@@ -40,11 +40,6 @@ use gettext::gettext;
 use std::sync::atomic::AtomicBool;
 static _QUIT: AtomicBool = AtomicBool::new(false);
 
-/// Small wrapper to convert a C char* pointer to CStr
-unsafe fn cptr_to_cstr<'a>(s: *const c_char) -> &'a str {
-   unsafe { CStr::from_ptr(s).to_str().unwrap() }
-}
-
 /// Restarts the process, *should* be cross-platform
 pub fn restart() -> Result<()> {
    use std::env;
@@ -229,22 +224,22 @@ fn naevmain() -> Result<()> {
    unsafe {
       // Set up I/O.
       naevc::gettext_setLanguage(naevc::conf.language); /* now that we can find translations */
-      infox!(
-         gettext("Loaded configuration: {}"),
-         conf_file_path.display()
-      );
-      let mut buf = String::from(gettext("Read locations, searched in order:"));
-      let search_path = ndata::physfs::search_path()?;
-      buf.push_str("\n   ");
-      buf.push_str(&search_path.join("\n   "));
-      info!("{buf}");
-
-      /* Logging the cache path is noisy, noisy is good at the DEBUG level. */
-      infox!(
-         gettext("Write location: {}\n"),
-         cptr_to_cstr(naevc::PHYSFS_getWriteDir())
-      );
    }
+   infox!(
+      gettext("Loaded configuration: {}"),
+      conf_file_path.display()
+   );
+   let mut buf = String::from(gettext("Read locations, searched in order:"));
+   let search_path = ndata::physfs::search_path()?;
+   buf.push_str("\n   ");
+   buf.push_str(&search_path.join("\n   "));
+   info!("{buf}");
+
+   /* Logging the cache path is noisy, noisy is good at the DEBUG level. */
+   infox!(
+      gettext("Write location: {}\n"),
+      ndata::physfs::get_write_dir().display()
+   );
 
    nlua::init()?;
    //let _lua = nlua::NLua::new()?;
