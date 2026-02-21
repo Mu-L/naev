@@ -6,7 +6,7 @@ use ndata::env;
 use nlog::{debug, debugx, info, infox, warn, warn_err};
 use sdl3 as sdl;
 use std::ffi::{CStr, CString};
-use std::os::raw::{c_char, c_int, c_uint, c_void}; // Re-export for outter rust shenanigans
+use std::os::raw::{c_char, c_int, c_uint}; // Re-export for outter rust shenanigans
 use std::path::PathBuf;
 
 #[link(name = "naev")]
@@ -233,21 +233,11 @@ fn naevmain() -> Result<()> {
          gettext("Loaded configuration: {}"),
          conf_file_path.display()
       );
-      let search_path = naevc::PHYSFS_getSearchPath();
       let mut buf = String::from(gettext("Read locations, searched in order:"));
-      {
-         let mut i = 0;
-         loop {
-            let sp = *search_path.offset(i);
-            if sp.is_null() {
-               break;
-            }
-            buf.push_str(&format!("\n    {}", cptr_to_cstr(sp)));
-            i += 1;
-         }
-      }
+      let search_path = ndata::physfs::search_path()?;
+      buf.push_str("\n   ");
+      buf.push_str(&search_path.join("\n   "));
       info!("{buf}");
-      naevc::PHYSFS_freeList(search_path as *mut c_void);
 
       /* Logging the cache path is noisy, noisy is good at the DEBUG level. */
       infox!(

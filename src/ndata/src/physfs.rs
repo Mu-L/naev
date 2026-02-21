@@ -398,3 +398,19 @@ pub fn remove_file<P: AsRef<Path>>(path: P) -> Result<()> {
       _ => Ok(()),
    }
 }
+
+pub fn search_path() -> Result<Vec<String>> {
+   let search_path = unsafe { naevc::PHYSFS_getSearchPath() };
+   let mut paths = vec![];
+   let mut i = 0;
+   loop {
+      let sp = unsafe { *search_path.offset(i) };
+      if sp.is_null() {
+         break;
+      }
+      paths.push(unsafe { CStr::from_ptr(sp).to_str().unwrap().to_owned() });
+      i += 1;
+   }
+   unsafe { naevc::PHYSFS_freeList(search_path as *mut c_void) };
+   Ok(paths)
+}

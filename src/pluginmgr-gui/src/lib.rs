@@ -4,7 +4,7 @@ use fs_err as fs;
 use iced::task::{Sipper, Straw, sipper};
 use iced::{Task, widget};
 use nlog::gettext::{gettext, pgettext};
-use nlog::warn_err;
+use nlog::{info, warn_err};
 use pluginmgr::install;
 use pluginmgr::install::Installer;
 use pluginmgr::plugin::{Identifier, Plugin, ReleaseStatus};
@@ -27,6 +27,12 @@ const SHADOW: iced::Shadow = iced::Shadow {
 /// Opens the plugin manager. Requires a different process if using OpenGL / Vulkan.
 pub fn open() -> Result<()> {
    let icon = iced::window::icon::from_file_data(App::ICON, None).ok();
+
+   let mut buf = String::from(gettext("Read locations, searched in order:"));
+   let search_path = ndata::physfs::search_path()?;
+   buf.push_str("\n   ");
+   buf.push_str(&search_path.join("\n   "));
+   info!("{}", buf);
 
    // Load the fonts the same way Naev does
    let fonts: Vec<_> = gettext("Cabin-SemiBold.otf,NanumBarunGothicBold.ttf,SourceCodePro-Semibold.ttf,IBMPlexSansJP-Medium.otf")
@@ -887,7 +893,8 @@ impl App {
                   None => row![name],
                }
                .align_y(Vertical::Center)
-               .spacing(5),
+               .spacing(5)
+               .wrap(),
                text(p.r#abstract.as_str()),
                text(p.tags.join(", ")),
             ]
