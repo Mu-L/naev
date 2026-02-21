@@ -5,7 +5,7 @@ use fs_err as fs;
 use ndata::env;
 use nlog::{debug, debugx, info, infox, warn, warn_err};
 use sdl3 as sdl;
-use std::ffi::{CStr, CString};
+use std::ffi::CString;
 use std::os::raw::{c_char, c_int, c_uint}; // Re-export for outter rust shenanigans
 use std::path::PathBuf;
 

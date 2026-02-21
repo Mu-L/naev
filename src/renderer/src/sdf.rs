@@ -45,11 +45,11 @@ pub struct CircleHollowUniform {
 }
 
 macro_rules! draw_sdf_func_ex {
-   ($funcname: ident, $uniform: ty, $program: tt, $buffer: tt) => {
+   ($funcname: ident, $vao: tt, $uniform: ty, $program: tt, $buffer: tt) => {
       pub fn $funcname(&self, ctx: &Context, uniform: &$uniform) -> Result<()> {
          let gl = &ctx.gl;
          self.$program.use_program(gl);
-         ctx.vao_center.bind(ctx);
+         ctx.$vao.bind(ctx);
          self.$buffer.bind_write_base(ctx, &uniform.buffer()?, 0)?;
          unsafe {
             gl.draw_arrays(glow::TRIANGLE_STRIP, 0, 4);
@@ -152,6 +152,7 @@ impl SdfRenderer {
    }
    draw_sdf_func_ex!(
       draw_rect_hollow_ex,
+      vao_square,
       RectHollowUniform,
       program_rect_hollow,
       buffer_rect_hollow
@@ -172,7 +173,13 @@ impl SdfRenderer {
       };
       self.draw_cross_ex(ctx, &uniform)
    }
-   draw_sdf_func_ex!(draw_cross_ex, CrossUniform, program_cross, buffer_cross);
+   draw_sdf_func_ex!(
+      draw_cross_ex,
+      vao_center,
+      CrossUniform,
+      program_cross,
+      buffer_cross
+   );
 
    pub fn draw_circle(&self, ctx: &Context, x: f32, y: f32, r: f32, colour: Colour) -> Result<()> {
       let dims = ctx.dimensions.read().unwrap();
@@ -189,7 +196,13 @@ impl SdfRenderer {
       };
       self.draw_circle_ex(ctx, &uniform)
    }
-   draw_sdf_func_ex!(draw_circle_ex, CircleUniform, program_circle, buffer_circle);
+   draw_sdf_func_ex!(
+      draw_circle_ex,
+      vao_center,
+      CircleUniform,
+      program_circle,
+      buffer_circle
+   );
 
    pub fn draw_circle_hollow(
       &self,
@@ -217,6 +230,7 @@ impl SdfRenderer {
    }
    draw_sdf_func_ex!(
       draw_circle_hollow_ex,
+      vao_center,
       CircleHollowUniform,
       program_circle_hollow,
       buffer_circle_hollow
@@ -225,13 +239,17 @@ impl SdfRenderer {
 
 use std::ffi::{c_double, c_int};
 
+fn get_col(c: *const Vector4<f32>) -> Colour {
+   match c.is_null() {
+      true => Colour::default(),
+      false => unsafe { *c }.into(),
+   }
+}
+
 #[unsafe(no_mangle)]
 pub extern "C" fn gl_renderCross(x: c_double, y: c_double, r: c_double, c: *const Vector4<f32>) {
    let ctx = Context::get();
-   let colour = match c.is_null() {
-      true => Colour::default(),
-      false => unsafe { *c }.into(),
-   };
+   let colour = get_col(c);
    if let Err(e) = ctx
       .sdf
       .draw_cross(ctx, x as f32, y as f32, r as f32, colour)
@@ -249,10 +267,7 @@ pub extern "C" fn gl_renderCircle(
    filled: c_int,
 ) {
    let ctx = Context::get();
-   let colour = match c.is_null() {
-      true => Colour::default(),
-      false => unsafe { *c }.into(),
-   };
+   let colour = get_col(c);
    let x = x as f32;
    let y = y as f32;
    let r = r as f32;
@@ -262,6 +277,48 @@ pub extern "C" fn gl_renderCircle(
       ctx.sdf.draw_circle_hollow(&ctx, x, y, r, colour, 0.0)
    };
    if let Err(e) = res {
+      warn_err!(e);
+   }
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn gl_renderRectEmpty(
+   x: c_double,
+   y: c_double,
+   w: c_double,
+   h: c_double,
+   c: *const Vector4<f32>,
+) {
+   let ctx = Context::get();
+   let colour = get_col(c);
+   if let Err(e) = ctx
+      .sdf
+      .draw_rect_hollow(&ctx, x as f32, y as f32, w as f32, h as f32, 0.0, colour)
+   {
+      warn_err!(e);
+   }
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn gl_renderRectEmptyThick(
+   x: c_double,
+   y: c_double,
+   w: c_double,
+   h: c_double,
+   b: c_double,
+   c: *const Vector4<f32>,
+) {
+   let ctx = Context::get();
+   let colour = get_col(c);
+   if let Err(e) = ctx.sdf.draw_rect_hollow(
+      &ctx,
+      x as f32,
+      y as f32,
+      w as f32,
+      h as f32,
+      b as f32 - 1.0,
+      colour,
+   ) {
       warn_err!(e);
    }
 }
