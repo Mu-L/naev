@@ -104,6 +104,7 @@
    * Fixed rare crash when NPCs jump out
    * Fixed online resizing on high dpi screens
    * Fixed faction hits being larger than expected in some cases
+   * Propagate parameters to plugin manager when launched
    * Spelling and grammar fixes
    * Translation updates
 
