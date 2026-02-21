@@ -838,7 +838,14 @@ impl FactionData {
             "lane_length_per_presence" => fct.lane_length_per_presence = nxml::node_f32(node)?,
             "lane_base_cost" => fct.lane_base_cost = nxml::node_f32(node)?,
             "colour" => {
-               fct.colour = Colour::from_name(nxml::node_str(node)?).unwrap_or(colour::WHITE)
+               if let Some(r) = node.attribute("r")
+                  && let Some(g) = node.attribute("g")
+                  && let Some(b) = node.attribute("b")
+               {
+                  fct.colour = Colour::from_gamma(r.parse()?, g.parse()?, b.parse()?);
+               } else {
+                  fct.colour = Colour::from_name(nxml::node_str(node)?).unwrap_or(colour::WHITE)
+               }
             }
             "logo" => {
                let gfxname = nxml::node_texturepath(node, "gfx/logo/")?;
