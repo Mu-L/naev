@@ -8,7 +8,7 @@ use regex::Regex;
 use serde::{Deserialize, Deserializer};
 use std::collections::VecDeque;
 use std::ffi::CString;
-use std::os::raw::{c_char, c_double, c_int, c_ulong, c_void};
+use std::os::raw::{c_char, c_double, c_int, c_ulong};
 use std::sync::{LazyLock, Mutex, RwLock};
 
 // Internal multiplier used for everything
@@ -495,12 +495,9 @@ pub fn open_time(lua: &mlua::Lua) -> anyhow::Result<mlua::AnyUserData> {
       })?;
       lua.set_named_registry_value("push_time", push_time)?;
 
-      let get_time = lua.create_function(|_, mut ud: mlua::UserDataRefMut<NTime>| {
-         let time: *mut NTime = &mut *ud;
-         Ok(Value::LightUserData(mlua::LightUserData(
-            time as *mut c_void,
-         )))
-      })?;
+      let get_time = lua.create_function(
+         |_, ud: mlua::UserDataRef<NTime>| -> mlua::Result<naevc::ntime_t> { Ok(ud.0) },
+      )?;
       lua.set_named_registry_value("get_time", get_time)?;
    }
 
@@ -509,20 +506,18 @@ pub fn open_time(lua: &mlua::Lua) -> anyhow::Result<mlua::AnyUserData> {
 
 #[allow(non_snake_case)]
 #[unsafe(no_mangle)]
-pub extern "C" fn luaL_checktime(L: *mut mlua::lua_State, idx: c_int) -> *mut NTime {
-   unsafe {
-      let vec = lua_totime(L, idx);
-      if vec.is_null() {
-         ffi::luaL_typerror(L, idx, c"time".as_ptr() as *const c_char);
-      }
-      vec
-   }
-}
-
-#[allow(non_snake_case)]
-#[unsafe(no_mangle)]
 pub extern "C" fn lua_istime(L: *mut mlua::lua_State, idx: c_int) -> c_int {
-   !lua_totime(L, idx).is_null() as c_int
+   unsafe {
+      let idx = ffi::lua_absindex(L, idx);
+      ffi::lua_getfield(L, ffi::LUA_REGISTRYINDEX, c"get_time".as_ptr());
+      ffi::lua_pushvalue(L, idx);
+      let t = match ffi::lua_pcall(L, 1, 1, 0) {
+         ffi::LUA_OK => true,
+         _ => false,
+      };
+      ffi::lua_pop(L, 1);
+      t as c_int
+   }
 }
 
 #[allow(non_snake_case)]
@@ -537,24 +532,18 @@ pub extern "C" fn lua_pushtime(L: *mut mlua::lua_State, nt: naevc::ntime_t) {
 
 #[allow(non_snake_case)]
 #[unsafe(no_mangle)]
-pub extern "C" fn lua_totime(L: *mut mlua::lua_State, idx: c_int) -> *mut NTime {
+pub extern "C" fn luaL_validtime(L: *mut mlua::lua_State, idx: c_int) -> naevc::ntime_t {
    unsafe {
       let idx = ffi::lua_absindex(L, idx);
       ffi::lua_getfield(L, ffi::LUA_REGISTRYINDEX, c"get_time".as_ptr());
       ffi::lua_pushvalue(L, idx);
-      let vec = match ffi::lua_pcall(L, 1, 1, 0) {
-         ffi::LUA_OK => ffi::lua_touserdata(L, -1) as *mut NTime,
-         _ => std::ptr::null_mut(),
+      let t = match ffi::lua_pcall(L, 1, 1, 0) {
+         ffi::LUA_OK => ffi::luaL_checkinteger(L, -1),
+         _ => ffi::luaL_typerror(L, idx, c"time".as_ptr() as *const c_char).into(),
       };
       ffi::lua_pop(L, 1);
-      vec
+      t
    }
-}
-
-#[allow(non_snake_case)]
-#[unsafe(no_mangle)]
-pub extern "C" fn luaL_validtime(L: *mut mlua::lua_State, idx: c_int) -> naevc::ntime_t {
-   unsafe { (*luaL_checktime(L, idx)).0 }
 }
 
 #[unsafe(no_mangle)]

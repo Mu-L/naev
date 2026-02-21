@@ -305,7 +305,7 @@ static int nxml_persistDataNode( lua_State *L, xmlTextWriterPtr writer )
          /* key, value */
          break;
       } else if ( lua_istime( L, -1 ) ) {
-         ntime_t t = *lua_totime( L, -1 );
+         ntime_t t = luaL_validtime( L, -1 );
          snprintf( buf, sizeof( buf ), "%" PRId64, t );
          nxml_saveData( writer, TIME_METATABLE, name, name_len, buf, keynum );
          /* key, value */
