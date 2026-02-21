@@ -4,6 +4,7 @@
 #pragma once
 
 #include "colour.h"
+#include "mat3.h"
 #include "mat4.h"
 #include "opengl_tex.h"
 #include "opengl_vbo.h"
@@ -135,7 +136,7 @@ void gl_renderRectEmpty( double x, double y, double w, double h,
                          const glColour *c );
 void gl_renderRectEmptyThick( double x, double y, double w, double h, double b,
                               const glColour *c );
-void gl_renderRectH( const mat4 *H, const glColour *c, int filled );
+void gl_renderRectH( const mat3 *H, const glColour *c, int filled );
 
 /* Cross. */
 void gl_renderCross( double x, double y, double r, const glColour *c );

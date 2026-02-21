@@ -134,6 +134,7 @@ void gl_renderRectHalf( double x, double y, double w, double h,
    gl_endSolidProgram();
 }
 
+#if 0
 /**
  * @brief Renders a rectangle.
  *
@@ -141,7 +142,7 @@ void gl_renderRectHalf( double x, double y, double w, double h,
  *    @param filled Whether or not to fill.
  *    @param c Rectangle colour.
  */
-void gl_renderRectH( const mat4 *H, const glColour *c, int filled )
+void gl_renderRectH( const mat3 *H, const glColour *c, int filled )
 {
    gl_beginSolidProgram( *H, c );
    if ( filled ) {
@@ -156,7 +157,6 @@ void gl_renderRectH( const mat4 *H, const glColour *c, int filled )
    gl_endSolidProgram();
 }
 
-#if 0
 /**
  * @brief Renders a cross at a given position.
  *

@@ -322,3 +322,28 @@ pub extern "C" fn gl_renderRectEmptyThick(
       warn_err!(e);
    }
 }
+
+#[unsafe(no_mangle)]
+pub extern "C" fn gl_renderRectH(t: *const Matrix3<f32>, c: *const Vector4<f32>, filled: c_int) {
+   let ctx = Context::get();
+   let transform = unsafe { *t };
+   let colour = get_col(c);
+   let ret = if filled != 0 {
+      let uniform = crate::SolidUniform {
+         transform: transform.into(),
+         colour,
+      };
+      ctx.draw_rect_ex(&uniform)
+   } else {
+      let uniform = RectHollowUniform {
+         transform: transform.into(),
+         colour,
+         dims: Vector2::new(0.0, 0.0),
+         border: 0.0,
+      };
+      ctx.sdf.draw_rect_hollow_ex(&ctx, &uniform)
+   };
+   if let Err(e) = ret {
+      warn_err!(e);
+   }
+}

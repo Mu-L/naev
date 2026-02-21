@@ -452,15 +452,10 @@ static int gfxL_renderRect( lua_State *L )
 static int gfxL_renderRectH( lua_State *L )
 {
    /* Parse parameters. */
-   const mat3 *M = luaL_checktransform( L, 1 );
-   mat4        H;
-   mat4_from_mat3( &H, M );
+   const mat3     *M     = luaL_checktransform( L, 1 );
    const glColour *col   = luaL_optcolour( L, 2, &cWhite );
    int             empty = lua_toboolean( L, 3 );
-
-   /* Render. */
-   gl_renderRectH( &H, col, !empty );
-
+   gl_renderRectH( M, col, !empty );
    return 0;
 }
 
