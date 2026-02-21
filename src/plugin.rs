@@ -172,6 +172,7 @@ pub fn manager() -> Result<()> {
     MANAGER_OPEN.store(true, Ordering::SeqCst);
     std::thread::spawn(move || {
         match cargo_util::ProcessBuilder::new(exe)
+            .args( &std::env::args_os().collect::<Vec<_>>() )
             .arg("--pluginmanager")
             .exec()
         {
