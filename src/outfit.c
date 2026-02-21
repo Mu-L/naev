@@ -2262,7 +2262,7 @@ static void outfit_parseSBolt( Outfit *temp, const xmlNodePtr parent )
    MELEMENT( temp->u.blt.gfx.size < 0., "gfx" );
    // MELEMENT( temp->u.blt.spfx_shield == -1, "spfx_shield" );
    // MELEMENT( temp->u.blt.spfx_armour == -1, "spfx_armour" );
-   MELEMENT( !conf.nosound && temp->u.blt.sound == NULL, "sound" );
+   // MELEMENT( !conf.nosound && temp->u.blt.sound == NULL, "sound" );
    MELEMENT( temp->mass == 0., "mass" );
    MELEMENT( temp->u.blt.delay == 0, "delay" );
    MELEMENT( temp->u.blt.speed == 0, "speed" );
@@ -2447,7 +2447,7 @@ static void outfit_parseSBeam( Outfit *temp, const xmlNodePtr parent )
                 ( temp->u.bem.sound_warmup == NULL ),
              "sound_warmup" );
    MELEMENT( !conf.nosound && temp->u.bem.sound == NULL, "sound" );
-   MELEMENT( !conf.nosound && temp->u.bem.sound_off == NULL, "sound_off" );
+   // MELEMENT( !conf.nosound && temp->u.bem.sound_off == NULL, "sound_off" );
    MELEMENT( temp->u.bem.delay == 0, "delay" );
    MELEMENT( temp->u.bem.duration == 0, "duration" );
    MELEMENT( temp->u.bem.min_delay < 0, "delay" );
