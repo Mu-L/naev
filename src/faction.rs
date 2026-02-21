@@ -1165,6 +1165,24 @@ impl UserData for FactionRef {
          Ok(this.call(|fct| fct.data.shortname().to_string())?)
       });
       /*@
+       * @brief equality (`__eq()`) metamethod for factions.
+       *
+       * You can use the `==` operator within Lua to compare factions with this.
+       *
+       * @usage if f == faction.get( "Dvaered" ) then
+       *
+       *    @luatparam Faction f Faction comparing.
+       *    @luatparam Faction comp faction to compare against.
+       *    @luatreturn boolean true if both factions are the same.
+       * @luafunc __eq
+       */
+      methods.add_meta_function(
+         MetaMethod::Eq,
+         |_,
+          (this, other): (UserDataRef<FactionRef>, UserDataRef<FactionRef>)|
+          -> mlua::Result<bool> { Ok(*this == *other) },
+      );
+      /*@
        * @brief Gets a faction if it exists.
        *
        * @usage f = faction.exists( "Empire" )

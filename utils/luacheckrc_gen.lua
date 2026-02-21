@@ -175,6 +175,7 @@ stds.faction = {
       faction = {
          fields = {
             __tostring = {},
+            __eq = {},
             exists = {},
             get = {},
             getAll = {},
