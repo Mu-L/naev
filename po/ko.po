@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ofenthource\n"
 "Report-Msgid-Bugs-To: https://codeberg.org/naev/naev/issues\n"
 "POT-Creation-Date: 2026-02-23 21:29+0900\n"
-"PO-Revision-Date: 2026-05-29 08:09+0000\n"
+"PO-Revision-Date: 2026-05-29 17:49+0000\n"
 "Last-Translator: daemul72 <daemul72@noreply.codeberg.org>\n"
 "Language-Team: Korean <https://translate.codeberg.org/projects/naev/naev/ko/>"
 "\n"
@@ -26,25 +26,23 @@ msgid "<widget mainimg />"
 msgstr ""
 
 msgid "# <%= o:name() %>"
-msgstr ""
+msgstr "# <%= o:name() %>"
 
 #, fuzzy
 msgid "<widget wgtdescription />"
 msgstr "설명 할 수 없음."
 
-#, fuzzy
 msgid "## Properties"
-msgstr "해적 황조롱이"
+msgstr "## 속성"
 
 msgid "<widget wgtsummary />"
 msgstr ""
 
-#, fuzzy
 msgid "## Availability"
-msgstr "비안정된 %s성운"
+msgstr "## 구매 가능 지역"
 
 msgid "Places where <%= o:name() %> are sold are shown in #ggreen#0."
-msgstr ""
+msgstr "<%= o:name() %> 판매 장소는 #ggreen#0으로 표시됩니다."
 
 msgid "<widget map />"
 msgstr ""
@@ -1438,7 +1436,7 @@ msgid "<widget rightstats />"
 msgstr ""
 
 msgid "# <%= s:name() %>"
-msgstr ""
+msgstr "# <%= s:name() %>"
 
 msgid "* **[Class](ships/classes)**:   <%= _(s:classDisplay()) %>"
 msgstr ""
@@ -1481,7 +1479,7 @@ msgid "* **License**:   <%= _(s:license()) %>"
 msgstr ""
 
 msgid "Places where the <%= s:name() %> is sold are shown in #ggreen#0."
-msgstr ""
+msgstr "<%= s:name() %> 판매 장소는 #ggreen#0으로 표시됩니다."
 
 msgid ""
 "You are not aware of anywhere where the <%= s:name() %> is available for "
@@ -1929,9 +1927,8 @@ msgstr ""
 msgid "Main"
 msgstr "기본"
 
-#, fuzzy
 msgid "# Welcome to the Holo-Archives!"
-msgstr "네뷸라에 온것을 환영합니다"
+msgstr "# 홀로 아카이브에 오신 것을 환영합니다!"
 
 msgid ""
 "Here you can find an assortment of data collected throughout your adventures "
@@ -1959,7 +1956,7 @@ msgid "Lore Overview"
 msgstr ""
 
 msgid "# Lore"
-msgstr ""
+msgstr "# 세계관"
 
 msgid "* [History](lore/history)"
 msgstr ""
@@ -1968,17 +1965,15 @@ msgstr ""
 msgid "Fabricators"
 msgstr "잘렉의 제작사"
 
-#, fuzzy
 msgid "# Fabricators"
-msgstr "잘렉의 제작사"
+msgstr "# 제조사"
 
 msgid ""
 "There are a variety of fabricators that produce different ships and outfits."
 msgstr ""
 
-#, fuzzy
 msgid "## Independent"
-msgstr "드 베어드 벤데타"
+msgstr "## 독립 제조사"
 
 msgid ""
 "* **Melendez Corp.**: Focuses on large cargo-oriented trade ships and heavy "
@@ -2023,7 +2018,7 @@ msgid ""
 msgstr ""
 
 msgid "## Houses"
-msgstr ""
+msgstr "## 가문"
 
 msgid ""
 "* **House Goddard**: Makes the [Goddard](ships/goddard) and is involved in "
@@ -2051,7 +2046,7 @@ msgid ""
 msgstr ""
 
 msgid "## Other"
-msgstr ""
+msgstr "## 기타"
 
 msgid ""
 "* **Soromid**: Uses advanced genetic techniques to grow and train biological "
@@ -2083,16 +2078,14 @@ msgstr ""
 msgid "Factions"
 msgstr "팩션:"
 
-#, fuzzy
 msgid "# Factions"
-msgstr "팩션:"
+msgstr "# 세력"
 
 msgid "There are a variety of factions that vie for control of the universe."
 msgstr ""
 
-#, fuzzy
 msgid "## The Empire"
-msgstr "국경을 위해!"
+msgstr "## 제국"
 
 msgid "* [The Empire](lore/factions/empire)"
 msgstr ""
@@ -2112,9 +2105,8 @@ msgstr ""
 msgid "* House Yetmer-O'rez"
 msgstr ""
 
-#, fuzzy
 msgid "## Independent Factions"
-msgstr "슈뢰딩거"
+msgstr "## 독립 세력"
 
 msgid "* [Soromid](lore/factions/soromid)"
 msgstr ""
@@ -2144,9 +2136,8 @@ msgstr ""
 msgid "* [Sovereign Proteron Autarchy](lore/factions/proteron)"
 msgstr ""
 
-#, fuzzy
 msgid "## Pirates"
-msgstr "해적 황조롱이"
+msgstr "## 해적"
 
 msgid "* [Galactic Space Pirates](lore/factions/pirates)"
 msgstr ""
@@ -2178,7 +2169,7 @@ msgid "<widget wgtfct />"
 msgstr ""
 
 msgid "# Great House Dvaered"
-msgstr ""
+msgstr "# 드바에레드 대가문"
 
 msgid ""
 "House Dvaered is one of the Great Houses of [the Empire](lore/factions/"
@@ -2212,9 +2203,8 @@ msgid ""
 "through medals and commendations."
 msgstr ""
 
-#, fuzzy
 msgid "## Organization"
-msgstr "옵션"
+msgstr "## 조직"
 
 msgid "* **Leader:** Warlords of various lesser houses"
 msgstr ""
@@ -2232,7 +2222,7 @@ msgid "* **Homeworld:** Dvaered High Command (Dvaer system)"
 msgstr ""
 
 msgid "## History"
-msgstr ""
+msgstr "## 역사"
 
 msgid ""
 "House Dvaered came forth from a lower caste in the old Empire, a collection "
@@ -2290,9 +2280,8 @@ msgid ""
 "and discipline were etched into the Dvaered soul."
 msgstr ""
 
-#, fuzzy
 msgid "## Government"
-msgstr "토너먼트"
+msgstr "## 정부"
 
 msgid "Today, House Dvaered is ruled by the Generals of Dvaered High Command."
 msgstr ""
@@ -2317,9 +2306,8 @@ msgid ""
 "society."
 msgstr ""
 
-#, fuzzy
 msgid "### Warlords"
-msgstr "드바에레드 순찰대"
+msgstr "### 군벌"
 
 msgid ""
 "When a General retires from High Command, they often take with them a small "
@@ -2342,9 +2330,8 @@ msgid ""
 "will be surprised when suddenly a new set of local laws will be passed."
 msgstr ""
 
-#, fuzzy
 msgid "### Citizens"
-msgstr "프로 테론 유도체"
+msgstr "### 시민"
 
 msgid "The Dvaered citizenry itself is barely worthy of the name."
 msgstr ""
@@ -2368,9 +2355,8 @@ msgid ""
 "where they pursue their idea of luxury."
 msgstr ""
 
-#, fuzzy
 msgid "### Warlords and Dvaered High Command"
-msgstr "드 베어드 경계"
+msgstr "### 군벌과 드바에레드 최고사령부"
 
 msgid ""
 "While every Dvaered controlled world is governed by a Warlord at any given "
@@ -2398,9 +2384,8 @@ msgstr ""
 msgid "The Empire"
 msgstr "국경을 위해!"
 
-#, fuzzy
 msgid "# The Empire"
-msgstr "국경을 위해!"
+msgstr "# 제국"
 
 msgid "The Empire is the backbone of modern civilization."
 msgstr ""
@@ -2505,7 +2490,7 @@ msgid "Many believe this Emperor's reign will not last much longer."
 msgstr ""
 
 msgid "## Territory"
-msgstr ""
+msgstr "## 영토"
 
 msgid ""
 "The Empire still has the largest territorial claim in the galaxy, holding a "
@@ -2544,7 +2529,7 @@ msgid ""
 msgstr ""
 
 msgid "## Economy"
-msgstr ""
+msgstr "## 경제"
 
 msgid ""
 "Civilian traders will not usually be able to trade with the Empire directly, "
@@ -2575,7 +2560,7 @@ msgid ""
 msgstr ""
 
 msgid "## Science and Technology"
-msgstr ""
+msgstr "## 과학과 기술"
 
 msgid ""
 "Most of the scientific research is conducted by [House Za'lek](lore/factions/"
@@ -2600,9 +2585,8 @@ msgid ""
 "[Lancelots](ships/empire_lancelot)."
 msgstr ""
 
-#, fuzzy
 msgid "## Political System"
-msgstr "시스템"
+msgstr "## 정치 체계"
 
 msgid ""
 "The Emperor is ultimately the seat of all power and has the ability to "
@@ -2621,7 +2605,7 @@ msgid ""
 msgstr ""
 
 msgid "### The Imperial Bureaucracy"
-msgstr ""
+msgstr "### 제국 관료제"
 
 msgid ""
 "The Council does not oversee the laws being carried out, that task falls to "
@@ -2679,7 +2663,7 @@ msgid ""
 msgstr ""
 
 msgid "### The Great Houses"
-msgstr ""
+msgstr "### 대가문"
 
 msgid ""
 "The Houses are still bound to the Empire via contracts but are effectively "
@@ -2709,7 +2693,7 @@ msgid ""
 msgstr ""
 
 msgid "### Minor Houses"
-msgstr ""
+msgstr "### 소가문"
 
 msgid "Next to the Great Houses, some Minor Houses exist, as well."
 msgstr ""
@@ -2763,7 +2747,7 @@ msgid "Dreamer Clan"
 msgstr ""
 
 msgid "# Galactic Space Pirates"
-msgstr ""
+msgstr "# 은하 우주 해적"
 
 msgid ""
 "The Galactic Space Pirates are split into two main groups: the clans and "
@@ -2800,9 +2784,8 @@ msgstr ""
 msgid "* **Homeworld:** Varies by Clan"
 msgstr ""
 
-#, fuzzy
 msgid "## Independent Pirates"
-msgstr "드 베어드 벤데타"
+msgstr "## 독립 해적"
 
 msgid ""
 "Formed by individuals that have given up on society and turned to piracy to "
@@ -2819,9 +2802,8 @@ msgid ""
 "clansworlds."
 msgstr ""
 
-#, fuzzy
 msgid "## Marauders"
-msgstr "소로미드 약탈자"
+msgstr "## 약탈자"
 
 msgid ""
 "Usually formed by individuals that are not fit by the clans due to extreme "
@@ -2834,9 +2816,8 @@ msgid ""
 "scraps, but they usually end up with short life spans."
 msgstr ""
 
-#, fuzzy
 msgid "## Pirate Assemblies"
-msgstr "그냥 비즈니스이다."
+msgstr "## 해적 의회"
 
 msgid ""
 "Usually occurring once a cycle, pirate assemblies are as formal of a "
@@ -2880,7 +2861,7 @@ msgid ""
 msgstr ""
 
 msgid "## Wild Ones Clan"
-msgstr ""
+msgstr "## 와일드 원스 클랜"
 
 msgid ""
 "Formed mainly by [Empire](lore/factions/empire) and [Soromid](lore/factions/"
@@ -2923,9 +2904,8 @@ msgid ""
 "strdreamerclan %>."
 msgstr ""
 
-#, fuzzy
 msgid "## Raven Clan"
-msgstr "해적 지골"
+msgstr "## 레이븐 클랜"
 
 msgid ""
 "Arguably the clan that connects all the pirates and maintains the "
@@ -2968,9 +2948,8 @@ msgid ""
 "anyone that has the credits to pay."
 msgstr ""
 
-#, fuzzy
 msgid "## Black Lotus"
-msgstr "검은 연꽃"
+msgstr "## 블랙 로터스"
 
 msgid ""
 "One of the most well organized pirate clans, the Black Lotus prides itself "
@@ -3007,9 +2986,8 @@ msgid ""
 "making failure rates extremely low."
 msgstr ""
 
-#, fuzzy
 msgid "## Dreamer Clan"
-msgstr "해적 지골"
+msgstr "## 드리머 클랜"
 
 msgid ""
 "The newest of the main pirate clans, the Dreamer Clan was able to capitalize "
@@ -3063,7 +3041,7 @@ msgid "Sovereign Proteron Autarchy"
 msgstr ""
 
 msgid "# Sovereign Proteron Autarchy"
-msgstr ""
+msgstr "# 주권 프로테론 전제국"
 
 msgid ""
 "Formed from the former Great House Proteron, the Sovereign Proteron Autarchy "
@@ -3086,9 +3064,8 @@ msgid ""
 "Emperor of caution."
 msgstr ""
 
-#, fuzzy
 msgid "## Oganization"
-msgstr "옵션"
+msgstr "## 조직"
 
 msgid "* **Leader:** High Autarch Python"
 msgstr ""
@@ -3105,9 +3082,8 @@ msgstr ""
 msgid "* **Homeworld:** ??? <!-- TODO: find the actual homeworld -->"
 msgstr ""
 
-#, fuzzy
 msgid "## House Proteron Society"
-msgstr "프로 테론 카한"
+msgstr "## 프로테론 가문 사회"
 
 msgid ""
 "House Proteron worlds were governed by a totalitarian regime that required "
@@ -3286,7 +3262,7 @@ msgid ""
 msgstr ""
 
 msgid "### The Sovereign Proteron Autarchy and the Incident"
-msgstr ""
+msgstr "### 주권 프로테론 전제국과 사건"
 
 msgid ""
 "With its new title, House Proteron enjoyed more freedom and independence "
@@ -3478,7 +3454,7 @@ msgid ""
 msgstr ""
 
 msgid "## Proteron military tactics"
-msgstr ""
+msgstr "## 프로테론 군사 전술"
 
 msgid ""
 "The Proteron favour pilots on the larger spaceships and keep smaller ships "
@@ -3532,7 +3508,7 @@ msgid "Great House Sirius"
 msgstr ""
 
 msgid "# Great House Sirius"
-msgstr ""
+msgstr "# 시리우스 대가문"
 
 msgid ""
 "The House Sirius is one of the Great Houses in [the Empire](lore/factions/"
@@ -3555,7 +3531,7 @@ msgid "* **Homeworld:** Mutris (Aesir system)"
 msgstr ""
 
 msgid "## Social Structure"
-msgstr ""
+msgstr "## 사회 구조"
 
 msgid "House Sirius is defined by its state religion more than anything else."
 msgstr ""
@@ -3665,7 +3641,7 @@ msgid "But higher still, at the pinnacle of House Sirius, stands Sirichana."
 msgstr ""
 
 msgid "## Sirichana"
-msgstr ""
+msgstr "## 시리차나"
 
 msgid ""
 "Sirichana, loosely translated \"lord of the Sirii\", is the focus of Sirius "
@@ -3770,7 +3746,7 @@ msgid ""
 msgstr ""
 
 msgid "## The Touched"
-msgstr ""
+msgstr "## 감화받은 자들"
 
 msgid "It begins anywhere in Sirius space, on any world, in any echelon."
 msgstr ""
@@ -3875,7 +3851,7 @@ msgid ""
 msgstr ""
 
 msgid "## House Sirius: Present day"
-msgstr ""
+msgstr "## 시리우스 가문: 현재"
 
 msgid ""
 "With the Incident in recent history and the Empire on the decline, House "
@@ -3906,9 +3882,8 @@ msgstr ""
 msgid "Soromid"
 msgstr "소로미드"
 
-#, fuzzy
 msgid "# Soromid"
-msgstr "소로미드 알스"
+msgstr "# 소로미드"
 
 msgid ""
 "The Soromid are a faction that although not a recognized Great House of [the "
@@ -3931,9 +3906,8 @@ msgstr ""
 msgid "* **Homeworld:** Kataka (Feye system)"
 msgstr ""
 
-#, fuzzy
 msgid "### Sorom"
-msgstr "소로미드 알스"
+msgstr "### 소롬"
 
 msgid ""
 "Sorom was a fairly hospitable planet, like many others in the galaxy during "
@@ -4016,7 +3990,7 @@ msgid "The people of Sorom were left to die."
 msgstr ""
 
 msgid "### Gene Treatment"
-msgstr ""
+msgstr "### 유전자 치료"
 
 msgid "The people of Sorom had been abandoned."
 msgstr ""
@@ -4112,7 +4086,7 @@ msgid "But it was enough."
 msgstr ""
 
 msgid "### The Soromid"
-msgstr ""
+msgstr "### 소로미드"
 
 msgid ""
 "The population of Sorom was drastically diminished, but those who survived "
@@ -4258,7 +4232,7 @@ msgid "However, the Soromid have the monopoly on anything beyond that."
 msgstr ""
 
 msgid "## Political Structure"
-msgstr ""
+msgstr "## 정치 구조"
 
 msgid ""
 "Instead of having a fixed political structure, the Soromid have a very loose "
@@ -4322,9 +4296,8 @@ msgstr ""
 msgid "Thurion"
 msgstr "튜리온"
 
-#, fuzzy
 msgid "# Thurion"
-msgstr "투리온의 독창성"
+msgstr "# 튜리온"
 
 msgid ""
 "The Thurion were originally a Great Project in [the Empire](lore/factions/"
@@ -4347,7 +4320,7 @@ msgid "* **Homeworld:** Sabe (Nava system)"
 msgstr ""
 
 msgid "### Project Thurion"
-msgstr ""
+msgstr "### 튜리온 계획"
 
 msgid ""
 "Project Thurion was a secret Great Project founded by [the Empire](lore/"
@@ -4489,7 +4462,7 @@ msgid "The bunker was never found by [the Empire](lore/factions/empire)."
 msgstr ""
 
 msgid "### Revival"
-msgstr ""
+msgstr "### 부흥"
 
 msgid ""
 "During the sterilization of Project Thurion, system entry was indefinitely "
@@ -4541,7 +4514,7 @@ msgid "Nobody remembered them, and nobody ever found them."
 msgstr ""
 
 msgid "### The Incident"
-msgstr ""
+msgstr "### 사건"
 
 msgid ""
 "Despite flourishing in the shadows, the Thurion were still very limited by "
@@ -4731,7 +4704,7 @@ msgid ""
 msgstr ""
 
 msgid "### The Gestalt Consciousness"
-msgstr ""
+msgstr "### 게슈탈트 의식"
 
 msgid ""
 "The minds of the first few test subjects that were uploaded were broken "
@@ -4937,9 +4910,8 @@ msgstr ""
 msgid "Their options are, however, very limited."
 msgstr ""
 
-#, fuzzy
 msgid "### Government"
-msgstr "토너먼트"
+msgstr "### 정부"
 
 msgid ""
 "Originally, the system used by the Thurion was direct democracy where all "
@@ -4968,9 +4940,8 @@ msgstr "Za'lek 인간쓰레기!"
 msgid "(Currently Noona Sanderaite)"
 msgstr ""
 
-#, fuzzy
 msgid "# Great House Za'lek"
-msgstr "Za'lek 인간쓰레기!"
+msgstr "# 자렉 대가문"
 
 msgid ""
 "House Za'lek is one of the Great Houses in [the Empire](lore/factions/"
@@ -4995,7 +4966,7 @@ msgid "* **Homeworld:** Ruadan Prime (Ruadan system)"
 msgstr ""
 
 msgid "### Project Za'lek"
-msgstr ""
+msgstr "### 자렉 계획"
 
 msgid ""
 "Project Za'lek was the second Great Project [the Empire](lore/factions/"
@@ -5033,9 +5004,8 @@ msgid ""
 "title of Great House."
 msgstr ""
 
-#, fuzzy
 msgid "### House Za'lek"
-msgstr "Za'lek 인간쓰레기!"
+msgstr "### 자렉 가문"
 
 msgid "House Za'lek continued to grow and advance."
 msgstr ""
@@ -5151,9 +5121,8 @@ msgid ""
 "not like finding out..."
 msgstr ""
 
-#, fuzzy
 msgid "## Za'lek Society"
-msgstr "자레크의 메피스토"
+msgstr "## 자렉 사회"
 
 msgid ""
 "As House Za'lek was and is a gigantic think tank, its social structure "
@@ -5217,7 +5186,7 @@ msgid "History Overview"
 msgstr ""
 
 msgid "# Notable Recent Historical Events"
-msgstr ""
+msgstr "# 주목할 만한 최근 역사 사건"
 
 msgid "1. **Sirichana reaches Murtis** (UST -143)"
 msgstr ""
@@ -5274,7 +5243,7 @@ msgid "1. **The Incident** (UST 593:3726.4663)"
 msgstr ""
 
 msgid "## The First Growth (roughly UST -1000 to UST -400)"
-msgstr ""
+msgstr "## 제1성장기 (대략 UST -1000부터 UST -400까지)"
 
 msgid "The First Growth is seen as the true beginning of mankind's space age."
 msgstr ""
@@ -5312,7 +5281,7 @@ msgid "That would change, abruptly and dramatically."
 msgstr ""
 
 msgid "## The Second Growth (roughly UST -400 to UST -100)"
-msgstr ""
+msgstr "## 제2성장기 (대략 UST -400부터 UST -100까지)"
 
 msgid ""
 "While the eleven colonies painstakingly tried to develop themselves into "
@@ -5379,7 +5348,7 @@ msgid "This body was known as the Federation."
 msgstr "네뷸라에 온것을 환영합니다"
 
 msgid "## The Federation (roughly UST -300 to UST -100)"
-msgstr ""
+msgstr "## 연방 (대략 UST -300부터 UST -100까지)"
 
 msgid ""
 "Though each colony was granted the right of self-government, the Federation "
@@ -5431,7 +5400,7 @@ msgid ""
 msgstr ""
 
 msgid "## The Faction Wars (roughly UST -100 to UST 0)"
-msgstr ""
+msgstr "## 세력 전쟁 (대략 UST -100부터 UST 0까지)"
 
 msgid ""
 "The Faction Wars are the first interstellar war on record, and they also "
@@ -5506,7 +5475,7 @@ msgid ""
 msgstr ""
 
 msgid "## Rise of the Empire (roughly UST 0 to UST 300)"
-msgstr ""
+msgstr "## 제국의 부상 (대략 UST 0부터 UST 300까지)"
 
 msgid ""
 "After his military victory, Daedris took political control in a military "
@@ -5545,7 +5514,7 @@ msgid ""
 msgstr ""
 
 msgid "## Decline of the Empire (roughly UST 300 to UST 593)"
-msgstr ""
+msgstr "## 제국의 쇠퇴 (대략 UST 300부터 UST 593까지)"
 
 msgid ""
 "Though the Empire was the greatest and most stable political system in all "
@@ -5585,7 +5554,7 @@ msgid ""
 msgstr ""
 
 msgid "## The Incident (UST 593:3726.4663)"
-msgstr ""
+msgstr "## 사건 (UST 593:3726.4663)"
 
 msgid "Little is known about the Incident, other than what can be observed."
 msgstr ""
@@ -5632,13 +5601,13 @@ msgid "Mechanics Overview"
 msgstr ""
 
 msgid "# Mechanics"
-msgstr ""
+msgstr "# 게임 시스템"
 
 msgid "Below is an overview of the mechanics covered in the Holo-Archives."
 msgstr ""
 
 msgid "## Basics"
-msgstr ""
+msgstr "## 기본"
 
 msgid "* [Movement](mechanics/movement)"
 msgstr ""
@@ -5689,7 +5658,7 @@ msgid "* [Launchers](mechanics/launchers)"
 msgstr ""
 
 msgid "## Advanced"
-msgstr ""
+msgstr "## 고급"
 
 msgid "* [Boarding](mechanics/boarding)"
 msgstr ""
@@ -5724,9 +5693,8 @@ msgstr ""
 msgid "Autonav"
 msgstr "자동nav"
 
-#, fuzzy
 msgid "# Autonav"
-msgstr "자동nav"
+msgstr "# 자동항법"
 
 msgid ""
 "Your ship is equipped with an Automatic Navigation system, usually "
@@ -5743,6 +5711,9 @@ msgid ""
 "opening the overlay map with the <%= \"#b\"..naev.keyGet(\"overlay\").."
 "\"#0\" %> key, and then right-clicking to go to a location."
 msgstr ""
+"자동항법은 여러 방식으로 실행할 수 있지만, 주된 방법은 <%= "
+"\"#b\"..naev.keyGet(\"overlay\")..\"#0\" %> 키로 오버레이 지도를 연 뒤, "
+"위치를 우클릭해 그곳으로 이동하는 것입니다."
 
 msgid ""
 "You can also double-click on a space object such as a planet to land on it, "
@@ -5754,18 +5725,21 @@ msgid ""
 "You can also activate autonav directly from the [star map](mechanics/map) by "
 "selecting a system and clicking on the #bAutonav#0 button to go to it."
 msgstr ""
+"또한 [성계 지도](mechanics/map)에서 성계를 선택하고 #b자동항법#0 버튼을 눌러 "
+"그곳으로 직접 이동할 수도 있습니다."
 
-#, fuzzy
 msgid "## Settings"
-msgstr "조판됨:"
+msgstr "## 설정"
 
 msgid ""
 "Autonav settings can be modified from the #binformation window#0 that you "
 "can open with the <%= \"#b\"..naev.keyGet(\"info\")..\"#0\" %> key."
 msgstr ""
+"자동항법 설정은 <%= \"#b\"..naev.keyGet(\"info\")..\"#0\" %> 키로 열 수 있는 "
+"#b정보 창#0에서 수정할 수 있습니다."
 
 msgid "Afterwards, click on the #bsettings#0 button from the main tab."
-msgstr ""
+msgstr "그런 다음 메인 탭의 #b설정#0 버튼을 클릭합니다."
 
 msgid ""
 "You can control many aspects of the behaviour, such as whether or not you "
@@ -5778,9 +5752,8 @@ msgstr ""
 msgid "Bioships"
 msgstr "바이오함선 수직 안정핀"
 
-#, fuzzy
 msgid "# Bioships"
-msgstr "바이오함선 수직 안정핀"
+msgstr "# 생체 함선"
 
 msgid ""
 "Bioships are a hybrid between man-made constructs and living animals, and "
@@ -5804,13 +5777,15 @@ msgid ""
 msgstr ""
 
 msgid "## Skills"
-msgstr ""
+msgstr "## 기술"
 
 msgid ""
 "Bioship skills, ranks, and other information can be seen from the "
 "#bInformation window#0, which can be opened with the <%= "
 "\"#b\"..naev.keyGet(\"info\")..\"#0\" %> key."
 msgstr ""
+"생체 함선의 기술, 등급, 기타 정보는 <%= \"#b\"..naev.keyGet(\"info\")"
+"..\"#0\" %> 키로 열 수 있는 #b정보 창#0에서 확인할 수 있습니다."
 
 msgid ""
 "You can also reset the skills by using experience, although this can lower "
@@ -5821,9 +5796,8 @@ msgstr ""
 msgid "Boarding Ships"
 msgstr "투리온 조선소"
 
-#, fuzzy
 msgid "# Boarding"
-msgstr "슈뢰딩거"
+msgstr "# 나포"
 
 msgid ""
 "You can board [disabled](mechanics/damage) ships by getting close to them "
@@ -5834,6 +5808,8 @@ msgid ""
 "This can be automated by using your ship's builtin autonav functionality (by "
 "pressing the <%= \"#b\"..naev.keyGet(\"approach\")..\"#0\" %> key)."
 msgstr ""
+"이 작업은 <%= \"#b\"..naev.keyGet(\"approach\")..\"#0\" %> 키를 눌러 함선의 "
+"내장 자동항법 기능으로 자동화할 수 있습니다."
 
 msgid ""
 "Once you board the ship, an interface will open that will let you interact "
@@ -5849,7 +5825,7 @@ msgid "Possible actions include looting, or stealing outfits."
 msgstr ""
 
 msgid "## Looting"
-msgstr ""
+msgstr "## 약탈"
 
 msgid "You can steal credits, fuel, cargo, and outfits from ships you board."
 msgstr ""
@@ -5871,9 +5847,8 @@ msgid ""
 "Higher values will allow you to obtain more loot from the ships you board."
 msgstr ""
 
-#, fuzzy
 msgid "## Stealing Outfits"
-msgstr "장비 불러오는 중…"
+msgstr "## 장비 탈취"
 
 msgid ""
 "The outfits that you can steal from a ship are random, and the number is "
@@ -5889,7 +5864,7 @@ msgid ""
 msgstr ""
 
 msgid "## Capturing"
-msgstr ""
+msgstr "## 포획"
 
 msgid "Capturing a ship is a three stage process:"
 msgstr ""
@@ -5925,7 +5900,7 @@ msgid "Cargo"
 msgstr ""
 
 msgid "# Cargo"
-msgstr ""
+msgstr "# 화물"
 
 msgid ""
 "Cargo plays an important role in spacefaring, be it for cargo deliveries, or "
@@ -5938,12 +5913,12 @@ msgid ""
 msgstr ""
 
 msgid "## Obtaining Cargo"
-msgstr ""
+msgstr "## 화물 획득"
 
 msgid ""
 "Cargo may be obtained from the #bCommodity Exchange#0 found on many "
 "spaceports."
-msgstr ""
+msgstr "화물은 많은 우주항에 있는 #b교역품 거래소#0에서 얻을 수 있습니다."
 
 msgid ""
 "It can also be obtained from missions, [mining](mechanics/mining), or "
@@ -5951,7 +5926,7 @@ msgid ""
 msgstr ""
 
 msgid "## Cargo Inertia"
-msgstr ""
+msgstr "## 화물 관성"
 
 msgid ""
 "The **Cargo Inertia** property determines how much real mass gets added to "
@@ -5965,19 +5940,21 @@ msgid ""
 msgstr ""
 
 msgid "## Managing Cargo"
-msgstr ""
+msgstr "## 화물 관리"
 
 msgid ""
 "You can manage your cargo from the cargo tab of the information menu that "
 "you can open with <%= \"#b\"..naev.keyGet(\"info\")..\"#0\" %>."
 msgstr ""
+"<%= \"#b\"..naev.keyGet(\"info\")..\"#0\" %> 키로 열 수 있는 정보 메뉴의 "
+"화물 탭에서 화물을 관리할 수 있습니다."
 
 msgid ""
 "Cargo can be dumped from both space and while landed using the cargo menu."
 msgstr ""
 
 msgid "### Mission Cargo"
-msgstr ""
+msgstr "### 임무 화물"
 
 msgid ""
 "If you dump mission cargo, it will abort the mission and may have "
@@ -5985,7 +5962,7 @@ msgid ""
 msgstr ""
 
 msgid "### Illegal Cargo"
-msgstr ""
+msgstr "### 불법 화물"
 
 msgid "Some cargo may be illegal to different factions."
 msgstr ""
@@ -5999,7 +5976,7 @@ msgid ""
 msgstr ""
 
 msgid "### Fleet Cargo"
-msgstr ""
+msgstr "### 함대 화물"
 
 msgid ""
 "If you have more than one ship in [your fleet](mechanics/playerfleet), your "
@@ -6017,9 +5994,8 @@ msgstr ""
 msgid "Credits"
 msgstr ""
 
-#, fuzzy
 msgid "# Credits"
-msgstr "크레딧"
+msgstr "# 크레딧"
 
 msgid ""
 "The economy is based on the universal currency known as credits and "
@@ -6040,9 +6016,8 @@ msgstr ""
 msgid "Damage"
 msgstr "슈뢰딩거"
 
-#, fuzzy
 msgid "# Damage"
-msgstr "슈뢰딩거"
+msgstr "# 피해"
 
 msgid "Weapons deal damage to lower the shields and armour of enemy ships."
 msgstr ""
@@ -6065,7 +6040,7 @@ msgid "Disabled ships [can be boarded](mechanics/boarding)."
 msgstr ""
 
 msgid "## Absorption and Penetration"
-msgstr ""
+msgstr "## 흡수와 관통"
 
 msgid "Each point of absorption reduces the damage you would take by 1%."
 msgstr ""
@@ -6079,7 +6054,7 @@ msgid "Note that penetration can not increase the damage past 100%."
 msgstr ""
 
 msgid "## Disable Damage and Stress"
-msgstr ""
+msgstr "## 무력화 피해와 스트레스"
 
 msgid "Disable damage is the only way to disable ships, by applying stress."
 msgstr ""
@@ -6112,9 +6087,8 @@ msgid ""
 "damage."
 msgstr ""
 
-#, fuzzy
 msgid "## Damage Types"
-msgstr "슈뢰딩거"
+msgstr "## 피해 유형"
 
 msgid ""
 "There are different damage types that differentiate how much damage is done "
@@ -6135,7 +6109,7 @@ msgid "Using the best damage type can play a critical role in winning fights."
 msgstr ""
 
 msgid "## Shields Down and Regeneration"
-msgstr ""
+msgstr "## 실드 다운과 재생"
 
 msgid ""
 "When a ship's shields get knocked offline, it takes <%= "
@@ -6157,7 +6131,7 @@ msgid "Effects"
 msgstr ""
 
 msgid "# Effects"
-msgstr ""
+msgstr "# 효과"
 
 msgid ""
 "Ships can be affected by different effects that can be either beneficial or "
@@ -6175,6 +6149,8 @@ msgid ""
 "in #Fgreen#0 indicating beneficial effects, while those in #Hred#0 indicate "
 "detrimental effects."
 msgstr ""
+"자신의 함선에 적용된 효과는 GUI 상단에 표시되며, #Fgreen#0 효과는 이로운 "
+"효과를, #Hred#0 효과는 해로운 효과를 나타냅니다."
 
 msgid ""
 "Some types of effects can stack multiple times, which will be indicated by a "
@@ -6186,7 +6162,7 @@ msgid "Energy"
 msgstr ""
 
 msgid "# Energy"
-msgstr ""
+msgstr "# 에너지"
 
 msgid "Energy is used to power weapons and other outfits."
 msgstr ""
@@ -6199,7 +6175,7 @@ msgid "Equipment"
 msgstr ""
 
 msgid "# Equipment"
-msgstr ""
+msgstr "# 장비"
 
 msgid ""
 "Outfits play a significant role in a ship's success at whatever activity it "
@@ -6210,7 +6186,7 @@ msgid "Each ship has a fixed number of slots with different properties"
 msgstr ""
 
 msgid "## Slots"
-msgstr ""
+msgstr "## 슬롯"
 
 msgid "There are fundamentally four different types of slots a ship can have:"
 msgstr ""
@@ -6243,7 +6219,7 @@ msgid ""
 msgstr ""
 
 msgid "## Equipment Window"
-msgstr ""
+msgstr "## 장비 창"
 
 msgid ""
 "The equipment window is available when [landing](mechanics/landing) on "
@@ -6265,7 +6241,7 @@ msgid ""
 msgstr ""
 
 msgid "### Auto-Equipping"
-msgstr ""
+msgstr "### 자동 장비 장착"
 
 msgid "The equipment window also has autoequipping functionality."
 msgstr ""
@@ -6285,7 +6261,7 @@ msgid "This can be used to get a ship ready to fly quickly."
 msgstr ""
 
 msgid "## Intrinsic Outfits"
-msgstr ""
+msgstr "## 내장 장비"
 
 msgid ""
 "Intrinisc outfits are modifications to the ship itself that do not take an "
@@ -6311,7 +6287,7 @@ msgid "Electronic Warfare"
 msgstr ""
 
 msgid "# Electronic Warfare"
-msgstr ""
+msgstr "# 전자전"
 
 msgid ""
 "A large part of combat is not only direct damage, but electronic warfare "
@@ -6341,9 +6317,8 @@ msgid ""
 "the distance at which the ship is fully detected."
 msgstr ""
 
-#, fuzzy
 msgid "## Scanning"
-msgstr "조판됨:"
+msgstr "## 스캔"
 
 msgid ""
 "Whenever you target a ship, your ship will begin performing a scan on it."
@@ -6362,6 +6337,8 @@ msgid ""
 "By pressing the <%= \"#b\"..naev.keyGet(\"scan\")..\"#0\" %> key, you can "
 "call up the information about the scanned ship."
 msgstr ""
+"<%= \"#b\"..naev.keyGet(\"scan\")..\"#0\" %> 키를 누르면 스캔한 함선 정보를 "
+"불러올 수 있습니다."
 
 msgid ""
 "This will show you information such as the outfits the ship has and the "
@@ -6383,7 +6360,7 @@ msgid ""
 msgstr ""
 
 msgid "## Detection and Hiding"
-msgstr ""
+msgstr "## 탐지와 은폐"
 
 msgid ""
 "Without modifiers, ships are detected based on [their mass](mechanics/mass)."
@@ -6406,7 +6383,7 @@ msgid ""
 msgstr ""
 
 msgid "### Detecting Space Objects and Jumps"
-msgstr ""
+msgstr "### 우주 물체와 점프 탐지"
 
 msgid ""
 "For detecting general objects such as jump points or asteroids, the "
@@ -6425,7 +6402,7 @@ msgid ""
 msgstr ""
 
 msgid "## Signature and Tracking"
-msgstr ""
+msgstr "## 신호와 추적"
 
 msgid ""
 "Electronic warfare plays a critical part in combat too through evasion and "
@@ -6500,9 +6477,8 @@ msgid ""
 "Similar to bolt weapons, in-between values will be interpolated linearly."
 msgstr ""
 
-#, fuzzy
 msgid "## Stealth"
-msgstr "투리온의 불꽃"
+msgstr "## 스텔스"
 
 msgid "The stealth range of a ship is based on 25% of the detection range."
 msgstr ""
@@ -6529,7 +6505,7 @@ msgid ""
 msgstr ""
 
 msgid "### Jumping with Stealth"
-msgstr ""
+msgstr "### 스텔스 상태에서 점프"
 
 msgid ""
 "When in stealth mode, it is possible to start hyperspace jumps at three "
@@ -6563,9 +6539,8 @@ msgid ""
 "values of the ship, and multiplied **Scanned Speed** of the ship."
 msgstr ""
 
-#, fuzzy
 msgid "## System Modifiers"
-msgstr "선체 수정"
+msgstr "## 성계 보정치"
 
 msgid ""
 "System modifiers such as asteroid fields and interference can further affect "
@@ -6588,9 +6563,8 @@ msgstr ""
 msgid "Psychic Powers and Flow"
 msgstr "시리우스 설교자"
 
-#, fuzzy
 msgid "# Psychic Powers and Flow"
-msgstr "시리우스 설교자"
+msgstr "# 초능력과 플로우"
 
 msgid ""
 "[House Sirius](lore/factions/sirius) is renowned for psychic prowess, "
@@ -6640,7 +6614,7 @@ msgid "Hailing"
 msgstr ""
 
 msgid "# Hailing"
-msgstr ""
+msgstr "# 호출"
 
 msgid ""
 "Communicating with ships or spaceports can be a good way to request "
@@ -6652,6 +6626,8 @@ msgid ""
 "You can hail ships in space using the <%= \"#b\"..naev.keyGet(\"hail\").."
 "\"#0\" %> key."
 msgstr ""
+"우주 공간에서는 <%= \"#b\"..naev.keyGet(\"hail\")..\"#0\" %> 키로 함선을 "
+"호출할 수 있습니다."
 
 msgid "Additionally, some ships will hail your ship."
 msgstr ""
@@ -6661,9 +6637,11 @@ msgid ""
 "using the <%= \"#b\"..naev.keyGet(\"autohail\")..\"#0\" %> key to respond "
 "directly."
 msgstr ""
+"이런 함선에는 표적으로 지정한 뒤 호출하거나, <%= \"#b\"..naev.keyGet"
+"(\"autohail\")..\"#0\" %> 키를 사용해 바로 응답할 수 있습니다."
 
 msgid "## Requesting Fuel"
-msgstr ""
+msgstr "## 연료 요청"
 
 msgid ""
 "When you run out of [fuel](mechanics/hyperspace), some good Samaritans will "
@@ -6676,7 +6654,7 @@ msgid ""
 msgstr ""
 
 msgid "## Bribing"
-msgstr ""
+msgstr "## 뇌물"
 
 msgid ""
 "When dealing with hostile ships, you are sometimes able to bribe them and "
@@ -6702,7 +6680,7 @@ msgid "Hyperspace and Jumping"
 msgstr ""
 
 msgid "# Hyperspace and Jumping"
-msgstr ""
+msgstr "# 초공간과 점프"
 
 msgid ""
 "Ships can travel from star system to star system through hyperspace by using "
@@ -6769,18 +6747,16 @@ msgstr ""
 msgid "Landing"
 msgstr "착륙 중"
 
-#, fuzzy
 msgid "# Landing"
-msgstr "착륙 중"
+msgstr "# 착륙"
 
 msgid ""
 "Landing on spaceports is one of the fundamental activities you will do while "
 "exploring the universe."
 msgstr ""
 
-#, fuzzy
 msgid "## Landing Window"
-msgstr "조판됨:"
+msgstr "## 착륙 창"
 
 msgid "The first window you will be greeted by."
 msgstr ""
@@ -6797,7 +6773,7 @@ msgid "The services offered vary significantly by location."
 msgstr ""
 
 msgid "### Spaceport Bar"
-msgstr ""
+msgstr "### 우주항 바"
 
 msgid "The best place to meet other individuals."
 msgstr ""
@@ -6815,9 +6791,8 @@ msgid ""
 "important individual is at the spaceport bar."
 msgstr ""
 
-#, fuzzy
 msgid "### Missions"
-msgstr "%d개의 임무를 불러왔습니다"
+msgstr "### 임무"
 
 msgid ""
 "The Mission Bulletin Board System is where you can accept a variety of "
@@ -6834,9 +6809,8 @@ msgid ""
 "based on different properties such as rewards."
 msgstr ""
 
-#, fuzzy
 msgid "### Outfits"
-msgstr "맵 의상"
+msgstr "### 장비"
 
 msgid ""
 "At the outfitter, you are able to buy locally available outfits, and also "
@@ -6850,15 +6824,16 @@ msgid ""
 "You can hold #bshift#0 and #bcontrol#0 to increase the amount of outfits you "
 "buy or sell at a time."
 msgstr ""
+"#bshift#0와 #bcontrol#0를 누르고 있으면 한 번에 사고파는 장비 수량을 늘릴 수 "
+"있습니다."
 
 msgid ""
 "All the outfits you have encountered and their availability can be accessed "
 "under [outfits](outfits) in the Holo-Archives."
 msgstr ""
 
-#, fuzzy
 msgid "### Shipyard"
-msgstr "투리온 조선소"
+msgstr "### 조선소"
 
 msgid "Ships can be purchased at the shipyard."
 msgstr ""
@@ -6878,7 +6853,7 @@ msgid ""
 msgstr ""
 
 msgid "### Equipment"
-msgstr ""
+msgstr "### 장비"
 
 msgid ""
 "Any spaceport with refuelling capabilities will allow you to access the "
@@ -6893,6 +6868,8 @@ msgid ""
 "By right-clicking on ships, or toggling the #bdeployed#0 checkbox, you can "
 "set a ship as part of [your player fleet](mechanics/playerfleet)."
 msgstr ""
+"함선을 우클릭하거나 #b배치됨#0 체크박스를 전환하면 함선을 [플레이어 함대]"
+"(mechanics/playerfleet)의 일부로 설정할 수 있습니다."
 
 msgid ""
 "You can click on the slots of the selected ship to filter only the outfits "
@@ -6910,7 +6887,7 @@ msgid ""
 msgstr ""
 
 msgid "### Commodity Exchange"
-msgstr ""
+msgstr "### 교역품 거래소"
 
 msgid "Here you can buy or sell commodities."
 msgstr ""
@@ -6927,14 +6904,15 @@ msgid ""
 "Similarly to the outfitter, you can hold #bshift#0 and #bcontrol#0 to "
 "increase the amount of commodities you buy or sell at a time."
 msgstr ""
+"장비점과 마찬가지로 #bshift#0와 #bcontrol#0를 누르고 있으면 한 번에 사고파는 "
+"교역품 수량을 늘릴 수 있습니다."
 
 #, fuzzy
 msgid "Launchers"
 msgstr "터레 티드 가우스 건"
 
-#, fuzzy
 msgid "# Launchers"
-msgstr "터레 티드 가우스 건"
+msgstr "# 발사기"
 
 msgid ""
 "Launcher weapons differ from bolt and beam weapons by needing ammunition to "
@@ -6952,7 +6930,7 @@ msgid ""
 msgstr ""
 
 msgid "## Types"
-msgstr ""
+msgstr "## 유형"
 
 msgid "Launchers are roughly divided into three categories:"
 msgstr ""
@@ -6972,7 +6950,7 @@ msgid ""
 msgstr ""
 
 msgid "## Ammunition"
-msgstr ""
+msgstr "## 탄약"
 
 msgid "Unlike other weapons, launchers use ammunition."
 msgstr ""
@@ -6992,6 +6970,9 @@ msgid ""
 "\"#b\"..naev.keyGet(\"reverse\")..\"#0\" %> key or by pressing the <%= "
 "\"#b\"..naev.keyGet(\"cooldown\")..\"#0\" %> key."
 msgstr ""
+"능동 냉각은 <%= \"#b\"..naev.keyGet(\"reverse\")..\"#0\" %> 키를 두 번 "
+"누르거나 <%= \"#b\"..naev.keyGet(\"cooldown\")..\"#0\" %> 키를 눌러 수행할 "
+"수 있습니다."
 
 msgid ""
 "The downside is the ship will be immobile and unable to defend itself during "
@@ -7004,7 +6985,7 @@ msgid ""
 msgstr ""
 
 msgid "## Lock-On and Calibration"
-msgstr ""
+msgstr "## 락온과 보정"
 
 msgid ""
 "Seeking launchers have both a **Lock-On** and **In-flight Calibration** time."
@@ -7045,7 +7026,7 @@ msgid ""
 msgstr ""
 
 msgid "## Jamming"
-msgstr ""
+msgstr "## 재밍"
 
 msgid ""
 "Each seeking launcher can have **Jam Resistance** allowing it to avoid being "
@@ -7078,7 +7059,7 @@ msgid "3. **Self-Destruct:** the munition will blow up."
 msgstr ""
 
 msgid "## Point Defense"
-msgstr ""
+msgstr "## 근접방어"
 
 msgid ""
 "Some launcher munitions are susceptible to point defense weapons and will "
@@ -7096,14 +7077,15 @@ msgstr ""
 msgid "Star Map"
 msgstr ""
 
-#, fuzzy
 msgid "# Map"
-msgstr "시스템"
+msgstr "# 지도"
 
 msgid ""
 "The map can be opened by the <%= \"#b\"..naev.keyGet(\"starmap\")..\"#0\" %> "
 "key and gives in-depth information about the explored universe."
 msgstr ""
+"지도는 <%= \"#b\"..naev.keyGet(\"starmap\")..\"#0\" %> 키로 열 수 있으며, "
+"탐사한 우주에 대한 상세 정보를 제공합니다."
 
 msgid ""
 "By default, the map shows in-depth information including dominant faction of "
@@ -7113,9 +7095,8 @@ msgstr ""
 msgid "What the map shows can be toggled with the different map modes."
 msgstr ""
 
-#, fuzzy
 msgid "## Autonav"
-msgstr "자동nav"
+msgstr "## 자동항법"
 
 msgid ""
 "When clicking on a system in the map, the shortest autonav route from the "
@@ -7132,17 +7113,21 @@ msgid ""
 "By clicking the \"Autonav\" button at the bottom or pressing #bA#0, you can "
 "directly start autonav and close the map."
 msgstr ""
+"하단의 \"자동항법\" 버튼을 클릭하거나 #bA#0를 누르면 자동항법을 바로 "
+"시작하고 지도를 닫을 수 있습니다."
 
 msgid ""
 "If you wish to manually create a route, by holding the #bshift#0 key while "
 "clicking, you can add routes from your current selected system."
 msgstr ""
+"수동으로 경로를 만들고 싶다면 #bshift#0 키를 누른 채 클릭하여 현재 선택한 "
+"성계에서 경로를 추가할 수 있습니다."
 
 msgid "This allows you to manually create your autonav route as you wish."
 msgstr ""
 
 msgid "## Notes"
-msgstr ""
+msgstr "## 메모"
 
 msgid ""
 "You can leave notes on the current selected system using the \"Toggle Note\" "
@@ -7162,9 +7147,8 @@ msgid ""
 "Note\" button again."
 msgstr ""
 
-#, fuzzy
 msgid "## Modes"
-msgstr "모드"
+msgstr "## 모드"
 
 msgid "The map offers several modes to explore all the information it offers."
 msgstr ""
@@ -7195,7 +7179,7 @@ msgid ""
 msgstr ""
 
 msgid "## Find"
-msgstr ""
+msgstr "## 찾기"
 
 msgid ""
 "The \"Find\" button at the bottom can be used to find systems, space "
@@ -7216,7 +7200,7 @@ msgid "Mass"
 msgstr ""
 
 msgid "# Mass"
-msgstr ""
+msgstr "# 질량"
 
 msgid ""
 "Mass plays an important role for a ship's [movement](mechanics/movement) and "
@@ -7244,7 +7228,7 @@ msgid "Mining"
 msgstr "시리우스 시스템"
 
 msgid "# Mining"
-msgstr ""
+msgstr "# 채굴"
 
 msgid ""
 "Many valuable resources are hidden in the asteroids that can be found across "
@@ -7261,9 +7245,8 @@ msgid ""
 "and use outfits specialized for mining."
 msgstr ""
 
-#, fuzzy
 msgid "## Finding Asteroids"
-msgstr "빛 소행성 필드"
+msgstr "## 소행성 찾기"
 
 msgid "Asteroids can be found throughout space."
 msgstr ""
@@ -7283,9 +7266,8 @@ msgid ""
 "can be available."
 msgstr ""
 
-#, fuzzy
 msgid "## Asteroid Rarity"
-msgstr "소행성 스캐너"
+msgstr "## 소행성 희귀도"
 
 msgid ""
 "Each asteroid field will have its own distribution of asteroids which can be "
@@ -7307,9 +7289,8 @@ msgid ""
 "fetch high prices on the market and are widely sought out."
 msgstr ""
 
-#, fuzzy
 msgid "## Mining Outfits"
-msgstr "맵 의상"
+msgstr "## 채굴 장비"
 
 msgid "Outfits play a critical role in mining."
 msgstr ""
@@ -7343,9 +7324,8 @@ msgid ""
 "outfits can mine uncommon and even rare minerals from asteroids."
 msgstr ""
 
-#, fuzzy
 msgid "### Mining Beams"
-msgstr "시리우스 시스템"
+msgstr "### 채굴 빔"
 
 msgid "Mining beams are specialized in destroying asteroids."
 msgstr ""
@@ -7356,7 +7336,7 @@ msgid ""
 msgstr ""
 
 msgid "### Mining Drills"
-msgstr ""
+msgstr "### 채굴 드릴"
 
 msgid ""
 "Mining drills are utility outfits that can be activated near a selected "
@@ -7371,9 +7351,8 @@ msgstr ""
 msgid "Missions"
 msgstr ""
 
-#, fuzzy
 msgid "# Missions"
-msgstr "%d개의 임무를 불러왔습니다"
+msgstr "# 임무"
 
 msgid ""
 "Many different factions and individuals will offer you missions where you "
@@ -7388,7 +7367,7 @@ msgid ""
 msgstr ""
 
 msgid "## Mission Bulletin Board System"
-msgstr ""
+msgstr "## 임무 게시판 시스템"
 
 msgid ""
 "Although not available on all spaceports, the Mission Bullet Board System is "
@@ -7411,7 +7390,7 @@ msgid ""
 msgstr ""
 
 msgid "## Spaceport Bar"
-msgstr ""
+msgstr "## 우주항 바"
 
 msgid ""
 "All sorts of characters will pop up in the Spaceport Bar, from locals who "
@@ -7436,9 +7415,8 @@ msgstr ""
 msgid "Movement in Space"
 msgstr ""
 
-#, fuzzy
 msgid "# Movement"
-msgstr "토너먼트"
+msgstr "# 기동"
 
 msgid ""
 "Ship movement in space is Newtonian-based where ships can accelerate with "
@@ -7446,6 +7424,10 @@ msgid ""
 "\"#b\"..naev.keyGet(\"left\")..\"#0\" %> and <%= "
 "\"#b\"..naev.keyGet(\"right\")..\"#0\" %> keys."
 msgstr ""
+"우주에서의 함선 기동은 뉴턴 역학을 기반으로 하며, 함선은 <%= "
+"\"#b\"..naev.keyGet(\"accel\")..\"#0\" %> 키로 가속하고 <%= "
+"\"#b\"..naev.keyGet(\"left\")..\"#0\" %> 및 <%= \"#b\"..naev.keyGet"
+"(\"right\")..\"#0\" %> 키로 회전할 수 있습니다."
 
 msgid ""
 "The ships will drift without friction unless they surpass their maximum "
@@ -7459,7 +7441,7 @@ msgid ""
 msgstr ""
 
 msgid "## Afterburners and Other Movement Outfits"
-msgstr ""
+msgstr "## 애프터버너와 기타 기동 장비"
 
 msgid ""
 "Movement outfits can be useful for getting away or chasing down other ships."
@@ -7470,18 +7452,24 @@ msgid ""
 "them, most movement outfits can also be triggered by double tapping "
 "acceleration with the <%= \"#b\"..naev.keyGet(\"accel\")..\"#0\" %> key."
 msgstr ""
+"장비를 [무기 세트](mechanics/weaponsets)에 배정해 사용할 수도 있지만, "
+"대부분의 기동 장비는 <%= \"#b\"..naev.keyGet(\"accel\")..\"#0\" %> 키로 "
+"가속을 두 번 눌러 발동할 수도 있습니다."
 
 msgid ""
 "Furthermore, if supported, double tapping turn with the <%= "
 "\"#b\"..naev.keyGet(\"left\")..\"#0\" %> and <%= "
 "\"#b\"..naev.keyGet(\"right\")..\"#0\" %> keys."
 msgstr ""
+"또한 지원되는 경우 <%= \"#b\"..naev.keyGet(\"left\")..\"#0\" %> 및 <%= "
+"\"#b\"..naev.keyGet(\"right\")..\"#0\" %> 키로 회전을 두 번 눌러 발동할 수 "
+"있습니다."
 
 msgid "Fleets"
 msgstr ""
 
 msgid "# Fleets"
-msgstr ""
+msgstr "# 함대"
 
 msgid ""
 "Besides your own ship, it is possible to deploy and command a fleet of "
@@ -7516,9 +7504,8 @@ msgstr ""
 msgid "Reputation"
 msgstr "투리온의 불꽃"
 
-#, fuzzy
 msgid "# Reputation"
-msgstr "투리온의 불꽃"
+msgstr "# 평판"
 
 msgid ""
 "Reputation represents how well you are liked by each [faction](lore/"
@@ -7550,15 +7537,19 @@ msgid ""
 "but you can modify this from the settings in the #binformation window#0 that "
 "you can open with the <%= \"#b\"..naev.keyGet(\"info\")..\"#0\" %> key."
 msgstr ""
+"기본적으로 평판이 변할 때마다 메시지가 표시되지만, <%= \"#b\"..naev.keyGet"
+"(\"info\")..\"#0\" %> 키로 열 수 있는 #b정보 창#0의 설정에서 이를 수정할 수 "
+"있습니다."
 
 msgid ""
 "Your current global reputation standings and other details of the different "
 "factions can also be seen from the #bInformation window#0."
 msgstr ""
+"현재 전역 평판 상태와 여러 세력의 기타 세부 정보도 #b정보 창#0에서 확인할 수 "
+"있습니다."
 
-#, fuzzy
 msgid "## Changing Reputation"
-msgstr "투리온의 불꽃"
+msgstr "## 평판 변경"
 
 msgid "There are several ways to change your reputation with a faction:"
 msgstr ""
@@ -7580,7 +7571,7 @@ msgid ""
 msgstr ""
 
 msgid "## Reputation Limits"
-msgstr ""
+msgstr "## 평판 한계"
 
 msgid "Each faction has a maximum level of reputation you can reach."
 msgstr ""
@@ -7595,7 +7586,7 @@ msgid "Ship Stats"
 msgstr "투리온의 불꽃"
 
 msgid "# Ship Stats"
-msgstr ""
+msgstr "# 함선 능력치"
 
 msgid ""
 "There are many different important stats for ships that define their "
@@ -7610,9 +7601,8 @@ msgid ""
 "outfits, and other sources such as temporary effects."
 msgstr ""
 
-#, fuzzy
 msgid "## Core Stats"
-msgstr "핵심 시스템"
+msgstr "## 핵심 능력치"
 
 msgid "The core stats define basic properties of the ship."
 msgstr ""
@@ -7639,7 +7629,7 @@ msgid ""
 msgstr ""
 
 msgid "## Movement Stats"
-msgstr ""
+msgstr "## 기동 능력치"
 
 msgid ""
 "Movement is based on Newtonian physics, however, ships have a maximum speed "
@@ -7678,7 +7668,7 @@ msgid ""
 msgstr ""
 
 msgid "## Electronic Warfare"
-msgstr ""
+msgstr "## 전자전"
 
 msgid "Electronic warfare determines how ships see and target each other."
 msgstr ""
@@ -7706,9 +7696,8 @@ msgid ""
 "ships to scan this ship and see the details of the cargo it has."
 msgstr ""
 
-#, fuzzy
 msgid "## Health Stats"
-msgstr "투리온의 불꽃"
+msgstr "## 내구 능력치"
 
 msgid ""
 "* [Absorption](mechanics/damage): Determines how much incoming damage is "
@@ -7744,7 +7733,7 @@ msgid ""
 msgstr ""
 
 msgid "## Additional Stats"
-msgstr ""
+msgstr "## 추가 능력치"
 
 msgid ""
 "There are many additional ship stats you will encounter on different outfits "
@@ -7843,16 +7832,15 @@ msgid "Years"
 msgstr ""
 
 msgid "# Universal Synchronized Time (UST)"
-msgstr ""
+msgstr "# 우주 표준 동기시(UST)"
 
 msgid ""
 "Universal Synchronized Time (UST) is the standard time system used by human "
 "civilization."
 msgstr ""
 
-#, fuzzy
 msgid "## Explanation"
-msgstr "옵션"
+msgstr "## 설명"
 
 msgid ""
 "UST consists of three basic components describing different amounts of time: "
@@ -7932,7 +7920,7 @@ msgid "<widget tableust />"
 msgstr ""
 
 msgid "## Passaging of Time"
-msgstr ""
+msgstr "## 시간의 흐름"
 
 msgid "Following is a list of actions and how much time they take."
 msgstr ""
@@ -7963,9 +7951,8 @@ msgstr ""
 msgid "Trading"
 msgstr "해적 코뿔소"
 
-#, fuzzy
 msgid "# Trading"
-msgstr "해적 코뿔소"
+msgstr "# 무역"
 
 msgid ""
 "Trading [commodities](mechanics/cargo) can be a lucrative way of making a "
@@ -7992,20 +7979,23 @@ msgstr ""
 msgid "Weapon Sets"
 msgstr "무기 세트 8"
 
-#, fuzzy
 msgid "# Weapon Sets"
-msgstr "무기 세트 8"
+msgstr "# 무기 세트"
 
 msgid ""
 "Outfits can be used by assigning them to weapon sets from the information "
 "window, which you can open with the <%= \"#b\"..naev.keyGet(\"info\").."
 "\"#0\" %> key.."
 msgstr ""
+"장비는 <%= \"#b\"..naev.keyGet(\"info\")..\"#0\" %> 키로 열 수 있는 정보 "
+"창에서 무기 세트에 배정하여 사용할 수 있습니다."
 
 msgid ""
 "You can assign outfits to your #rprimary#0 weapons, #osecondary#0 weapons, "
 "or one of 10 weapon sets."
 msgstr ""
+"장비는 #r주 무기#0, #o보조 무기#0, 또는 10개의 무기 세트 중 하나에 배정할 수 "
+"있습니다."
 
 msgid ""
 "By default, your weapon sets will be automatically managed for you, even as "
@@ -8030,13 +8020,16 @@ msgid ""
 msgstr ""
 
 msgid "## Activating"
-msgstr ""
+msgstr "## 활성화"
 
 msgid ""
 "Primary weapons are fired by holding <%= \"#b\"..naev.keyGet(\"primary\").."
 "\"#0\" %> and secondary weapons are fired by holding <%= "
 "\"#b\"..naev.keyGet(\"secondary\")..\"#0\" %>."
 msgstr ""
+"주 무기는 <%= \"#b\"..naev.keyGet(\"primary\")..\"#0\" %> 키를 누르고 있으면 "
+"발사되고, 보조 무기는 <%= \"#b\"..naev.keyGet(\"secondary\")..\"#0\" %> 키를 "
+"누르고 있으면 발사됩니다."
 
 msgid ""
 "Furthermore, the weapon set key bindings (such as <%= "
@@ -8044,6 +8037,9 @@ msgid ""
 "the <%= \"#b\"..naev.keyGet(\"weapset2\")..\"#0\" %> for the second one) "
 "will activate the weapon set."
 msgstr ""
+"또한 무기 세트 키 배정, 예를 들어 첫 번째 무기 세트의 <%= \"#b\"..naev.keyGet"
+"(\"weapset1\")..\"#0\" %> 키나 두 번째 무기 세트의 <%= \"#b\"..naev.keyGet"
+"(\"weapset2\")..\"#0\" %> 키는 해당 무기 세트를 활성화합니다."
 
 msgid ""
 "For non-primary and secondary weapon sets, you can either tap them to toggle "
@@ -8051,9 +8047,8 @@ msgid ""
 "when released."
 msgstr ""
 
-#, fuzzy
 msgid "## Options"
-msgstr "옵션"
+msgstr "## 옵션"
 
 msgid "You can further customize your weapon sets with options."
 msgstr ""
@@ -8086,12 +8081,12 @@ msgid ""
 msgstr ""
 
 msgid "## Advanced Modes"
-msgstr ""
+msgstr "## 고급 모드"
 
 msgid ""
 "You can enable advanced mode by clicking the #bAdvanced#0 button at the "
 "bottom."
-msgstr ""
+msgstr "하단의 #b고급#0 버튼을 클릭하면 고급 모드를 활성화할 수 있습니다."
 
 msgid ""
 "If the outfit in the slot is changed, this will not affect the weapon set "
@@ -8134,9 +8129,8 @@ msgstr ""
 msgid "Outfits Overview"
 msgstr ""
 
-#, fuzzy
 msgid "# Outfits"
-msgstr "맵 의상"
+msgstr "# 장비"
 
 msgid "Choose an entry to view via the left sidebar."
 msgstr ""
@@ -8147,23 +8141,21 @@ msgstr ""
 msgid "Ships Overview"
 msgstr ""
 
-#, fuzzy
 msgid "# Ships"
-msgstr "선박"
+msgstr "# 함선"
 
 #, fuzzy
 msgid "Ship Classes"
 msgstr "배 이름:"
 
 msgid "# Ship Classes"
-msgstr ""
+msgstr "# 함선 등급"
 
 msgid "Ships are divided between military and civilian class ships."
 msgstr ""
 
-#, fuzzy
 msgid "## Military Ships"
-msgstr "투리온의 불꽃"
+msgstr "## 군용 함선"
 
 msgid ""
 "Military ships are focused on warfare and come in different sizes and "
@@ -8171,7 +8163,7 @@ msgid ""
 msgstr ""
 
 msgid "### Large Ships"
-msgstr ""
+msgstr "### 대형 함선"
 
 msgid ""
 "The large military ships are slow hulks that can dominate the battlefield."
@@ -8199,7 +8191,7 @@ msgid ""
 msgstr ""
 
 msgid "### Medium Ships"
-msgstr ""
+msgstr "### 중형 함선"
 
 msgid "Medium military ships play a pivotal role in the battlefield."
 msgstr ""
@@ -8222,7 +8214,7 @@ msgid ""
 msgstr ""
 
 msgid "### Small Ships"
-msgstr ""
+msgstr "### 소형 함선"
 
 msgid ""
 "* **[Fighter](ships/classes/fighter)**: Although weak in single numbers, "
@@ -8247,9 +8239,8 @@ msgid ""
 "reconnaissance and analysis."
 msgstr ""
 
-#, fuzzy
 msgid "## Civilian Ships"
-msgstr "투리온의 불꽃"
+msgstr "## 민간 함선"
 
 msgid ""
 "Civilian ships tend to focus on utility and bonuses such as cargo inertia or "
@@ -8291,100 +8282,92 @@ msgid "Armoured Transport"
 msgstr "장갑 수송선"
 
 msgid "# Armoured Transports"
-msgstr ""
+msgstr "# 장갑 수송선"
 
 #, fuzzy
 msgid "Battleships"
 msgstr "바이오함선 수직 안정핀"
 
-#, fuzzy
 msgid "# Battleships"
-msgstr "바이오함선 수직 안정핀"
+msgstr "# 전함"
 
 msgid "Bombers"
 msgstr ""
 
-#, fuzzy
 msgid "# Bombers"
-msgstr "투리온의 불꽃"
+msgstr "# 폭격기"
 
 #, fuzzy
 msgid "Bulk Freighters"
 msgstr "랜슬롯"
 
-#, fuzzy
 msgid "# Bulk Freighters"
-msgstr "랜슬롯"
+msgstr "# 대형 화물선"
 
 #, fuzzy
 msgid "Carriers"
 msgstr "프론티어 시스템"
 
-#, fuzzy
 msgid "# Carriers"
-msgstr "프론티어 시스템"
+msgstr "# 항모"
 
 msgid "Corvettes"
 msgstr ""
 
 msgid "# Corvettes"
-msgstr ""
+msgstr "# 초계함"
 
 msgid "Couriers"
 msgstr ""
 
 msgid "# Couriers"
-msgstr ""
+msgstr "# 급송선"
 
 msgid "Cruisers"
 msgstr ""
 
 msgid "# Cruisers"
-msgstr ""
+msgstr "# 순양함"
 
 #, fuzzy
 msgid "Destroyers"
 msgstr "해킹 센터 파괴하기"
 
-#, fuzzy
 msgid "# Destroyers"
-msgstr "해킹 센터 파괴하기"
+msgstr "# 구축함"
 
 #, fuzzy
 msgid "Fighters"
 msgstr "빛 "
 
-#, fuzzy
 msgid "# Fighters"
-msgstr "빛 "
+msgstr "# 전투기"
 
 #, fuzzy
 msgid "Freighters"
 msgstr "랜슬롯"
 
-#, fuzzy
 msgid "# Freighters"
-msgstr "랜슬롯"
+msgstr "# 화물선"
 
 #, fuzzy
 msgid "Interceptors"
 msgstr "투리온의 불꽃"
 
-#, fuzzy
 msgid "# Interceptors"
-msgstr "투리온의 불꽃"
+msgstr "# 요격기"
 
 msgid "Scouts"
 msgstr ""
 
 msgid "# Scouts"
-msgstr ""
+msgstr "# 정찰기"
 
 msgid "Yachts"
 msgstr ""
 
 msgid "# Yachts"
-msgstr ""
+msgstr "# 요트"
 
 msgid "no error"
 msgstr "오류 없음"
@@ -8882,7 +8865,7 @@ msgid "   * Misc. fixes and spellchecks"
 msgstr ""
 
 msgid "   * Many bugs caught (reported in the Discord under ##bugs)"
-msgstr ""
+msgstr "   * 많은 버그 발견 (Discord의 ##bugs에 보고됨)"
 
 msgid "hsza (aka zaire)"
 msgstr ""
@@ -9092,7 +9075,7 @@ msgstr ""
 
 msgctxt "damagetype"
 msgid "#nArmourbreaker#0"
-msgstr ""
+msgstr "#n장갑파괴#0"
 
 msgctxt "damagetype"
 msgid "emp"
@@ -9100,7 +9083,7 @@ msgstr ""
 
 msgctxt "damagetype"
 msgid "#bEMP#0"
-msgstr ""
+msgstr "#bEMP#0"
 
 msgctxt "damagetype"
 msgid "energy"
@@ -9108,7 +9091,7 @@ msgstr ""
 
 msgctxt "damagetype"
 msgid "#gEnergy#0"
-msgstr ""
+msgstr "#g에너지#0"
 
 msgctxt "damagetype"
 msgid "energy_noknockback"
@@ -9124,7 +9107,7 @@ msgstr ""
 
 msgctxt "damagetype"
 msgid "#yIon#0"
-msgstr ""
+msgstr "#y이온#0"
 
 msgctxt "damagetype"
 msgid "kinetic"
@@ -9132,7 +9115,7 @@ msgstr ""
 
 msgctxt "damagetype"
 msgid "#oKinetic#0"
-msgstr ""
+msgstr "#o운동#0"
 
 msgctxt "damagetype"
 msgid "nebula"
@@ -9140,7 +9123,7 @@ msgstr ""
 
 msgctxt "damagetype"
 msgid "#pNebula#0"
-msgstr ""
+msgstr "#p성운#0"
 
 msgctxt "damagetype"
 msgid "plasma"
@@ -9148,7 +9131,7 @@ msgstr ""
 
 msgctxt "damagetype"
 msgid "#rPlasma#0"
-msgstr ""
+msgstr "#r플라스마#0"
 
 msgctxt "slotproperty"
 msgid "Accessory"
@@ -10597,7 +10580,7 @@ msgid ""
 msgstr ""
 
 msgid "#pOnly active when in stealth.#0"
-msgstr ""
+msgstr "#p스텔스 상태에서만 활성화됩니다.#0"
 
 msgid ""
 "A broken prototype for a novel shielding device that is supposed to enable "
@@ -10633,7 +10616,7 @@ msgid ""
 msgstr ""
 
 msgid "#pImproves luck!#0"
-msgstr ""
+msgstr "#p행운이 증가합니다!#0"
 
 msgid ""
 "A rare limited edition Goatee Marker, meant exclusive for drawing not only "
@@ -10658,7 +10641,7 @@ msgid ""
 msgstr ""
 
 msgid "#pDoubles the range of blink drives.#0"
-msgstr ""
+msgstr "#p점멸 드라이브의 범위가 두 배로 증가합니다.#0"
 
 msgid ""
 "The left boot of a high-ranking Empire official. It doesn't seem to fit you "
@@ -10667,7 +10650,7 @@ msgid ""
 msgstr ""
 
 msgid "#pSmells funky.#0"
-msgstr ""
+msgstr "#p묘한 냄새가 난다.#0"
 
 msgid ""
 "A misplaced love letter that you were supposed to deliver, reading the first "
@@ -10677,7 +10660,7 @@ msgid ""
 msgstr ""
 
 msgid "#rLove is in the air.#0"
-msgstr ""
+msgstr "#r사랑이 가득하다.#0"
 
 msgid "A token of commitment to the FLF cause. It smells oddly of fish."
 msgstr ""
@@ -10709,7 +10692,7 @@ msgid ""
 msgstr ""
 
 msgid "#gDouble effect when flying a pirate ship.#0"
-msgstr ""
+msgstr "#g해적선 조종 시 효과가 두 배가 됩니다.#0"
 
 msgid ""
 "It appears to be a limited edition Nexus Shipyards sandwich holder. Very "
@@ -10744,12 +10727,17 @@ msgid ""
 "the Hyena put so much strain on the pilots that it could crush them during "
 "high acceleration?"
 msgstr ""
+"일반 등급의 #o하이에나#0 트레이딩 카드 게임 카드. 하이에나의 모든 주요 "
+"제원이 상세히 기술되어 있다. 하이에나 초기 모델은 파일럿에게 너무 큰 부하를 "
+"걸어 고가속 시 조종사를 압사시킬 수 있었다는 사실을 아는가?"
 
 msgid ""
 "A #oGolden Llama#0 trading card game card of #prare#0 rarity. Instead of "
 "going into the important details of the ship, it just shows a high "
 "definition holographic rendition of the supposed Golden Llama."
 msgstr ""
+"#p희귀#0 등급의 #o황금 라마#0 트레이딩 카드 게임 카드. 함선의 주요 제원 "
+"대신, 소위 황금 라마의 고해상도 홀로그램 이미지만 표시되어 있다."
 
 msgid ""
 "A #oDvaered Vigilance#0 trading card game card of #buncommon#0 rarity. It "
@@ -10758,6 +10746,10 @@ msgid ""
 "allowing the crew to man it past damage that would usually incapacitate "
 "normal ships?"
 msgstr ""
+"#b비일반#0 등급의 #o드바에레드 비질런스#0 트레이딩 카드 게임 카드. "
+"드바에레드 비질런스의 모든 주요 제원이 상세히 기술되어 있다. 비질런스는 삼중 "
+"예비 생명 유지 시스템을 갖추고 있어, 일반 함선이라면 무력화되었을 피해를 "
+"입어도 승무원이 계속 운용할 수 있다는 사실을 아는가?"
 
 msgid ""
 "A statue given to you by Baron Sauterfeldt for your fine work. You would "
@@ -11497,9 +11489,8 @@ msgid ""
 "bombers."
 msgstr ""
 
-#, fuzzy
 msgid "Z. B. Drone B."
-msgstr "프론티어 시스템"
+msgstr "Z. B. 드론 B."
 
 #, fuzzy
 msgid "You need at least 50% reputation with House Za'lek."
@@ -11513,7 +11504,7 @@ msgid ""
 msgstr ""
 
 msgid "Z. B. Drone mB."
-msgstr ""
+msgstr "Z. B. 드론 mB."
 
 #, fuzzy
 msgid "You need at least 30% reputation with House Za'lek."
@@ -11526,9 +11517,8 @@ msgid ""
 "flight of the drones."
 msgstr ""
 
-#, fuzzy
 msgid "Z. H. Drone B."
-msgstr "잘렉 헤비 드론"
+msgstr "Z. H. 드론 B."
 
 #, fuzzy
 msgid "You need at least 60% reputation with House Za'lek."
@@ -11541,7 +11531,7 @@ msgid ""
 msgstr ""
 
 msgid "Z. H. Drone mB."
-msgstr ""
+msgstr "Z. H. 드론 mB."
 
 #, fuzzy
 msgid "You need at least 40% reputation with House Za'lek."
@@ -11553,9 +11543,8 @@ msgid ""
 "of the drones."
 msgstr ""
 
-#, fuzzy
 msgid "Z. L. Drone B."
-msgstr "잘렉의 경량 드로"
+msgstr "Z. L. 드론 B."
 
 msgid ""
 "This bay is built to launch a swarm of Za'lek Light Drones. The drones are "
@@ -11565,7 +11554,7 @@ msgid ""
 msgstr ""
 
 msgid "Z. L. Drone mB."
-msgstr ""
+msgstr "Z. L. 드론 mB."
 
 msgid ""
 "This bay is built to launch a quartet Za'lek Light Drones. The drones are "
@@ -11703,6 +11692,12 @@ msgid ""
 "hyperdrive making it a rare modification to find.\n"
 "#oThis outfit can not be removed once equipped.#0"
 msgstr ""
+"대부분의 함선은 함장에게 불쾌한 불상사를 주지 않기 위해 초공간 드라이브 연료 "
+"탱크 주변에 넉넉한 여유를 두고 설계된다. 그러나 숙련된 함선 엔지니어 "
+"대부분은 그런 여유가 사실상 불필요하다고 말할 것이다. 다만 실제로 함선의 "
+"초공간 드라이브를 수정하는 데 수고와 책임을 감수하는 이는 드물어, 이 장비를 "
+"찾기란 여간 어려운 일이 아니다.\n"
+"#o이 장비는 장착하면 제거할 수 없습니다.#0"
 
 msgid ""
 "Most ships are designed to withstand the harshness of space, with the "
@@ -11752,9 +11747,8 @@ msgstr ""
 msgid "This ship is extremely worn down and is barely functional."
 msgstr ""
 
-#, fuzzy
 msgid "Convulsion L."
-msgstr "오리온 랜스"
+msgstr "컨벌전 L."
 
 msgid ""
 "The Thurion interceptor class missile focus on high agility rather than "
@@ -11763,7 +11757,7 @@ msgid ""
 msgstr ""
 
 msgid "Electron Burst C."
-msgstr ""
+msgstr "전자 버스트 C."
 
 #, fuzzy
 msgid "You need at least 20 reputation with House Za'lek."
@@ -11777,9 +11771,8 @@ msgid ""
 "high damage of their beams."
 msgstr ""
 
-#, fuzzy
 msgid "EMP Grenade L."
-msgstr "터레 티드 가우스 건"
+msgstr "EMP 수류탄 L."
 
 msgid ""
 "This launcher can fire EMP grenades in any direction using a unique internal "
@@ -11790,9 +11783,8 @@ msgid ""
 "keeping pirates at bay."
 msgstr ""
 
-#, fuzzy
 msgid "E. Huntsman L."
-msgstr "잘렉 헤비 드론"
+msgstr "E. 헌츠맨 L."
 
 msgid ""
 "Enygma Systems found that there was an unexploited niche for weapons built "
@@ -11802,9 +11794,8 @@ msgid ""
 "ships."
 msgstr ""
 
-#, fuzzy
 msgid "E. Spearhead L."
-msgstr "터레 티드 가우스 건"
+msgstr "E. 스피어헤드 L."
 
 msgid ""
 "The Spearhead class EMP missile is one of Enygma Systems' more specialized "
@@ -11816,7 +11807,7 @@ msgid ""
 msgstr ""
 
 msgid "E. Fury T. L."
-msgstr ""
+msgstr "E. 퓨리 T. L."
 
 msgid ""
 "Enygma Systems has developed a turret mounted Fury launcher. It comes at a "
@@ -11824,9 +11815,8 @@ msgid ""
 "pirate fighters and an effective defence against hostile bombers."
 msgstr ""
 
-#, fuzzy
 msgid "E. Headhunter T. L."
-msgstr "터레 티드 가우스 건"
+msgstr "E. 헤드헌터 T. L."
 
 msgid ""
 "These turreted launchers are sometimes employed by cruiser captains whose "
@@ -11835,9 +11825,8 @@ msgid ""
 "swivel mounted launcher can effectively compensate for any blind spots."
 msgstr ""
 
-#, fuzzy
 msgid "Pincushion B."
-msgstr "오리온 랜스"
+msgstr "핀쿠션 B."
 
 msgid ""
 "Designed for incapacitating enemy fleets, the Pincushion Battery can launch "
@@ -11853,9 +11842,8 @@ msgid ""
 "random nearby enemies. Lowers shield regeneration by -70% on hit."
 msgstr ""
 
-#, fuzzy
 msgid "R. Banshee L."
-msgstr "터레 티드 가우스 건"
+msgstr "R. 밴시 L."
 
 #, fuzzy
 msgid "You need at least 15% reputation with House Dvaered."
@@ -11868,9 +11856,8 @@ msgid ""
 "the bomber or its target will have been destroyed before it is empty."
 msgstr ""
 
-#, fuzzy
 msgid "Shatterer L."
-msgstr "입자 랜스"
+msgstr "셔터러 L."
 
 msgid ""
 "This weapon, based on a Fury missile, is used by the Collective's heavy "
@@ -11880,7 +11867,7 @@ msgid ""
 msgstr ""
 
 msgid "Space Mine L."
-msgstr ""
+msgstr "우주 기뢰 L."
 
 msgid ""
 "The vastness of space limits the applicability of space mines in lieu of "
@@ -11889,7 +11876,7 @@ msgid ""
 msgstr ""
 
 msgid "SFC L."
-msgstr ""
+msgstr "SFC L."
 
 #, fuzzy
 msgid "You need at least 30% reputation with House Dvaered."
@@ -11900,9 +11887,8 @@ msgid ""
 "giant Mace rocket used by Dvaered capships to strike distant enemies."
 msgstr ""
 
-#, fuzzy
 msgid "T. Banshee L."
-msgstr "터레 티드 가우스 건"
+msgstr "T. 밴시 L."
 
 msgid ""
 "TeraCom has equipped its Banshee launcher model with high grade reload and "
@@ -11911,9 +11897,8 @@ msgid ""
 "ships in the hands of a competent pilot."
 msgstr ""
 
-#, fuzzy
 msgid "T. Fury L."
-msgstr "터레 티드 가우스 건"
+msgstr "T. 퓨리 L."
 
 msgid ""
 "TeraCom's Fury Launcher is a high-performance missile launcher equipped with "
@@ -11923,9 +11908,8 @@ msgid ""
 "some of the fastest ships in the galaxy."
 msgstr ""
 
-#, fuzzy
 msgid "T. Headhunter L."
-msgstr "터레 티드 가우스 건"
+msgstr "T. 헤드헌터 L."
 
 msgid ""
 "This is TeraCom's model Headhunter launcher. Though somewhat pricey and "
@@ -11935,9 +11919,8 @@ msgid ""
 "sized distant enemies, while remaining reasonably fast and agile."
 msgstr ""
 
-#, fuzzy
 msgid "T. Imperator L."
-msgstr "터레 티드 가우스 건"
+msgstr "T. 임페라토르 L."
 
 msgid ""
 "TeraCom decided not to develop a launcher for the Caesar IV, as it fell "
@@ -11948,9 +11931,8 @@ msgid ""
 "completely."
 msgstr ""
 
-#, fuzzy
 msgid "T. Mace L."
-msgstr "터레 티드 가우스 건"
+msgstr "T. 메이스 L."
 
 msgid ""
 "The Mace class unguided rocket is a cheap, expendable weapon used to boost "
@@ -11959,9 +11941,8 @@ msgid ""
 "disadvantage of running out of ammunition after only a short time of fire."
 msgstr ""
 
-#, fuzzy
 msgid "T. Medusa L."
-msgstr "터레 티드 가우스 건"
+msgstr "T. 메두사 L."
 
 msgid ""
 "The Medusa class EMP cruise missile is a nonlethal weapon designed to knock "
@@ -11971,9 +11952,8 @@ msgid ""
 "most agile missile on the market."
 msgstr ""
 
-#, fuzzy
 msgid "T. Vengeance L."
-msgstr "터레 티드 가우스 건"
+msgstr "T. 벤전스 L."
 
 msgid ""
 "Vengeance class interceptor missiles are the heaviest interceptor missiles "
@@ -11985,9 +11965,8 @@ msgid ""
 "to achieve a lock. Sometimes, those few seconds can make all the difference."
 msgstr ""
 
-#, fuzzy
 msgid "T. Convulsion L."
-msgstr "오리온 랜스"
+msgstr "T. 컨벌전 L."
 
 msgid ""
 "The Thurion interceptor class missile focus on high agility rather than "
@@ -11998,9 +11977,8 @@ msgid ""
 "standard launcher."
 msgstr ""
 
-#, fuzzy
 msgid "U. Caesar IV L."
-msgstr "터레 티드 가우스 건"
+msgstr "U. 시저 IV L."
 
 msgid ""
 "Caesar IV class torpedoes are among the most common torpedo weapons "
@@ -12008,9 +11986,8 @@ msgid ""
 "targets, they remain manoeuvrable enough to chase down cruisers."
 msgstr ""
 
-#, fuzzy
 msgid "U. Storm L."
-msgstr "터레 티드 가우스 건"
+msgstr "U. 스톰 L."
 
 #, fuzzy
 msgid "You need at least 30% reputation with the Empire."
@@ -12024,9 +12001,8 @@ msgid ""
 "squadrons use this very deadly weapon."
 msgstr ""
 
-#, fuzzy
 msgid "Z. Hunter L."
-msgstr "잘렉 헤비 드론"
+msgstr "Z. 헌터 L."
 
 msgid ""
 "The Za'lek have found conventional missiles and torpedoes woefully primitive "
@@ -12037,7 +12013,7 @@ msgid ""
 msgstr ""
 
 msgid "Z. Predator L."
-msgstr ""
+msgstr "Z. 프레데터 L."
 
 msgid "You need at least 20% reputation with House Za'lek."
 msgstr ""
@@ -12053,9 +12029,8 @@ msgid ""
 "from a safe distance."
 msgstr ""
 
-#, fuzzy
 msgid "Z. Reaper L."
-msgstr "자레크의 연구티"
+msgstr "Z. 리퍼 L."
 
 msgid ""
 "This weapon stretches the term 'miniaturized drone' nearly to its breaking "
@@ -12273,7 +12248,7 @@ msgid ""
 msgstr ""
 
 msgid "D. Flare B."
-msgstr ""
+msgstr "D. 플레어 B."
 
 #, fuzzy
 msgid "Point Defence"
@@ -12292,7 +12267,7 @@ msgid ""
 msgstr ""
 
 msgid "Guardian I.S."
-msgstr ""
+msgstr "가디언 I.S."
 
 msgid ""
 "Marketed as a unified system for intercepting missiles and interceptors, the "
@@ -12303,7 +12278,7 @@ msgid ""
 msgstr ""
 
 msgid "Guardian O.S."
-msgstr ""
+msgstr "가디언 O.S."
 
 msgid ""
 "The Guardian Overseer System is a complete rework of the original Guardian "
@@ -12314,7 +12289,7 @@ msgid ""
 msgstr ""
 
 msgid "Ratchet P.D."
-msgstr ""
+msgstr "래칫 P.D."
 
 msgid ""
 "The Ratchet was a popular weapon used during the Dvaered revolts by the "
@@ -12664,7 +12639,7 @@ msgid ""
 msgstr ""
 
 msgid "#gAllows converting space resources to fuel.#0"
-msgstr ""
+msgstr "#g우주 자원을 연료로 변환할 수 있습니다.#0"
 
 msgid ""
 "An experimental hull design for scout ships that would allow them to "
@@ -12684,7 +12659,7 @@ msgid ""
 msgstr ""
 
 msgid "#rHot hot hot!#0"
-msgstr ""
+msgstr "#r뜨거워 뜨거워!#0"
 
 msgid ""
 "This core system is easily recognizable as the work of some amateurs, with "
@@ -12751,6 +12726,8 @@ msgid ""
 "Activates for 5 seconds with a 15 second cooldown period.\n"
 "#pCan be used for tracking anomaly signals.#0"
 msgstr ""
+"5초간 활성화되며 15초의 재사용 대기시간이 있습니다.\n"
+"#p이상 신호를 추적하는 데 사용할 수 있습니다.#0"
 
 msgid ""
 "It's not clear how Misi got the goods to sell and they evade questions on "
@@ -12769,7 +12746,7 @@ msgid ""
 msgstr ""
 
 msgid "#rDrains 80 shield per second when firing and for one second after.#0"
-msgstr ""
+msgstr "#r발사 중과 발사 후 1초 동안 초당 실드 80을 소모합니다.#0"
 
 msgid ""
 "This device seems to be almost like a parasite that hooks up to the ship's "
@@ -12871,7 +12848,7 @@ msgid ""
 msgstr ""
 
 msgid "#gAllows precise mining of asteroids to extract rare minerals.#0"
-msgstr ""
+msgstr "#g소행성을 정밀 채굴하여 희귀 광물을 추출할 수 있습니다.#0"
 
 msgid "Uses 1 MJ of energy per 10 mass and drains shield in 0.5 seconds."
 msgstr ""
@@ -13399,7 +13376,7 @@ msgid ""
 msgstr ""
 
 msgid "#oOn hit pulls target.#0"
-msgstr ""
+msgstr "#o명중 시 표적을 끌어당깁니다.#0"
 
 msgid ""
 "Fires waste debris in a shotgun-like blast that can be useful in taking down "
@@ -14004,7 +13981,7 @@ msgid ""
 msgstr ""
 
 msgid "#bGains as much weapon range bonus as the ship detection.#0"
-msgstr ""
+msgstr "#b함선 탐지 거리만큼 무기 사거리 보너스를 얻습니다.#0"
 
 #, fuzzy
 msgid "You need at least 60% reputation with the Empire."
@@ -18035,9 +18012,8 @@ msgstr ""
 msgid "Dvaered High Command"
 msgstr "드 베어드 경계"
 
-#, fuzzy
 msgid "#pDvaered Homeworld#0"
-msgstr "드 베어드 경계"
+msgstr "#p드바에레드 본성#0"
 
 msgid ""
 "This is Dvaered High Command, the true seat of power over all Dvaered space, "
@@ -18380,7 +18356,7 @@ msgid "Emperor's Wrath"
 msgstr ""
 
 msgid "#pEmpire Homeworld#0"
-msgstr ""
+msgstr "#p제국 본성#0"
 
 msgid ""
 "The Emperor's Wrath is where the Emperor and his Council reside. It is a "
@@ -20742,7 +20718,7 @@ msgid "Kal Atok Obelisk"
 msgstr ""
 
 msgid "#yObelisk#0"
-msgstr ""
+msgstr "#y오벨리스크#0"
 
 msgid "Obelisk"
 msgstr ""
@@ -20815,9 +20791,8 @@ msgstr ""
 msgid "Kataka"
 msgstr ""
 
-#, fuzzy
 msgid "#pSoromid Homeworld#0"
-msgstr "드 베어드 경계"
+msgstr "#p소로미드 본성#0"
 
 msgid ""
 "With the loss of Sorom, the Soromid had to decide on a new political "
@@ -22076,7 +22051,7 @@ msgid "Mutris"
 msgstr ""
 
 msgid "#pSirius Homeworld#0"
-msgstr ""
+msgstr "#p시리우스 본성#0"
 
 msgid ""
 "Mutris. The very heart of Sirius space. This is where Crater City is to be "
@@ -24114,9 +24089,8 @@ msgstr ""
 msgid "Ruadan Prime"
 msgstr ""
 
-#, fuzzy
 msgid "#pZa'lek Homeworld#0"
-msgstr "드 베어드 경계"
+msgstr "#p자렉 본성#0"
 
 msgid ""
 "Ruadan has recently become the nerve centre of the Za'lek. Most of the "
@@ -27464,7 +27438,7 @@ msgid "Wormhole Carrza"
 msgstr ""
 
 msgid "#bWormhole#0"
-msgstr ""
+msgstr "#b웜홀#0"
 
 msgid "Wormhole"
 msgstr ""
@@ -28154,13 +28128,13 @@ msgid "Amatiri"
 msgstr ""
 
 msgid "#rHaze (-50% Shield and Shield Regen)#0"
-msgstr ""
+msgstr "#r안개 (-50% 실드 및 실드 재생)#0"
 
 msgid "Amlet"
 msgstr ""
 
 msgid "#bStellar Wind (1 fuel regen)#0"
-msgstr ""
+msgstr "#b항성풍 (연료 재생 +1)#0"
 
 msgid "Anarbalis"
 msgstr ""
@@ -28270,7 +28244,7 @@ msgid "Baf"
 msgstr ""
 
 msgid "#oRestricted#0"
-msgstr ""
+msgstr "#o제한 구역#0"
 
 msgid "Baitas"
 msgstr ""
@@ -28500,7 +28474,7 @@ msgid "Euler"
 msgstr "오일러"
 
 msgid "#pPlasma Storm (-50% energy and -50% stress dissipation)#0"
-msgstr ""
+msgstr "#p플라스마 폭풍 (-50% 에너지 및 -50% 스트레스 해소)#0"
 
 msgid "Eye of Night"
 msgstr ""
@@ -29579,7 +29553,7 @@ msgid "Taiomi"
 msgstr ""
 
 msgid "#pShip Graveyard#0"
-msgstr ""
+msgstr "#p함선 묘지#0"
 
 msgid "Tandar"
 msgstr ""
@@ -29784,7 +29758,7 @@ msgstr ""
 
 msgid ""
 "#oRestricted#0, #pPlasma Storm (-50% energy and -50% stress dissipation)#0"
-msgstr ""
+msgstr "#o제한 구역#0, #p플라스마 폭풍 (-50% 에너지 및 -50% 스트레스 해소)#0"
 
 msgid "Vost"
 msgstr ""
@@ -33442,6 +33416,8 @@ msgid ""
 "\n"
 "#rCosts {credits} ({sbonus}%#r from crew strength) to extract!#0"
 msgstr ""
+"\n"
+"#r탈취에 {credits} 크레딧이 필요합니다 (승무원 강도 보너스 {sbonus}%#r)!#0"
 
 msgid ""
 "{name}{sprice}\n"
@@ -33449,6 +33425,10 @@ msgid ""
 "{stype}\n"
 "{desc}"
 msgstr ""
+"{name}{sprice}\n"
+"{slotsize} {slottype}#0 슬롯{sprop}\n"
+"{stype}\n"
+"{desc}"
 
 msgid ""
 "{name}\n"
@@ -33548,6 +33528,12 @@ msgid ""
 "repairs and complete the capture. The ship will not assist you in combat and "
 "will be lost if destroyed."
 msgstr ""
+"{shpname}을(를) 포획하시겠습니까? 함선과 장비를 복구하는 데 #o{credits}#0 "
+"(승무원 강도 보너스 {sbonus}%#0), 장비 없이 복구하는 데 #o{creditsnaked}#0 "
+"크레딧이 소요될 것으로 추정됩니다. 보유 크레딧: {playercreds}.{fctmsg}\n"
+"\n"
+"함선을 호위하여 함께 착륙해야 복구와 포획이 완료됩니다. 해당 함선은 전투에 "
+"참여하지 않으며, 파괴되면 상실됩니다."
 
 msgid "Capture Ship?"
 msgstr ""
@@ -33699,6 +33685,8 @@ msgid ""
 "{amount} (current standing is {current}). #rThis action will make you "
 "hostile with {fct}!#0"
 msgstr ""
+"함선에서 물건을 약탈하면 {fct}와의 평판이 {amount}만큼 하락합니다 (현재 "
+"평판: {current}). #r이 행동은 {fct}와 적대 관계로 전환됩니다!#0"
 
 msgid "Offend {fct}?"
 msgstr ""
@@ -33728,12 +33716,14 @@ msgid ""
 "It will cost #r{credits}#0 in repairs to successfully extract the {outfit}. "
 "You have {playercreds}. Extract the {outfit}?"
 msgstr ""
+"{outfit}을(를) 탈취하려면 복구 비용으로 #r{credits}#0 크레딧이 필요합니다. "
+"보유 크레딧: {playercreds}. {outfit}을(를) 탈취하시겠습니까?"
 
 msgid "Insufficient Credits"
 msgstr ""
 
 msgid "You lack #r{diff}#0 to be able to extract the {outfit}."
-msgstr ""
+msgstr "{outfit}을(를) 탈취하려면 #r{diff}#0 크레딧이 부족합니다."
 
 #. Soft warning
 msgid "Board script failed to remove '{outfit}' from boarded pilot '{plt}'!"
@@ -33794,6 +33784,10 @@ msgid_plural ""
 "This action will bribe {n} {fct_list} pilots.\n"
 "You have {credits}. Pay #r{price}#0?"
 msgstr[0] ""
+"{msg}\n"
+"\n"
+"이 행동은 {n}명의 {fct_list} 파일럿에게 뇌물을 줍니다.\n"
+"보유 크레딧: {credits}. #r{price}#0 크레딧을 지불하시겠습니까?"
 
 msgid ""
 "\"I'm gonna need at least {credits} to not leave you as a hunk of floating "
@@ -33805,6 +33799,9 @@ msgid ""
 "\n"
 "You have {credits}. Pay #r{price}#0?"
 msgstr ""
+"{msg}\n"
+"\n"
+"보유 크레딧: {credits}. #r{price}#0 크레딧을 지불하시겠습니까?"
 
 #. Handle escort stuff here
 #, fuzzy
@@ -33856,7 +33853,7 @@ msgstr ""
 msgid ""
 "You only have {credits}. You need #r{cdif}#0 more to be able to afford the "
 "bribe!"
-msgstr ""
+msgstr "보유 크레딧: {credits}. 뇌물을 주려면 #r{cdif}#0 크레딧이 더 필요합니다!"
 
 msgid "\"Pleasure to do business with you.\""
 msgstr ""
@@ -33886,16 +33883,16 @@ msgid ""
 msgstr ""
 
 msgid "Pay #r{cost}#0 (100 fuel, {jumps:.1f} jumps)"
-msgstr ""
+msgstr "#r{cost}#0 크레딧 지불 (연료 100, {jumps:.1f}회 점프)"
 
 #. Only allow multiples of 100
 msgid "Pay #r{cost}#0 ({amount} fuel, {jumps:.1f} jumps)"
-msgstr ""
+msgstr "#r{cost}#0 크레딧 지불 (연료 {amount}, {jumps:.1f}회 점프)"
 
 msgid ""
 "You only have {credits} credits. You need #r{cdif}#0 more to be able to "
 "afford the refuelling!"
-msgstr ""
+msgstr "보유 크레딧: {credits}. 급유하려면 #r{cdif}#0 크레딧이 더 필요합니다!"
 
 #. Provides 100 fuel
 msgid "\"On my way.\""
@@ -34104,11 +34101,10 @@ msgstr ""
 msgid "Close."
 msgstr "소행성 스캐너"
 
-#, fuzzy
 msgid ""
 "Are you sure you wish to abandon this captured ship? #rThis is "
 "irreversible.#0"
-msgstr "Naev를 나가겠습니까?"
+msgstr "이 포획한 함선을 정말 포기하시겠습니까? #r이 작업은 되돌릴 수 없습니다.#0"
 
 #, fuzzy
 msgid "Cancel."
@@ -34403,6 +34399,8 @@ msgid ""
 "#bInfo#0 menu. This time there won't be a massacre because of a race "
 "condition!\""
 msgstr ""
+"\"사용해 보고, 다시 복습이 필요하면 #b정보#0 메뉴에서 다시 문의하시면 "
+"됩니다. 이번에는 경쟁 조건 때문에 학살이 일어나지 않을 겁니다!\""
 
 #. Properly finish
 #.
@@ -34990,15 +34988,14 @@ msgid ""
 "time better to watch paint dry."
 msgstr ""
 
-#, fuzzy
 msgid ""
 "The derelict appears deserted, its passengers long gone. However, they seem "
 "to have left behind a small amount of credit chips in their hurry to leave! "
 "You decide to help yourself to the #g{reward}#0 and leave the derelict."
 msgstr ""
-"버려진 배는 버려진 것 같고, 승객들은 이미 떠난 지 오래다. 하지만, 그들은 서둘"
-"러 떠나는 과정에서 소량의 크레딧 칩을 남겨둔 것 같다! 당신은 그들을 돕기로 결"
-"심하고, 버려진 배를 떠나기로 결심한다."
+"방치된 선체는 텅 비어 있고, 승객들은 이미 오래전 떠난 듯하다. 그러나 서둘러 "
+"떠나면서 소량의 크레딧 칩을 남겨 둔 것 같다! #g{reward}#0을(를) 챙기고 "
+"선체를 떠나기로 했다."
 
 msgid ""
 "You found a derelict in {sys}, it was empty but for some scattered credit "
@@ -35452,7 +35449,7 @@ msgid "Gambler's Paradise"
 msgstr ""
 
 msgid "Brave your Fate in the #rCrimson Gauntlet#0"
-msgstr ""
+msgstr "#r크림슨 건틀릿#0에서 운명에 도전하라"
 
 msgid "The Devastation of Haven"
 msgstr ""
@@ -35581,10 +35578,10 @@ msgstr ""
 #. Ends when player lands or leaves either way
 #. Don't trigger stuff in cinematics (looking at your chapter 1)
 msgid "You found #o{title} - {subtitle}#0!"
-msgstr ""
+msgstr "#o{title} - {subtitle}#0을(를) 발견했다!"
 
 msgid "You found #o{title}#0!"
-msgstr ""
+msgstr "#o{title}#0을(를) 발견했다!"
 
 #. Log and message
 msgid "Discovery"
@@ -35945,6 +35942,11 @@ msgid ""
 "\n"
 "Subject: Extra funding request"
 msgstr ""
+"발신: #ogrjhtgrfd#0 장군, 태스크 포스 5613, 특수작전부대\n"
+"\n"
+"수신: Mmosd 장군, 중앙 사령부\n"
+"\n"
+"제목: 추가 예산 요청"
 
 msgid "Tam"
 msgstr ""
@@ -35965,6 +35967,10 @@ msgid ""
 "(violence index: 267), assisted by Major (2nd class) Archibald Tam (violence "
 "index: 173)."
 msgstr ""
+"일반 정황: 태스크 포스 5613은 통칭 \"#ooikyujhfbgv#0\"이라 불리는 드바에레드 "
+"북동부 우주 해방 계획에 대비하여 창설되었습니다. 소장(3급) 카리베르트 클란크"
+"(폭력 지수: 267)가 지휘하며, 소령(2급) 아치발드 탐(폭력 지수: 173)이 "
+"보좌하고 있습니다."
 
 msgid "The Milky Way"
 msgstr ""
@@ -35975,6 +35981,9 @@ msgid ""
 "of Lord #owxft#0 (see Annexes A and B), ambushes by private pilots paid by "
 "an unidentified organization (see Annexes C, D and E),"
 msgstr ""
+"특이 정황: 태스크 포스 5613은 최근 잇따른 악재로 큰 타격을 입었습니다. 이 "
+"문제들에는 #owxft#0 영주의 단호한 반대(부록 A, B 참조)와 정체불명의 조직에 "
+"고용된 민간 파일럿들의 매복 습격(부록 C, D, E 참조) 등이 있으며,"
 
 #, fuzzy
 msgid "Hamelsen"
@@ -35993,6 +36002,10 @@ msgid ""
 "certain pecuniary cost, that had not been accounted for when the initial "
 "budget of Task force 5613 was decided"
 msgstr ""
+"그리고 #opokjngf#0 가문과의 불미스러운 충돌(부록 F, G 참조)도 있습니다. 이 "
+"문제들은 적절한 수단, 즉 힘, 폭력, 그리고 야만으로 대응되었습니다(상기 모든 "
+"부록 참조). 그러나 이에는 태스크 포스 5613의 초기 예산 책정 시 반영되지 "
+"않았던 일정한 금전적 비용이 수반됩니다"
 
 msgid "of cards"
 msgstr ""
@@ -36008,6 +36021,14 @@ msgid ""
 "\n"
 "Major General Klank"
 msgstr ""
+"요청: 임무 완수를 위해 태스크 포스 5613은 추가로 1,000만 크레딧이 "
+"필요합니다.\n"
+"\n"
+"드바에레드 가문의 목표 달성을 위해 매일 헌신하는 태스크 포스 5613 전 인원을 "
+"대표하여, 귀하의 시간과 검토에 감사드리며, 바르고 충성스러우며 "
+"#obfsrthgb#0한 상태를 유지하시기를 바랍니다.\n"
+"\n"
+"소장 클란크"
 
 msgid "brutal"
 msgstr ""
@@ -36425,19 +36446,22 @@ msgid ""
 "Is there anything else you would like to purchase?\""
 msgstr ""
 
-#, fuzzy
 msgid "Are you sure you want to trade in for the '#w{name}#0'?"
-msgstr "Naev를 나가겠습니까?"
+msgstr "'#w{name}#0'(으)로 교환하시겠습니까?"
 
 msgid ""
 "This will #rremove#0:\"\n"
 "#w{desc}#0\""
 msgstr ""
+"다음 아이템이 #r제거#0됩니다:\"\n"
+"#w{desc}#0\""
 
 msgid ""
 "You will #rget#0:\"\n"
 "#w{description}#0\""
 msgstr ""
+"다음 아이템을 #r획득#0합니다:\"\n"
+"#w{description}#0\""
 
 msgid "Trade"
 msgstr ""
@@ -36675,7 +36699,7 @@ msgid "Escort Manager"
 msgstr ""
 
 msgid "#nAggressive:#0 escorts seek out hostiles"
-msgstr ""
+msgstr "#n공격적:#0 호위함이 적극적으로 적을 찾아갑니다"
 
 msgid "Engage distance:"
 msgstr ""
@@ -38268,6 +38292,9 @@ msgid ""
 "TERMINAL. PARTICIPATION COST IS #p100 MINERVA TOKENS#0. ONLY ONE TICKET PER "
 "PARTICIPANT. SOME TERMS AND CONDITIONS MAY APPLY.\""
 msgstr ""
+"\"참가하려면 미네르바 역 터미널에서 티켓을 구매하기만 하면 됩니다. 참가비는 "
+"#p미네르바 토큰 100개#0입니다. 참가자당 1매로 제한됩니다. 일부 이용 약관이 "
+"적용될 수 있습니다.\""
 
 msgid "\"AND REMEMBER, LIFE IS SHORT, SPEND IT AT MINERVA STATION.\""
 msgstr ""
@@ -38534,6 +38561,9 @@ msgid_plural ""
 "\n"
 "WHAT DO YOU WISH TO DO TODAY?\""
 msgstr[0] ""
+"\"소중한 고객님, 현재 #p미네르바 토큰 {n}개#0를 보유하고 계십니다.{msg}\n"
+"\n"
+"오늘은 무엇을 도와드릴까요?\""
 
 #, fuzzy
 msgid "Trade-in"
@@ -38595,6 +38625,9 @@ msgid_plural ""
 "REQUESTED ITEM. WOULD YOU LIKE TO TRADE-IN FOR SOMETHING ELSE? YOU HAVE "
 "#p{n} MINERVA TOKENS#0.\""
 msgstr[0] ""
+"\"죄송합니다, 요청하신 물품을 교환하기에 미네르바 토큰이 부족합니다. 다른 "
+"물품으로 교환하시겠습니까? 현재 #p미네르바 토큰 {n}개#0를 보유하고 "
+"계십니다.\""
 
 msgid ""
 "\"I AM SORRY TO INFORM YOU THAT THE ITEM THAT YOU DESIRE IS CURRENTLY SOLD "
@@ -38605,6 +38638,8 @@ msgid_plural ""
 "OUT. WOULD YOU LIKE TO TRADE-IN FOR SOMETHING ELSE? YOU HAVE #p{n} MINERVA "
 "TOKENS#0.\""
 msgstr[0] ""
+"\"원하시는 물품은 현재 품절입니다. 다른 물품으로 교환하시겠습니까? 현재 "
+"#p미네르바 토큰 {n}개#0를 보유하고 계십니다.\""
 
 msgid ""
 "\"YOU CAN TRADE IN YOUR PRECIOUS #p{n} MINERVA TOKEN#0 FOR THE FOLLOWING "
@@ -38613,9 +38648,11 @@ msgid_plural ""
 "\"YOU CAN TRADE IN YOUR PRECIOUS #p{n} MINERVA TOKENS#0 FOR THE FOLLOWING "
 "GOODS.\""
 msgstr[0] ""
+"\"귀하의 소중한 #p미네르바 토큰 {n}개#0를 다음과 같은 물품으로 교환하실 수 "
+"있습니다.\""
 
 msgid "{item} (#rSOLD OUT#0)"
-msgstr ""
+msgstr "{item} (#r품절#0)"
 
 msgid "{item} ({tokens})"
 msgstr ""
@@ -38630,6 +38667,8 @@ msgid ""
 "AS FOLLOWS:\"\n"
 "#w{description}#0"
 msgstr ""
+"\"'#w{item}#0'(으)로 교환하시겠습니까? 설명은 다음과 같습니다:\"\n"
+"#w{description}#0"
 
 #, fuzzy
 msgid "You gambled for this ship at {pnt} in the {sys} system."
@@ -39807,6 +39846,10 @@ msgid ""
 "You carefully get closer to have a look at what it is. Wait, is it cat hair? "
 "Black cat hair?"
 msgstr ""
+"안에 커다란 #g{reward}#0이(가) 들어 있는 것 같다. 뭔가에 덮여 있는데... "
+"보송보송한 것 같다?\n"
+"\n"
+"조심스럽게 가까이 다가가 살펴본다. 잠깐, 이거 고양이 털? 검은 고양이 털?"
 
 msgid ""
 "Stifling the trauma of how long it took you to clean your ship after your "
@@ -40186,11 +40229,17 @@ msgid ""
 "you leave that, the {reward} on the other hand seems like something you "
 "should come with you."
 msgstr ""
+"캡슐을 억지로 열자, 안에는 이상한 해적왕 팬픽션이 들어 있지만, 더 중요한 "
+"것은 #g{reward}#0이(가) 보인다는 것이다. 팬픽션을 대충 훑어보니 그다지 "
+"독창적이거나 흥미롭지 않아 그대로 두기로 하고, {reward}은(는) 가져가기로 "
+"했다."
 
 msgid ""
 "You take the #g{reward}#0, but leave the fanfic for the next person to find "
 "the capsule. You can imagine they'll be very happy."
 msgstr ""
+"#g{reward}#0을(를) 챙기지만, 팬픽션은 캡슐을 발견하는 다음 사람을 위해 남겨 "
+"두었다. 그 사람은 무척 기뻐할 것이다."
 
 msgid ""
 "You followed a treasure map you found on {start} to {goal}, and found a nice "
@@ -41012,7 +41061,7 @@ msgstr ""
 #. Non-persistent state
 #. Create question
 msgid "\"What class is the #o{ship}#0 ship?\""
-msgstr ""
+msgstr "\"#o{ship}#0 함선의 등급은?\""
 
 #. Create question
 msgid "\"What is the name of this ship?\""
@@ -41188,6 +41237,9 @@ msgid ""
 "\"The correct answer was #g{answer}#0! Better luck next time.\"\n"
 "They take their leave."
 msgstr ""
+"그들은 만족스러운 표정으로 \"틀렸어!\"라고 외친다.\n"
+"\"정답은 #g{answer}#0(이)야! 다음번엔 잘해봐.\"\n"
+"그들은 자리를 떴다."
 
 #. Non-persistent state
 #. Make sure system isn't claimed, but we don't claim it
@@ -41203,6 +41255,8 @@ msgid ""
 "SOS. This is {plt}. We are shipwrecked. Please #bboard#0 us by #bdouble-"
 "clicking#0 on our ship."
 msgstr ""
+"SOS. 여기는 {plt}. 조난 상태입니다. 우리 함선을 #b더블 클릭#0하여 #b나포#0해 "
+"주십시오."
 
 #. Player boards the _("Shipwrecked {plt}") and rescues the crew, this spawns a new mission.
 #.
@@ -41479,7 +41533,7 @@ msgid "What do you wish to do?"
 msgstr "무엇을 하고 싶습니까?"
 
 msgid "Shop (#rNew Wares!#0)"
-msgstr ""
+msgstr "상점 (#r신규 상품!#0)"
 
 msgid "Shop"
 msgstr ""
@@ -46621,6 +46675,10 @@ msgid ""
 "sensors will pick you up as a docile and inoffensive independent ship. It "
 "can fool pretty much any ship sensors!\""
 msgstr ""
+"\"영리해 보이는군. 획기적인 기술의 결정체를 손에 넣었는데, #o{outfit}"
+"#0이라는 장비야. 해적의 즐거움을 만끽할 때 성가신 함선들을 모두 피할 수 있게 "
+"해주지. 어떤 함선을 타고 있든, 센서에는 온순하고 위협 없는 독립 함선으로 "
+"표시될 거야. 거의 모든 함선의 센서를 속일 수 있지!\""
 
 msgid ""
 "\"As a one-time offer, I'd be willing to part with it for {credits}. It's "
@@ -46919,7 +46977,7 @@ msgstr ""
 
 msgid ""
 "Your current ship will have a time compression factor of #o{tc_max:.1f}x#0."
-msgstr ""
+msgstr "현재 함선의 시간 압축 계수는 #o{tc_max:.1f}x#0가 됩니다."
 
 #, fuzzy
 msgid "Autonav Settings"
@@ -47074,6 +47132,11 @@ msgid ""
 "customizable weapon sets that can be configured separately for each ship, in "
 "addition to primary and secondary weapon sets..\""
 msgstr ""
+"\"전투의 상당 부분은 함선 등급과 장비 배치로 사전에 결정됩니다. 그러나 "
+"뛰어난 조종 실력으로 판도를 뒤집을 수 있습니다. 무기 세트를 사용하기 쉽게 "
+"배정하는 것이 중요합니다. 정보 창의 '#o무기#0' 탭에서 무기 세트를 설정할 수 "
+"있습니다. 주 무기 및 보조 무기 세트 외에도, 각 함선별로 별도로 구성할 수 "
+"있는 10개의 맞춤형 무기 세트가 있습니다.\""
 
 msgid ""
 "\"There are three different types of weapon sets you can activate in "
@@ -47086,6 +47149,12 @@ msgid ""
 "states\n"
 "\""
 msgstr ""
+"\"고급 모드에서 활성화할 수 있는 세 가지 유형의 무기 세트가 있습니다:\n"
+"- #o기본#0: 키를 누르는지 길게 누르는지에 따라 동작이 달라집니다. 누르면 "
+"무기 세트를 켜고 끄며, 길게 누르는 동안 활성화됩니다.\n"
+"- #o길게 누르기#0: 핫키를 길게 누르면 장비가 켜집니다\n"
+"- #o토글#0: 핫키를 누르면 장비의 켜기/끄기 상태가 전환됩니다\n"
+"\""
 
 msgid ""
 "\"By default, the weapon sets will be automatically managed by me, with "
@@ -47114,6 +47183,11 @@ msgid ""
 "- #oStealth#0 determines the distance at which the ship is undetected when "
 "in stealth mode\""
 msgstr ""
+"\"각 함선에는 세 가지 중요한 전자전 수치가 있습니다:\n"
+"- #o탐지#0는 함선이 레이더에 나타나는 거리를 결정합니다.\n"
+"- #o신호#0는 함선이 완전히 탐지되는 거리를 결정합니다. 즉, 함선 유형과 "
+"세력이 표시됩니다. 또한 미사일과 무기가 함선을 추적하는 데 영향을 미칩니다.\n"
+"- #o스텔스#0는 스텔스 모드에서 함선이 탐지되지 않는 거리를 결정합니다\""
 
 msgid ""
 "\"#oDetection#0 plays a crucial in how much attention you draw in a system, "
@@ -47122,6 +47196,10 @@ msgid ""
 "stealth ranges, making outfits that give concealment bonuses very useful if "
 "you get your hands on them.\""
 msgstr ""
+"\"#o탐지#0는 성계에서 얼마나 주목을 받는지에 결정적인 역할을 하며, 탐지 "
+"보너스는 잠재적 위험을 회피하는 데 매우 유용합니다. 또한 은폐 보너스는 탐지, "
+"신호, 스텔스 거리를 낮춰주므로, 은폐 보너스를 제공하는 장비를 손에 넣으면 "
+"매우 유용합니다.\""
 
 msgid ""
 "\"#oSignature#0 is very important when it comes to combat as it determines "
@@ -47132,12 +47210,20 @@ msgid ""
 "targets. This also has an effect on launcher lock-on time, with lower "
 "signature increasing the time it takes for rockets to lock on to you.\""
 msgstr ""
+"\"#o신호#0는 전투에서 매우 중요합니다. 무기가 함선을 얼마나 잘 추적할 수 "
+"있는지를 결정하기 때문입니다. 신호가 적 무기의 #o최소 추적#0보다 낮으면, "
+"적의 무기로는 함선을 정확히 조준할 수 없습니다. 반대로 신호가 #o최적 "
+"추적#0보다 높으면 완벽하게 추적됩니다. 표적도 마찬가지입니다. 또한 발사기 "
+"락온 시간에도 영향을 미쳐, 신호가 낮을수록 로켓이 락온하는 데 더 오래 "
+"걸립니다.\""
 
 msgid ""
 "\"#oStealth#0 is a whole different beast and is only useful when entering "
 "stealth mode with {stealthkey}. If you want to learn more about stealth, "
 "please ask me about it.\""
 msgstr ""
+"\"#o스텔스#0는 완전히 다른 분야로, {stealthkey}로 스텔스 모드에 진입할 때만 "
+"유용합니다. 스텔스에 대해 더 알고 싶다면 저에게 물어보세요.\""
 
 msgid ""
 "\"Finally, ships that are scanning your ship will be marked on your radar "
@@ -47151,6 +47237,10 @@ msgid ""
 "ships, and even missiles will stop tracking. However, if a ship gets within "
 "the #ostealth#0 distance of your ship, it will slowly uncover you.\""
 msgstr ""
+"\"다른 함선과 충분히 멀리 떨어져 있을 때 {stealthkey}로 스텔스 모드를 "
+"활성화할 수 있습니다. 스텔스 상태에서는 함선이 모든 함선에게 완전히 보이지 "
+"않게 되며, 미사일도 추적을 중단합니다. 그러나 함선이 자신의 #o스텔스#0 거리 "
+"안에 들어오면 서서히 탐지됩니다.\""
 
 msgid ""
 "\"Besides making your ship invisible to other ships, #ostealth#0 slows down "
@@ -47159,6 +47249,10 @@ msgid ""
 "outfits that can change and modify this behaviour to get more out of stealth."
 "\""
 msgstr ""
+"\"함선을 다른 함선에게 보이지 않게 하는 것 외에도, #o스텔스#0는 중력 존재를 "
+"은폐하기 위해 함선 속도를 50% 늦춥니다. 이는 점프 지점에서 더 먼 거리에서도 "
+"점프아웃할 수 있는 효과도 있습니다. 스텔스의 활용도를 높여주는 다양한 장비가 "
+"있습니다.\""
 
 msgid ""
 "\"When not in stealth, ships can target your ship to perform a scan. This "
@@ -47170,6 +47264,13 @@ msgid ""
 "their #ostealth#0 range, however, you will not be able to know where they "
 "are until you are on top of them.\""
 msgstr ""
+"\"스텔스 상태가 아닐 때, 함선이 당신의 함선을 대상으로 스캔을 수행할 수 "
+"있습니다. 이를 통해 불법 화물이나 장비 등 원치 않는 정보가 들통날 수 "
+"있습니다. 스캔 시간은 함선의 질량에 따라 다릅니다. 스캔당하고 싶지 않다면 "
+"최대한 스텔스를 활용해야 합니다. 적 함선도 스텔스를 사용할 수 있습니다. "
+"함선이 당신의 #o스텔스#0 범위에 들어오면 탐지되는 것과 마찬가지로, 적대적 "
+"또는 중립 함선의 #o스텔스#0 범위 안에 들어가면 그 함선을 탐지할 수 있지만, "
+"바로 위에 도달하기 전까지는 그 위치를 알 수 없습니다.\""
 
 msgid ""
 "\"Finally, escorts and fighters will automatically stealth when their leader "
@@ -47189,6 +47290,13 @@ msgid ""
 "good mining spot, I recommend you add a note on the #bSystem Map#0 so you "
 "don't forget.\""
 msgstr ""
+"\"소행성 채굴은 수익성 높은 사업이 될 수 있습니다. 소행성 지대는 은하 곳곳에 "
+"다양한 형태와 규모로 존재합니다. 교역품 거래소에서 좋은 가격에 팔 수 있는 "
+"다양한 귀중한 물질의 좋은 공급원이 될 수 있습니다. 그러나 모든 소행성 지대가 "
+"같은 조건을 갖추고 있지는 않습니다. 일반적으로 접근하기 쉬운 소행성 지대는 "
+"이미 과도하게 채굴되어 수확량이 낮은 편입니다. 반면 위험한 지역의 접근하기 "
+"어려운 소행성 지대는 아직 탐욕스러운 채굴 함대의 손길이 미치지 않았습니다. "
+"좋은 채굴 지점을 발견하면 #b성계 지도#0에 메모를 남겨두는 것을 추천합니다.\""
 
 msgid ""
 "\"Standard ship sensors are not designed for prospecting asteroid fields, so "
@@ -47219,6 +47327,10 @@ msgid ""
 "possibilities. Make sure to choose your skills carefully as there is an "
 "experience loss to change them once they have been chosen.\""
 msgstr ""
+"\"현재 생체 함선의 상태는 {infokey}로 접근할 수 있는 #b정보 메뉴#0에서 "
+"확인할 수 있습니다. 생체 함선이 경험치를 쌓고 새로운 단계로 발전하면, 새로운 "
+"가능성을 열어주는 기술을 습득할 수 있습니다. 한번 선택하면 변경 시 경험치 "
+"손실이 있으므로 기술을 신중하게 선택하세요.\""
 
 msgid ""
 "\"You can only change your skills when landed, and if you have free skill "
@@ -47226,6 +47338,9 @@ msgid ""
 "to make it clear. Skill is gained naturally as you do missions, but only "
 "your active bioship will be gaining experience.\""
 msgstr ""
+"\"기술은 착륙 시에만 변경할 수 있으며, 사용 가능한 기술 포인트가 있으면 "
+"#b정보 메뉴#0의 생체 함선 버튼에 #r!!#0 표시가 나타납니다. 기술은 임무를 "
+"수행하면서 자연스럽게 획득되지만, 활성화된 생체 함선만 경험치를 얻습니다.\""
 
 msgid ""
 "\"As you explore, you'll find different commodities, outfits, and even ships "
@@ -47251,6 +47366,9 @@ msgid ""
 "ship outfits or commodities. Note that illegality is determined on a per-"
 "faction basis instead of globally.\""
 msgstr ""
+"\"교역품이나 장비가 불법인지 여부는 {infokey}로 열 수 있는 #b정보 메뉴#0에서 "
+"함선 장비 또는 교역품을 확인하면 알 수 있습니다. 불법 여부는 전역이 아닌 "
+"세력별로 결정된다는 점에 유의하세요.\""
 
 msgid ""
 "\"With my overriding of the disable routine on the fleet procedure, you can "
@@ -47284,6 +47402,8 @@ msgid ""
 "\"Finally, you can toggle ships' deployment by #bright-clicking#0 on their "
 "icon. Try it out!\""
 msgstr ""
+"\"마지막으로, 함선 아이콘을 #b우클릭#0하여 배치 상태를 전환할 수 있습니다. "
+"한번 해보세요!\""
 
 #. Tries to give the player useful contextual information
 msgid ""
@@ -47334,6 +47454,11 @@ msgid ""
 "the skills from the bioship interface which is accessible from the #bInfo "
 "window#0 which you can open with #b{infokey}#0.\""
 msgstr ""
+"\"생체 함선은 시간이 지남에 따라 경험치를 얻어 새로운 단계로 발전하고 새로운 "
+"능력을 배울 수 있습니다. 생체 함선은 새로운 단계로 발전하려면 착륙해야 하며, "
+"착륙 상태에서만 새로운 기술을 배울 수 있습니다. #b{infokey}#0로 열 수 있는 "
+"#b정보 창#0에서 접근할 수 있는 생체 함선 인터페이스에서 기술을 설정할 수 "
+"있습니다.\""
 
 #. Return important advice
 #. Run random advice
@@ -50440,6 +50565,10 @@ msgid ""
 "from the '#oWeapons#0' tab of the information window. You have 10 different "
 "weapon sets that can be configured separately for each ship.\""
 msgstr ""
+"\"전투의 상당 부분은 함선 등급과 장비 배치로 사전에 결정됩니다. 그러나 "
+"뛰어난 조종 실력으로 판도를 뒤집을 수 있습니다. 무기 세트를 사용하기 쉽게 "
+"배정하는 것이 중요합니다. 정보 창의 '#o무기#0' 탭에서 무기 세트를 설정할 수 "
+"있습니다. 각 함선별로 별도로 구성할 수 있는 10개의 무기 세트가 있습니다.\""
 
 msgid ""
 "\"There are three different types of weapon sets:\n"
@@ -50449,6 +50578,10 @@ msgid ""
 "states\n"
 "- #oHold#0: holding the hotkey will turn the outfits on"
 msgstr ""
+"\"세 가지 유형의 무기 세트가 있습니다:\n"
+"- #o전환#0: 핫키를 누르면 주 무기와 보조 무기가 설정됩니다\n"
+"- #o토글#0: 핫키를 누르면 장비의 켜기/끄기 상태가 전환됩니다\n"
+"- #o길게 누르기#0: 핫키를 길게 누르면 장비가 켜집니다"
 
 msgid ""
 "\"By default, the weapon sets will be automatically managed by me, with "
@@ -50465,6 +50598,9 @@ msgid ""
 "set. Finally, click on the #bCycle Mode#0 button as necessary to change the "
 "type of weapon set.\""
 msgstr ""
+"\"{item}을(를) 무기 세트에 추가해 보세요! 먼저 목록에서 빈 세트를 클릭한 "
+"다음, {item} 아이콘을 클릭하여 무기 세트에 추가합니다. 마지막으로 필요에 "
+"따라 #b모드 순환#0 버튼을 클릭하여 무기 세트 유형을 변경하세요.\""
 
 #. See if we should be doing the tutorial
 msgid ""
@@ -50473,6 +50609,9 @@ msgid ""
 "#rWARNING - Volatile nebula detected in {sys}! Taking {nebvol:.1f} {unit} "
 "damage!#0"
 msgstr ""
+"성계로 점프하는 동안 조종 패널에 작은 경고등이 켜진다:\n"
+"#r경고 - {sys}에서 불안정한 성운 탐지됨! {nebvol:.1f} {unit} 피해를 받고 "
+"있습니다!#0"
 
 msgid ""
 "{ainame} materializes in front of you.\n"
@@ -50503,6 +50642,10 @@ msgid ""
 "they are prone to overheating and use a lot of energy, so it is best to use "
 "afterburners only when necessary.\""
 msgstr ""
+"\"방금 #o애프터버너#0 장비를 구매한 것 같군요. 애프터버너는 특정 함선에 "
+"하나만 장착할 수 있는 능동 장비입니다. 정보 메뉴({infokey}로 열기)에서 무기 "
+"세트 키 배정을 구성하거나, {accelkey}를 두 번 눌러 발동할 수 있습니다. "
+"과열되기 쉽고 많은 에너지를 소모하므로, 필요할 때만 사용하는 것이 좋습니다.\""
 
 #. launchers
 msgid ""
@@ -50513,6 +50656,11 @@ msgid ""
 "launch rockets after getting a new target. It is modulated depending on if "
 "the target's '#oSignature#0' is lower than the '#oOptimal Tracking#0'.\""
 msgstr ""
+"\"첫 번째 #o발사기#0 장비를 획득한 것 같군요. 발사기는 표적 추적 능력을 가진 "
+"탄약 기반 무기입니다. 유도 발사기에는 '#o락온#0'과 '#o비행 중 보정#0'이라는 "
+"두 가지 중요한 속성이 있습니다. 락온은 새로운 표적을 획득한 후 로켓을 발사할 "
+"수 있게 되기까지의 시간을 결정하며, 표적의 '#o신호#0'가 '#o최적 추적#0'보다 "
+"낮은지에 따라 조절됩니다.\""
 
 msgid ""
 "\"'#oIn-Flight Calibration#0' is the amount of time it takes for the rocket "
@@ -50523,6 +50671,11 @@ msgid ""
 "a coloured circle around the outfit that shrinks as the calibration finishes."
 "\""
 msgstr ""
+"'#o비행 중 보정#0'은 로켓이 발사된 후 표적 추적을 시작하기까지 걸리는 "
+"시간입니다. 락온되지 않은 상태에서는 직선으로 비행하며 마주치는 모든 적에게 "
+"피해를 주지만, 락온되면 재밍당하지 않는 한 표적에만 피해를 줍니다. 비행 중 "
+"보정은 표적의 신호에 영향을 받지 않으며, 장비 주위의 원형 표시가 보정이 "
+"완료됨에 따라 줄어드는 것으로 시각화됩니다.\""
 
 msgid ""
 "\"That leads us to the last important concept: jamming! Seeking rockets can "
@@ -50552,6 +50705,11 @@ msgid ""
 "#ohold position#0 with {eholdkey}, and #oreturn to ship#0 with {ereturnkey}."
 "\""
 msgstr ""
+"\"첫 번째 #o전투기 격납고#0 장비로 신분이 상승했군요! 예상하셨겠지만, 전투기 "
+"격납고는 요격기 또는 전투기 등급 호위함을 출격시키고 지휘할 수 있게 "
+"해줍니다. 배치되면 자율적으로 함선을 방어하며, 특정 명령을 내릴 수 있습니다. "
+"{eattackkey}로 #o공격#0, {eclearkey}로 #o명령 해제#0, {eholdkey}로 #o위치 "
+"유지#0, {ereturnkey}로 #o함선 귀환#0 명령을 내릴 수 있습니다.\""
 
 msgid ""
 "\"Besides giving direct orders to your escorts, you can also control how "
@@ -50561,6 +50719,11 @@ msgid ""
 "attacked. Using proper settings can minimize the amount of orders you have "
 "to give your escorts!\""
 msgstr ""
+"\"호위함에게 직접 명령을 내리는 것 외에도, {infokey}로 접근할 수 있는 "
+"#o정보#0 메뉴의 #o메인#0 탭에서 '호위 AI' 버튼을 사용하여 행동 방식을 제어할 "
+"수 있습니다. 모든 적과 교전하는 것부터 직접 공격받을 때만 방어하는 것까지 "
+"다양한 행동을 설정할 수 있습니다. 적절한 설정을 사용하면 호위함에게 줄 "
+"명령의 양을 최소화할 수 있습니다!\""
 
 msgid ""
 "\"Like ammunition in launchers, lost fighters will regenerate slowly over "
@@ -50579,6 +50742,10 @@ msgid ""
 "On the other hand, turret weapons have 360 degree tracking capability and "
 "can hit enemy ships from all over!\""
 msgstr ""
+"\"방금 #o터렛#0 무기를 구매한 건가요? 거의 모든 무기에 내장 추적 기능이 "
+"있지만, 비터렛 무기는 기동성이 매우 제한적이며 전방을 향한 표적만 공격할 수 "
+"있습니다. 반면 터렛 무기는 360도 추적 능력을 갖추어 모든 방향에서 적 함선을 "
+"타격할 수 있습니다!\""
 
 msgid ""
 "\"Like non-turret weapons, turret weapons must be fired manually. When "
@@ -50588,6 +50755,11 @@ msgid ""
 "the #oInformation#0 menu accessible with {infokey}. You should try and see "
 "what works best for you!\""
 msgstr ""
+"\"비터렛 무기와 마찬가지로 터렛 무기도 수동으로 발사해야 합니다. 터렛과 "
+"비터렛을 동시에 장착할 때, 비터렛과 터렛을 독립적으로 발사할 수 있도록 "
+"#o무기 세트#0를 설정하면 유용할 수 있습니다. 무기 세트는 {infokey}로 접근할 "
+"수 있는 #o정보#0 메뉴의 #o무기#0 탭에서 설정할 수 있습니다. 자신에게 가장 잘 "
+"맞는 방법을 시험해 보세요!\""
 
 #. pointdefence
 msgid ""
@@ -50597,6 +50769,10 @@ msgid ""
 "ships with a signature less than the tracking value. They can be very useful "
 "for keeping ships alive when being pummelled with fighters and ordnance.\""
 msgstr ""
+"\"어이쿠, 방금 #o근접방어#0 무기를 획득했나요? 활성화되면 #o근접방어#0가 "
+"접근하는 미사일을 표적으로 삼아 파괴하려 시도합니다. 또한 추적 기능이 "
+"있다면, 추적 수치보다 낮은 신호의 함선도 추적할 수 있습니다. 전투기와 화기에 "
+"시달릴 때 함선을 생존시키는 데 매우 유용합니다.\""
 
 msgid ""
 "\"#oPoint Defence#0 will be on by default, however, you can turn it off and "
@@ -50604,6 +50780,10 @@ msgid ""
 "target in range. No need for any micromanagement. Almost like they make me "
 "obsolete... wait no! I'm still important! Don't get rid of me!\""
 msgstr ""
+"\"#o근접방어#0는 기본적으로 켜져 있지만, 토글로 끄고 켤 수 있습니다. 켜져 "
+"있으면 범위 내에서 표적으로 삼을 수 있는 모든 것을 자동으로 사격합니다. "
+"세밀한 조작이 필요 없습니다. 마치 나를 쓸모없게 만드는 것 같... 잠깐 아니야! "
+"나는 여전히 중요해! 나를 버리지 마!\""
 
 msgid ""
 "\"If you want to rake in the credits doing larger missions or commodities "
@@ -50611,6 +50791,9 @@ msgid ""
 "routes carefully, though, because these ships' defensive capabilities are "
 "very limited.\""
 msgstr ""
+"\"대규모 임무나 교역으로 크레딧을 벌고 싶다면, #o대형 민간 선박 면허#0가 "
+"첫걸음입니다! 다만 이 함선들의 방어 능력은 매우 제한적이므로 경로를 신중하게 "
+"계획하세요.\""
 
 msgid ""
 "\"Oh, is that a #oMedium Weapon Licence#0? This will open the possibility of "
@@ -50620,6 +50803,10 @@ msgid ""
 "target. By mixing and matching weapons with complementary strengths you can "
 "greatly increase your combat ability.\""
 msgstr ""
+"\"오, #o중화기 면허#0를 획득했나요? 터렛이나 발사기 같은 대형 무기를 장착할 "
+"수 있게 됩니다. 터렛은 모든 방향으로 회전하여 조준 부담을 덜어줍니다. "
+"발사기는 탄약을 사용하며 적 함선에 락온하여 탄두가 표적에 명중하도록 합니다. "
+"상호 보완적인 무기를 조합하면 전투 능력을 크게 향상시킬 수 있습니다.\""
 
 msgid ""
 "\"Many of the newer weapons you'll now have access to have higher CPU "
@@ -50629,6 +50816,11 @@ msgid ""
 "cost of more mass. If you want to stay nimble and stealthy, you should be "
 "careful about increasing your mass.\""
 msgstr ""
+"\"이제 접근할 수 있는 대부분의 신형 무기는 더 높은 CPU를 요구합니다. CPU를 "
+"늘리려면 더 좋은 #o핵심 시스템#0을 장착해야 합니다. 장착할 수 있는 핵심 "
+"시스템의 성능은 함선의 슬롯 크기에 의해 제한됩니다. 큰 슬록은 더 많은 출력을 "
+"제공하지만, 그만큼 질량이 늘어납니다. 기동성과 스텔스를 유지하고 싶다면 질량 "
+"증가에 주의해야 합니다.\""
 
 msgid ""
 "\"Looks like you're finally ready to take on the big guns. #oHeavy Weapons "
@@ -50637,6 +50829,10 @@ msgid ""
 "a different scale. They use much more energy, weigh much more, but also have "
 "much longer range and higher firepower.\""
 msgstr ""
+"\"마침내 대포를 다룰 준비가 된 것 같군요. #o대형 무기 면허#0는 가장 크고 "
+"강력한 무기를 구매할 수 있게 해줍니다. 이 무기들은 중화기와 대체로 "
+"유사하지만 규모가 다릅니다. 에너지를 훨씬 많이 소모하고 무게도 훨씬 "
+"무겁지만, 사거리와 화력도 훨씬 높습니다.\""
 
 msgid ""
 "\"One thing you will have to watch out is that heavy weapons tend to have "
@@ -50647,6 +50843,11 @@ msgid ""
 "shots. If you intend to deal with smaller ships too, make sure to equip "
 "fighter bays or lighter weapons!\""
 msgstr ""
+"\"주의해야 할 점은 대형 무기는 대체로 최소 추적 수치와 최적 추적 수치가 "
+"높다는 것입니다. #o신호#0가 무기의 최소 추적 수치보다 낮은 함선은 대부분의 "
+"사격을 쉽게 회피할 수 있습니다. 반대로 최적 추적 수치보다 신호가 높은 대형 "
+"함선은 사격에 큰 피해를 입을 것입니다. 소형 함선도 상대하고 싶다면 전투기 "
+"격납고나 경무기도 장착하세요!\""
 
 msgid ""
 "\"It looks like you can finally get your hands on combat vessels with the "
@@ -50656,6 +50857,10 @@ msgid ""
 "and utility. There are mainly three classes of light combat vessels: "
 "#oFighters#0, #oBombers#0, and #oInterceptors#0.\""
 msgstr ""
+"\"마침내 #o경전투함 면허#0로 전투함을 운용할 수 있게 되었군요! 전투함은 민간 "
+"선박과 달리 본질적으로 전투에 적합합니다. 일반적으로 화물 용량과 다용성을 "
+"희생하는 대신 더 높은 기동성과 화력을 얻습니다. 경전투함에는 주로 "
+"#o전투기#0, #o폭격기#0, #o요격기#0 세 등급이 있습니다.\""
 
 msgid ""
 "\"#oInterceptors#0 are the lightest of the three with limited slots, but low "
@@ -50664,6 +50869,10 @@ msgid ""
 "craft, while bombers are known to carry torpedoes that can ravage even the "
 "largest of battleships.\""
 msgstr ""
+"\"#o요격기#0는 제한된 슬롯을 갖춘 세 등급 중 가장 가볍지만, 낮은 질량과 높은 "
+"기동성을 자랑합니다. #o전투기#0와 #o폭격기#0는 더 무겁지만 여전히 매우 "
+"기동성이 좋으며, 전투기는 소형 함정과의 근접 전투에 특화되어 있고, 폭격기는 "
+"가장 대형의 전함조차 초토화시킬 수 있는 어뢰를 장착하는 것으로 유명합니다.\""
 
 msgid ""
 "\"To make the most of combat ships, it is recommended you look at their "
@@ -50673,6 +50882,10 @@ msgid ""
 "than #oFighter#0-class ships. Be sure to experiment with set-ups to see what "
 "works well for you.\""
 msgstr ""
+"\"전투함을 최대한 활용하려면 장단점을 파악하는 것이 좋습니다. #o폭격기#0 "
+"등급 함선에 전방 무기만 장착하는 것은 효과적인 전투함이 되지 못합니다. "
+"슬롯도 중요한 역할을 하며, #o요격기#0 등급 함선은 #o전투기#0 등급 함선보다 "
+"더 제한적입니다. 다양한 장비 조합을 시험해 보세요.\""
 
 msgid ""
 "\"Looks like you've outgrown the #oLight Combat Vessel Licence#0. With the "
@@ -50681,6 +50894,10 @@ msgid ""
 "are the more agile of the two and can skirmish with smaller craft, while "
 "destroyers tend to be slower with much more firepower.\""
 msgstr ""
+"\"#o경전투함 면허#0를 벗어난 것 같군요. #o중전투함 면허#0로 #o초계함#0과 "
+"#o구축함#0 등급 함선을 운용할 수 있게 되며, 이 함선들은 상당한 화력을 갖추고 "
+"있습니다. 초계함은 둘 중 더 기동성이 좋아 소형 함정과 교전할 수 있고, "
+"구축함은 대체로 더 느리지만 화력이 훨씬 강력합니다.\""
 
 msgid ""
 "\"Medium combat vessels tend to have a good balance between firepower and "
@@ -50697,6 +50914,10 @@ msgid ""
 "These ships sacrifice size and utility for survivability and firepower, "
 "being able to lay devastating barrages to lay waste to enemy forces.\""
 msgstr ""
+"\"마침내 #o대전투함 면허#0를 획득했군요! #o순양함#0, #o전함#0, #o항모#0 등급 "
+"함선을 포함한 가장 대형의 전투함을 조종할 수 있게 됩니다. 이 함선들은 크기와 "
+"다용성을 생존력과 화력으로 바꾸어, 맹렬한 포격으로 적 전력을 초토화시킬 수 "
+"있습니다.\""
 
 msgid ""
 "\"#oCruisers#0 are the smallest of the three categories, but also the lowest "
@@ -50706,6 +50927,11 @@ msgid ""
 "firepower. #oCarriers#0 use a different strategy of using fighters to do the "
 "combat for them while maximizing survivability.\""
 msgstr ""
+"\"#o순양함#0은 세 범주 중 가장 작지만, 질량도 가장 낮고 기동성도 가장 "
+"높습니다. 구축함의 무거운 버전 정도로 볼 수 있습니다. #o전함#0은 화력을 "
+"최대치로 끌어올려 집중 포격을 피할 수 없는 어떤 함선이라도 갈아먹을 수 "
+"있습니다. #o항모#0는 전투기를 대신 전투에 투입하면서 생존력을 극대화하는 "
+"다른 전략을 사용합니다.\""
 
 msgid ""
 "\"Flying a heavy combat vessel is very different from other classes of "
@@ -50715,6 +50941,11 @@ msgid ""
 "vulnerable to volleys of torpedoes. Escorts and fighter bays can help them "
 "deal with enemy bombers.\""
 msgstr ""
+"\"대전투함의 조종은 다른 등급의 함선과 매우 다릅니다. 크기 때문에 보통 "
+"'#o시간 상수#0' 값에서 볼 수 있듯이 소형 함선보다 시간이 더 빠르게 흐르는 "
+"것처럼 느껴집니다. 또한 크기 때문에 스텔스가 어려워지며, 어뢰 연사에 "
+"취약해질 수 있습니다. 호위함과 전투기 격납고가 적 폭격기를 상대하는 데 "
+"도움이 됩니다.\""
 
 msgid ""
 "\"It looks like you got a #oMercenary Licence#0. This will enable bounty "
@@ -50724,6 +50955,10 @@ msgid ""
 "complete them. They can be fairly challenging at the beginning so make sure "
 "your ship is properly equipped for combat.\""
 msgstr ""
+"\"#o용병 면허#0를 획득한 것 같군요. 현상금 수임 임무가 이제부터 임무 컴퓨터 "
+"화면에 나타나기 시작할 것입니다. 이 임무들은 대체로 전투 중심이며, "
+"성공적으로 완수하려면 적합한 전투함이 필요합니다. 초반에는 상당히 도전적일 "
+"수 있으므로 함선이 전투에 적절히 장비되어 있는지 확인하세요.\""
 
 msgid ""
 "\"Congratulations on buying a brand new {ship}! Unless you trade in your "
@@ -50735,6 +50970,12 @@ msgid ""
 "swapping. In fact, getting a diversity of ships and switching to the one "
 "that best fits your need is a great way to get things done.\""
 msgstr ""
+"\"새 {ship} 구매를 축하합니다! 함선을 맞교환하지 않는 한, 새 함선을 구매하면 "
+"사용 가능한 함선에 추가됩니다. 보통 함선에는 핵심 장비만 장착되어 있으므로, "
+"#o장비#0 창에서 함선을 장비하고 현재 함선과 교체하려면 그곳으로 가야 합니다. "
+"급유 기능이 있는 모든 행성이나 기지에서 함선을 교체할 수 있으며, 교체에 따른 "
+"패널티나 비용은 없습니다. 실제로 다양한 함선을 확보하고 필요에 맞는 함선으로 "
+"전환하는 것이 일을 처리하는 좋은 방법입니다.\""
 
 msgid ""
 "\"You also don't have to worry about your ship AI changing, I am "
@@ -50758,6 +50999,10 @@ msgid ""
 "new possibilities. Make sure to choose your skills carefully as it is not "
 "easy to change them once they have been chosen.\""
 msgstr ""
+"\"현재 생체 함선의 상태는 #b{infokey}#0로 접근할 수 있는 #b정보 메뉴#0에서 "
+"확인할 수 있습니다. 생체 함선이 경험치를 쌓고 새로운 단계로 발전하면, 새로운 "
+"가능성을 열어주는 기술을 습득할 수 있습니다. 한번 선택하면 변경이 쉽지 "
+"않으므로 기술을 신중하게 선택하세요.\""
 
 msgid ""
 "I've never been run in a bioship before. I wonder what it will be like?\""
@@ -50773,6 +51018,13 @@ msgid ""
 "constant will have time passing 50% faster than a normal ship, and will help "
 "the ship feel less cumbersome to fly.\""
 msgstr ""
+"\"어이쿠, 첫 대형 함선을 획득한 것 같군요. 이미 눈치채셨을 수도 있지만, "
+"함선에는 '#o시간 상수#0' 등급이 있어, 함선을 조종할 때 시간이 얼마나 빠르게 "
+"흐르는지를 나타냅니다. 소형 함선은 대체로 100% 미만이어서 다른 함선보다 "
+"시간이 느리게 흐릅니다. 반면 대형 함선은 100% 이상의 시간 상수를 가져 시간이 "
+"더 빠르게 흐르는 것처럼 느껴집니다. 예를 들어 150% 시간 상수의 함선은 일반 "
+"함선보다 50% 빠르게 시간이 흘러, 거대한 함선이 덜 둔하게 느껴지도록 "
+"해줍니다.\""
 
 msgid ""
 "\"In general, due to the low manoeuvrability of large ships, you should "
@@ -50785,6 +51037,12 @@ msgid ""
 "It is best to try out different turrets and see what feels best for your "
 "ship.\""
 msgstr ""
+"\"일반적으로 대형 함선은 기동성이 낮기 때문에 자위를 위해 터렛 무기 및/또는 "
+"전투기 격납고를 사용하는 것이 좋습니다. 이를 통해 조준 걱정은 줄이고 일 "
+"처리에 집중할 수 있습니다. 터렛은 추적 수치에 크게 의존합니다. '#o최소 "
+"추적#0'은 터렛이 추적할 수 없는 표적 함선의 '#o신호#0' 값을 의미합니다. "
+"반대로 표적 함선이 '#o최적 추적#0' 이상이면 터렛이 완벽하게 추적할 수 "
+"있습니다. 다양한 터렛을 시험해 보고 함선에 가장 잘 맞는 것을 찾아보세요.\""
 
 #.
 #. <?xml version='1.0' encoding='utf8'?>
@@ -50852,6 +51110,9 @@ msgid ""
 "by clicking on the '#oShip AI#0' button. From there you can also access "
 "explanations and change tutorial options.\""
 msgstr ""
+"\"좋습니다! 이제부터 {ainame}이라는 이름을 사용하겠습니다. 변경하려면 "
+"{infokey}로 열 수 있는 #o정보#0 창에서 '#o함선 AI#0' 버튼을 클릭하면 됩니다. "
+"거기서 설명을 열람하고 튜토리얼 옵션을 변경할 수도 있습니다.\""
 
 #. luacheck: globals nooutfit (used in POI framework)
 msgid "Your ship AI {shipai} materializes before you."
@@ -50873,6 +51134,10 @@ msgid ""
 "cargo or outfits. You can activate stealth with {stealthkey} when no ships "
 "area nearby.\""
 msgstr ""
+"\"업데이트로 많은 시스템과 기능이 변경되었습니다. 가장 큰 변화는 새로운 "
+"스텔스 메커니즘을 포함하는 #o전자전#0의 전면 개편입니다. 새로운 체계에서는 "
+"순찰선에게 스캔을 받게 되므로, 불법 화물이나 장비를 운반할 때 주의해야 "
+"합니다. 주변에 함선이 없을 때 {stealthkey}로 스텔스를 활성화할 수 있습니다.\""
 
 #. 0.10.0 changes
 msgid ""
@@ -50930,6 +51195,10 @@ msgid ""
 "and by default it should be much more useful and is able to use patrol lanes "
 "among other things.\""
 msgstr ""
+"\"일부 설정이 전역에서 플레이어별로 이동되었습니다. 여기에는 모든 자동항법 "
+"설정이 포함되며, 이제 {infokey}로 열 수 있는 #o정보 메뉴#0에서 접근할 수 "
+"있습니다. 자동항법도 재작성되어 기본 설정으로 훨씬 유용해졌으며, 순찰 항로 "
+"등을 활용할 수 있습니다.\""
 
 msgid ""
 "The 'board' and 'land' keys have been merged into a single one called "
@@ -50988,6 +51257,8 @@ msgid ""
 "\"OK, your weapon sets won't be updated, but if you need to make changes, "
 "please modify them from the #oInformation#0 window!\""
 msgstr ""
+"\"알겠습니다, 무기 세트는 업데이트하지 않겠습니다. 변경이 필요하면 #o정보#0 "
+"창에서 수정해 주세요!\""
 
 #. 0.13.0 changes
 msgid ""
@@ -51047,6 +51318,9 @@ msgid ""
 "the '#oShip AI#0' button in the #oInformation#0 window you can open with "
 "{infokey}. Now, let's go adventuring!\""
 msgstr ""
+"\"좋습니다! 게임을 진행하면서 짧은 힌트를 드리겠습니다. 설정을 변경하거나 "
+"힌트를 끄고 싶다면, {infokey}로 열 수 있는 #o정보#0 창의 '#o함선 AI#0' "
+"버튼에서 설정해 주세요. 자, 모험하러 갑시다!\""
 
 msgid ""
 "\"OK, I will not be giving you any hints. If you want to change my settings, "
@@ -51054,6 +51328,9 @@ msgid ""
 "'#oShip AI#0' button in the #oInformation#0 window you can open with "
 "{infokey}. Now, let's go adventuring!\""
 msgstr ""
+"\"알겠습니다, 힌트를 드리지 않겠습니다. 설정을 변경하거나, 힌트를 켜거나, "
+"정보와 조언을 얻고 싶다면, {infokey}로 열 수 있는 #o정보#0 창의 '#o함선 "
+"AI#0' 버튼에서 해 주세요. 자, 모험하러 갑시다!\""
 
 msgid ""
 "\"And that is all! If you want to brush on game mechanics or get more hints, "
@@ -51061,6 +51338,9 @@ msgid ""
 "button in the #oInformation#0 window that you can open with {infokey}. Now, "
 "let's go adventuring!\""
 msgstr ""
+"\"여기까지입니다! 게임 시스템을 다시 복습하거나 더 많은 힌트를 얻고 싶다면, "
+"{infokey}로 열 수 있는 #o정보#0 창의 '#o함선 AI#0' 버튼을 클릭하여 저에게 "
+"직접 문의할 수 있다는 것을 기억하세요. 자, 모험하러 갑시다!\""
 
 #. Runs on saves older than 0.12.0
 #. Have to apply diff to lower pirates if necessary
@@ -51148,6 +51428,9 @@ msgid ""
 "please do so from the '#oShip AI#0' button in the #oInformation#0 window you "
 "can open with {infokey}. Now, let's go adventuring!\""
 msgstr ""
+"\"알겠습니다, 힌트를 초기화하지 않고 그대로 두겠습니다. 설정을 변경하거나, "
+"힌트를 켜거나, 정보와 조언을 얻고 싶다면, {infokey}로 열 수 있는 #o정보#0 "
+"창의 '#o함선 AI#0' 버튼에서 해 주세요. 자, 모험하러 갑시다!\""
 
 #. Done
 #.
@@ -51421,7 +51704,7 @@ msgstr ""
 
 msgid ""
 "\"Yo, soul. Ya changed ya mind about them #bWild Space#0 deets for {cost}?\""
-msgstr ""
+msgstr "\"야, 영혼. #b와일드 스페이스#0 정보 {cost}에 대해 마음 바꿨어?\""
 
 #. deets is slang for details (aka intel)
 msgid ""
@@ -51429,6 +51712,9 @@ msgid ""
 "Ai've got mai hands on some iiinteresting data. You in fo' sum deets on a "
 "path to them so-called #bWild Space#0, soul?\""
 msgstr ""
+"\"야, 영혼. 모험이 좀 필요해 보이는데, 무슨 말인지 알지? 흥미로운 데이터를 "
+"손에 넣었거든. 소위 #b와일드 스페이스#0로 가는 길에 대한 정보에 관심 있어, "
+"영혼?\""
 
 msgid "\"Wild Space?\""
 msgstr ""
@@ -51467,15 +51753,17 @@ msgstr ""
 
 msgid ""
 "You have obtained information about a jump from {sys} to #bWild Space#0."
-msgstr ""
+msgstr "{sys}에서 #b와일드 스페이스#0까지의 점프 정보를 입수했습니다."
 
 msgid ""
 "You have lost {cost}.\n"
 "You have obtained information about a jump to #bWild Space#0."
 msgstr ""
+"{cost} 크레딧을 잃었습니다.\n"
+"#b와일드 스페이스#0까지의 점프 정보를 입수했습니다."
 
 msgid "You can not afford the information about #bWild Space#0."
-msgstr ""
+msgstr "#b와일드 스페이스#0에 대한 정보를 구매할 크레딧이 부족합니다."
 
 #.
 #. <?xml version='1.0' encoding='utf8'?>
@@ -53262,7 +53550,7 @@ msgid ""
 msgstr ""
 
 msgid "Artefact? A"
-msgstr ""
+msgstr "유물? A"
 
 msgid "An ancient artefact?"
 msgstr "고대 유물?"
@@ -53275,7 +53563,7 @@ msgid ""
 msgstr ""
 
 msgid "Artefact? B"
-msgstr ""
+msgstr "유물? B"
 
 #, fuzzy
 msgid "A suspicious saleswoman"
@@ -53289,7 +53577,7 @@ msgid ""
 msgstr ""
 
 msgid "Artefact? C"
-msgstr ""
+msgstr "유물? C"
 
 msgid "You can't currently afford to buy this artefact. You need {credits}."
 msgstr ""
@@ -55573,7 +55861,7 @@ msgid "I still want to kill you!"
 msgstr ""
 
 msgid "So do I."
-msgstr ""
+msgstr "나도 그래."
 
 msgid "Luckily enough, I've got my Vendetta in the fighter bay."
 msgstr ""
@@ -58306,7 +58594,7 @@ msgstr ""
 
 #, lua-format
 msgid "TOTAL %d (#g+%d#0)"
-msgstr ""
+msgstr "합계 %d (#g+%d#0)"
 
 #. TODO add sound
 #. TODO Cooler animation or something
@@ -59905,9 +60193,8 @@ msgid ""
 "Heavy Weapon Licence.\""
 msgstr ""
 
-#, fuzzy
 msgid "You can now purchase the #bHeavy Weapon Licence#0."
-msgstr "외교 선박"
+msgstr "이제 #b대형 무기 면허#0를 구매할 수 있습니다."
 
 #, fuzzy
 msgid "Colonel Okran pays you {credits}."
@@ -60982,9 +61269,8 @@ msgid ""
 "As the customs requires it, this item is now yours, for what it's worth.\""
 msgstr ""
 
-#, fuzzy
 msgid "You can now purchase the #bHeavy Combat Vessel Licence#0."
-msgstr "외교 선박"
+msgstr "이제 #b대전투함 면허#0를 구매할 수 있습니다."
 
 msgid ""
 "\"And finally, two Warlords, namely Lady Proserpina and Lord Richthofen, "
@@ -62456,16 +62742,16 @@ msgstr ""
 #.
 #.
 msgid "#nPiracy Risk:#0 None"
-msgstr ""
+msgstr "#n해적 위험:#0 없음"
 
 msgid "#nPiracy Risk:#0 Low"
-msgstr ""
+msgstr "#n해적 위험:#0 낮음"
 
 msgid "#nPiracy Risk:#0 Medium"
-msgstr ""
+msgstr "#n해적 위험:#0 보통"
 
 msgid "#nPiracy Risk:#0 High"
-msgstr ""
+msgstr "#n해적 위험:#0 높음"
 
 #.
 #. --    Empire shipping missions are always timed, but quite lax on the schedules
@@ -66331,6 +66617,8 @@ msgid ""
 "\n"
 "INITIALIZATION COMPLETE.\""
 msgstr ""
+"\n"
+"초기화 완료.\""
 
 msgid "Kex blinks several times before letting out a large SQUAWK."
 msgstr ""
@@ -68886,6 +69174,10 @@ msgid ""
 "#rHUMAN LIFE SAFETY OVERRIDE.\n"
 "DUEL TO THE DEATH MODE ENABLED.#0"
 msgstr ""
+"지시대로 자리에 앉자, 곧 크림슨 건틀릿 부팅 화면으로 전환된다. 부팅되는 동안 "
+"무료하게 서버 세부 정보를 훑어본다. 무언가가 갑자기 눈에 들어온다:\n"
+"#r인명 안전 무시 장치.\n"
+"죽음의 결투 모드 활성화.#0"
 
 msgid ""
 "You try to remove the gear, but it's too late. The virtual reality of the "
@@ -69941,6 +70233,10 @@ msgid ""
 "SELF-DESTRUCT SEQUENCE ENGAGED\n"
 "30 SECONDS REMAINING#0"
 msgstr ""
+"갑자기 모든 모니터에 밝은 메시지가 깜빡이기 시작한다:\n"
+"#r허니팟 ##329 활성화\n"
+"자폭 절차 개시\n"
+"30초 남음#0"
 
 msgid ""
 "Cursing to yourself, you realize you don't have enough time to override the "
@@ -69957,6 +70253,9 @@ msgid ""
 "\"Kex? Kex… where have I heard that name before… Wait… You mean Experiment "
 "#085? The one taken from the nebula wreck?\""
 msgstr ""
+"그가 갑자기 약간 정신을 차린 것 같다.\n"
+"\"켁스? 켁스… 그 이름을 어디서 들었더라… 잠깐… 실험체 #085 말인가? 성운 "
+"잔해에서 가져온?\""
 
 msgid ""
 "\"Someone also came asking about that awhile back, but my memory is all "
@@ -71887,6 +72186,9 @@ msgid ""
 "You glance at a crate labelled 'NEBULA ARTEFACTS #082' in the corner of the "
 "room."
 msgstr ""
+"\"매우 잘 숨겨놨지. 어떻게 내 보안 시스템을 뚫고 실험실에 들어왔지만, 절대 "
+"찾지 못할 거야!\"\n"
+"방 구석에 '성운 유물 #082'라고 적힌 상자가 눈에 들어온다."
 
 msgid ""
 "\"Anyway, I am very busy now, yes? All this science won't do itself. Almost "
@@ -72353,7 +72655,7 @@ msgid "Za'lek Drone"
 msgstr "잘렉 악마"
 
 msgid "#gThe drone begins to follow you."
-msgstr ""
+msgstr "#g드론이 당신을 따라오기 시작합니다."
 
 #. Make enemies
 msgid "I'm going to wash my ship's hull with your blood, Za'lek Scum!"
@@ -72363,13 +72665,13 @@ msgid "You were supposed to harass the thugs, not kill them!"
 msgstr ""
 
 msgid "#rYou are moving too far away from the harassment point!"
-msgstr "#r당신은 애먹는 지점에서 너무 멀리 움직이고 있습니다!"
+msgstr "#r괴롭힘 지점에서 너무 멀리 이동했습니다!"
 
 msgid "You moved too far away from the harassment location!"
 msgstr "당신은 애먹는 장소에서 너무 멀리 이동했습니다!"
 
 msgid "#gThe thugs seem to be sufficiently riled up."
-msgstr ""
+msgstr "#g불량배들이 충분히 자극받은 것 같다."
 
 #.
 #. <?xml version='1.0' encoding='utf8'?>
@@ -72509,7 +72811,7 @@ msgid "Your sensors are detecting a Za'lek fleet inbound!"
 msgstr ""
 
 msgid "#oZa'lek reinforcements have arrived!"
-msgstr ""
+msgstr "#o자렉 증원군이 도착했습니다!"
 
 #.
 #. <?xml version='1.0' encoding='utf8'?>
@@ -72813,13 +73115,13 @@ msgid "Stop shooting! Maybe we can reach an agreement!"
 msgstr ""
 
 msgid "Pay him {credits} (#rnot enough!#0)"
-msgstr ""
+msgstr "{credits} 크레딧 지불 (#r부족!#0)"
 
 msgid "Pay him {credits}"
 msgstr ""
 
 msgid "Offer {credits} (#rnot enough!#0)"
-msgstr ""
+msgstr "{credits} 크레딧 제안 (#r부족!#0)"
 
 msgid "Offer {credits}"
 msgstr ""
@@ -74526,6 +74828,9 @@ msgid ""
 "bunch of assholes that reject progress and terraforming barren moons like "
 "this one into places suitable for human living.\""
 msgstr ""
+"\"그놈들을 만났구나. 그놈들은 #o대기 인간중심주의 반대 연합 파일럿#0, 줄여서 "
+"#oPUAAA#0 소속이야. 저놈들은 진보를 거부하고 이런 황폐한 위성을 인간 거주에 "
+"적합한 곳으로 테라포밍하는 것을 반대하는 놈들이야.\""
 
 msgid ""
 "\"They must have noticed when the paperwork I filed at the Empire for "
@@ -75407,23 +75712,22 @@ msgstr ""
 #. @param notes Any additional text the user should see on its own detail line, such as piracy risk. May be nil.
 #. @tparam[opt=false] bool use_hidden Whether the description accounts for hidden jumps in its distances.
 #. --
-#, fuzzy
 msgid "#nCargo:#0 {cargo} ({mass})"
-msgstr "저지름: %s"
+msgstr "#n화물:#0 {cargo} ({mass})"
 
 msgid "#nJumps:#0 {jumps}"
 msgid_plural "#nJumps:#0 {jumps}"
-msgstr[0] ""
+msgstr[0] "#n점프:#0 {jumps}"
 
 msgid "#nTravel distance:#0 {dist}"
 msgid_plural "#nTravel distance:#0 {dist}"
-msgstr[0] ""
+msgstr[0] "#n이동 거리:#0 {dist}"
 
 msgid "#nSupplies at Antlejos V:#0 {total}"
-msgstr ""
+msgstr "#n안틀레호스 V의 보급량:#0 {total}"
 
 msgid "#nSupplies until next upgrade:#0 {needed}"
-msgstr ""
+msgstr "#n다음 업그레이드까지 필요한 보급량:#0 {needed}"
 
 msgid "Supplies for Antlejos"
 msgstr ""
@@ -75739,6 +76043,15 @@ msgid ""
 "#nLast seen:#0 {sys} system\n"
 "#nTime limit:#0 {deadline}"
 msgstr ""
+"{pirname}이라는 해적이 최근 {sys} 성계에서 목격되었습니다. {fct} 당국은 이 "
+"해적을 생포 또는 사살{reason}하기를 원합니다. {pirname}은(는) {shipclass} "
+"등급 함선을 조종하는 것으로 알려져 있습니다. 너무 오래 걸리면 {sys} 성계에서 "
+"사라질 수 있습니다.\n"
+"\n"
+"#n표적:#0 {pirname} ({shipclass} 등급 함선)\n"
+"#n현상:#0 생포 또는 사살\n"
+"#n최종 목격:#0 {sys} 성계\n"
+"#n시간 제한:#0 {deadline}"
 
 #. In the case the player has to capture the target alive
 msgid "Tiny Alive Bounty in {sys}"
@@ -75768,6 +76081,15 @@ msgid ""
 "#nLast seen:#0 {sys} system\n"
 "#nTime limit:#0 {deadline}"
 msgstr ""
+"{pirname}이라는 해적이 최근 {sys} 성계에서 목격되었습니다. {fct} 당국은 이 "
+"해적을 생포{reason}하기를 원합니다. {pirname}은(는) {shipclass} 등급 함선을 "
+"조종하는 것으로 알려져 있습니다. 너무 오래 걸리면 {sys} 성계에서 사라질 수 "
+"있습니다.\n"
+"\n"
+"#n표적:#0 {pirname} ({shipclass} 등급 함선)\n"
+"#n현상:#0 생포\n"
+"#n최종 목격:#0 {sys} 성계\n"
+"#n시간 제한:#0 {deadline}"
 
 msgid " for attempting to undermine the integrity of {spb}"
 msgstr ""
@@ -76234,7 +76556,7 @@ msgstr ""
 #. Faction prefix
 #. Set mission details
 msgid "#nReputation Gained:#0 {fct}"
-msgstr ""
+msgstr "#n획득 평판:#0 {fct}"
 
 #.
 #. <?xml version='1.0' encoding='utf8'?>
@@ -76284,24 +76606,33 @@ msgid ""
 "workers. The job takes inordinately long to complete, and the leader pays "
 "you #g{credits}#0 without speaking a word."
 msgstr ""
+"{cargo} 컨테이너는 시무룩한 일꾼들에 의해 함선 밖으로 옮겨졌다. 작업은 "
+"유난히 오래 걸렸고, 반장은 한마디도 없이 #g{credits}#0 크레딧을 지불했다."
 
 msgid ""
 "Shortly after you land, a team rushes the containers of {cargo} out of your "
 "vessel. Before you can even collect your thoughts, one of the workers "
 "presses a credit chip worth #g{credits}#0 in your hand and departs."
 msgstr ""
+"착륙 직후 한 팀이 {cargo} 컨테이너를 서둘러 함선 밖으로 옮겼다. 정신을 "
+"차리기도 전에, 일꾼 중 하나가 #g{credits}#0 크레딧이 담긴 크레딧 칩을 손에 "
+"쥐여 주고 떠났다."
 
 msgid ""
 "The containers of {cargo} are unloaded by an exhausted-looking bunch of "
 "dockworkers. Still, they make fairly good time, delivering your pay of "
 "#g{credits}#0 upon completion of the job."
 msgstr ""
+"{cargo} 컨테이너는 지쳐 보이는 도크 일꾼들에 의해 하역되었다. 그래도 꽤 "
+"빠르게 작업을 끝내고, 일을 마친 후 #g{credits}#0 크레딧을 지불했다."
 
 msgid ""
 "The containers of {cargo} are unloaded by a team of robotic drones "
 "supervised by a human overseer, who hands you your pay of #g{credits}#0 when "
 "they finish."
 msgstr ""
+"{cargo} 컨테이너는 인간 감독관이 지휘하는 로봇 드론 팀에 의해 하역되었다. "
+"작업이 끝나자 감독관이 #g{credits}#0 크레딧을 건네주었다."
 
 #. Create the mission
 #. Note: this mission does not make any system claims.
@@ -76857,6 +77188,9 @@ msgid ""
 "space for our box.\"\n"
 "#rYou need an additional {space} of free space.#o"
 msgstr ""
+"\"아, 깜빡했네\" 그녀가 덧붙였다. \"물론 상자를 실으려면 {needed}의 빈 화물 "
+"공간이 필요하겠지.\"\n"
+"#r추가로 {space}의 빈 공간이 필요합니다.#o"
 
 #. from common.cargo
 #. takeoff + min travel time + leeway
@@ -78732,6 +79066,9 @@ msgid ""
 "#bDiscovery#0 mode. If it has a green circle in the middle, it should be all "
 "set and you can look at other systems.\""
 msgstr ""
+"\"#b탐사#0 모드를 설정하면 지도에서 성계가 완전히 탐사되었는지 확인할 수 "
+"있습니다. 가운데 초록색 원이 있으면 모두 탐사된 것이니 다른 성계를 살펴봐도 "
+"됩니다.\""
 
 msgid ""
 "\"It's going to be awesome! I know it. I'll get in touch with you as I "
@@ -79001,6 +79338,10 @@ msgid ""
 "#nCargo:#0 as many refugees as you can carry\n"
 "{jumps}"
 msgstr ""
+"성운 난민들이 {sys} 성계의 {spob}(으)로 이송해 달라고 요청합니다.\n"
+"\n"
+"#n화물:#0 가능한 많은 난민\n"
+"{jumps}"
 
 msgid "{credits} per tonne of refugees"
 msgstr ""
@@ -79282,6 +79623,10 @@ msgid ""
 "#nPatrol System:#0 {sys}\n"
 "#nPatrol Points:#0 {amount}"
 msgstr ""
+"{sys} 성계의 지정된 지점을 순찰하고, 적을 발견하면 모두 제거하세요.\n"
+"\n"
+"#n순찰 성계:#0 {sys}\n"
+"#n순찰 지점:#0 {amount}"
 
 #. Mark the system as having a patrol mission
 #, fuzzy
@@ -79637,6 +79982,23 @@ msgid ""
 "Sincerely,\n"
 "Imperial Gate Experiment Safety Committee"
 msgstr ""
+"#n수신:#0 크렐리스 박사\n"
+"#n발신:#0 제국 관문 실험 안전위원회\n"
+"#n제목:#0 Re: Fwd: Re: 실험 관문 안전에 관하여\n"
+"\n"
+"크렐리스 박사님께,\n"
+"\n"
+"이종 메타공간 붕괴에 대한 이론의 상세한 설명에 감사드립니다. 매우 흥미롭긴 "
+"하나, 당사의 초기 안전 실험에서 수차례 반증된 일부 가정에 의존하고 있습니다. "
+"제국은 보안과 절차를 매우 중요시하며, 이처럼 위험한 결함이 우리의 실험 "
+"절차를 통과했을 것이라 생각하지 않습니다.\n"
+"\n"
+"실험 절차에 관한 질문이 있으시면 EE-X-232 양식으로 질의해 주시기 바랍니다.\n"
+"\n"
+"귀하의 견해는 제8914-3b조의 적용을 받으므로 공개를 삼가해 주시기 바랍니다.\n"
+"\n"
+"감사합니다,\n"
+"제국 관문 실험 안전위원회"
 
 msgid ""
 "#nTo:#0 Imperial Gate Experiment Safety Committee\n"
@@ -79660,6 +80022,24 @@ msgid ""
 "Regards,\n"
 "Dr. Krellis\n"
 msgstr ""
+"#n수신:#0 제국 관문 실험 안전위원회\n"
+"#n발신:#0 크렐리스 박사\n"
+"#n제목:#0 Re: Fwd: Re: 실험 관문 안전에 관하여\n"
+"\n"
+"안전위원회 위원님들께,\n"
+"\n"
+"실험 절차의 결함에 대해서는 부록 G에서 다루었음을 말씀드리고 싶습니다. "
+"고려된 \"최악의 시나리오\"는 너무 보수적이며, 여유 계수 2는 이 경우에 분명히 "
+"불충분합니다.\n"
+"\n"
+"이것이 가상이 아닌 실질적 우려라는 것을 인지하고 계신가요? 제 이론은 적절한 "
+"조건이 갖춰지면 인류 역사상 유례없는 대재앙으로 이어질 수 있음을 명백히 "
+"보여줍니다! 잠재적 위험을 고려하여, 523페이지 분량의 문서 전체에 걸쳐 상술한 "
+"사항들이 추가 실험 전에 검토되어야 한다고 강조합니다.\n"
+"\n"
+"감사합니다,\n"
+"크렐리스 박사\n"
+"\n"
 
 msgid ""
 "#nTo:#0 Dr. Krellis\n"
@@ -79683,6 +80063,24 @@ msgid ""
 "Sincerely,\n"
 "Imperial Gate Experiment Safety Committee"
 msgstr ""
+"#n수신:#0 크렐리스 박사\n"
+"#n발신:#0 제국 관문 실험 안전위원회\n"
+"#n제목:#0 Re: Fwd: Re: 실험 관문 안전에 관하여\n"
+"\n"
+"크렐리스 박사님께,\n"
+"\n"
+"모든 것이 자렉 대가문의 저명한 교수 여러 분이 포함된 자문위원회의 승인 하에 "
+"절차에 따라 진행되고 있음을 거듭 말씀드립니다. 박사후연구원이 발견할 수 있을 "
+"만큼 중요한 것을 그분들이 놓쳤으리라 생각하지 않습니다.\n"
+"\n"
+"과학은 은하계 연구자들의 훌륭한 업적에 결함을 주장하는 것이 아니라, 제국과 "
+"가문을 더 나은 곳으로 만들기 위해 협력하고 함께 노력하는 것입니다.\n"
+"\n"
+"귀하의 상관에게 민원을 제기할 것이며, 더 이상의 진행을 삼가해 주시기 "
+"바랍니다.\n"
+"\n"
+"감사합니다,\n"
+"제국 관문 실험 안전위원회"
 
 msgid ""
 "\"That is all that I was able to recover, as it seems that the owner of the "
@@ -79709,7 +80107,7 @@ msgid ""
 msgstr "프론티어 시스템"
 
 msgid "You have received #g{amount} of {cargo}#0."
-msgstr ""
+msgstr "#g{amount}의 {cargo}#0을(를) 받았습니다."
 
 msgid ""
 "Once you gain access to the ship, a quick scan finds large amounts of nebula "
@@ -79782,7 +80180,7 @@ msgid "02"
 msgstr ""
 
 msgid "BEGIN PLAYBACK OF AUDIO DATA ##1892"
-msgstr ""
+msgstr "오디오 데이터 ##1892 재생 시작"
 
 msgid ""
 "\"…inevitable … {n1} … they have become weak… {n2} …no longer of use. We "
@@ -79807,10 +80205,10 @@ msgid ""
 msgstr ""
 
 msgid "END OF AUDIO DATA ##1892"
-msgstr ""
+msgstr "오디오 데이터 ##1892 재생 종료"
 
 msgid "BEGIN PLAYBACK OF AUDIO DATA ##2969"
-msgstr ""
+msgstr "오디오 데이터 ##2969 재생 시작"
 
 msgid "\"…encrypted by one-time pad. We… {n1} …communicate now.\""
 msgstr ""
@@ -79840,10 +80238,10 @@ msgid ""
 msgstr ""
 
 msgid "END OF AUDIO DATA ##2969"
-msgstr ""
+msgstr "오디오 데이터 ##2969 재생 종료"
 
 msgid "BEGIN PLAYBACK OF AUDIO DATA ##4189"
-msgstr ""
+msgstr "오디오 데이터 ##4189 재생 시작"
 
 msgid ""
 "\"…personal log date… {n1} …no transmissions getting through. Ship is still "
@@ -79864,7 +80262,7 @@ msgid ""
 msgstr ""
 
 msgid "END OF AUDIO DATA ##4189"
-msgstr ""
+msgstr "오디오 데이터 ##4189 재생 종료"
 
 msgid ""
 "\"I'm afraid that is all that I was able to recover. Have you managed to "
@@ -80261,7 +80659,7 @@ msgstr ""
 
 #. Set up cargo for 2nd and 3rd mission
 msgid "You have received #g{amount} of {reward}#0."
-msgstr ""
+msgstr "#g{amount}의 {reward}#0을(를) 받았습니다."
 
 #, fuzzy
 msgid "You are unable to fit any {reward} on your ship."
@@ -80649,6 +81047,9 @@ msgid ""
 "outfits working is low, the most logical course of action might be to "
 "#bconsult other pilots at a nearby bar#0.\""
 msgstr ""
+"\"함선의 센서로는 센서 이상을 분석하기에 충분하지 않은 것 같습니다. 더 좋은 "
+"것이 필요합니다. 기성 장비로 해결할 가능성은 낮으니, 가장 합리적인 방법은 "
+"#b근처 바에서 다른 파일럿들에게 문의#0하는 것입니다.\""
 
 msgid ""
 "Nelly looks bored out of her mind. Wait, is she trying to bend a spoon with "
@@ -80912,11 +81313,16 @@ msgid ""
 "halfway. Then the authorization prompt reappears. Looks like you get another "
 "chance!"
 msgstr ""
+"화면에 '#r승인 거부#0'가 잠시 번쩍이고, 비상 보안 프로토콜이 작동하면서 함선 "
+"내부가 신음 소리를 내며 모든 것이 잠금되기 시작한다. 그러나 중간에서 걸린 듯 "
+"멈추더니, 승인 프롬프트가 다시 나타난다. 다시 한번 기회가 온 것 같다!"
 
 msgid ""
 "You deftly crack the code and the screen flashes with '#gAUTHORIZATION "
 "GRANTED#0'. Time to see what goodness awaits you!"
 msgstr ""
+"능숙하게 코드를 해독하자 화면에 '#g승인 허용#0'이 번쩍인다. 어떤 좋은 것이 "
+"기다리고 있는지 확인할 시간이다!"
 
 msgid ""
 "She seems to be banging on her reactor while talking to you.\n"
@@ -81255,6 +81661,11 @@ msgid ""
 "audience, and then a credit chip with the actual prize money on it. At least "
 "the trophy looks cool."
 msgstr ""
+"정장에 넥타이를 맨 남자가 무대로 안내한다. 재킷의 큰 이름표에 '멜렌데즈 "
+"코퍼레이션'이라고 적혀 있다. \"승리를 축하합니다,\" 그가 악수를 하며 말한다, "
+"\"멋진 경기였습니다. 멜렌데즈 코퍼레이션을 대표하여, #g트로피#0와 상금 "
+"{credits} 크레딧을 수여하겠습니다!\" 관객을 위한 거대한 가짜 수표를 건넨 후, "
+"실제 상금이 담긴 크레딧 칩을 전달한다. 적어도 트로피는 멋져 보인다."
 
 msgid ""
 "A man in a suit and tie takes you up onto a stage. A large name tag on his "
@@ -81620,7 +82031,7 @@ msgstr ""
 
 #. TODO display different message when no food can be added
 msgid "You have received #g{amount} of hot dogs#0."
-msgstr ""
+msgstr "#g핫도그 {amount}개#0를 받았습니다."
 
 #. If we're in mem.misn_base_sys but not on mem.misn_base then...
 msgid ""
@@ -82109,6 +82520,12 @@ msgid ""
 "#nWanted:#0 Dead or Alive\n"
 "#nLast Seen:#0 {sys} system"
 msgstr ""
+"{plt}이라는 {target_faction} 파일럿이 {paying_faction} 당국에 의해 현상 수배 "
+"중입니다. {sys} 성계에서 마지막으로 목격되었습니다.\n"
+"\n"
+"#n표적:#0 {plt} ({shipclass} 등급 함선)\n"
+"#n현상:#0 생포 또는 사살\n"
+"#n최종 목격:#0 {sys} 성계"
 
 msgid "Find and Kill a pilot"
 msgstr ""
@@ -82171,7 +82588,7 @@ msgstr ""
 #. have to use auxiliary variable here to set the upvalue
 #. Past first stage
 msgid "Ask about {plt} (#bSeek And Destroy#0)"
-msgstr ""
+msgstr "{plt}에 대해 묻기 (#b수색 및 격멸#0)"
 
 #. No more claimed system : need to finish the mission
 #. Message has gone cold
@@ -82407,6 +82824,12 @@ msgid ""
 "#nAttractions:#0 {amount}\n"
 "#nPreferred Ship:#0 luxury vessel"
 msgstr ""
+"여러 승객이 우주 관광을 원합니다. {sys} 성계의 지정된 {amount}개 관광지로 "
+"이동하세요. 관광을 마친 후 승객을 {retspob}({retsys} 성계)로 귀환시킵니다. "
+"선호 함선이 아닐 경우 보수가 삭감됩니다.\n"
+"\n"
+"#n관광지:#0 {amount}\n"
+"#n선호 함선:#0 고급 선박"
 
 msgid "Not Very Luxurious"
 msgstr ""
@@ -83018,11 +83441,10 @@ msgstr ""
 msgid "NULL"
 msgstr ""
 
-#, fuzzy
 msgid ""
 "Shipment to {pnt} in {sys} ({tonnes}) #oWARNING: Invalid Formatting "
 "Detected#0"
-msgstr "프론티어 시스템"
+msgstr "{pnt}({sys} 성계)으로의 화물 ({tonnes}) #o경고: 잘못된 형식 감지됨#0"
 
 msgid "∞ t"
 msgstr ""
@@ -83034,9 +83456,8 @@ msgstr "시스템"
 msgid "INVALID RECORD"
 msgstr ""
 
-#, fuzzy
 msgid "#nCargo:#0 {amount}"
-msgstr "저지름: %s"
+msgstr "#n화물:#0 {amount}"
 
 msgid ""
 "ERROR: NoncurrentModificationExceptionException: Exception modified while "
@@ -83069,7 +83490,7 @@ msgid "Shipment to Shipment to Shipment to Shipment to"
 msgstr ""
 
 msgid "#rERROR: BufferOverru"
-msgstr ""
+msgstr "#r오류: 버퍼초과"
 
 msgid ""
 "a80ho0ajqnc\n"
@@ -83079,6 +83500,12 @@ msgid ""
 "\n"
 "5 250arcqji8204930a8e"
 msgstr ""
+"a80ho0ajqnc\n"
+"hq;8eoa 8q0 h\n"
+"08qj#0 h\n"
+"2\n"
+"\n"
+"5 250arcqji8204930a8e"
 
 #, fuzzy
 msgid ""
@@ -85522,7 +85949,7 @@ msgid "\"Credits work too. I will sell it to you for exactly {credits}.\""
 msgstr "\"내가 기분이 좋으니 %d 크레딧으로 해주겠다.\""
 
 msgid "#r(Not enough credits)#0 \"Delivery sounds fine.\""
-msgstr ""
+msgstr "#r(크레딧 부족)#0 \"배달은 괜찮겠네요.\""
 
 msgid "\"Then we have a deal.\""
 msgstr ""
@@ -87627,6 +88054,10 @@ msgid ""
 "you can make out hastily written graffiti. Although it is hard to read, you "
 "can make out the following text \"#rBEW-RE OF C-T#0\". What could it mean?"
 msgstr ""
+"폐선 내부를 이동하며, 한 발짝마다 텅 빈 선체에 울려 퍼진다. 복도를 지나다가 "
+"벽 하나에 이상한 흔적이 눈에 들어온다. 빛을 비추자 급하게 낙서한 그래피티가 "
+"드러난다. 읽기 어렵지만 다음과 같은 글자를 알아볼 수 있다: \"#rBEW-RE OF C-"
+"T#0\". 무슨 뜻일까?"
 
 msgid ""
 "You eventually reach the command room when your ship suddenly informs you "
@@ -88207,6 +88638,8 @@ msgid ""
 "#rWARNING:#0 Contraband is illegal in most systems, and you will face "
 "consequences if caught by patrols."
 msgstr ""
+"#r경고:#0 밀수품은 대부분의 성계에서 불법이며, 순찰대에 적발되면 처벌을 받게 "
+"됩니다."
 
 msgid "{tonnes} of {cargo} are loaded onto your ship."
 msgstr ""
@@ -89218,6 +89651,8 @@ msgid ""
 "#rYou do not enough credits.#0\n"
 "\"You think I'm going to accept less? Scram poor bum.\""
 msgstr ""
+"#r크레딧이 부족합니다.#0\n"
+"\"덜 받을 것 같아? 꺼져 빈털터리야.\""
 
 #, fuzzy
 msgid "\"Pleasure doing business with ya.\""
@@ -89299,6 +89734,12 @@ msgid ""
 "#nPatrol System:#0 {sys}\n"
 "#nPatrol Points:#0 {amount}"
 msgstr ""
+"지역 범죄 두목이 이 해적 거점이 발각되지 않도록 {sys} 성계를 순찰하는 의뢰를 "
+"제안했습니다. 여러 지점을 확인하고 외부인을 발견하면 모두 제거하는 것이 "
+"임무입니다.\n"
+"\n"
+"#n순찰 성계:#0 {sys}\n"
+"#n순찰 지점:#0 {amount}"
 
 #. mem.misn_desc gets fmt.f'd in the main script
 #.
@@ -89558,13 +89999,22 @@ msgid ""
 "#nLast seen:#0 {sys} system\n"
 "#nTime limit:#0 {deadline}"
 msgstr ""
+"성가신 {fct} 파일럿 {plt}이(가) 최근 {sys} 성계에서 목격되었습니다. 지역 "
+"범죄 두목들이 이 파일럿의 사망을 원합니다{reason}. {plt}은(는) {shipclass} "
+"등급 함선을 조종하는 것으로 알려져 있습니다. 너무 오래 걸리면 {sys} 성계에서 "
+"사라질 수 있습니다.{msg}\n"
+"\n"
+"#n표적:#0 {plt} ({shipclass} 등급 함선)\n"
+"#n현상:#0 사살\n"
+"#n최종 목격:#0 {sys} 성계\n"
+"#n시간 제한:#0 {deadline}"
 
 #. We're not on a pirate stronghold, so include a clear warning that the
 #. mission is in fact illegal.
 msgid ""
 "#rWARNING:#0 This mission is illegal and will get you in trouble with the "
 "authorities!"
-msgstr ""
+msgstr "#r경고:#0 이 임무는 불법이며, 당국에 문제가 될 수 있습니다!"
 
 msgid "Assassination"
 msgstr ""
@@ -90138,6 +90588,8 @@ msgid ""
 "As you wonder about your payment, you suddenly receive a message that "
 "#g{reward}#0 was transferred to your account."
 msgstr ""
+"일꾼들이 {cargo}을(를) 하역하고 보이지 않는 어딘가로 가져간다. 보수가 "
+"궁금해지자 갑자기 #g{reward}#0이(가) 계좌로 이체되었다는 메시지가 도착한다."
 
 #. Faction hit
 #. Mark as done
@@ -97354,7 +97806,7 @@ msgid ""
 msgstr ""
 
 msgid "#gScavenger#0 has joined your fleet!"
-msgstr ""
+msgstr "#g스캐빈저#0가 함대에 합류했습니다!"
 
 msgid "Joined your fleet after helping their brethren at Taiomi."
 msgstr ""
@@ -97642,6 +98094,14 @@ msgid ""
 "#nJumps (One-way):#0 {dist}\n"
 "#nReputation Gained:#0 {rep}"
 msgstr ""
+"튜리온 요원이 탈취해야 할 {cargoname}을(를) 준비했습니다. #r이 화물은 소지가 "
+"불법이며, 의심을 사지 않고 배달해야 합니다.#0\n"
+"\n"
+"#n수량:#0 {amount}\n"
+"#n수거:#0 {spb} ({sys} 성계, )\n"
+"#n배달:#0 {returnspb} ({returnsys} 성계)\n"
+"#n점프 (편도):#0 {dist}\n"
+"#n획득 평판:#0 {rep}"
 
 #. Logging the data extraction missions
 #, fuzzy
@@ -97911,6 +98371,10 @@ msgid ""
 "#nNecessary Mineral:#0 {mineral} ({rarity})\n"
 "#nNecessary Amount:#0 at least {amount}"
 msgstr ""
+"{flavour}\n"
+"\n"
+"#n필요 광물:#0 {mineral} ({rarity})\n"
+"#n필요 수량:#0 최소 {amount}"
 
 msgid "{base} plus {extra} per tonne delivered"
 msgstr ""
@@ -98207,6 +98671,10 @@ msgid ""
 "that will help you get the directions to {sys}. You can buy it at the main "
 "landing window or the outfitting window. Anyway, Let's get going!\""
 msgstr ""
+"\"그럴 줄 알았어! 주위에 싱그러운 기운이 도는 것 같군. 내가 처음 시작할 때가 "
+"생각나. 처음에는 좀 까다로울 수 있으니, 가는 길에 조언 좀 해도 괜찮겠지?\"\n"
+"   \"우선, 아직 안 샀다면 {sys}로 가는 길을 알려줄 #o지역 지도#0를 사는 게 "
+"좋겠어. 주 착륙 창이나 장비점에서 살 수 있어. 자, 출발하자!\""
 
 msgid ""
 "\"Weird. I could have sworn you had some sort of new pilot aura around you. "
@@ -98232,6 +98700,9 @@ msgid ""
 "take down ships non-lethally, #oion damage#0 is your best bet. Here, I'll "
 "forward you {credits}. Do you need help buying and equipping the outfit?\""
 msgstr ""
+"\"여기서 #o이온 캐논#0을 판다고 하던데. 함선을 치명적이지 않게 제압하고 "
+"싶다면 #o이온 피해#0가 최선이야. 여기, {credits} 크레딧 보낼게. 장비를 사고 "
+"장착하는 데 도움이 필요해?\""
 
 msgid "Get useful advice"
 msgstr ""
@@ -98244,11 +98715,14 @@ msgid ""
 "Tab#0 and make sure to equip it at the #oEquipment Tab#0 before taking off. "
 "Once you get that done, let's head back to {pnt} in {sys}.\""
 msgstr ""
+"\"좋아! 주도적이네. #o장비 탭#0에서 {outfit}을(를) 구매하고, 출발 전에 "
+"#o장비 탭#0에서 장착하는 걸 잊지 마. 다 했으면 {sys}의 {pnt}(으)로 "
+"돌아가자.\""
 
 msgid ""
 "\"OK! I'll guide you through it. For now, please go to the #oOutfits Tab#0 "
 "of the landing window.\""
-msgstr ""
+msgstr "\"좋아! 안내해 줄게. 우선, 착륙 창의 #o장비 탭#0으로 가 줘.\""
 
 #. Get rid of cargo
 #. Hook the outfits
@@ -98314,6 +98788,10 @@ msgid ""
 "autonav system to board the ship. You can toggle the overlay to see exactly "
 "where the ship is with {overlaykey}.\""
 msgstr ""
+"\"오, 저것 봐. 코알라 폐선이 근처에 있어. 뭔가 재미있는 게 있을지도 몰라! "
+"나포해 보자. #odouble-click#0하거나 폐선을 선택한 뒤 {boardkey}를 눌러봐. "
+"자동항법으로 함선에 접근해서 나포할 수 있을 거야. {overlaykey}로 오버레이를 "
+"전환하면 함선의 정확한 위치를 볼 수 있어.\""
 
 #. TODO maybe explain better boarding window when done
 msgid ""
@@ -98334,22 +98812,23 @@ msgstr ""
 msgid "Nelly: \"Try opening the info menu with {infokey}.\""
 msgstr ""
 
-#, fuzzy
 msgid ""
 "\"Ah, the info menu in all its glory. In the main window, you can see "
 "overall statistics of your gameplay and licence information. Try to navigate "
 "to the #oMissions#0 tab. Feel free to click the other tabs for more "
 "information.\""
 msgstr ""
-"\"아, 모든 것의 정보 메뉴는 영광입니다. 기본 창에서 게임플레이 및 라이선스 정"
-"보의 전체 통계를 볼 수 있습니다. #o미션#0 탭으로 이동합니다. 자세한 내용을 보"
-"려면 다른 탭을 클릭하십시오.\""
+"\"아, 정보 메뉴의 모든 영광이로군. 메인 창에서 플레이 통계와 면허 정보를 "
+"확인할 수 있어. #o임무#0 탭으로 이동해 봐. 다른 탭도 자유롭게 클릭해서 "
+"정보를 살펴봐.\""
 
 #. TODO not sure we need more message annoyances here
 msgid ""
 "\"The #oShip Info#0 tab contains information relevant to your ship including "
 "all active bonuses and equipped outfits.\""
 msgstr ""
+"\"#o함선 정보#0 탭에는 활성 보너스와 장착된 장비를 포함한 함선 관련 정보가 "
+"표시됩니다.\""
 
 msgid ""
 "\"At the #oWeapon Info#0, you can modify the current ship's weapon sets, "
@@ -98360,6 +98839,11 @@ msgid ""
 "head dizzy though, so I just keep the defaults and mash the weapon controls. "
 "It works great!\""
 msgstr ""
+"\"#o무기 정보#0에서 주 무기와 보조 무기를 포함한 현재 함선의 무기 세트를 "
+"수정할 수 있습니다. 무기 세트는 보통 함선이 자동으로 처리하지만, 원하는 대로 "
+"언제든 구성할 수 있습니다! 자세한 정보가 필요하면 #b도움말#0 버튼을 클릭하면 "
+"됩니다. 나는 항상 어지러워서 기본값으로 두고 무기 컨트롤을 마구 누르는데, "
+"아주 잘 작동해!\""
 
 msgid ""
 "\"Here, at the #oCargo Info#0, you can see the cargo you are carrying. This "
@@ -98367,6 +98851,9 @@ msgid ""
 "#ojettison#0 cargo you want to get rid of. Be careful though: jettisoning "
 "mission cargo will forfeit the mission.\""
 msgstr ""
+"\"여기 #o화물 정보#0에서 운반 중인 화물을 확인할 수 있습니다. 합법 여부 같은 "
+"중요한 정보도 포함됩니다. 또한, 버리고 싶은 화물을 #o투기#0할 수도 있습니다. "
+"단 주의하세요: 임무 화물을 투기하면 임무가 취소됩니다.\""
 
 msgid ""
 "\"The #oMission Info#0 shows you information of all currently accepted "
@@ -98375,6 +98862,10 @@ msgid ""
 "Make sure this mission is selected and try setting a route to {destsys} is "
 "marked on your map.\""
 msgstr ""
+"\"#o임무 정보#0에서 현재 수락한 모든 임무의 정보를 확인할 수 있습니다. 각 "
+"임무를 선택하면 지도가 임무 표식 중앙으로 이동합니다. 여기서 성계를 클릭하면 "
+"직접 경로를 설정할 수도 있습니다. 이 임무가 선택되어 있는지 확인하고 지도에 "
+"표시된 {destsys}(으)로의 경로를 설정해 보세요.\""
 
 #. Clear it right away if the player closes the window
 msgid ""
@@ -98388,6 +98879,8 @@ msgid ""
 "different known factions in the universe. Not everyone is as friendly as me "
 "out there!\""
 msgstr ""
+"\"#o평판 정보#0에서 우주에 알려진 여러 세력과의 현재 평판을 확인할 수 "
+"있습니다. 다들 나처럼 친절하지는 않거든!\""
 
 msgid ""
 "\"The #oShiplog#0 is a good way to review missions and tasks you have "
@@ -98395,24 +98888,35 @@ msgid ""
 "on and it comes really in handy. You can also keep a diary and add custom "
 "entries to keep track of what you have done or are doing.\""
 msgstr ""
+"\"#o함선 일지#0는 완료한 임무와 과제를 돌아보는 좋은 방법입니다. 나는 가끔 "
+"정확히 뭘 했고 누구를 만나야 하는지 까먹을 때가 있는데, 이 기능이 정말 "
+"유용해요. 일기를 쓰고 사용자 항목을 추가해서 한 일이나 진행 중인 일을 기록할 "
+"수도 있습니다.\""
 
 msgid ""
 "\"Here you can see all the outfits available for sale at this planet. Look "
 "for the #o{outfit}#0 and either #oright-click on it#0 or click on it and "
 "click the buy button to buy it.\""
 msgstr ""
+"\"여기서 이 행성에서 판매 중인 모든 장비를 볼 수 있습니다. #o{outfit}#0을"
+"(를) 찾아 #o우클릭#0하거나 클릭 후 구매 버튼을 눌러 구매하세요.\""
 
 msgid ""
 "\"You bought a #o{bought}#0 instead of #o{tobuy}#0! Don't worry, you can "
 "sell most outfits back for the price you bought them at. Please try to buy a "
 "#o{tobuy}#0. It should come in handy later.\""
 msgstr ""
+"\"#o{tobuy}#0 대신 #o{bought}#0을(를) 샀네요! 걱정 마세요, 대부분의 장비는 "
+"구매가에 되팔 수 있습니다. #o{tobuy}#0을(를) 구매해 주세요. 나중에 요긴할 "
+"겁니다.\""
 
 msgid ""
 "\"Great! You bought the #o{bought}#0. Outfits don't get equipped right away. "
 "To be able to use it, please navigate to the #oEquipment Tab#0 of the "
 "landing window.\""
 msgstr ""
+"\"좋아요! #o{bought}#0을(를) 구매했군요. 장비는 바로 장착되지 않습니다. "
+"사용하려면 착륙 창의 #o장비 탭#0으로 이동하세요.\""
 
 msgid ""
 "\"The #oEquipment Tab#0 allows handling your ships and their equipment. You "
@@ -98422,6 +98926,11 @@ msgid ""
 "also right-click on an outfit to have it directly be assigned to the "
 "smallest free slot it fits into. Try to equip the #o{outfit}#0 now.\""
 msgstr ""
+"\"#o장비 탭#0에서는 함선과 장비를 관리할 수 있습니다. 함선을 여러 척 "
+"보유하고 자유롭게 전환할 수 있습니다. 장비를 클릭한 다음 장착하려는 슬롯을 "
+"우클릭하여 #o{outfit}#0을(를) 무기 슬롯에 장착해 보세요. 빈 슬롯이 있으면 "
+"장비를 우클릭하여 가장 작은 빈 슬롯에 바로 배정할 수도 있습니다. 지금 #o"
+"{outfit}#0을(를) 장착해 보세요.\""
 
 msgid ""
 "\"Great! Now you have the #o{outfit}#0 equipped. Looks like your ship is set "
@@ -98429,6 +98938,9 @@ msgid ""
 "weapon. You can always change this from the #oInfo Window#0 you can open "
 "with {infokey}. Let us go back to {pnt} in {sys}.\""
 msgstr ""
+"\"좋아요! 이제 #o{outfit}#0이(가) 장착되었군요. 함선이 무기를 자동으로 "
+"관리하도록 설정되어 있으니, 주 무기로 배정될 겁니다. {infokey}로 열 수 있는 "
+"#o정보 창#0에서 언제든 변경할 수 있습니다. {sys}의 {pnt}(으)로 돌아갑시다.\""
 
 msgid ""
 "\"Great! Now you have the #o{outfit}#0 equipped. Looks like your ship is not "
@@ -98437,6 +98949,10 @@ msgid ""
 "Window#0 with {infokey}. Check to make sure that is set up and let us go "
 "back to {pnt} in {sys}.\""
 msgstr ""
+"\"좋아요! 이제 #o{outfit}#0이(가) 장착되었군요. 함선이 무기를 자동으로 "
+"관리하지 않도록 설정되어 있는 것 같습니다. #o{outfit}#0을(를) 무기 세트에 "
+"배정해야 사용할 수 있을 겁니다. {infokey}로 #o정보 창#0을 열어 확인하세요. "
+"설정이 되어 있는지 확인하고 {sys}의 {pnt}(으)로 돌아갑시다.\""
 
 #.
 #. <?xml version='1.0' encoding='utf8'?>
@@ -98546,7 +99062,7 @@ msgstr "프로테론이 당신을 지켜보고 있다."
 
 #. Check to see if truly accepted
 msgid "Helping Nelly Out… Again"
-msgstr ""
+msgstr "넬리를 다시 돕다…"
 
 msgid "Help Nelly fix their ship."
 msgstr ""
@@ -98593,6 +99109,9 @@ msgid ""
 "Why don't you try to equip #o{outfitname}#0 before we head out? We want to "
 "disable my ship, not destroy it!\""
 msgstr ""
+"\"무력화 무기를 소지하고 있지만 장착하지 않은 것 같네요. 출발 전에 #o"
+"{outfitname}#0을(를) 장착해 보는 건 어때요? 내 함선을 파괴하지 말고 "
+"무력화해야 하잖아요!\""
 
 msgid ""
 "\"It looks like this planet doesn't have neither an #ooutfitter#0 nor a "
@@ -98601,6 +99120,10 @@ msgid ""
 "such as #o{nearplanet}#0. You can check what services are available when you "
 "select the planet, or from the map.\""
 msgstr ""
+"\"이 행성에는 #o장비점#0도 #o조선소#0도 없는 것 같으니, 현재 장비를 변경할 "
+"수 없을 겁니다. #o{nearplanet}#0 같은 #o장비점#0이나 #o조선소#0가 있는 근처 "
+"행성으로 가 보세요. 행성을 선택하거나 지도에서 이용 가능한 서비스를 확인할 "
+"수 있습니다.\""
 
 msgid ""
 "\"It looks like you don't have any disabling weapons. Remember, you have to "
@@ -98608,6 +99131,9 @@ msgid ""
 "should have #o{outfitname}#0 for sale. You should buy and equip one before "
 "trying to disable my ship!\""
 msgstr ""
+"\"무력화 무기가 없는 것 같네요. 기억하세요, 내 함선을 파괴하지 말고 "
+"무력화해야 합니다! 근처 #o{nearplanet}#0에 #o{outfitname}#0이(가) 판매되고 "
+"있을 겁니다. 내 함선을 무력화하기 전에 하나 사서 장착하세요!\""
 
 #. Check to see if truly accepted
 msgid "Equip a weapon with disable damage"
@@ -98623,6 +99149,8 @@ msgid ""
 "\"Your equipped #o{outfitname}#0 has disable damage. Looks like you'll be "
 "able to safely disable my rampant ship!\""
 msgstr ""
+"\"장착한 #o{outfitname}#0에 무력화 피해가 있네요. 제멋대로인 내 함선을 "
+"안전하게 무력화할 수 있을 것 같습니다!\""
 
 #, fuzzy
 msgid "Noisy Pacifier"
@@ -98651,6 +99179,9 @@ msgid ""
 "Although the mission has been aborted, you can still repeat it from the "
 "beginning by finding Nelly at a spaceport bar to try again."
 msgstr ""
+"#r임무 실패: 넬리의 함선을 파괴하면 안 됐습니다!#0\n"
+"임무가 중단되었지만, 우주항 바에서 넬리를 찾아 처음부터 다시 시도할 수 "
+"있습니다."
 
 msgid "Nelly is motioning you to come join her at the table."
 msgstr ""
@@ -98665,6 +99196,8 @@ msgid ""
 "\"Got the parts! Cheaper than I expected too. Hopefully this will bring an "
 "end to my ship troubles. Let's go back to #o{pnt}#0 in #o{sys}#0!\""
 msgstr ""
+"\"부품을 구했어! 예상보다도 저렴하네. 이것으로 함선 문제가 끝나길 바란다. #o"
+"{sys}#0의 #o{pnt}#0(으)로 돌아가자!\""
 
 msgid "Jumpdrive Repair Parts"
 msgstr ""
@@ -98698,6 +99231,10 @@ msgid ""
 "hectaperiod if I want it delivered. However, I was able to find that they "
 "seem to have replacements on #o{destpnt}#0 in #o{destsys}#0.\""
 msgstr ""
+"\"함선을 다시 점검해 봤는데, 자동항법 고장만이 아니라 점프 드라이브가 망가진 "
+"것 같아. 예비 부품이 필요한데 여기에는 없는 것 같고, 배송하려면 최소 "
+"1헥토피리어드는 기다려야 한다고 하더라고. 하지만 #o{destsys}#0의 #o{destpnt}"
+"#0에 대체품이 있는 것 같다는 걸 알아냈어.\""
 
 msgid ""
 "Before you can answer she grabs your arm and pulls you towards where your "
@@ -98705,6 +99242,9 @@ msgid ""
 "\"Come on, let's head to #o{destpnt}#0 to grab a spare part, so I can "
 "finally get my ship off the ground.\""
 msgstr ""
+"대답하기도 전에 그녀가 팔을 잡고 함선이 정박한 곳으로 끌고 간다.\n"
+"\"빨리, #o{destpnt}#0에 가서 예비 부품을 사 오자고, 그래야 내 함선을 finally "
+"띄울 수 있을 테니까.\""
 
 msgid ""
 "Looks like you'll have to do another round trip if you want to get paid."
@@ -98800,6 +99340,11 @@ msgid ""
 "- #oStealth#0 determines the distance at which the ship is undetected when "
 "in stealth mode\""
 msgstr ""
+"\"각 함선에는 세 가지 중요한 전자전 수치가 있습니다:\n"
+"- #o탐지#0는 함선이 레이더에 나타나는 거리를 결정합니다.\n"
+"- #o신호#0는 함선이 완전히 탐지되는 거리를 결정합니다. 즉, 함선 유형과 "
+"세력이 표시됩니다. 또한 미사일과 무기가 함선을 추적하는 데 영향을 미칩니다.\n"
+"- #o스텔스#0는 스텔스 모드에서 함선이 탐지되지 않는 거리를 결정합니다\""
 
 msgid ""
 "\"You can activate stealth mode with {stealthkey} when far enough away from "
@@ -98807,12 +99352,19 @@ msgid ""
 "ships. However, if a ship gets within the #ostealth#0 distance of your ship, "
 "it will slowly uncover you.\""
 msgstr ""
+"\"다른 함선과 충분히 멀리 떨어져 있을 때 {stealthkey}로 스텔스 모드를 "
+"활성화할 수 있습니다. 스텔스 상태에서는 함선이 모든 함선에게 완전히 보이지 "
+"않게 됩니다. 그러나 함선이 자신의 #o스텔스#0 거리 안에 들어오면 서서히 "
+"탐지됩니다.\""
 
 msgid ""
 "\"Besides making your ship invisible to other ships, #ostealth#0 slows down "
 "your ship heavily to mask your gravitational presence. This also has the "
 "effect of letting you jump out from jumpoints further away.\""
 msgstr ""
+"\"함선을 다른 함선에게 보이지 않게 하는 것 외에도, #o스텔스#0는 중력 존재를 "
+"은폐하기 위해 함선 속도를 크게 늦춥니다. 이는 점프 지점에서 더 먼 거리에서도 "
+"점프아웃할 수 있는 효과도 있습니다.\""
 
 msgid ""
 "\"When not in stealth, ships can target your ship to perform a scan. This "
@@ -98927,6 +99479,9 @@ msgid ""
 "#bnotes#0 to systems from the system map which you can access with the "
 "{mapkey}. You should try it out.\""
 msgstr ""
+"\"최근 성계 지도의 #b메모#0 기능에 대해 알게 되었는데, 좋은 소행성의 위치를 "
+"기록하는 데 매우 유용해요! {mapkey}로 접근할 수 있는 성계 지도에서 성계에 "
+"#b메모#0를 추가할 수 있습니다. 한번 사용해 보세요.\""
 
 msgid ""
 "\"One second. I have to… uh… go to the bathroom before we can be off!\"\n"
@@ -99223,6 +99778,9 @@ msgid ""
 "your #bmouse pointer#0 automatically. It's up to you which method you prefer "
 "to use.\""
 msgstr ""
+"\"완벽해요! 충분히 쉽죠? '키보드 비행'이라 불리는 이 방식을 추천합니다. 다만 "
+"다른 비행 방법도 있습니다: 콘솔에서 {mouseflykey}를 누르면 함선이 자동으로 "
+"#b마우스 포인터#0를 따라갑니다. 어떤 방법을 쓸지는 자유입니다.\""
 
 msgid ""
 "\"You may also have noticed the mission on-screen display on your monitor. "
@@ -99237,6 +99795,10 @@ msgid ""
 "or alternatively by pressing certain buttons on your control console. How "
 "about you try landing on {pnt}?\""
 msgstr ""
+"\"그 김에 착륙에 대해 알아봅시다. 행성에 착륙하거나, 함선을 호출하거나, "
+"무력화된 함선을 나포하거나, 다른 성계로 점프하는 모든 행동은 대상을 #b더블 "
+"클릭#0하거나 조종 콘솔의 특정 버튼으로 수행할 수 있습니다. {pnt}에 착륙해 "
+"볼까요?\""
 
 msgid ""
 "\"To land on {pnt}, you need to slow down your ship on top of the planet, "
@@ -99246,6 +99808,11 @@ msgid ""
 "with {targetplanetkey}, and then using the {landkey}. You can also #bdouble "
 "click#0 on the planet to engage the same behaviour. Give it a try!\""
 msgstr ""
+"\"{pnt}에 착륙하려면 행성 위에서 함선을 감속하고 착륙 시스템을 작동시켜야 "
+"합니다. 이동 키로 수동으로 감속한 뒤 {landkey}로 착륙 장치를 내릴 수 있고, "
+"행성을 #b클릭#0하거나 {targetplanetkey}로 지정한 뒤 {landkey}를 사용하면 "
+"자동으로 처리됩니다. 행성을 #b더블 클릭#0해도 같은 동작이 됩니다. 한번 "
+"해보세요!\""
 
 msgid ""
 "\"Great job! As you can see, by using your ship's Autonav features, the "
@@ -99263,6 +99830,11 @@ msgid ""
 "around, but they don't guarantee your safety. When starting out it is "
 "probably best to not stray too far.\""
 msgstr ""
+"\"오버레이 지도를 활성화했을 때 몇 가지 기능을 눈치채셨기를 바랍니다. 행성, "
+"함선, 소행성 같은 물체만 표시되는 것이 아니라, 세력의 #o순찰 경로#0도 굵은 "
+"선으로 표시됩니다. 이 경로는 함선이 자주 순찰하고 이용하는 구역을 "
+"나타냅니다. 이 경로를 따르는 것이 일반적으로 이동의 최선이지만, 안전을 "
+"보장하지는 않습니다. 처음에는 너무 멀리 가지 않는 것이 좋을 겁니다.\""
 
 msgid ""
 "\"Let's now practice combat. You won't need this if you stick to the safe "
@@ -99311,6 +99883,12 @@ msgid ""
 "talking to bar patrons. Who knows what useful tips or interesting jobs they "
 "might have for you?\""
 msgstr ""
+"\"이곳은 우주항 바로, 최신 뉴스를 읽을 수 있습니다 (지금 오른쪽에서 보이는 "
+"것처럼). 하지만 더 중요한 것은, 다른 파일럿, 시민 등을 만날 수 있다는 거죠! "
+"바에 있는 누군가를 클릭한 다음 '#b접근#0' 버튼을 클릭하여 다가가세요. 중요한 "
+"인물은 빨간색 느낌표로 표시됩니다. 일반적으로 바 손님과 정기적으로 대화하는 "
+"것을 추천합니다. 어떤 유용한 정보나 흥미로운 일이 기다리고 있을지 "
+"모르니까요?\""
 
 msgid ""
 "\"This is the Mission Computer, where you can find basic missions in the "
@@ -99330,6 +99908,10 @@ msgid ""
 "your active missions, which you can review via the Info screen by pressing "
 "{infokey}.\""
 msgstr ""
+"\"임무를 선택할 때 보수에 주의하세요. 수행할 수 있는 임무와 최대한 높은 보수 "
+"사이의 균형을 맞추는 것이 중요합니다. 임무를 선택했으면 우측 하단의 '#b임무 "
+"수락#0' 버튼을 클릭하면 활성 임무에 추가되며, {infokey}로 정보 화면에서 "
+"확인할 수 있습니다.\""
 
 msgid ""
 "\"As you gain reputation with other factions and characters, you will be "
@@ -99359,6 +99941,11 @@ msgid ""
 "via the '#bFind Outfits#0' button on the starmap screen. After buying new "
 "outfits make sure to equip them in the #oEquipment#0 window.\""
 msgstr ""
+"\"화면 상단의 탭으로 장비를 유형별로 필터링할 수 있습니다. 관심 있는 장비를 "
+"보면 클릭하여 정보를 확인한 뒤, '#b구매#0' 버튼으로 구매하거나 소지하고 "
+"있다면 '#b판매#0' 버튼으로 판매할 수 있습니다. 행성마다 판매하는 장비가 "
+"다르니, 찾는 장비가 없으면 성계 지도 화면의 '#b장비 검색#0' 버튼으로 검색할 "
+"수 있습니다. 새 장비를 구매한 후 #o장비#0 창에서 장착하는 것을 잊지 마세요.\""
 
 msgid ""
 "\"This is the Shipyard, where you can buy new starships to either replace "
@@ -99370,6 +99957,12 @@ msgid ""
 "available; if you don't see a specific ship you're looking for, you can "
 "search for it via the '#bFind#0' button on the starmap screen.\""
 msgstr ""
+"\"여기는 조선소로, 새 함선을 구매하여 현재 함선을 교체하거나 컬렉션에 추가할 "
+"수 있습니다! 화면 왼쪽에서 현재 행성에서 구매 가능한 함선을 볼 수 있습니다. "
+"관심 있는 함선을 클릭하여 자세한 정보를 확인하세요. '#b구매#0' 버튼으로 "
+"함선을 구매하거나, '#b맞교환#0' 버튼으로 현재 함선을 새 함선으로 교환할 수 "
+"있습니다. 행성마다 판매하는 함선이 다르니, 찾는 함선이 없으면 성계 지도 "
+"화면의 '#b검색#0' 버튼으로 검색할 수 있습니다.\""
 
 msgid ""
 "\"You likely don't have enough credits for a new ship now, but later on, "
@@ -99391,6 +99984,12 @@ msgid ""
 "equipped will also lead to those outfits being sold along with the ship, so "
 "do keep that in mind if there's an outfit you need to keep.\""
 msgstr ""
+"\"여기는 장비 화면입니다. #o장비점#0에서 구매한 장비로 함선을 장착할 수 "
+"있습니다. 다른 함선을 선택하고 '#b함선 교체#0' 버튼을 클릭하거나 #b더블 "
+"클릭#0하여 현재 조종 중인 함선을 전환할 수 있습니다. 더 이상 필요 없는 다른 "
+"함선은 '#b함선 판매#0' 버튼으로 판매할 수 있지만, 현재 함선은 판매할 수 "
+"없습니다. 장비가 장착된 상태로 함선을 판매하면 해당 장비도 함께 판매되니, "
+"보관해야 할 장비가 있다면 기억해 두세요.\""
 
 msgid ""
 "\"If you make any changes to your ship now, please ensure that you still "
@@ -99410,6 +100009,12 @@ msgid ""
 "the commodity you're buying or selling at once. This will reduce the number "
 "of times you have to click on the Buy and Sell buttons.\""
 msgstr ""
+"\"여기는 교역품 화면으로, 교역품을 사고팔 수 있습니다. 교역품 가격은 "
+"행성마다, 심지어 시간에 따라 다르기 때문에, 저가에 매수하고 고가에 매도하여 "
+"수익을 올릴 수 있습니다. 교역품을 클릭하면 톤당 평균 가격 등의 정보를 볼 수 "
+"있으며, '#b구매#0'와 '#b판매#0' 버튼으로 교역품을 사고팔 수 있습니다. "
+"#bShift#0 및/또는 #bCtrl#0 키를 누르고 있으면 한 번에 사고파는 톤 수를 "
+"조절할 수 있어, 버튼 클릭 횟수를 줄이는 데 유용합니다.\""
 
 msgid ""
 "\"If you're unsure what's profitable to buy or sell, you can press "
@@ -99417,6 +100022,9 @@ msgid ""
 "for various price overviews. The news terminal at the bar also includes "
 "price information for specific nearby planets.\""
 msgstr ""
+"\"무엇이 수익성이 있는지 확신이 서지 않으면, {starmapkey}로 성계 지도를 열고 "
+"'#b모드#0' 버튼을 클릭하여 다양한 가격 개요를 확인할 수 있습니다. 바의 뉴스 "
+"터미널에도 인근 행성의 가격 정보가 포함되어 있습니다.\""
 
 msgid ""
 "\"Welcome back to space, {playername}! After landing, the game will be "
@@ -99440,6 +100048,12 @@ msgid ""
 "can be configured from your ship's #oOptions#0 menu, which you can access by "
 "pressing {menukey}."
 msgstr ""
+"\"자동항법은 간단하고 우아합니다. {overlaykey}로 오버레이 지도를 열고, "
+"원하는 위치, 행성, 함선, 또는 점프 지점을 #b우클릭#0하면 함선이 그곳으로 "
+"직접 이동합니다! 이동 시간은 동일하지만, 자동항법의 시간 압축으로 시간이 더 "
+"빠르게 흐르는 것처럼 느껴집니다. 걱정 마세요; 적 함선이 감지되면 자동항법 "
+"시스템이 자동으로 경고하여 상황에 대응할 수 있습니다. 이는 {menukey}로 "
+"접근할 수 있는 함선의 #o옵션#0 메뉴에서 설정할 수 있습니다."
 
 msgid ""
 "\"Why don't you try using Autonav to fly over to {pnt}? You should be able "
@@ -99454,6 +100068,10 @@ msgid ""
 "buy fuel from other ships in the system; hail a ship by #bdouble-clicking#0 "
 "on it, or by selecting it with {targetnextkey} and then pressing {hailkey}.\""
 msgstr ""
+"\"아주 잘했어요, {playername}! 보시다시피 이동에 연료가 소모됩니다. 점프할 "
+"때마다 연료를 소모하며, 아군 행성에 착륙하면 급유됩니다. 궁지에 몰리면 "
+"성계의 다른 함선에서 연료를 구매할 수도 있습니다; 함선을 #b더블 클릭#0하거나 "
+"{targetnextkey}로 선택한 뒤 {hailkey}를 눌러 호출하세요.\""
 
 msgid ""
 "\"Ah, that reminds me: you can also attempt to bribe hostile ships, such as "
@@ -99471,6 +100089,11 @@ msgid ""
 "head to the nearest planet and check out the spaceport bar to see if anybody "
 "can offer us some work to get started.\""
 msgstr ""
+"\"여기까지인 것 같아요! 타고난 파일럿이고 새 함선이 아주 잘 어울린다고 "
+"말하고 싶네요! 기본 튜토리얼은 여기서 끝이지만, 새로운 것을 만나면 "
+"주기적으로 나타날 겁니다. 지식을 복습하거나 설정을 변경하려면, {infokey}로 "
+"열 수 있는 #o정보#0 메뉴에서 할 수 있습니다. 자, 모험하러 갑시다! 가장 "
+"가까운 행성으로 가서 우주항 바에서 일거리를 찾아보는 것을 추천합니다.\""
 
 #. Normal finish of the tutorial
 msgid ""
@@ -99494,6 +100117,10 @@ msgid ""
 "reputation with various factions. You will likely be referencing it often as "
 "we explore the galaxy.\""
 msgstr ""
+"\"또한 {infokey}나 화면 상단의 버튼으로 접근할 수 있는 #o정보#0 화면에서 "
+"무기 발사 방식을 구성할 수 있습니다. #o정보#0 화면에서는 함선, 화물, 현재 "
+"임무, 그리고 여러 세력과의 평판 정보를 확인할 수 있습니다. 은하를 탐험하면서 "
+"자주 참고하게 될 겁니다.\""
 
 msgid ""
 "\"I think we should try venturing outside this system. There are many "
@@ -99503,6 +100130,11 @@ msgid ""
 "the locals, or buying maps. Once you have found a jump point, you can use it "
 "by #bdouble-clicking#0 on it or using the {jumpkey}.\""
 msgstr ""
+"\"이 성계 밖으로 나가보는 게 좋겠어요. 은하에는 수많은 성계가 있고, 이곳은 "
+"그중 아주 작은 일부에 불과합니다! 성계 간 이동은 점프 지점을 통해 "
+"이루어집니다. 행성처럼 탐사하거나 현지인과 대화하거나 지도를 구매하여 점프 "
+"지점을 찾아야 합니다. 점프 지점을 찾으면 #b더블 클릭#0하거나 {jumpkey}를 "
+"사용하여 이동할 수 있습니다.\""
 
 msgid ""
 "\"But there is an even better way to navigate across systems! By pressing "
@@ -99513,6 +100145,11 @@ msgid ""
 "route to get there, but you will find that this method of travel greatly "
 "simplifies things.\""
 msgstr ""
+"\"하지만 더 좋은 성계 간 이동 방법이 있습니다! {starmapkey}를 눌러 #o성계 "
+"지도#0를 열 수 있습니다. #o성계 지도#0에는 현재 알려진 모든 성계가 "
+"표시됩니다. #o성계 지도#0에서 성계를 클릭하고 '#b자동항법#0' 버튼을 누르면 "
+"해당 성계로 자동 이동합니다! 물론 알려진 유효한 경로가 있어야만 작동하지만, "
+"이 이동 방식이 일을 크게 간소화해 줄 겁니다.\""
 
 msgid ""
 "\"Why don't you give it a try and jump to the nearby {sys} system? You "
@@ -100077,6 +100714,15 @@ msgid ""
 "#nTime limit:#0 {deadline}\n"
 "#nReputation Gained:#0 {fct}"
 msgstr ""
+"{name}이라는 오레즈 배신자가 {sys} 성계에서 예트머 가문에 대한 폭력 행위로 "
+"악명을 떨치고 있습니다. 이자의 제거는 배신자들을 상대로 한 전쟁 노력에 "
+"도움이 될 것입니다.\n"
+"\n"
+"#n표적:#0 {name} ({shipclass} 등급 함선)\n"
+"#n현상:#0 사살\n"
+"#n최종 목격:#0 {sys} 성계\n"
+"#n시간 제한:#0 {deadline}\n"
+"#n획득 평판:#0 {fct}"
 
 #. Set up the ship, credits, and reputation based on the level.
 #. TODO update when they get their own ships
@@ -100430,7 +101076,7 @@ msgstr ""
 
 msgctxt "to Evil PI 1"
 msgid "\"No.\" (Lie)"
-msgstr ""
+msgstr "\"아니.\" (거짓말)"
 
 msgid ""
 "\"I see. Scary place, lots of things can go wrong there.\"\n"
@@ -100823,6 +101469,11 @@ msgid ""
 "I'll have to double-check with databases, but that's the only conclusion I "
 "can come to right now.\""
 msgstr ""
+"\"음... 좋지 않아 보이네요. 야생 생체함선, 아니 #o이카루스#0라고 해야 "
+"할까요, 예비 분석 결과 완전히 회복되지 않은 상당한 구조적 손상이 있습니다. "
+"더 나아가 '영양실조' 상태라고 말하고 싶습니다. 이 생체공학보다는 일반 기술에 "
+"더 익숙해서 데이터베이스를 다시 확인해야 하겠지만, 지금으로서는 이것이 "
+"유일한 결론입니다.\""
 
 msgid ""
 "\"I'm going to continue running a more in-depth scan, while I think of our "
@@ -100916,6 +101567,11 @@ msgid ""
 "what are commonly referred to as #oferal bioships#0. I advise caution with "
 "dealing with such ships as they lack any sort of ship AI.\""
 msgstr ""
+"함선 AI가 눈앞에 나타난다.\n"
+"\"이것은 {shipname}으로 보입니다. 소로미드 리버 생체전투기를 기반으로 "
+"하지만, 대부분의 합성 부품을 거부하고 더 야생적인 생물학 상태로 "
+"돌아갔습니다. {shipname}은(는) 통칭 #o야생 생체함선#0 중 가장 작습니다. 함선 "
+"AI가 전혀 없으므로 이러한 함선을 다룰 때 주의가 필요합니다.\""
 
 msgid ""
 "\"I see. However, this doesn't explain how the hell it got down here, "
@@ -101296,7 +101952,7 @@ msgid "Wait for Icarus"
 msgstr ""
 
 msgid "Give up (#rFails Mission#0)"
-msgstr ""
+msgstr "포기하기 (#r임무 실패#0)"
 
 #. Two routes to beat this
 #. come -> wait -> wait
@@ -101465,6 +102121,9 @@ msgid ""
 "\n"
 "#rMISSION FAILED#0"
 msgstr ""
+"이카루스가 드론의 추격에 질렸는지 날아가 버린다.\n"
+"\n"
+"#r임무 실패#0"
 
 msgid ""
 "You lower your head in resignation and give up. This is worse than cat "
@@ -101472,6 +102131,9 @@ msgid ""
 "\n"
 "#rMISSION FAILED#0"
 msgstr ""
+"체념하고 고개를 숙이며 포기한다. 고양이 몰이보다 더 어렵다.\n"
+"\n"
+"#r임무 실패#0"
 
 #. Must be completed beyond this point
 msgid ""
@@ -102069,7 +102731,7 @@ msgid "Looks like the job is done. Come back to {pnt}."
 msgstr ""
 
 msgid "Aaaargggh…"
-msgstr ""
+msgstr "아아아아르…"
 
 msgid ""
 "You find Zach scrunched over his cyberdeck, endlessly pouring over the data "
@@ -103762,7 +104424,7 @@ msgid ""
 msgstr ""
 
 msgid "Wait…"
-msgstr ""
+msgstr "잠깐…"
 
 #, fuzzy
 msgid "Ghost Ship"
@@ -104686,9 +105348,8 @@ msgstr ""
 msgid "Are you alright? Communication cut off for a bit."
 msgstr ""
 
-#, fuzzy
 msgid "Come back to Katar I."
-msgstr "투리온의 불꽃"
+msgstr "카타르 I로 돌아오세요."
 
 #, fuzzy
 msgid "You meet Noona who seems to be a bit more calm than usual."
@@ -105748,7 +106409,7 @@ msgstr ""
 #. Check if the player owns an outfit
 msgctxt "standings"
 msgid "#%c%+d%%#0   [ %s ]"
-msgstr ""
+msgstr "#%c%+d%%#0   [ %s ]"
 
 msgid "Allies:"
 msgstr ""
@@ -105853,23 +106514,35 @@ msgid ""
 "The ship will lunge at the target enemy and take a huge bite out of it, "
 "dealing #g{dmg} damage#0 with its current mass ({mass}).\n"
 msgstr ""
+"#g가속: +{accel_mod}%#0\n"
+"#g속도: +{speed_mod}%#0\n"
+"#g지속시간: {duration}초 또는 표적 함선을 물 때까지#0\n"
+"#o재사용 대기시간: {cooldown}초.#0\n"
+"함선이 적 표적에게 돌진하여 큰 한 입을 물어뜯어, 현재 질량({mass})으로 #g"
+"{dmg} 피해#0를 입힙니다.\n"
 
 msgid ""
 "On successful bite, weapon damage is increased by {bloodlust_dam}% for "
 "#g{bloodlust_duration} seconds#0 #p[Blood Lust]#0 and {heal}% of bitten "
 "armour is restored to the ship #p[Strong Jaws]#0."
 msgstr ""
+"물기에 성공하면, 무기 피해가 #g{bloodlust_duration}초#0 동안 {bloodlust_dam}"
+"% 증가 #p[피의 갈망]#0하고, 물린 장갑의 {heal}%가 함선에 회복됩니다 #p[강한 "
+"턱]#0."
 
 msgid ""
 "On successful bite, weapon damage is increased by #g+{bloodlust_dam}%#0 for "
 "#g{bloodlust_duration} seconds#0 #p[Blood Lust]#0 and #g{heal}%#0 of bitten "
 "armour is restored to the ship #p[Cannibal II]#0."
 msgstr ""
+"물기에 성공하면, 무기 피해가 #g{bloodlust_duration}초#0 동안 #g+"
+"{bloodlust_dam}%#0 증가 #p[피의 갈망]#0하고, 물린 장갑의 #g{heal}%#0가 "
+"함선에 회복됩니다 #p[식인 II]#0."
 
 msgid ""
 "On successful bite, #g{heal}%#0 of bitten armour is restored to the ship "
 "#p[Cannibal II]#0"
-msgstr ""
+msgstr "물기에 성공하면, 물린 장갑의 #g{heal}%#0가 함선에 회복됩니다 #p[식인 II]#0"
 
 msgid ""
 "Makes the ship lunge at the target to take a bite out of it. Damage is based "
@@ -105905,7 +106578,7 @@ msgid "Creates an astral projection that temporarily fights for the ship."
 msgstr ""
 
 msgid "#n{prefix}:#0 {cost} flow, {drain} flow drain per second"
-msgstr ""
+msgstr "#n{prefix}:#0 {cost} 플로우, 초당 {drain} 플로우 소모"
 
 #. Don't let player attack their own astral projection
 #. Exact same position and direction as pilot
@@ -105927,6 +106600,8 @@ msgid ""
 "#n{prefix}:#0 {cost} flow, drains {drain} flow per second, limited to ships "
 "under {limit}"
 msgstr ""
+"#n{prefix}:#0 {cost} 플로우, 초당 {drain} 플로우 소모, {limit} 미만 함선에만 "
+"적용"
 
 msgid "Your ship is above the mass limit to use Avatar of the Sirichana."
 msgstr ""
@@ -105947,6 +106622,8 @@ msgid ""
 "#n{prefix}:#0 {cost} flow, {cooldown} s cooldown, {range} {udist} range, "
 "{damage} {upower} damage per second"
 msgstr ""
+"#n{prefix}:#0 {cost} 플로우, 재사용 대기시간 {cooldown}초, 사거리 {range} "
+"{udist}, 초당 {damage} {upower} 피해"
 
 #. squared
 #. squared
@@ -105961,6 +106638,8 @@ msgid ""
 "#n{prefix}:#0 {cost} flow, {cooldown} s cooldown, {range} range, {masslimit} "
 "tonne limit, {drain} GJ energy drained per ship hit"
 msgstr ""
+"#n{prefix}:#0 {cost} 플로우, 재사용 대기시간 {cooldown}초, 사거리 {range}, "
+"{masslimit}톤 제한, 함선 명중 시 {drain} GJ 에너지 흡수"
 
 #. Only care about turning on (outfit never has the "on" state)
 #. Not ready yet
@@ -105980,7 +106659,7 @@ msgstr ""
 
 msgid ""
 "#n{prefix}:#0 {cost} flow, {drain} flow drain per second, {copies} copies"
-msgstr ""
+msgstr "#n{prefix}:#0 {cost} 플로우, 초당 {drain} 플로우 소모, {copies}개 복제"
 
 #. Set outfit state
 #. Create figures
@@ -106006,6 +106685,8 @@ msgid ""
 "#n{prefix}:#0 {cost} flow, {drain} flow drain, {range} field range, "
 "{strength}% effect strength"
 msgstr ""
+"#n{prefix}:#0 {cost} 플로우, {drain} 플로우 소모, 장 범위 {range}, 효과 강도 "
+"{strength}%"
 
 #. is player?
 #. Drain flow
@@ -106022,6 +106703,9 @@ msgid ""
 "damage, {disable} disable, {penetration}% penetration, {strength}% debuff, "
 "{duration} s duration"
 msgstr ""
+"#n{prefix}:#0 {cost} 플로우, 재사용 대기시간 {cooldown}초, 사거리 {range}, "
+"피해 {damage}, 무력화 {disable}, 관통 {penetration}%, 디버프 {strength}%, "
+"지속시간 {duration}초"
 
 #. Needs a target
 #. Player should have enough flow
@@ -106206,7 +106890,7 @@ msgid "{name}: "
 msgstr "투리온의 불꽃"
 
 msgid "{bas} #n/#0 {sec}"
-msgstr ""
+msgstr "{bas} #n/#0 {sec}"
 
 #. Create an easier to use table that references the true ship stats
 #. force engine_limit to be last in order
@@ -106248,12 +106932,15 @@ msgid ""
 "\n"
 "#oLoad Factor: #y{share}%#0  #o(#g{eml} {t}#0 #o/#0 #g{total} {t}#0 #o)#0\n"
 msgstr ""
+"\n"
+"\n"
+"#o부하 비율: #y{share}%#0  #o(#g{eml} {t}#0 #o/#0 #g{total} {t}#0 #o)#0\n"
 
 msgid "#g{display}: #b+{val} {unit}#0"
-msgstr ""
+msgstr "#g{display}: #b+{val} {unit}#0"
 
 msgid "  #y=>#0  #g+"
-msgstr ""
+msgstr "  #y=>#0  #g+"
 
 #, fuzzy
 msgctxt "unit"
@@ -106610,7 +107297,7 @@ msgstr ""
 msgid ""
 "{size}:#0 {mass} {mass_units}, {absorb}%, {regen} {regen_units} Armour "
 "Regeneration"
-msgstr ""
+msgstr "{size}:#0 {mass} {mass_units}, {absorb}%, 장갑 재생 {regen} {regen_units}"
 
 msgid "Equipped on a {size} slot."
 msgstr ""
@@ -106671,6 +107358,11 @@ msgid ""
 "{unit_energy} energy.\n"
 "Gives a #g{ewbonus}% Ship Detectability#0 bonus during cooldown."
 msgstr ""
+"전방 {jumpdist} {unit_dist}(으)로 점멸합니다. 좌우를 두 번 누르면 측면으로 "
+"점멸합니다. {cooldown}초마다 1회만 사용 가능합니다. 질량 {masslimit} "
+"이상에서는 성능이 저하됩니다. 점멸에 {energy} {unit_energy} 에너지를 "
+"소모합니다.\n"
+"재사용 대기시간 동안 #g함선 탐지 가능성 {ewbonus}%#0 보너스를 제공합니다."
 
 #. Not ready yet
 #. Test energy
@@ -108444,61 +109136,83 @@ msgid ""
 "After verifying that you killed {plt}, an officer hands you your pay of "
 "#g{credits}#0."
 msgstr ""
+"{plt}을(를) 격침한 것을 확인한 후, 장교가 보수 #g{credits}#0 크레딧을 "
+"건네준다."
 
 msgid ""
 "After verifying that {plt} is indeed dead, the tired-looking officer smiles "
 "and hands you your pay of #g{credits}#0."
 msgstr ""
+"{plt}이(가) 정말로 사망한 것을 확인한 후, 지쳐 보이는 장교가 미소를 지으며 "
+"보수 #g{credits}#0 크레딧을 건네준다."
 
 msgid ""
 "The officer seems pleased that {plt} is finally dead. They thank you and "
 "promptly hand you your pay of #g{credits}#0."
 msgstr ""
+"장교는 {plt}이(가) 마침내 죽은 것을 기뻐하는 듯하다. 감사 인사를 건네고 즉시 "
+"보수 #g{credits}#0 크레딧을 지불했다."
 
 msgid ""
 "The paranoid-looking officer takes you into a locked room, where the death "
 "of {plt} is quietly verified. The officer then pays you of #g{credits}#0 and "
 "sends you off."
 msgstr ""
+"편집증적인 장교가 잠긴 방으로 안내한 후, {plt}의 사망을 조용히 확인한다. "
+"그런 다음 #g{credits}#0 크레딧을 지불하고 내보냈다."
 
 msgid ""
 "When you ask the officer for your bounty on {plt}, they sigh, lead you into "
 "an office, go through some paperwork, and hand you your pay of #g{credits}"
 "#0, mumbling something about how useless the bounty system is."
 msgstr ""
+"{plt}의 현상금을 장교에게 요청하자, 한숨을 쉬며 사무실로 안내하고 서류를 "
+"처리한 뒤 #g{credits}#0 크레딧을 건네준다. 현상금 시스템이 얼마나 쓸모없는지 "
+"중얼거린다."
 
 msgid ""
 "The officer verifies the death of {plt}, goes through the necessary "
 "paperwork, and hands you your pay of #g{credits}#0, looking bored the entire "
 "time."
 msgstr ""
+"장교가 {plt}의 사망을 확인하고, 필요한 서류를 처리한 뒤, 지루한 표정으로 #g"
+"{credits}#0 크레딧을 건네준다."
 
 msgid ""
 "An officer takes {plt} into custody and hands you your pay of #g{credits}#0."
-msgstr ""
+msgstr "장교가 {plt}을(를) 인수한 뒤 보수 #g{credits}#0 크레딧을 건네준다."
 
 msgid ""
 "The officer seems to think your decision to capture {plt} alive was foolish. "
 "They carefully take the pirate off your hands, taking precautions you think "
 "are completely unnecessary, and then hand you your pay of #g{credits}#0."
 msgstr ""
+"장교는 {plt}을(를) 생포한 것이 어리석은 결정이라고 생각하는 것 같다. 완전히 "
+"불필요하다고 생각되는 예방 조치를 취하며 조심스럽게 해적을 인수한 뒤, #g"
+"{credits}#0 크레딧을 건네준다."
 
 msgid ""
 "The officer you deal with seems to especially dislike {plt}. The pirate is "
 "taken off your hands and you are handed your pay of #g{credits}#0 without a "
 "word."
 msgstr ""
+"담당 장교는 {plt}을(를) 특히 싫어하는 것 같다. 해적을 인수한 뒤 한마디 없이 "
+"#g{credits}#0 크레딧을 건네준다."
 
 msgid ""
 "A fearful-looking officer rushes {plt} into a secure hold, pays you the "
 "appropriate bounty of #g{credits}#0, and then hurries off."
 msgstr ""
+"두려워 보이는 장교가 {plt}을(를) 보안 구역으로 서둘러 데려간 뒤, 현상금 #g"
+"{credits}#0 크레딧을 지불하고 황급히 떠났다."
 
 msgid ""
 "The officer you greet gives you a puzzled look when you say that you "
 "captured {plt} alive. Nonetheless, they politely take the pirate off of your "
 "hands and hand you your pay of #g{credits}#0."
 msgstr ""
+"{plt}을(를) 생포했다고 말하자, 장교가 의아한 표정을 짓는다. 그래도 정중하게 "
+"해적을 인수하고 #g{credits}#0 크레딧을 건네준다."
 
 msgid ""
 "\"Greetings. I can see that you were trying to collect a bounty on {plt}. "
@@ -108538,6 +109252,14 @@ msgid ""
 "#nWanted:#0 Dead or Alive\n"
 "#nLast seen:#0 {sys} system"
 msgstr ""
+"{pirname}이라는 해적이 최근 {sys} 성계에서 목격되었습니다. {fct} 당국은 이 "
+"해적을 생포 또는 사살하기를 원합니다. {pirname}은(는) {shipclass} 등급 "
+"함선을 조종하는 것으로 알려져 있습니다. 너무 오래 걸리면 {sys} 성계에서 "
+"사라질 수 있습니다.\n"
+"\n"
+"#n표적:#0 {pirname} ({shipclass} 등급 함선)\n"
+"#n현상:#0 생포 또는 사살\n"
+"#n최종 목격:#0 {sys} 성계"
 
 msgid "Kill or capture {plt}"
 msgstr ""
@@ -108557,13 +109279,11 @@ msgstr ""
 msgid "A Smaller Reward"
 msgstr ""
 
-#, fuzzy
 msgid "#nCargo:#0 {cargo}"
-msgstr "저지름: %s"
+msgstr "#n화물:#0 {cargo}"
 
-#, fuzzy
 msgid "#nTime limit:#0 {deadline}"
-msgstr "저지름: %s"
+msgstr "#n시간 제한:#0 {deadline}"
 
 #.
 #. Helper for census missions (where the player has to get in range
@@ -108935,6 +109655,10 @@ msgid ""
 "can buy 500 at a time! You can actually do that with outfits too, but why "
 "would you want to buy 50 laser cannons?\""
 msgstr ""
+"\"교역품을 거래하고 있나요? #bctrl#0을 누르고 있으면 한 번에 50개, "
+"#bshift#0를 누르면 100개를 살 수 있습니다. 둘 다 동시에 누르면 500개를 한 "
+"번에 구매할 수 있죠! 장비도 같은 방식으로 가능하지만, 레이저 캐논을 50개나 "
+"살 이유가 있을까요?\""
 
 msgid ""
 "\"If you're on a mission you just can't beat, you can open the information "
@@ -109043,6 +109767,9 @@ msgid ""
 "your target to follow! I like to use this feature for escort missions. It "
 "makes them a lot less tedious.\""
 msgstr ""
+"\"자동항법으로 파일럿을 자동 추적할 수 있다는 것을 아셨나요? 정말이에요! "
+"파일럿을 #b좌클릭#0하여 표적으로 지정한 뒤, 표적을 #b우클릭#0하면 "
+"추적합니다! 호위 임무에서 이 기능을 자주 쓰는데, 훨씬 수월해지거든요.\""
 
 msgid ""
 "\"The new aiming helper feature is awesome! Simply turn it on in your ship's "
@@ -109254,6 +109981,11 @@ msgid ""
 "#nEstimated Risk:#0 {risk}\n"
 "#nEstimated Reward:#0 {reward}"
 msgstr ""
+"{sys} 성계에서 센서 이상이 감지되었습니다. 무엇이 있을지는 불분명하지만 "
+"조사할 가치가 있습니다. #b펄스 스캐너#0 같은 스캔 장비를 지참하세요.\n"
+"\n"
+"#n예상 위험도:#0 {risk}\n"
+"#n예상 보상:#0 {reward}"
 
 #, fuzzy
 msgid "Investigate the sensor anomaly in the {sys} system."
@@ -109334,6 +110066,10 @@ msgid ""
 "here; the ship is as good as debris. You have no option but to return "
 "dejectedly to your ship. Maybe next time."
 msgstr ""
+"화면에 '#r승인 거부#0'가 잠시 번쩍이고, 비상 보안 프로토콜이 작동하면서 함선 "
+"내부가 신음 소리를 내며 모든 것이 잠금된다. 여기서 더 이상 나아갈 수 없을 것 "
+"같다; 함선은 잔해와 다름없다. 낙담한 채 함선으로 돌아설 수밖에 없다. 다음 "
+"기회를 노려야겠다."
 
 msgid ""
 "You board the derelict which seems oddly in pretty good condition. "
@@ -109438,6 +110174,9 @@ msgid ""
 "#nCost:#0 {credits}\n"
 "#nCurrent Standing:#0 #r{standingname} ({standingvalue})#0"
 msgstr ""
+"#n세력:#0 {fct}\n"
+"#n비용:#0 {credits}\n"
+"#n현재 평판:#0 #r{standingname} ({standingvalue})#0"
 
 #, lua-format
 msgid "You need to gain %d more reputation"
@@ -110814,7 +111553,7 @@ msgstr[0] ""
 #. @return A string taking the form of "You have received X." -- translated and colourized.
 #. --
 msgid "You have received #g{reward}#0."
-msgstr ""
+msgstr "#g{reward}#0을(를) 받았습니다."
 
 #. --
 #. Converts a number of tonnes to a string, using ngettext.
@@ -111944,23 +112683,23 @@ msgstr ""
 #. too lazy to write blackjack over and over
 #. Compute position stuff
 msgid "#wH#0it"
-msgstr ""
+msgstr "#wH#0it"
 
 msgid "#wS#0tay"
-msgstr ""
+msgstr "#wS#0tay"
 
 #. too lazy to write chuck-a-luck
 #. Reset secret code
 #. Compute position stuff
 #. bets
 msgid "#w1#0. Bet 10 k¤"
-msgstr ""
+msgstr "#w1#0. 10k¤ 배팅"
 
 msgid "#w2#0. Bet 100 k¤"
-msgstr ""
+msgstr "#w2#0. 100k¤ 배팅"
 
 msgid "#w3#0. Leave"
-msgstr ""
+msgstr "#w3#0. 떠나기"
 
 #. Scaling factor
 #. Total height is: scale*(105*2+sep)+40+3*font:height
@@ -112018,15 +112757,15 @@ msgid "Cyborg Chicken squawks in surprise!"
 msgstr ""
 
 msgid "#rYou lost!#0"
-msgstr ""
+msgstr "#r졌습니다!#0"
 
 #, lua-format
 msgid "#pBlackjack!#0 %s"
-msgstr ""
+msgstr "#p블랙잭!#0 %s"
 
 msgid "#gYou won #p{n} Minerva Token#g!#0"
 msgid_plural "#gYou won #p{n} Minerva Tokens#g!#0"
-msgstr[0] ""
+msgstr[0] "#g미네르바 토큰 #p{n}개#g를 획득했습니다!#0"
 
 msgid "Double Blackjack! Push!"
 msgstr ""
@@ -112056,7 +112795,7 @@ msgstr ""
 #. Buttons
 msgid "You have {credits} and #p{n} Minerva Token#0."
 msgid_plural "You have {credits} and #p{n} Minerva Tokens#0."
-msgstr[0] ""
+msgstr[0] "보유 크레딧: {credits}, 미네르바 토큰: #p{n}개#0."
 
 msgid "Not enough credits! You only have {credits}!"
 msgstr ""
@@ -112107,7 +112846,7 @@ msgid "The dealer lets out a big sigh."
 msgstr ""
 
 msgid "#rNot enough credits! You only have {credits}!#0"
-msgstr ""
+msgstr "#r크레딧이 부족합니다! 보유 크레딧: {credits}!#0"
 
 #. Handle secretcode
 #. All logic here
@@ -112116,15 +112855,15 @@ msgstr ""
 
 msgid "#gYou won #p{n} Minerva Token#g (matched one)!#0"
 msgid_plural "#gYou won #p{n} Minerva Tokens#g (matched one)!#0"
-msgstr[0] ""
+msgstr[0] "#g미네르바 토큰 #p{n}개#g를 획득했습니다 (1개 일치)!#0"
 
 msgid "#gYou won #p{n} Minerva Token#g (matched two)!#0"
 msgid_plural "#gYou won #p{n} Minerva Tokens#g (matched two)!#0"
-msgstr[0] ""
+msgstr[0] "#g미네르바 토큰 #p{n}개#g를 획득했습니다 (2개 일치)!#0"
 
 msgid "#gYou won #p{n} Minerva Token#g (matched three)!#0"
 msgid_plural "#gYou won #p{n} Minerva Tokens#g (matched three)!#0"
-msgstr[0] ""
+msgstr[0] "#g미네르바 토큰 #p{n}개#g를 획득했습니다 (3개 일치)!#0"
 
 #.
 #. Wrapper for the String guessing minigame
@@ -112296,6 +113035,8 @@ msgstr ""
 msgid ""
 "#barrow keys#0: move, #bz#0: undo, #by#0: redo, #br#0: restart, #bq#0: abort"
 msgstr ""
+"#b화살표 키#0: 이동, #bz#0: 실행 취소, #by#0: 다시 실행, #br#0: 재시작, "
+"#bq#0: 중단"
 
 #. Next round if applicable
 #. Handle the press first before handling other keys
@@ -112319,6 +113060,10 @@ msgid ""
 "#o?#0 correct code, wrong position\n"
 "#b!#0 correct code and position"
 msgstr ""
+"#n도움말:#0\n"
+"코드 순서를 맞추세요\n"
+"#o?#0 올바른 코드, 잘못된 위치\n"
+"#b!#0 올바른 코드와 위치"
 
 #. Display attempts
 msgctxt "stringguess"
@@ -114491,7 +115236,7 @@ msgid "Disable bounce when NPC speaks"
 msgstr ""
 
 msgid "#nText Speed#0: {val:.3f} seconds per character"
-msgstr ""
+msgstr "#n텍스트 속도#0: 자당 {val:.3f}초"
 
 #. --
 #. Transitions for the Visual Novel framework.
@@ -115537,6 +116282,14 @@ msgid ""
 "\n"
 "#nAvailable Jump Targets:#0"
 msgstr ""
+"#n현재 성계:#0 {cursys}\n"
+"#n하이퍼게이트 세력:#0 {fact}\n"
+"#n세력 평판:#0 {standing} ({standing_value})\n"
+"#n평판 보정치:#0 {costmod}%#0\n"
+"#n함대 질량:#0 {totalmass}\n"
+"#n사용 비용:#0 {totalcost} ({flatcost} + 톤당 {masscost})\n"
+"\n"
+"#n사용 가능한 점프 대상:#0"
 
 msgid ""
 "\n"
@@ -115560,6 +116313,8 @@ msgid ""
 "You have insufficient credits to use the hypergate. You are missing "
 "#r{difference}#0."
 msgstr ""
+"하이퍼게이트를 사용할 크레딧이 부족합니다. #r{difference}#0 크레딧이 "
+"모자랍니다."
 
 msgid "Jump!"
 msgstr ""
@@ -115776,7 +116531,7 @@ msgstr ""
 msgid ""
 "You only have {credits} credits. You need #r{cdif}#0 more to be able to "
 "afford the bribe!"
-msgstr ""
+msgstr "보유 크레딧: {credits}. 뇌물을 주려면 #r{cdif}#0 크레딧이 더 필요합니다!"
 
 #, fuzzy
 msgid "You refuse to pay the bribe."
@@ -116192,7 +116947,7 @@ msgstr ""
 
 msgctxt "keyname"
 msgid "#"
-msgstr ""
+msgstr "#"
 
 msgctxt "keyname"
 msgid ";"
@@ -116604,11 +117359,11 @@ msgstr ""
 
 msgctxt "keyname"
 msgid "Keypad {"
-msgstr ""
+msgstr "키패드 {"
 
 msgctxt "keyname"
 msgid "Keypad }"
-msgstr ""
+msgstr "키패드 }"
 
 msgctxt "keyname"
 msgid "Keypad Tab"
@@ -116684,7 +117439,7 @@ msgstr ""
 
 msgctxt "keyname"
 msgid "Keypad #"
-msgstr ""
+msgstr "키패드 #"
 
 msgctxt "keyname"
 msgid "Keypad Space"
@@ -117081,10 +117836,10 @@ msgid "OpenAL started: {} Hz"
 msgstr ""
 
 msgid "Renderer: {}"
-msgstr ""
+msgstr "렌더러: {}"
 
 msgid "Version: {}"
-msgstr ""
+msgstr "버전: {}"
 
 msgid "   with {}"
 msgstr ""
@@ -117139,9 +117894,9 @@ msgstr ""
 msgid "Background -> 'background' : %s"
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "#gYou reactivate the systems of %s."
-msgstr "시스템을 떠났습니다."
+msgstr "#g%s의 시스템을 재활성화했습니다."
 
 #. error has occurred
 #, fuzzy, c-format
@@ -117173,15 +117928,15 @@ msgstr "Stderr을 파일로 리디렉션 할 수 없습니다"
 
 #, c-format
 msgid "#oYou recover your %s fighter."
-msgstr ""
+msgstr "#o%s 전투기를 회수했습니다."
 
 #, c-format
 msgid "#oBoarding ship #%c%s#0."
-msgstr ""
+msgstr "#o함선 #%c%s#0 나포 중."
 
 #, c-format
 msgid "#%c%s#0 has plundered %s from your ship!"
-msgstr ""
+msgstr "#%c%s#0이(가) 당신의 함선에서 %s을(를) 약탈했습니다!"
 
 msgid "System Claim has inexistent system"
 msgstr ""
@@ -117191,20 +117946,20 @@ msgid "System Claim trying to load system '%s' which doesn't exist"
 msgstr ""
 
 msgid "#rTarget is out of communications range"
-msgstr ""
+msgstr "#r표적이 통신 범위 밖에 있습니다"
 
 #, c-format
 msgid "#%c%s#r is jumping and can't respond"
-msgstr ""
+msgstr "#%c%s#r이(가) 점프 중이라 응답할 수 없습니다"
 
 #, c-format
 msgid "#%c%s#r does not respond"
-msgstr ""
+msgstr "#%c%s#r이(가) 응답하지 않습니다"
 
 #. Hostile
 #, c-format
 msgid "#%c%s>#0 %s"
-msgstr ""
+msgstr "#%c%s>#0 %s"
 
 #. error has occurred
 #, fuzzy, c-format
@@ -117754,9 +118509,8 @@ msgstr "존재하지 않는 행성 '%s'을 (를) 로드하지 못했습니다."
 msgid "Error printing results."
 msgstr ""
 
-#, fuzzy
 msgid "#gWelcome to the Lua console!"
-msgstr "네뷸라에 온것을 환영합니다"
+msgstr "#gLua 콘솔에 오신 것을 환영합니다!"
 
 #. Create the window.
 msgid "Lua Console"
@@ -117996,7 +118750,7 @@ msgstr "새 spob의 이름을 무엇으로 지정하시겠습니까?"
 #, c-format
 msgid ""
 "Space object by the name of #r'%s'#0 already exists in the #r'%s'#0 system"
-msgstr ""
+msgstr "#r'%s'#0이라는 우주 객체가 이미 #r'%s'#0 성계에 존재합니다"
 
 msgid "Asteroid Field"
 msgstr ""
@@ -118033,6 +118787,9 @@ msgid ""
 "\n"
 "#rNote:#0 this will only change the display name of the space object."
 msgstr ""
+"천체 #r%s#0의 이름을 무엇으로 변경하시겠습니까?\n"
+"\n"
+"#r참고:#0 우주 객체의 표시 이름만 변경됩니다."
 
 #, c-format
 msgid ""
@@ -118040,6 +118797,9 @@ msgid ""
 "\n"
 "#rNote:#0 this will rename and copy the space object data file."
 msgstr ""
+"천체 #r%s#0의 이름을 무엇으로 변경하시겠습니까?\n"
+"\n"
+"#r참고:#0 우주 객체 데이터 파일의 이름이 변경되고 복사됩니다."
 
 msgid "Rename Spob"
 msgstr ""
@@ -118350,6 +119110,12 @@ msgid ""
 "The current data directory is '#b%s#0'\n"
 "Do you wish to choose a new directory?"
 msgstr ""
+"에디터에서 데이터를 저장하는 중 오류가 발생했습니다! 오류 로그를 확인하거나 "
+"콘솔을 열어 자세한 정보를 확인하세요. 경로가 잘못 설정되어 있을 수 "
+"있습니다.\n"
+"\n"
+"현재 데이터 디렉토리: '#b%s#0'\n"
+"새 디렉토리를 선택하시겠습니까?"
 
 #, fuzzy
 msgid "Invalid Save Directory"
@@ -118370,14 +119136,21 @@ msgid ""
 "The current data directory is '#b%s#0'\n"
 "Do you wish to choose a new directory?"
 msgstr ""
+"에디터의 쓰기 디렉토리가 존재하지 않는 것 같습니다. 경로가 잘못되었을 수 "
+"있습니다.\n"
+"\n"
+"현재 데이터 디렉토리: '#b%s#0'\n"
+"새 디렉토리를 선택하시겠습니까?"
 
 msgid "#rUnsaved Progress"
-msgstr ""
+msgstr "#r저장되지 않은 변경 사항"
 
 msgid ""
 "You have #runsaved changes#0 to the universe diff. Are you sure you wish to "
 "close the editor and #rlose all your changes#0?"
 msgstr ""
+"우주 차이점에 #r저장되지 않은 변경 사항#0이 있습니다. 에디터를 닫고 #r모든 "
+"변경 사항을 잃#0으시겠습니까?"
 
 msgid "Diff XML file"
 msgstr ""
@@ -118457,6 +119230,9 @@ msgid ""
 "\n"
 "#rNote:#0 this will only change the display name of the system."
 msgstr ""
+"#r%s#0의 이름을 무엇으로 변경하시겠습니까?\n"
+"\n"
+"#r참고:#0 성계의 표시 이름만 변경됩니다."
 
 #, c-format
 msgid ""
@@ -118464,6 +119240,9 @@ msgid ""
 "\n"
 "#rNote:#0 this will rename and copy the system data file."
 msgstr ""
+"#r%s#0의 이름을 무엇으로 변경하시겠습니까?\n"
+"\n"
+"#r참고:#0 성계 데이터 파일의 이름이 변경되고 복사됩니다."
 
 msgid "Rename Star System"
 msgstr ""
@@ -118484,9 +119263,8 @@ msgstr ""
 msgid "Star System creation aborted!"
 msgstr ""
 
-#, fuzzy
 msgid "#nNo selection"
-msgstr "설명 할 수 없음."
+msgstr "#n선택 없음"
 
 #, c-format
 msgid "Trying to remove system '%s' from selection when not selected."
@@ -118519,7 +119297,7 @@ msgid "Star System Property Editor"
 msgstr ""
 
 msgid "#rvarious"
-msgstr ""
+msgstr "#r다수"
 
 #. Add general stats
 msgid "Radius"
@@ -118588,12 +119366,14 @@ msgid "Diff Mode (creates a diff instead of direct modification)"
 msgstr ""
 
 msgid "#nCurrent Diff Contents:"
-msgstr ""
+msgstr "#n현재 차이점 내용:"
 
 msgid ""
 "You have #runsaved changes#0 to the universe diff. Are you sure you wish to "
 "disable diff mode and #rlose all your changes#0?"
 msgstr ""
+"우주 차이점에 #r저장되지 않은 변경 사항#0이 있습니다. 차이점 모드를 "
+"비활성화하고 #r모든 변경 사항을 잃#0으시겠습니까?"
 
 msgid "Warning"
 msgstr ""
@@ -118788,7 +119568,7 @@ msgstr ""
 
 #, c-format
 msgid "#%c%s #%c%s #0slot"
-msgstr ""
+msgstr "#%c%s #%c%s #0슬롯"
 
 msgid " [exclusive]"
 msgstr ""
@@ -118850,7 +119630,7 @@ msgstr ""
 
 #, c-format
 msgid "Ship Stats\n"
-msgstr ""
+msgstr "함선 능력치\n"
 
 msgid "All"
 msgstr ""
@@ -118859,7 +119639,7 @@ msgid "Very little space on equipment outfit tabs!"
 msgstr ""
 
 msgid "Filter…"
-msgstr ""
+msgstr "필터…"
 
 msgid "You do not remember how you acquired this ship."
 msgstr ""
@@ -118961,19 +119741,23 @@ msgstr ""
 
 #, c-format
 msgid "#%c%s%.0f#0 %s"
-msgstr ""
+msgstr "#%c%s%.0f#0 %s"
 
 #, c-format
 msgid ""
 "\n"
 "#%c%s%.0f#0 %s (max #%c%s%.0f#0 %s)"
 msgstr ""
+"\n"
+"#%c%s%.0f#0 %s (최대 #%c%s%.0f#0 %s)"
 
 #, c-format
 msgid ""
 "\n"
 "#%c%s%.0f#0 %s"
 msgstr ""
+"\n"
+"#%c%s%.0f#0 %s"
 
 #, c-format
 msgid "%s %s"
@@ -118985,16 +119769,16 @@ msgstr ""
 
 #, c-format
 msgid "#%c%s%s#0 %s"
-msgstr ""
+msgstr "#%c%s%s#0 %s"
 
 #, c-format
 msgid " (#%c%s%s#0 %s)"
-msgstr ""
+msgstr " (#%c%s%s#0 %s)"
 
 #. Misc.
 #, c-format
 msgid "%s / #%c%s%s#0 %s"
-msgstr ""
+msgstr "%s / #%c%s%s#0 %s"
 
 #, c-format
 msgid "%s %s (%d %s)"
@@ -119081,23 +119865,23 @@ msgstr "Mission Lua '%s'구문 오류: %s"
 
 #, c-format
 msgid "#gEscorts: #0Destroying %s."
-msgstr ""
+msgstr "#g호위함:#0 %s 격침 중."
 
 #, c-format
 msgid "#gEscorts: #0Engaging %s."
-msgstr ""
+msgstr "#g호위함:#0 %s 교전 중."
 
 msgid "#gEscorts: #0Holding formation."
-msgstr ""
+msgstr "#g호위함:#0 편대 유지 중."
 
 msgid "#gEscorts: #0Returning to ship."
-msgstr ""
+msgstr "#g호위함:#0 함선 귀환 중."
 
 msgid "#gEscorts: #0Clearing orders."
-msgstr ""
+msgstr "#g호위함:#0 명령 해제 중."
 
 msgid "#gEscorts: #0Jumping."
-msgstr ""
+msgstr "#g호위함:#0 점프 중."
 
 #, c-format
 msgid ""
@@ -119329,7 +120113,7 @@ msgstr "스택에서 '%s' 미션을 찾지 못했습니다"
 #, c-format
 msgid ""
 "Font '%s' unicode character '%#x' not found in font! Using missing glyph."
-msgstr ""
+msgstr "폰트 '%s'에 유니코드 문자 '%#x'가 없습니다! 누락 글리프를 사용합니다."
 
 msgid "FT_Load_Glyph failed."
 msgstr ""
@@ -119338,9 +120122,9 @@ msgstr ""
 msgid "Font '%s' not using FT_PIXEL_MODE_GRAY!"
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to load character '%#x'!"
-msgstr "Nebula 이미지를 로드 할 수 없습니다. %s"
+msgstr "문자 '%#x'를 로드할 수 없습니다!"
 
 #, c-format
 msgid "Unable to find glyph '%d'!"
@@ -119415,11 +120199,11 @@ msgstr ""
 
 #, c-format
 msgid "#oRadar set to %.0fx.#0"
-msgstr ""
+msgstr "#o레이더 %.0fx로 설정됨.#0"
 
 #, c-format
 msgid "%s #b(%dx)#0"
-msgstr ""
+msgstr "%s #b(%dx)#0"
 
 #, c-format
 msgid "OSD '%d' not found."
@@ -119653,10 +120437,10 @@ msgid "Outfit that is enabled for the weapon set"
 msgstr ""
 
 msgid " [#bMission#0]"
-msgstr ""
+msgstr " [#b임무#0]"
 
 msgid " (#rillegal#0)"
-msgstr ""
+msgstr " (#r불법#0)"
 
 msgid ""
 "This is cargo related to a mission and can only be carried by your main ship."
@@ -119700,12 +120484,12 @@ msgstr ""
 #, c-format
 msgctxt "standings"
 msgid "%s   [ #%c%+.0f%%#0 ]"
-msgstr ""
+msgstr "%s   [ #%c%+.0f%%#0 ]"
 
 #, c-format
 msgctxt "standings"
 msgid "#%c%+.0f%%#0   [ %s ]"
-msgstr ""
+msgstr "#%c%+.0f%%#0   [ %s ]"
 
 #, c-format
 msgctxt "standings"
@@ -119713,6 +120497,8 @@ msgid ""
 "\n"
 "#%c%+.0f%%#0 #nin %s#0"
 msgstr ""
+"\n"
+"#%c%+.0f%%#0 #n(%s)#0"
 
 #, c-format
 msgid "You can have a maximum reputation of %.0f%% with this faction."
@@ -119752,6 +120538,10 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"%s\n"
+"#n보상:#0 %s\n"
+"\n"
+"%s"
 
 msgid ""
 "You are currently viewing all logs in the selected log type. Please select a "
@@ -120231,6 +121021,8 @@ msgid ""
 "\n"
 "#r!! CURRENT PROGRESS WILL BE LOST !!#0"
 msgstr ""
+"\n"
+"#r!! 현재 진행 상황이 사라집니다 !!#0"
 
 msgid ""
 "\n"
@@ -120290,7 +121082,7 @@ msgid "News"
 msgstr ""
 
 msgid "Spaceport Bar #r!!#0"
-msgstr ""
+msgstr "우주항 바 #r!!#0"
 
 msgid "Accept Mission"
 msgstr ""
@@ -120347,6 +121139,8 @@ msgid ""
 "%s\n"
 "#nReward:#0 %s"
 msgstr ""
+"%s\n"
+"#n보상:#0 %s"
 
 #, c-format
 msgid "Outfit '%s' does not exist!"
@@ -120414,7 +121208,7 @@ msgstr ""
 
 #, c-format
 msgid "#oTaking off from %s on %s."
-msgstr ""
+msgstr "#o%s에서 %s에 이륙합니다."
 
 #. error has occurred
 #, fuzzy, c-format
@@ -120436,7 +121230,7 @@ msgid "Sell (%dx)"
 msgstr ""
 
 msgid "#rOther"
-msgstr ""
+msgstr "#r기타"
 
 msgid "Owned"
 msgstr ""
@@ -120663,7 +121457,7 @@ msgstr ""
 
 #, c-format
 msgid "Price is based on #%c%.0f%%#0 of the price of #o%s#0."
-msgstr ""
+msgstr "가격은 #o%s#0 가격의 #%c%.0f%%#0을 기준으로 합니다."
 
 msgid "No cargo space available!"
 msgstr ""
@@ -120694,17 +121488,17 @@ msgstr ""
 msgid "Save game version mismatch"
 msgstr "게임 버전 불일치 저장"
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Save game '%s' version does not match Naev version:\n"
 "   Save version: #r%s#0\n"
 "   Naev version: %s\n"
 "Are you sure you want to load this game? It may lose data."
 msgstr ""
-"저장 게임 '%s'버전이 Naev 버전과 일치하지 않습니다.\n"
-"    저장 버전: #r%s#0\n"
-"    Naev 버전: %s\n"
-"이 게임을 로드 하시겠습니까? 데이터가 손실 될 수 있습니다."
+"세이브 '%s'의 버전이 Naev 버전과 일치하지 않습니다:\n"
+"   세이브 버전: #r%s#0\n"
+"   Naev 버전: %s\n"
+"이 게임을 로드하시겠습니까? 데이터가 손실될 수 있습니다."
 
 #, fuzzy
 msgctxt "plugins"
@@ -120743,7 +121537,7 @@ msgstr ""
 
 #, c-format
 msgid "%s (#r%s#0)"
-msgstr ""
+msgstr "%s (#r%s#0)"
 
 msgid "Snapshots"
 msgstr ""
@@ -120817,7 +121611,7 @@ msgstr ""
 #, c-format
 msgctxt "plugins list"
 msgid ", #%c%s#0"
-msgstr ""
+msgstr ", #%c%s#0"
 
 #, fuzzy
 msgid "Exit to Menu?"
@@ -120826,16 +121620,18 @@ msgstr "기본 메뉴로 나가기"
 msgid ""
 "Are you sure you wish to exit to menu right now? The game #rwill not be "
 "saved#0 since last time you landed!"
-msgstr ""
+msgstr "지금 메뉴로 나가시겠습니까? 마지막 착륙 이후의 게임이 #r저장되지 않습니다#0!"
 
 msgid "Permanently Delete?"
 msgstr "영구적으로 삭제 하시겠습니까?"
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Are you sure you want to permanently delete the character '%s'?\n"
 "#rThis action is irreversible!#0"
-msgstr "'%s'을 영구적으로 삭제 하시겠습니까?"
+msgstr ""
+"캐릭터 '%s'을(를) 영구적으로 삭제하시겠습니까?\n"
+"#r이 작업은 되돌릴 수 없습니다!#0"
 
 #, fuzzy, c-format
 msgid "Unable to delete %s"
@@ -120845,11 +121641,13 @@ msgstr "사각형을 채울 수 없습니다: %s"
 msgid "Unable to delete '%s' directory"
 msgstr "쓰기 위해 '%s'을 (를) 열 수 없습니다."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Are you sure you want to permanently delete the snapshot '%s'?\n"
 "#rThis action is irreversible!#0"
-msgstr "'%s'을 영구적으로 삭제 하시겠습니까?"
+msgstr ""
+"스냅샷 '%s'을(를) 영구적으로 삭제하시겠습니까?\n"
+"#r이 작업은 되돌릴 수 없습니다!#0"
 
 msgid "Saved game file seems to have been deleted."
 msgstr "저장된 게임 파일이 삭제 된 것 같습니다."
@@ -120859,9 +121657,9 @@ msgid "Saved game '%s' invalid!"
 msgstr "저장된 게임 '%s'이 잘못되었습니다!"
 
 #. Welcome message - must be before space_init.
-#, fuzzy, c-format
+#, c-format
 msgid "#gWelcome to %s!"
-msgstr "#g %s에 오신 것을 환영합니다!"
+msgstr "#g%s에 오신 것을 환영합니다!"
 
 msgid "Old version detected. Sanitizing ships for slots"
 msgstr "이전 버전이 감지되었습니다. 슬롯용 선박 처리"
@@ -120880,6 +121678,8 @@ msgid ""
 "\n"
 "   #r%s#0"
 msgstr ""
+"\n"
+"   #r%s#0"
 
 msgid ""
 "\n"
@@ -121038,6 +121838,9 @@ msgid ""
 "\n"
 "#o%s#0"
 msgstr ""
+"#o%s#0 성계에 대한 다음 메모를 삭제하시겠습니까?\n"
+"\n"
+"#o%s#0"
 
 #, fuzzy
 msgid "Add System Note"
@@ -121045,7 +121848,7 @@ msgstr "시스템"
 
 #, c-format
 msgid "Write a note about the #o%s#0 system:"
-msgstr ""
+msgstr "#o%s#0 성계에 대한 메모를 작성하세요:"
 
 #, fuzzy, c-format
 msgid "Map '%s' is trying to set spob '%s' as known when it has no system!"
@@ -121096,7 +121899,7 @@ msgstr[0] "%s (%d 점프, %.0fk 거리)"
 
 #, c-format
 msgid "#%c%s%s (%s, %s)"
-msgstr ""
+msgstr "#%c%s%s (%s, %s)"
 
 msgid "Show all"
 msgstr ""
@@ -121130,7 +121933,7 @@ msgid "%s matching '%s' not found!"
 msgstr "%s 에 해당하는 '%s'을 찾지 못했습니다!"
 
 msgid "Find…"
-msgstr ""
+msgstr "찾기…"
 
 msgid "Enter keyword to search for:  (Partial match)"
 msgstr ""
@@ -121152,9 +121955,9 @@ msgstr ""
 msgid "Obscured by the nebula"
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "#nSystem:#0 %s\n"
-msgstr "시스템: %s\n"
+msgstr "#n성계:#0 %s\n"
 
 #, c-format
 msgid "%d-star system\n"
@@ -121192,7 +121995,7 @@ msgstr "빛 "
 
 #, c-format
 msgid "#nNebula: #%c%s%s (%s)#0\n"
-msgstr ""
+msgstr "#n성운: #%c%s%s (%s)#0\n"
 
 #, fuzzy
 msgctxt "interference"
@@ -121209,37 +122012,37 @@ msgctxt "interference"
 msgid "Light"
 msgstr "빛 "
 
-#, fuzzy, c-format
+#, c-format
 msgid "#nInterference: #%c%s (%.0f%%)#0\n"
-msgstr "밀집된 간섭"
+msgstr "#n간섭: #%c%s (%.0f%%)#0\n"
 
-#, fuzzy, c-format
+#, c-format
 msgid "#nAsteroid field density:#0 %.2g\n"
-msgstr "밀집된 소행성 필드"
+msgstr "#n소행성 지대 밀도:#0 %.2g\n"
 
 #, c-format
 msgid "#nOther:#0 %s\n"
-msgstr ""
+msgstr "#n기타:#0 %s\n"
 
 msgid "#nFaction:#0 Multiple\n"
-msgstr ""
+msgstr "#n세력:#0 다수\n"
 
-#, fuzzy
 msgid "#nFaction:#0 N/A\n"
-msgstr "팩션:"
+msgstr "#n세력:#0 해당 없음\n"
 
 #, c-format
 msgid ""
 "#nFaction:#0 %s\n"
 "#nStanding:#0 %s\n"
 msgstr ""
+"#n세력:#0 %s\n"
+"#n평판:#0 %s\n"
 
-#, fuzzy
 msgid "#nPresence:#0 N/A\n"
-msgstr "해적 황조롱이"
+msgstr "#n존재감:#0 해당 없음\n"
 
 msgid "   #nJump points to:#0\n"
-msgstr ""
+msgstr "   #n점프 지점:#0\n"
 
 msgid "     Unknown system\n"
 msgstr ""
@@ -121249,6 +122052,8 @@ msgid ""
 "#nSpace Object:#0 %s\n"
 "#nPlanetary class:#0 %s    #nPopulation:#0 %s\n"
 msgstr ""
+"#n우주 객체:#0 %s\n"
+"#n행성 분류:#0 %s    #n인구:#0 %s\n"
 
 msgid "No space port here\n"
 msgstr ""
@@ -121313,12 +122118,12 @@ msgstr ""
 #, c-format
 msgid "#nYou have:#0 %d tonne, purchased at %s/t\n"
 msgid_plural "#nYou have:#0 %d tonnes, purchased at %s/t\n"
-msgstr[0] ""
+msgstr[0] "#n보유량:#0 %d톤, 구매가 %s/t\n"
 
 #, c-format
 msgid "#nYou have:#0 %d tonne\n"
 msgid_plural "#nYou have:#0 %d tonnes\n"
-msgstr[0] ""
+msgstr[0] "#n보유량:#0 %d톤\n"
 
 msgid "Average price seen here:"
 msgstr ""
@@ -121692,56 +122497,54 @@ msgid "Reached main menu in {:.3f} s"
 msgstr ""
 
 msgid "Loading Special Effects…"
-msgstr "특수 효과 불러오는 중…"
+msgstr "특수 효과 로딩 중…"
 
 #. no dep
 msgid "Loading Effects…"
-msgstr "효과 불러오는 중…"
+msgstr "효과 로딩 중…"
 
 #. no dep
 msgid "Loading Factions…"
-msgstr ""
+msgstr "세력 로딩 중…"
 
 #. dep for space, missions, AI, commodities
 #. LoadStage::new_c(gettext("Loading Factions…"), || unsafe {
 #. naevc::factions_load()
 #. }), /* dep for space, missions, AI, commodities */
 msgid "Loading Commodities…"
-msgstr ""
+msgstr "교역품 로딩 중…"
 
 #. no dep
 msgid "Loading Outfits…"
-msgstr "장비 불러오는 중…"
+msgstr "장비 로딩 중…"
 
 #. dep for ships, factions
 msgid "Loading Ships…"
-msgstr ""
+msgstr "함선 로딩 중…"
 
 msgid "Loading AI…"
-msgstr "인공지능 불러오는 중…"
+msgstr "AI 로딩 중…"
 
 #. dep for ships, factions
 msgid "Loading Techs…"
-msgstr "기술 불러오는 중…"
+msgstr "기술 로딩 중…"
 
 #. dep for spobs
 msgid "Loading the Universe…"
 msgstr ""
 
 #. dep for events / missions
-#, fuzzy
 msgid "Loading Events and Missions…"
-msgstr "임무 불러오는 중…"
+msgstr "이벤트 및 임무 로딩 중…"
 
-#, fuzzy
 msgid "Loading UniDiffs…"
-msgstr "효과 불러오는 중…"
+msgstr "우주 차이점 로딩 중…"
 
 msgid "Populating Maps…"
-msgstr "지도 채우는 중…"
+msgstr "지도 생성 중…"
 
 msgid "Calculating Patrols…"
-msgstr ""
+msgstr "순찰 경로 계산 중…"
 
 #. Run Lua and shit
 msgid "Finalizing data…"
@@ -122100,11 +122903,11 @@ msgstr "'%s' 대형은 발견되지 않았다"
 
 #, c-format
 msgid "#%cBroadcast %s>#0 \"%s\""
-msgstr ""
+msgstr "#%c방송 %s>#0 \"%s\""
 
 #, c-format
 msgid "#%cComm %s>#0 \"%s\""
-msgstr ""
+msgstr "#%c통신 %s>#0 \"%s\""
 
 #, c-format
 msgid ""
@@ -122142,7 +122945,7 @@ msgstr ""
 
 #, c-format
 msgid "#%c%s#0 is hailing you."
-msgstr ""
+msgstr "#%c%s#0이(가) 당신을 호출하고 있습니다."
 
 #, c-format
 msgid ""
@@ -122467,9 +123270,9 @@ msgstr ""
 msgid "Shader '%s' not found."
 msgstr "셰이더 '%s'을 (를) 찾을 수 없습니다."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid #include syntax in '%s%s'!"
-msgstr "창 정보 이름 '%s'이 (가) 잘못되었습니다."
+msgstr "'%s%s'에서 잘못된 #include 구문입니다!"
 
 #, fuzzy, c-format
 msgid "File: %s"
@@ -122507,7 +123310,7 @@ msgstr ""
 
 #, c-format
 msgid "system (%s[%3.0f%%] %s#0)"
-msgstr ""
+msgstr "성계 (%s[%3.0f%%] %s#0)"
 
 msgid "Platform Info: "
 msgstr ""
@@ -122657,6 +123460,8 @@ msgid ""
 "Key '#b%s#0' overlaps with key '#b%s#0' that was just set. You may want to "
 "correct this."
 msgstr ""
+"키 '#b%s#0'이(가) 방금 설정한 키 '#b%s#0'과 겹칩니다. 수정이 필요할 수 "
+"있습니다."
 
 msgid "Set Keybinding"
 msgstr ""
@@ -122749,7 +123554,7 @@ msgid "Bigger icons"
 msgstr ""
 
 msgid "#rRestart Naev for changes to take effect.#0"
-msgstr ""
+msgstr "#r변경 사항을 적용하려면 Naev를 재시작하세요.#0"
 
 #, c-format
 msgid "Colourblind correction: %.2f"
@@ -122785,7 +123590,7 @@ msgstr ""
 
 #, c-format
 msgid "#wBG (Stars, etc.) brightness: %.0f%%  #0█#w"
-msgstr ""
+msgstr "#w배경 (별 등) 밝기: %.0f%%  #0█#w"
 
 #. Update text.
 #, c-format
@@ -122798,7 +123603,7 @@ msgstr ""
 
 #, c-format
 msgid "#wJump brightness: %.0f%%  #0█#w"
-msgstr ""
+msgstr "#w점프 밝기: %.0f%%  #0█#w"
 
 #, c-format
 msgid "Game speed: %.0f%%"
@@ -122963,6 +123768,8 @@ msgid ""
 "\n"
 "#%c%s #%c%s #0slot"
 msgstr ""
+"\n"
+"#%c%s #%c%s #0슬롯"
 
 #, c-format
 msgid "'%s' does not match any outfit slot sizes."
@@ -123093,7 +123900,7 @@ msgstr ""
 #, c-format
 msgctxt "friendlyfire"
 msgid "#r!! %s !!#0"
-msgstr ""
+msgstr "#r!! %s !!#0"
 
 #, fuzzy
 msgid "Hit radius"
@@ -123265,6 +124072,8 @@ msgid ""
 "\n"
 "#r- %s#0"
 msgstr ""
+"\n"
+"#r- %s#0"
 
 #, c-format
 msgid ""
@@ -123325,24 +124134,23 @@ msgstr ""
 #. * precede the #define.]
 #. * Colour-coded abbreviation for "Weapon [outfit]", short enough to use as a
 #. * tab/column title.
-#, fuzzy
 msgid "#pWeapon"
-msgstr "무기 세트 8"
+msgstr "#p무기"
 
 #. * Colour-coded abbreviation for "Utility [outfit]", short enough to use as a
 #. * tab/column title.
 msgid "#gUtility"
-msgstr ""
+msgstr "#g유틸리티"
 
 #. * Colour-coded abbreviation for "Structure [outfit]", short enough to use as a
 #. * tab/column title.
 msgid "#nStructural"
-msgstr ""
+msgstr "#n구조"
 
 #. * Colour-coded abbreviation for "Core [outfit]", short enough to use as a
 #. * tab/column title.
 msgid "#oCore"
-msgstr ""
+msgstr "#o핵심"
 
 #, c-format
 msgid "Blacklist  PCRE2 compilation failed at offset %d: %s"
@@ -123400,14 +124208,14 @@ msgid "Solid initialization did not specify correct update function!"
 msgstr ""
 
 msgid "#oActive cooldown engaged."
-msgstr ""
+msgstr "#o능동 냉각이 시작되었습니다."
 
 msgid "Active cooldown completed."
 msgstr ""
 
 #, c-format
 msgid "#rActive cooldown aborted: %s!"
-msgstr ""
+msgstr "#r능동 냉각이 중단되었습니다: %s!"
 
 msgid "Active cooldown aborted!"
 msgstr ""
@@ -123432,7 +124240,7 @@ msgstr ""
 
 #, c-format
 msgid "#rShip under command '%s' was destroyed!#0"
-msgstr ""
+msgstr "#r'%s' 명령 하의 함선이 파괴되었습니다!#0"
 
 msgid "Strayed too far from jump point: jump aborted."
 msgstr ""
@@ -123474,7 +124282,7 @@ msgstr ""
 
 #, c-format
 msgid "You have uncovered '#%c%s#0'!"
-msgstr ""
+msgstr "'#%c%s#0'을(를) 발견했습니다!"
 
 #, c-format
 msgid "Pilot '%s' failed to run hook type %d"
@@ -123514,55 +124322,55 @@ msgstr ""
 
 #. CPU.
 msgid "!! Insufficient CPU"
-msgstr ""
+msgstr "!! CPU 부족"
 
 #. Movement.
 msgid "!! Insufficient Accel"
-msgstr ""
+msgstr "!! 가속 부족"
 
 msgid "!! Insufficient Speed"
-msgstr ""
+msgstr "!! 속도 부족"
 
 msgid "!! Insufficient Turn"
-msgstr ""
+msgstr "!! 선회 부족"
 
 msgid "!! Defies Laws of Physics"
-msgstr ""
+msgstr "!! 물리 법칙 위반"
 
 #. Health.
 msgid "!! Insufficient Armour"
-msgstr ""
+msgstr "!! 장갑 부족"
 
 msgid "!! Insufficient Armour Regeneration"
-msgstr ""
+msgstr "!! 장갑 재생 부족"
 
 msgid "!! Insufficient Shield"
-msgstr ""
+msgstr "!! 실드 부족"
 
 msgid "!! Insufficient Shield Regeneration"
-msgstr ""
+msgstr "!! 실드 재생 부족"
 
 msgid "!! Insufficient Energy"
-msgstr ""
+msgstr "!! 에너지 부족"
 
 msgid "!! Insufficient Energy Regeneration"
-msgstr ""
+msgstr "!! 에너지 재생 부족"
 
 #. Misc.
 msgid "!! Insufficient Fuel Maximum"
-msgstr ""
+msgstr "!! 최대 연료 부족"
 
 msgid "!! Insufficient Fuel Consumption"
-msgstr ""
+msgstr "!! 연료 소비 부족"
 
 msgid "!! Insufficient Free Cargo Space"
-msgstr ""
+msgstr "!! 빈 화물 공간 부족"
 
 msgid "!! Insufficient Crew"
-msgstr ""
+msgstr "!! 승무원 부족"
 
 msgid "!! Too Heavy"
-msgstr ""
+msgstr "!! 너무 무거움"
 
 #. String is empty so no errors encountered
 msgid "Spaceworthy"
@@ -123731,22 +124539,22 @@ msgstr "조판됨:"
 #. No shoes, no shirt, no lifeforms, no service.
 #, c-format
 msgid "#oReady to land on %s."
-msgstr ""
+msgstr "#o%s에 착륙 준비 완료."
 
 #, c-format
 msgid "#rYou are too far away to land on %s."
-msgstr ""
+msgstr "#r%s에 착륙하기엔 너무 멀리 있습니다."
 
 #, c-format
 msgid "#rYou are going too fast to land on %s."
-msgstr ""
+msgstr "#r%s에 착륙하기엔 너무 빠릅니다."
 
 msgid "Player has landing permission, but no valid spob targeted."
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "#%c%s>#0 \"Landing permission revoked.\""
-msgstr "조판됨:"
+msgstr "#%c%s>#0 \"착륙 허가가 취소되었습니다.\""
 
 msgid "You are not allowed to land at this moment."
 msgstr ""
@@ -123757,7 +124565,7 @@ msgstr ""
 
 #, c-format
 msgid "#rReceiving hail! Press #b%s#r to respond.#0"
-msgstr ""
+msgstr "#r호출 수신 중! #b%s#r 키를 눌러 응답하세요.#0"
 
 msgid "Aborting hyperspace sequence."
 msgstr ""
@@ -123786,11 +124594,11 @@ msgstr ""
 
 #, c-format
 msgid "#r%s is out of comm range, unable to contact."
-msgstr ""
+msgstr "#r%s이(가) 통신 범위 밖에 있어 연락할 수 없습니다."
 
-#, fuzzy, c-format
+#, c-format
 msgid "#r%s does not respond."
-msgstr "색상 '%s'이 (가) 없습니다!"
+msgstr "#r%s이(가) 응답하지 않습니다."
 
 msgid "No target selected to hail."
 msgstr ""
@@ -124842,22 +125650,22 @@ msgstr ""
 #, c-format
 msgctxt "shipstats_double"
 msgid "%s#%s%s: %+g %s#0"
-msgstr ""
+msgstr "%s#%s%s: %+g %s#0"
 
 #, c-format
 msgctxt "shipstats_absolute"
 msgid "%s#%s%s: %+g %s#0"
-msgstr ""
+msgstr "%s#%s%s: %+g %s#0"
 
 #, c-format
 msgctxt "shipstats_integer"
 msgid "%s#%s%s: %+d %s#0"
-msgstr ""
+msgstr "%s#%s%s: %+d %s#0"
 
 #, c-format
 msgctxt "shipstats_boolean"
 msgid "%s#%s%s#0"
-msgstr ""
+msgstr "%s#%s%s#0"
 
 #, fuzzy, c-format
 msgid "Unknown ship stat type '%s'!"
@@ -125034,7 +125842,7 @@ msgstr ""
 
 #, c-format
 msgid "You discovered #%c%s#0."
-msgstr ""
+msgstr "#%c%s#0을(를) 발견했습니다."
 
 msgid "You discovered a Jump Point."
 msgstr ""
@@ -125048,11 +125856,11 @@ msgstr "시스템 '%s'에서 Spob '%s'을(를) 찾을 수 없습니다"
 
 #, c-format
 msgid "#oEntering System %s on %s."
-msgstr ""
+msgstr "#o성계 %s에 %s 진입합니다."
 
 #, c-format
 msgid "#rWARNING - Volatile nebula detected in %s! Taking %s damage!"
-msgstr ""
+msgstr "#r경고 - %s에서 불안정한 성운 탐지됨! %s 피해를 받고 있습니다!"
 
 #, fuzzy, c-format
 msgid "Unknown node '%s' in virtual spob '%s'"
