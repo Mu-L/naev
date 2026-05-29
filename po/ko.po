@@ -3,15 +3,16 @@ msgstr ""
 "Project-Id-Version: ofenthource\n"
 "Report-Msgid-Bugs-To: https://codeberg.org/naev/naev/issues\n"
 "POT-Creation-Date: 2026-02-23 21:29+0900\n"
-"PO-Revision-Date: 2024-06-23 14:45+0000\n"
-"Last-Translator: Han Ga Eun <gdd72582@gmail.com>\n"
-"Language-Team: Korean <https://hosted.weblate.org/projects/naev/naev/ko/>\n"
+"PO-Revision-Date: 2026-05-29 08:09+0000\n"
+"Last-Translator: daemul72 <daemul72@noreply.codeberg.org>\n"
+"Language-Team: Korean <https://translate.codeberg.org/projects/naev/naev/ko/>"
+"\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6-rc\n"
+"X-Generator: Weblate 2026.5\n"
 "X-Crowdin-Project: ofenthource\n"
 "X-Crowdin-Project-ID: 430038\n"
 "X-Crowdin-Language: ko\n"
@@ -549,9 +550,8 @@ msgstr ""
 msgid "Internal Flow Amplifier"
 msgstr ""
 
-#, fuzzy
 msgid "Ion Cannon"
-msgstr "리퍼 캐논"
+msgstr "이온 캐논"
 
 msgid "Jack's Eyepatch"
 msgstr ""
@@ -647,7 +647,7 @@ msgid "Love Letter"
 msgstr ""
 
 msgid "Low Radiation Sensor Modulator"
-msgstr ""
+msgstr "저방사 센서 변조기"
 
 msgid "Luxury Furnishings"
 msgstr ""
@@ -940,13 +940,11 @@ msgstr "플라즈마 블래스터 MK2"
 msgid "Plasma Burst"
 msgstr "플라즈마 터렛 MK2"
 
-#, fuzzy
 msgid "Plasma Cannon"
-msgstr "리퍼 캐논"
+msgstr "플라즈마 캐논"
 
-#, fuzzy
 msgid "Plasma Cluster Cannon"
-msgstr "플라즈마 클러스터 캐논 MK1"
+msgstr "플라즈마 클러스터 캐논"
 
 #, fuzzy
 msgid "Plasma Eruptor"
@@ -1198,7 +1196,7 @@ msgid "Targeting Array"
 msgstr ""
 
 msgid "Targeting Conduit"
-msgstr ""
+msgstr "조준 도관"
 
 #, fuzzy
 msgid "TeraCom Banshee Launcher"
@@ -1434,7 +1432,7 @@ msgid "ZIBS-32"
 msgstr ""
 
 msgid "Admonisher"
-msgstr "옹호자"
+msgstr "어드모니셔"
 
 msgid "<widget rightstats />"
 msgstr ""
@@ -1495,7 +1493,7 @@ msgid "Admonisher ΩIIa"
 msgstr "옹호자"
 
 msgid "Ancestor"
-msgstr "조상"
+msgstr "앤세스터"
 
 msgid "Ancestor HG Eagle-Eye"
 msgstr ""
@@ -1517,7 +1515,7 @@ msgid "Dealbreaker"
 msgstr "렌더링: %s"
 
 msgid "Drone"
-msgstr ""
+msgstr "드론"
 
 #, fuzzy
 msgid "Drone Carrier"
@@ -1599,15 +1597,14 @@ msgid "Fort Raglan"
 msgstr ""
 
 msgid "Gawain"
-msgstr "가와 인"
+msgstr "가웨인"
 
 #, fuzzy
 msgid "Gawain XY-37"
 msgstr "가와 인"
 
-#, fuzzy
 msgid "Goddard"
-msgstr "드 베어드 고다드"
+msgstr "고다드"
 
 #, fuzzy
 msgid "Goddard Merchantman"
@@ -1642,13 +1639,13 @@ msgid "Lancelot"
 msgstr "랜슬롯"
 
 msgid "Llama"
-msgstr "야마"
+msgstr "라마"
 
 msgid "Llama Voyager"
 msgstr ""
 
 msgid "Mule"
-msgstr "노새"
+msgstr "뮬"
 
 msgid "Mule Hardhat"
 msgstr ""
@@ -1662,10 +1659,10 @@ msgid "One-Wing Goddard"
 msgstr "드 베어드 고다드"
 
 msgid "Pacifier"
-msgstr "고무 젖꼭지"
+msgstr "패시파이어"
 
 msgid "Phalanx"
-msgstr "지골"
+msgstr "팔랑크스"
 
 #, fuzzy
 msgid "Pirate Admonisher"
@@ -1751,20 +1748,20 @@ msgid "Psychic Orb"
 msgstr ""
 
 msgid "Quicksilver"
-msgstr "수은"
+msgstr "퀵실버"
 
 #, fuzzy
 msgid "Quicksilver Mercury"
 msgstr "수은"
 
 msgid "Rhino"
-msgstr "코뿔소"
+msgstr "라이노"
 
 msgid "Schroedinger"
 msgstr "슈뢰딩거"
 
 msgid "Shark"
-msgstr "상어"
+msgstr "샤크"
 
 #, fuzzy
 msgid "Shark ΨIIIa"
@@ -1827,7 +1824,7 @@ msgid "Soromid Vox"
 msgstr "소로미드 복스"
 
 msgid "Starbridge"
-msgstr ""
+msgstr "스타브리지"
 
 #, fuzzy
 msgid "Starbridge Sigma"
@@ -1867,14 +1864,14 @@ msgid "Tristan"
 msgstr "%s (%d 점프, %.0fk 거리)"
 
 msgid "Vendetta"
-msgstr "상호 복수"
+msgstr "벤데타"
 
 #, fuzzy
 msgid "Vendetta Whiplash"
 msgstr "상호 복수"
 
 msgid "Vigilance"
-msgstr "각서"
+msgstr "비질런스"
 
 msgid "Za'lek Bomber Drone"
 msgstr "잘렉의 폭격 드로"
@@ -1924,7 +1921,7 @@ msgid "Za'lek Sting Type IV"
 msgstr "자레크의 찌르기"
 
 msgid "Zebra"
-msgstr ""
+msgstr "지브라"
 
 msgid "Zebra Wolfie"
 msgstr ""
@@ -2736,7 +2733,7 @@ msgid "???"
 msgstr ""
 
 msgid "Black Lotus"
-msgstr "검은 연꽃"
+msgstr "블랙 로터스"
 
 #. Clear event when entering new system
 #.
@@ -3907,7 +3904,7 @@ msgid ""
 msgstr ""
 
 msgid "Soromid"
-msgstr ""
+msgstr "소로미드"
 
 #, fuzzy
 msgid "# Soromid"
@@ -4323,7 +4320,7 @@ msgid ""
 msgstr ""
 
 msgid "Thurion"
-msgstr ""
+msgstr "튜리온"
 
 #, fuzzy
 msgid "# Thurion"
@@ -8291,7 +8288,7 @@ msgid ""
 msgstr ""
 
 msgid "Armoured Transport"
-msgstr ""
+msgstr "장갑 수송선"
 
 msgid "# Armoured Transports"
 msgstr ""
@@ -10205,7 +10202,7 @@ msgid ""
 msgstr ""
 
 msgid "Dummy"
-msgstr ""
+msgstr "더미"
 
 #. Add the Cargo
 #. Ship to go back to
@@ -10222,7 +10219,7 @@ msgid ""
 msgstr ""
 
 msgid "Empire"
-msgstr ""
+msgstr "제국"
 
 msgid ""
 "The Empire is the bureaucratic heart of the universe that provides stability "
@@ -10244,7 +10241,7 @@ msgstr ""
 #. Change the reputation cap for the FLF.
 #. Add an entry to the FLF campaign log.
 msgid "FLF"
-msgstr ""
+msgstr "FLF"
 
 #, fuzzy
 msgid "Frontier Liberation Front"
@@ -10256,7 +10253,7 @@ msgid ""
 msgstr ""
 
 msgid "Frontier"
-msgstr ""
+msgstr "프런티어"
 
 msgid "Frontier Alliance"
 msgstr "프론티어 얼라이언스"
@@ -10266,9 +10263,8 @@ msgid ""
 "Human expansion into space."
 msgstr ""
 
-#, fuzzy
 msgid "House Goddard"
-msgstr "드 베어드 고다드"
+msgstr "고다드 가문"
 
 msgid ""
 "House Goddard is a minor house wedged between the Empire and Dvaered. They "
@@ -10351,7 +10347,7 @@ msgstr ""
 #. spawning Ancestors
 #. Escort
 msgid "Mercenary"
-msgstr ""
+msgstr "머서너리"
 
 msgid "Lost"
 msgstr ""
@@ -10372,9 +10368,8 @@ msgstr ""
 #. </event>
 #. --
 #. Only works when can inclusively claim the system
-#, fuzzy
 msgid "Marauder"
-msgstr "소로미드 약탈자"
+msgstr "머로더"
 
 #. Returns a lore message for the given faction.
 #. Need presence
@@ -10382,7 +10377,7 @@ msgstr "소로미드 약탈자"
 #. Add tag-appropriate descriptions
 #. hook.pilot( rampant, "idle", "idle" )
 msgid "Pirate"
-msgstr ""
+msgstr "해적"
 
 #, fuzzy
 msgid "Pirate Marauders"
@@ -10396,7 +10391,7 @@ msgid ""
 msgstr ""
 
 msgid "Miner"
-msgstr ""
+msgstr "마이너"
 
 msgid "Nasin"
 msgstr ""
@@ -10462,7 +10457,7 @@ msgstr ""
 #. Return true if the caller is an instance of theClass
 #. Deiz's Super font Palette
 msgid "Sirius"
-msgstr ""
+msgstr "시리우스"
 
 msgid "House Sirius"
 msgstr ""
@@ -10483,7 +10478,7 @@ msgid ""
 msgstr ""
 
 msgid "Strangelove"
-msgstr "Strangelove"
+msgstr "스트레인지러브"
 
 msgid ""
 "The Thurion are a mysterious faction located deep in the Nebula. They seem "
@@ -10526,14 +10521,14 @@ msgstr ""
 #. t_x[3] is empty bc it depends on where the mission will start finally. (To be set in mission.xml and then adjusted in the following campaign missions)
 #. mem.t_pla[3], mem.t_sys[3] = spob.getS("Gastan")
 msgid "Trader"
-msgstr ""
+msgstr "트레이더"
 
 #, fuzzy
 msgid "Traders Society"
 msgstr "랜슬롯"
 
 msgid "Space Traders Society"
-msgstr ""
+msgstr "우주 무역상 협회"
 
 msgid ""
 "The Space Traders Society is an organization that spans over all the "
@@ -10576,7 +10571,7 @@ msgstr ""
 #. get nearest jumppoint
 #. basically the distance that the map can have at
 msgid "Za'lek"
-msgstr ""
+msgstr "자렉"
 
 msgid "House Za'lek"
 msgstr ""
@@ -14750,7 +14745,7 @@ msgid "Custom"
 msgstr ""
 
 msgid "Skull and Bones"
-msgstr "두개골과 뼈"
+msgstr "스컬 앤 본즈"
 
 msgid ""
 "Few people meet a Dealbreaker and survive to tell the tale. Designed through "
@@ -19706,7 +19701,7 @@ msgid ""
 msgstr ""
 
 msgid "Haven"
-msgstr ""
+msgstr "헤이븐"
 
 msgid "Heii"
 msgstr ""
@@ -28393,7 +28388,7 @@ msgstr ""
 
 #. Create the OSD
 msgid "Crimson Gauntlet"
-msgstr ""
+msgstr "크림슨 건틀릿"
 
 msgid "Cygni"
 msgstr ""
@@ -28502,7 +28497,7 @@ msgid "Esker"
 msgstr ""
 
 msgid "Euler"
-msgstr ""
+msgstr "오일러"
 
 msgid "#pPlasma Storm (-50% energy and -50% stress dissipation)#0"
 msgstr ""
@@ -29184,9 +29179,8 @@ msgstr ""
 msgid "Oriantis"
 msgstr ""
 
-#, fuzzy
 msgid "Orion"
-msgstr "오리온 빔"
+msgstr "오리온"
 
 msgid "Overture"
 msgstr ""
@@ -29796,7 +29790,7 @@ msgid "Vost"
 msgstr ""
 
 msgid "Westhaven"
-msgstr ""
+msgstr "웨스트헤이븐"
 
 #. codespell:ignore Wight
 msgid "Willow"
@@ -33481,7 +33475,7 @@ msgstr ""
 #. Strafer stops following the player
 #. Add some fuel, far away so that no npc gathers it
 msgid "Fuel"
-msgstr ""
+msgstr "연료"
 
 msgid ""
 "Fuel\n"
@@ -33655,7 +33649,7 @@ msgid "Close"
 msgstr ""
 
 msgid "Jettison"
-msgstr ""
+msgstr "버리기"
 
 #. Player stole something to make it not spaceworthy, sorry bud, you're not waking up.
 #. Permanently disable
@@ -33664,7 +33658,7 @@ msgid "Boarding {plt}"
 msgstr ""
 
 msgid "Loot"
-msgstr ""
+msgstr "전리품"
 
 msgid "Loot All"
 msgstr ""
@@ -34022,9 +34016,8 @@ msgstr ""
 #. Indicate to equipopt that we'll be handling the stages
 #. Initialize in the case stage isn't set
 #. In case the player's ship got messed up, we reset intrinsics
-#, fuzzy
 msgid "Bioship"
-msgstr "바이오함선 수직 안정핀"
+msgstr "생체 함선"
 
 msgid " !!"
 msgstr ""
@@ -35447,7 +35440,7 @@ msgid "Remembering Sorom"
 msgstr ""
 
 msgid "Crater City"
-msgstr ""
+msgstr "크레이터 시티"
 
 msgid "Touching the Universe"
 msgstr ""
@@ -35963,7 +35956,7 @@ msgid "Klank"
 msgstr ""
 
 msgid "Battleaddict"
-msgstr ""
+msgstr "배틀애딕트"
 
 msgid ""
 "General context: Task force 5613 was created in anticipation of the planned "
@@ -36593,7 +36586,7 @@ msgstr ""
 #. Gets someone to make a message (useful for hook.timer)
 #. Equips a Vendetta with full mace rockets
 msgid "Warlords"
-msgstr ""
+msgstr "워로드"
 
 #. Spawns a merchant ship that explains what happens
 #, fuzzy
@@ -46146,7 +46139,7 @@ msgstr "\"원하는게 뭐야!?\""
 #. Keep on beating
 #. Make it so it's much easier to dodge for the player
 msgid "Major Malik"
-msgstr ""
+msgstr "말리크 소령"
 
 msgid ""
 "Back in my day we walked uphill, both ways, in the snow to fight for honour!"
@@ -46892,9 +46885,8 @@ msgstr ""
 #. Load variables
 #. fcthit_hide_secondary = var_peek_fix("factionhit_hide_secondary",true)
 #. Set an info button up
-#, fuzzy
 msgid "Settings"
-msgstr "조판됨:"
+msgstr "설정"
 
 #. , chk_fcthit_hide_secondary
 msgid "Player Settings"
@@ -47066,7 +47058,7 @@ msgstr ""
 
 #. Gameplay modifiers
 msgid "Stealth"
-msgstr ""
+msgstr "은폐"
 
 msgid "Asteroids and Mining"
 msgstr ""
@@ -54890,7 +54882,7 @@ msgstr ""
 #. Go to first rendezvous
 #. Spawn the Warlord
 msgid "Lady Bitterfly"
-msgstr ""
+msgstr "레이디 비터플라이"
 
 #. Travel to second rendezvous
 #. Spawn the Baddies
@@ -55440,7 +55432,7 @@ msgid "You made a very big mistake!"
 msgstr "당신은 큰 실수를 저질렀습니다!"
 
 msgid "Boarding"
-msgstr ""
+msgstr "나포"
 
 msgid ""
 "All the members of the commando unit have put on their battle suits. "
@@ -58420,7 +58412,7 @@ msgstr ""
 #. 5
 #. Indicates boss or main enemy (note that in the case of double enemies there may be another)
 msgid "Lady Sainte-Beuverie"
-msgstr ""
+msgstr "레이디 생트뵈브리"
 
 #. This is the same as the main script, except we equip them as Dvaered
 #.
@@ -62313,7 +62305,7 @@ msgstr ""
 #. target destination
 #. In case no suitable planets are in range.
 msgid "Lieutenant"
-msgstr ""
+msgstr "중위"
 
 msgid "You see an Empire Lieutenant who seems to be looking at you."
 msgstr ""
@@ -68552,7 +68544,7 @@ msgstr ""
 
 #. Main stuff starts
 msgid "Baroness Eve"
-msgstr ""
+msgstr "이브 여남작"
 
 msgid ""
 "You have been assigned with obtaining information from Major Malik at {pnt} "
@@ -89385,7 +89377,7 @@ msgstr "프론티어 시스템"
 
 #. Flavour text and mini-briefing
 msgid "Spaceport Bar"
-msgstr ""
+msgstr "우주항 바"
 
 #. Set up the goal
 #, fuzzy
@@ -108185,7 +108177,7 @@ msgstr ""
 #. Gets the Pilots United Against Atmosphere Anthropocentrism (PUAAA) faction or creates it if necessary
 #. --
 msgid "PUAAA"
-msgstr ""
+msgstr "PUAAA"
 
 msgid "No to terraforming!"
 msgstr ""
@@ -108664,10 +108656,10 @@ msgid "Lord Kriegsreich Hundertfeuer"
 msgstr ""
 
 msgid "Lady Blackswan"
-msgstr ""
+msgstr "레이디 블랙스완"
 
 msgid "Lady Killington"
-msgstr ""
+msgstr "레이디 킬링턴"
 
 msgid "Lord Richthofen"
 msgstr ""
@@ -108685,7 +108677,7 @@ msgid "Lord Abdelkiller"
 msgstr ""
 
 msgid "Lady Proserpina"
-msgstr ""
+msgstr "레이디 프로세르피나"
 
 #.
 #. -- Common Empire Mission framework
@@ -112688,7 +112680,7 @@ msgid "Python"
 msgstr ""
 
 msgid "Raven"
-msgstr ""
+msgstr "레이븐"
 
 msgid "Rebirth"
 msgstr ""
@@ -113624,7 +113616,7 @@ msgid "Electricity"
 msgstr ""
 
 msgid "Emperor"
-msgstr ""
+msgstr "황제"
 
 msgid "Energy-Volt"
 msgstr ""
@@ -120372,7 +120364,7 @@ msgid "Landing Main"
 msgstr ""
 
 msgid "Shipyard"
-msgstr ""
+msgstr "조선소"
 
 msgctxt "service"
 msgid "Equipment"
@@ -122869,9 +122861,8 @@ msgstr "투리온의 불꽃"
 msgid "Damage Rate"
 msgstr "슈뢰딩거"
 
-#, fuzzy
 msgid "Disable"
-msgstr "비안정된 %s성운"
+msgstr "무력화"
 
 msgid "Disable Rate"
 msgstr ""
@@ -122905,7 +122896,7 @@ msgid "Duration"
 msgstr "팩션:"
 
 msgid "Cooldown"
-msgstr ""
+msgstr "재사용 대기시간"
 
 msgid "Lock-On"
 msgstr ""
@@ -122993,7 +122984,7 @@ msgid "Beam Turret"
 msgstr "플라즈마 터렛 MK1"
 
 msgid "Launcher"
-msgstr ""
+msgstr "발사기"
 
 #, fuzzy
 msgid "Turret Launcher"
@@ -124085,7 +124076,7 @@ msgid "installed"
 msgstr ""
 
 msgid "disabled"
-msgstr ""
+msgstr "무력화됨"
 
 msgid "available"
 msgstr ""
@@ -124358,44 +124349,43 @@ msgid "Ship %s does not exist"
 msgstr ""
 
 msgid "Yacht"
-msgstr ""
+msgstr "요트"
 
 msgid "Courier"
-msgstr ""
+msgstr "연락선"
 
 msgid "Freighter"
-msgstr ""
+msgstr "화물선"
 
-#, fuzzy
 msgid "Bulk Freighter"
-msgstr "랜슬롯"
+msgstr "대형 화물선"
 
 msgid "Scout"
-msgstr ""
+msgstr "정찰선"
 
 msgid "Interceptor"
-msgstr ""
+msgstr "요격기"
 
 msgid "Fighter"
-msgstr ""
+msgstr "전투기"
 
 msgid "Bomber"
-msgstr ""
+msgstr "폭격기"
 
 msgid "Corvette"
-msgstr ""
+msgstr "초계함"
 
 msgid "Destroyer"
-msgstr ""
+msgstr "구축함"
 
 msgid "Cruiser"
-msgstr ""
+msgstr "순양함"
 
 msgid "Battleship"
-msgstr ""
+msgstr "전함"
 
 msgid "Carrier"
-msgstr ""
+msgstr "항모"
 
 #, fuzzy, c-format
 msgid "Unable to render comm graphic for ship '%s'!"
@@ -124755,7 +124745,7 @@ msgid "Stress Dissipation"
 msgstr ""
 
 msgid "Crew"
-msgstr ""
+msgstr "승무원"
 
 msgid "Ship Mass"
 msgstr ""
