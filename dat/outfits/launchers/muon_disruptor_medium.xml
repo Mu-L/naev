@@ -10,7 +10,7 @@
   <gfx_store>neutronheavy</gfx_store>
   <cpu>-50</cpu>
  </general>
- <specific type="launcher" secondary="1">
+ <specific type="launcher">
   <gfx type="shader" size="7.0" col_size="7.0">particles/disruptor_s2.frag</gfx>
   <sound>neutron</sound>
   <spfx_shield>Shi-S</spfx_shield>
