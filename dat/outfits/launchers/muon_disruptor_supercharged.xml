@@ -1,0 +1,45 @@
+<outfit name="Supercharged Muon Disruptor">
+ <general>
+  <slot>weapon</slot>
+  <size>large</size>
+  <mass>48</mass>
+  <price>1450000</price>
+  <licence>Heavy Weapon</licence>
+  <rarity>2</rarity>
+  <description>This exotic weapon system is the largest manufactured by the Thurion, launching seeking microbot swarms sheathed in a corona of highly volatile exotic particles. Their high energy charge slows them down somewhat compared to their smaller cousins.</description>
+  <gfx_store>neutronheavy</gfx_store>
+  <cpu>-350</cpu>
+ </general>
+ <specific type="launcher" secondary="1">
+  <gfx type="shader" size="9.0" col_size="9.0">particles/disruptor_s2.frag</gfx>
+  <sound>neutron</sound>
+  <spfx_shield>Shi-S</spfx_shield>
+  <spfx_armour>Exp-S</spfx_armour>
+  <delay>2.5</delay>
+  <reload_time>2.5</reload_time>
+  <ammo_mass>0.0</ammo_mass>
+  <amount>3</amount>
+  <lockon>0.01</lockon>
+  <iflockon>0.01</iflockon>
+  <duration blowup="shield">5.0</duration>
+  <accel>200</accel>
+  <turn>70</turn>  
+  <speed>400</speed>
+  <energy>192</energy>
+  <trackmin>5000</trackmin>
+  <trackmax>20000</trackmax>
+  <resist>100</resist>
+  <swivel>22</swivel>
+  <arc>180</arc>
+  <damage>
+   <type>energy</type>
+   <penetrate>190</penetrate>
+   <physical>44</physical>
+   <disable>20</disable>   
+  </damage>
+  <shots>3</shots>
+  <dispersion>30</dispersion>
+  <speed_dispersion>0</speed_dispersion>
+  <ai>seek</ai>
+ </specific>
+</outfit>

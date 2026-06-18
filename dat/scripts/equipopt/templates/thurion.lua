@@ -5,22 +5,19 @@ local eparams = require 'equipopt.params'
 
 local thurion_outfits = eoutfits.merge{{
    -- Heavy Weapons
-   "Heavy Laser Turret", "Ragnarok Beam",
+   "Heavy Laser Turret", "Heavy Ripper Turret",
+   "Heavy Muon Disruptor", "Supercharged Muon Disruptor",
    "Thurion Perspicacity Bay", "Thurion Scintillation Bay",
-   "Heavy Ripper Turret", "Grave Beam", "Heavy Ion Turret",
    -- Medium Weapons
-   "Enygma Systems Spearhead Launcher", "Unicorp Caesar IV Launcher",
-   "TeraCom Fury Launcher", "TeraCom Headhunter Launcher",
-   "TeraCom Medusa Launcher", "TeraCom Vengeance Launcher",
-   "TeraCom Imperator Launcher", "Convulsion Launcher",
-   "Enygma Systems Turreted Fury Launcher", "Thurion Perspicacity Dock",
-   "Turreted Convulsion Launcher", "Grave Lance",
-   "Laser Turret MK2", "Razor Battery S2", "Orion Beam",
-   "EMP Grenade Launcher", "Heavy Ion Cannon",
+   "Muon Disruptor", "Laser Turret MK2",
+   "Convulsion Launcher", "Turreted Convulsion Launcher",
+   "Unicorp Caesar IV Launcher", "TeraCom Medusa Launcher",
+   "Thurion Perspicacity Dock",
    -- Small Weapons
-   "Ripper Cannon", "Laser Cannon MK2", "Laser Turret MK1", "Laser Cannon MK1",
-   "Razor Artillery S2", "Razor Artillery S1", "Particle Beam",
-   "Electron Burst Cannon", "Orion Lance", "Ion Cannon",
+   "Ripper Cannon", "Laser Turret MK1", "Light Muon Disruptor",
+   -- Point Defence
+   "Guardian Overseer System",
+   "Guardian Interception System",
    -- Utility
    "Droid Repair Crew", "Milspec Scrambler",
    "Targeting Array", "Agility Combat AI", "Unicorp Scrambler", "Hyperbolic Blink Engine",
