@@ -1,0 +1,19 @@
+<outfit name="Thurion Scrambler">
+ <general>
+  <shortname>T. Scrambler</shortname>
+  <typename>Electronic Warfare Scrambler</typename>
+  <rarity>2</rarity>  
+  <slot>utility</slot>
+  <size>large</size>
+  <mass>2</mass>
+  <price>1385000</price>
+  <description>As one could expect, the Thurion have achieved incredible mastery in the art of electronic warfare. Instead of just reflecting signals or pulsing nearby space with signal noise, their version of a scrambler modulates pulses radiation over the ship's hull, using computated noise patterns to mimic the background radiation of nearby space, acting as effective camouflage to sensors and weapon tracking systems. It does, however, require a constant energy drain on the ship's reactor.</description>
+  <gfx_store>jammer1</gfx_store>
+  <limit>scrambler</limit>
+ </general>
+ <specific type="modification">
+  <ew_signature>-20</ew_signature>
+  <jam_chance>60</jam_chance>
+  <energy_regen_malus>10</energy_regen_malus>
+ </specific>
+</outfit>

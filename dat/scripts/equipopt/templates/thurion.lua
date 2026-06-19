@@ -19,7 +19,7 @@ local thurion_outfits = eoutfits.merge{{
    "Guardian Overseer System",
    "Guardian Interception System",
    -- Utility
-   "Droid Repair Crew", "Milspec Scrambler",
+   "Droid Repair Crew", "Milspec Scrambler", "Thurion Scrambler",
    "Targeting Array", "Agility Combat AI", "Unicorp Scrambler", "Hyperbolic Blink Engine",
    "Milspec Jammer", "Emergency Shield Booster", "Unicorp Jammer",
    "Sensor Array", "Agility Combat AI", "Flicker Drive",
