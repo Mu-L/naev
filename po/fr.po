@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: naev 0.9.0-alpha\n"
 "Report-Msgid-Bugs-To: https://codeberg.org/naev/naev/issues\n"
 "POT-Creation-Date: 2026-02-23 21:29+0900\n"
-"PO-Revision-Date: 2026-06-27 08:34+0000\n"
+"PO-Revision-Date: 2026-06-28 05:41+0000\n"
 "Last-Translator: raazqaer <raazqaer@noreply.codeberg.org>\n"
 "Language-Team: French <https://translate.codeberg.org/projects/naev/naev/fr/>"
 "\n"
@@ -100,7 +100,7 @@ msgid "Apollo's Gaze"
 msgstr "Le regard d'Apollon"
 
 msgid "Arc Blade"
-msgstr ""
+msgstr "Lame courbe"
 
 msgid "Arc Machete"
 msgstr ""
@@ -113,7 +113,7 @@ msgid "Astral Cannon"
 msgstr "Canon à Plasma"
 
 msgid "Astral Flow Amplifier"
-msgstr "Amplificateur de flux astral"
+msgstr "Amplificateur d'influx astral"
 
 #. Set outfit state
 #. Astral projection
@@ -219,7 +219,7 @@ msgid "Catalytic Energy Drill"
 msgstr "Foreurse à énergie catalytique"
 
 msgid "Charge Conduit"
-msgstr ""
+msgstr "Dérivateur de charge"
 
 msgid "Cleansing Flames"
 msgstr "Flammes purificatrices"
@@ -302,10 +302,10 @@ msgid "Disruptor Battery S2"
 msgstr "Batterie de détraquement S2"
 
 msgid "Droid Repair Crew"
-msgstr "Équipe droïde de réparation"
+msgstr "Droïdes de Réparation"
 
 msgid "Droid Repair Crew MK2"
-msgstr ""
+msgstr "Droïdes de Réparation V2"
 
 msgid "Drone Bay"
 msgstr "Baie de drone"
@@ -336,7 +336,7 @@ msgid "Emergency Stasis Inducer"
 msgstr "Inducteur de stase d’urgence"
 
 msgid "EMP Grenade Launcher"
-msgstr ""
+msgstr "Lance-grenades IEM"
 
 #, fuzzy
 msgid "Empire Lancelot Bay"
@@ -372,7 +372,7 @@ msgid "Executor Shield Aura"
 msgstr ""
 
 msgid "Fake Licence"
-msgstr ""
+msgstr "Faux permis"
 
 msgid "Fake Transponder"
 msgstr "Transpondeur Factice"
@@ -487,13 +487,13 @@ msgid "Heavy Laser Turret"
 msgstr "Tourelle Laser lourde"
 
 msgid "Heavy Neutron Disruptor"
-msgstr "Détraqueur de neutrons lourd"
+msgstr "Disrupteur à neutrons lourds"
 
 msgid "Heavy Ripper Cannon"
-msgstr ""
+msgstr "Canon Déchiqueteur Lourd"
 
 msgid "Heavy Ripper Turret"
-msgstr ""
+msgstr "Tourelle Déchiqueteuse Lourde"
 
 #, fuzzy
 msgid "Heavy Weapon Licence"
@@ -536,19 +536,19 @@ msgid "Hyperdrive Retool"
 msgstr ""
 
 msgid "Improved Stabilizer"
-msgstr ""
+msgstr "Stabilisateur amélioré"
 
 msgid "Internal Flow Amplifier"
-msgstr ""
+msgstr "Amplificateur d'influx interne"
 
 msgid "Ion Cannon"
-msgstr ""
+msgstr "Canon ionique"
 
 msgid "Jack's Eyepatch"
 msgstr ""
 
 msgid "Jump Scanner"
-msgstr ""
+msgstr "Scanneur de sauts"
 
 msgid "Junker Ion Shotter"
 msgstr ""
@@ -565,9 +565,8 @@ msgstr ""
 msgid "Krain Nanotubes Foam Padding"
 msgstr ""
 
-#, fuzzy
 msgid "Krain Patagium Twin Engine"
-msgstr "Moteur Krain Patagium"
+msgstr "Bimoteur Krain Patagium"
 
 msgid "Krain Remige Engine"
 msgstr "Moteur Krain Remige"
@@ -576,57 +575,57 @@ msgid "Kratos' Glove"
 msgstr ""
 
 msgid "Lancelot Bay"
-msgstr ""
+msgstr "La Baie de Lancelot"
 
 msgid "Large Cargo Pod"
-msgstr ""
+msgstr "Grande capsule de fret"
 
 #, fuzzy
 msgid "Large Civilian Vessel Licence"
 msgstr "License de Vaisseau Civil Large"
 
 msgid "Large Flow Amplifier"
-msgstr ""
+msgstr "Grand amplificateur d'influx"
 
 msgid "Large Flow Resonator"
-msgstr ""
+msgstr "Grand résonateur d'influx"
 
 msgid "Large Fuel Pod"
-msgstr ""
+msgstr "Grand réservoir de carburant"
 
 msgid "Large Meditation Chamber"
-msgstr ""
+msgstr "Grande salle de méditation"
 
 msgid "Large Shield Booster"
-msgstr ""
+msgstr "Amplificateur de bouclier lourd"
 
 msgid "Laser Cannon MK1"
-msgstr ""
+msgstr "Canon laser V1"
 
 msgid "Laser Cannon MK2"
-msgstr ""
+msgstr "Canon laser V2"
 
 msgid "Laser Turret MK1"
-msgstr ""
+msgstr "Tourelle laser V1"
 
 msgid "Laser Turret MK2"
-msgstr ""
+msgstr "Tourelle laser V2"
 
 msgid "Lattice Thermal Coating"
-msgstr ""
+msgstr "Blindage thermique entrelacé"
 
 msgid "Left Boot"
 msgstr "Botte gauche"
 
 msgid "Lesser Astral Cannon"
-msgstr ""
+msgstr "Canon astral inférieur"
 
 #, fuzzy
 msgid "Light Combat Vessel Licence"
 msgstr "License de Vaisseau Léger de Combat"
 
 msgid "Local System Map"
-msgstr ""
+msgstr "Carte du système local"
 
 msgid "Love Letter"
 msgstr "Lettre d'Amour"
@@ -651,13 +650,13 @@ msgid "Map: Collective Space"
 msgstr ""
 
 msgid "Map: Dvaered Core"
-msgstr ""
+msgstr "Carte : Cœur de Dvaered"
 
 msgid "Map: Empire-Soromid Trade Route"
-msgstr ""
+msgstr "Carte : Route commerciale entre l'Empire et Soromid"
 
 msgid "Map: Empire Core"
-msgstr ""
+msgstr "Carte : Cœur de l'Empire"
 
 msgid "Map: FLF-Pirate Route"
 msgstr ""
@@ -666,43 +665,43 @@ msgid "Map: FLF Hidden Jumps"
 msgstr ""
 
 msgid "Map: Inner Nebula Secret Jump"
-msgstr ""
+msgstr "Carte : Saut caché de la nébuleuse intérieure"
 
 msgid "Map: Kretogg's Hypergate"
 msgstr ""
 
 msgid "Map: Kretogg's Secrets"
-msgstr ""
+msgstr "Carte : Les secrets de Kretogg"
 
 msgid "Map: Nebula Edge"
-msgstr ""
+msgstr "Carte : Bordure de la nébuleuse"
 
 msgid "Map: New Haven's Secrets"
 msgstr ""
 
 msgid "Map: Pirate Strongholds"
-msgstr ""
+msgstr "Carte : Les repaires des pirates"
 
 msgid "Map: Qorel Tunnel"
-msgstr ""
+msgstr "Carte : Tunnel de Qorel"
 
 msgid "Map: Sirian Border Systems"
-msgstr ""
+msgstr "Carte : Systèmes frontaliers de Sirius"
 
 msgid "Map: Sirius Core"
-msgstr ""
+msgstr "Carte : Cœur de Sirius"
 
 msgid "Map: Sol"
-msgstr ""
+msgstr "Carte : Sol"
 
 msgid "Map: The Frontier"
-msgstr ""
+msgstr "Carte : La Frontière"
 
 msgid "Map: Thurion Core"
-msgstr ""
+msgstr "Carte : Cœur de Thurion"
 
 msgid "Map: Za'lek Core"
-msgstr ""
+msgstr "Carte : Cœur de Za'lek"
 
 msgid "Mass Driver"
 msgstr ""
@@ -715,10 +714,10 @@ msgid "Medium Combat Vessel Licence"
 msgstr "License de Vaisseau Moyen de Combat"
 
 msgid "Medium Flow Amplifier"
-msgstr ""
+msgstr "Amplificateur d'influx moyen"
 
 msgid "Medium Flow Resonator"
-msgstr ""
+msgstr "Résonateur d'influx moyen"
 
 msgid "Medium Fuel Pod"
 msgstr ""
@@ -727,7 +726,7 @@ msgid "Medium Meditation Chamber"
 msgstr ""
 
 msgid "Medium Shield Booster"
-msgstr ""
+msgstr "Amplificateur de bouclier moyen"
 
 #, fuzzy
 msgid "Medium Weapon Licence"
@@ -750,68 +749,68 @@ msgid "Mercenary Licence"
 msgstr "License de Mercenaire"
 
 msgid "Microbond Plating"
-msgstr ""
+msgstr "Blindage en Microlite"
 
 msgid "Milspec Aegis 2201 Core System"
-msgstr ""
+msgstr "Système central Milspec Aegis 2201"
 
 msgid "Milspec Aegis 4701 Core System"
-msgstr ""
+msgstr "Système central Milspec Aegis 4701"
 
 msgid "Milspec Aegis 8501 Core System"
-msgstr ""
+msgstr "Système central Milspec Aegis 8501"
 
 msgid "Milspec Impacto-Plastic Coating"
-msgstr ""
+msgstr "Blindage Impacto-Plastique Milspec"
 
 msgid "Milspec Jammer"
-msgstr ""
+msgstr "Brouilleur Milspec"
 
 msgid "Milspec Orion 2301 Core System"
-msgstr ""
+msgstr "Système central Milspec Orion 2301"
 
 msgid "Milspec Orion 4801 Core System"
-msgstr ""
+msgstr "Système central Milspec Orion 4801"
 
 msgid "Milspec Orion 8601 Core System"
-msgstr ""
+msgstr "Système central Milspec Orion 8601"
 
 msgid "Milspec Prometheus 2203 Core System"
-msgstr ""
+msgstr "Système central Milspec Prométhée 2203"
 
 msgid "Milspec Prometheus 4703 Core System"
-msgstr ""
+msgstr "Système central Milspec Prométhée 4703"
 
 msgid "Milspec Prometheus 8503 Core System"
-msgstr ""
+msgstr "Système central Milspec Prométhée 8503"
 
 msgid "Milspec Scrambler"
 msgstr ""
 
 msgid "Milspec Thalos 2202 Core System"
-msgstr ""
+msgstr "Système central Milspec Thalos 2202"
 
 msgid "Milspec Thalos 4702 Core System"
-msgstr ""
+msgstr "Système central Milspec Thalos 4702"
 
 msgid "Milspec Thalos 8502 Core System"
-msgstr ""
+msgstr "Système central Milspec Thalos 8502"
 
 msgid "Mining Lance MK1"
-msgstr ""
+msgstr "Lance minière V1"
 
 msgid "Mining Lance MK2"
-msgstr ""
+msgstr "Lance minière V2"
 
 #, fuzzy
 msgid "Mystery Outfit"
 msgstr "Équipements"
 
 msgid "Nanobond Plating"
-msgstr ""
+msgstr "Blindage en Nanolite"
 
 msgid "Nanofiber Structural Enhancement"
-msgstr ""
+msgstr "Renforcement en nanofibres"
 
 msgid "Natural Healing I"
 msgstr "Régénération Naturelle I"
@@ -820,20 +819,19 @@ msgid "Natural Healing II"
 msgstr "Régénération Naturelle II"
 
 msgid "Nebula Resistant Coating"
-msgstr ""
+msgstr "Revêtement anti-nébuleuse"
 
 msgid "Nebular Shielding Prototype"
-msgstr ""
+msgstr "Prototype de bouclier nébulaire"
 
 msgid "Neural Accelerator Interface"
-msgstr ""
+msgstr "Interface d'accélérateur neuronal"
 
-#, fuzzy
 msgid "Neutralizer"
-msgstr "Neutre"
+msgstr "Neutraliseur"
 
 msgid "Neutron Disruptor"
-msgstr ""
+msgstr "Perturbateur à neutrons"
 
 msgid "Nexus Arrow 700 Engine"
 msgstr "Moteur Nexus Arrow 700"
@@ -841,42 +839,41 @@ msgstr "Moteur Nexus Arrow 700"
 msgid "Nexus Bolt 3000 Engine"
 msgstr "Moteur Nexus Bolt 3000"
 
-#, fuzzy
 msgid "Nexus Concealment Coating"
-msgstr "Placage Léger Furtif Nexus"
+msgstr "Revêtement de camouflage Nexus"
 
 msgid "Nexus Dart 160 Engine"
 msgstr "Moteur Nexus Dart 160"
 
 msgid "Nexus Drill Lance"
-msgstr ""
+msgstr "Lance de forage Nexus"
 
 msgid "Nexus Ghost Weave"
-msgstr ""
+msgstr "Voile fantôme Nexus"
 
 msgid "Nexus Phantasm Weave"
-msgstr ""
+msgstr "Voile mirage Nexus"
 
 msgid "Nexus Shadow Weave"
-msgstr ""
+msgstr "Voile d'ombre Nexus"
 
 msgid "Orion Beam"
-msgstr ""
+msgstr "Rayon Orion"
 
 msgid "Orion Lance"
-msgstr ""
+msgstr "Lance Orion"
 
 msgid "Paralyzing Plasma"
 msgstr "Plasma paralysant"
 
 msgid "Particle Beam"
-msgstr ""
+msgstr "Rayon à particules"
 
 msgid "Particle Lance"
-msgstr ""
+msgstr "Lance à particules"
 
 msgid "PatchiGel Housing"
-msgstr ""
+msgstr "Réservoir de PatchiGel"
 
 msgid "Patchwork Heavy Plating"
 msgstr "Patchwork Placage Lourd"
@@ -891,16 +888,16 @@ msgid "Pentagram of Valor"
 msgstr "Pentagramme de la vaillance"
 
 msgid "Photo-Voltaic Nanobot Coating"
-msgstr ""
+msgstr "Revêtement à Nanobots Photo-Voltaïques"
 
 msgid "Pilot Doll"
 msgstr "Poupée de pilote"
 
 msgid "Pincushion Battery"
-msgstr ""
+msgstr "Batterie Hérisson"
 
 msgid "Pinpoint Combat AI"
-msgstr ""
+msgstr "IA de Combat de Précision"
 
 msgid "Pipeline Conduit"
 msgstr ""
@@ -924,20 +921,19 @@ msgid "Plasma Cannon"
 msgstr "Canon à Plasma"
 
 msgid "Plasma Cluster Cannon"
-msgstr "Canon à Amas de Plasma"
+msgstr "Canon à Plasma en Grappe"
 
-#, fuzzy
 msgid "Plasma Eruptor"
-msgstr "Brûlure plasma"
+msgstr "Déferleur à Plasma"
 
 msgid "Plasma Turret MK1"
-msgstr "Tourelle à Plasma MK1"
+msgstr "Tourelle à Plasma V1"
 
 msgid "Plasma Turret MK2"
-msgstr "Tourelle à Plasma MK2"
+msgstr "Tourelle à Plasma V2"
 
 msgid "Plasteel Plating"
-msgstr ""
+msgstr "Blindage en Plastacier"
 
 msgid "Port & Polish"
 msgstr ""
@@ -1004,23 +1000,22 @@ msgid "Razor Battery S2"
 msgstr ""
 
 msgid "Reactor Class I"
-msgstr ""
+msgstr "Réacteur de classe I"
 
 msgid "Reactor Class II"
-msgstr ""
+msgstr "Réacteur de classe II"
 
 msgid "Reactor Class III"
-msgstr ""
+msgstr "Réacteur de classe III"
 
 msgid "Reality Rip"
 msgstr ""
 
-#, fuzzy
 msgid "Reaver Cannon"
-msgstr "Cannon Éventreu"
+msgstr "Canon Ravageur"
 
 msgid "Reconstructive Nanobot Coating"
-msgstr ""
+msgstr "Revêtement à Nanobots Reconstructeurs"
 
 msgid "Reflective Shell"
 msgstr "Coque Réfléchissante"
@@ -1029,10 +1024,10 @@ msgid "Repeating Banshee Launcher"
 msgstr ""
 
 msgid "Repeating Railgun"
-msgstr "Cannon à Répétition"
+msgstr "Canon à Répétition"
 
 msgid "Ripper Cannon"
-msgstr "Cannon Éventreu"
+msgstr "Canon Déchiqueteur"
 
 msgid "Red Star Large Cargo Hull"
 msgstr "Coque de Cargo Large Red Star (coque de cargaison)"
@@ -1071,16 +1066,16 @@ msgid "Shatterer Launcher"
 msgstr ""
 
 msgid "Shield Capacitor I"
-msgstr ""
+msgstr "Condensateur de bouclier I"
 
 msgid "Shield Capacitor II"
-msgstr ""
+msgstr "Condensateur de bouclier II"
 
 msgid "Shield Capacitor III"
-msgstr ""
+msgstr "Condensateur de bouclier III"
 
 msgid "Shield Capacitor IV"
-msgstr ""
+msgstr "Condensateur de bouclier IV"
 
 msgid "Shredder"
 msgstr "Broyeur"
@@ -1101,7 +1096,7 @@ msgid "S&K Battle Plating"
 msgstr "Placage Lourd de Combat S&K"
 
 msgid "S&K Heavy Plasma Drill"
-msgstr ""
+msgstr "Foreuse à plasma lourd S&K"
 
 msgid "S&K Large Cargo Hull"
 msgstr "Coque Large de Cargo S&K"
@@ -1110,7 +1105,7 @@ msgid "S&K Medium Cargo Hull"
 msgstr "Coque Moyenne de Cargo S&K"
 
 msgid "S&K Plasma Drill"
-msgstr ""
+msgstr "Foreuse à plasma S&K"
 
 #, fuzzy
 msgid "S&K Skirmish Plating"
@@ -1127,19 +1122,19 @@ msgid "Small Cargo Pod"
 msgstr ""
 
 msgid "Small Flow Amplifier"
-msgstr ""
+msgstr "Petit amplificateur d'influx"
 
 msgid "Small Flow Resonator"
-msgstr ""
+msgstr "Petit résonateur d'influx"
 
 msgid "Small Fuel Pod"
-msgstr ""
+msgstr "Petit réservoir de carburant"
 
 msgid "Small Meditation Chamber"
-msgstr ""
+msgstr "Petite salle de méditation"
 
 msgid "Small Shield Booster"
-msgstr ""
+msgstr "Amplificateur de bouclier léger"
 
 #, fuzzy
 msgid "Soromid Brigand Bay"
@@ -6818,11 +6813,18 @@ msgid ""
 "factions/sirius) or special outfits such as flow amplifiers to enable the "
 "use of psychic abilities in space."
 msgstr ""
+"Les personnes dotées de pouvoirs psychiques peuvent soit utiliser un "
+"vaisseau construit par la [Maison Sirius](lore/factions/sirius), soit "
+"recourir à des équipements spéciaux, tels que des amplificateurs d'influx, "
+"pour pouvoir utiliser leurs pouvoirs psychiques dans l'espace."
 
 msgid ""
 "Such psychic abilities can be further enhanced by using meditation chambers "
 "and flow resonators to increase the psychic potential."
 msgstr ""
+"Ces capacités psychiques peuvent être encore renforcées grâce à "
+"l'utilisation de salles de méditation et de résonateurs d'influx, qui "
+"permettent d'accroître le potentiel psychique."
 
 msgid ""
 "When a ship has a psychic amplifier, either built-in or through an outfit, "
@@ -9795,6 +9797,11 @@ msgid ""
 "the extreme long range and high penetration for a weapon of its size, it can "
 "be very deadly."
 msgstr ""
+"Les spécifications techniques complexes et la difficulté de sa production en "
+"série ont condamné le Canon Ravageur dès le départ. Cependant, entre de "
+"bonnes mains, compte tenu de sa portée extrêmement longue et de sa grande "
+"puissance de pénétration pour une arme de cette taille, il peut s'avérer "
+"très redoutable."
 
 msgid "Core Systems (Engine)"
 msgstr "Systèmes Principaux (Moteur)"
@@ -12139,6 +12146,15 @@ msgid ""
 "destructive power. It has become a favourite of those who have been able to "
 "master the skill."
 msgstr ""
+"On ne sait pas vraiment comment le pouvoir de l'influx est apparue, mais la "
+"légende raconte qu'un pirate ayant consommé trop de champignons psychiques "
+"s'est retrouvé enfermé dans les toilettes avec un grand miroir. Lorsqu'on "
+"réussit à le faire sortir, il affirmait avoir eu une très longue et profonde "
+"conversation avec ses autres lui-mêmes. Le concept de pluralité du soi fut "
+"ensuite affiné grâce aux amplificateurs d'influx, permettant de projeter "
+"plusieurs copies de son vaisseau pour décupler la puissance de destruction "
+"brute. Cette technique est devenue la préférée de ceux qui ont réussi à en "
+"maîtriser l'art."
 
 msgid ""
 "A technique developed by a dreamer pirate only known as \"Snort\", by "
@@ -12157,7 +12173,7 @@ msgid ""
 msgstr ""
 
 msgid "Flow Amplifier"
-msgstr ""
+msgstr "Amplificateur d'influx"
 
 msgid ""
 "Although all Sirius ships are equipped with internal flow amplifiers, some "
@@ -12166,6 +12182,12 @@ msgid ""
 "significantly amplifying their psychic abilities to aid the ship with "
 "different abilities."
 msgstr ""
+"Bien que tous les vaisseaux Sirius soient équipés d'amplificateurs d'influx "
+"internes, certains sont également fabriqués en tant qu'unités indépendantes "
+"pour les vaisseaux sans capacités d'influx intégrées. Les amplificateurs "
+"d'influx sont spécialement calibrés pour l'équipage et permettent "
+"d'amplifier significativement leurs pouvoirs psychiques afin d'assister le "
+"vaisseau avec diverses capacités."
 
 #, fuzzy
 msgid "Flow Modifier"
@@ -12177,12 +12199,20 @@ msgid ""
 "generation. This allows the ship to gain flow regeneration, albeit to only "
 "half of the full potential."
 msgstr ""
+"En puisant dans l'influx de chaque individu, le résonateur d'influx peut se "
+"calibrer et établir un lien direct entre l'amplificateur d'influx et la "
+"génération d'influx personnelle. Cela permet au vaisseau de régénérer son "
+"influx, jusqu'à ce qu'il atteigne la moitié de sa capacité maximale."
 
 msgid ""
 "A meditation chamber integrated directly into the ship. This allows the crew "
 "to aid the ship's flow capabilities and acts as an auxiliary flow buffer. A "
 "flow amplifier is required for the meditation chamber to take effect."
 msgstr ""
+"Une salle de méditation intégrée dans le vaisseau. Elle permet à l'équipage "
+"de renforcer les capacités d'influx du vaisseau et fait office de réservoir "
+"auxiliaire d'influx. Un amplificateur d'influx est nécessaire pour que la "
+"salle de méditation soit fonctionnelle."
 
 msgid "This ship is in bad shape and works much less well than usual."
 msgstr ""
@@ -12357,9 +12387,8 @@ msgid ""
 "swivel mounted launcher can effectively compensate for any blind spots."
 msgstr ""
 
-#, fuzzy
 msgid "Pincushion B."
-msgstr "Station Akra"
+msgstr "B. Hérisson"
 
 msgid ""
 "Designed for incapacitating enemy fleets, the Pincushion Battery can launch "
@@ -12369,6 +12398,13 @@ msgid ""
 "ships. Each missile contains micro-fragmenting payloads designed to disrupt "
 "the shielding of an enemy ship."
 msgstr ""
+"Conçue pour neutraliser les flottes ennemies, la Batterie Hérisson peut "
+"lancer 5 missiles Aiguille simultanément, chacun doté de son propre système "
+"de guidage indépendant. Le système de guidage stochastique est conçu pour "
+"minimiser la puissance de calcul nécessaire, permettant ainsi de monter "
+"cette arme sur une grande diversité de vaisseaux. Chaque missile contient "
+"des charges à micro-fragmentation conçues pour perturber les boucliers des "
+"vaisseaux ennemis."
 
 msgid ""
 "Launches 1 missile at the target and 4 additional missiles that will target "
@@ -12757,6 +12793,8 @@ msgid ""
 "This licence will authorize you to buy and use medium weapons like the "
 "ripper cannon."
 msgstr ""
+"Ce permis permet d'acheter et d'utiliser des armes de calibre moyen, comme "
+"le canon déchiqueteur."
 
 msgid "Medium Weapon"
 msgstr "Arme Moyenne"
@@ -13009,7 +13047,7 @@ msgid "The fuel pod allows a ship to store more fuel for hyperspace jumps."
 msgstr ""
 
 msgid "Shield Booster"
-msgstr ""
+msgstr "Amplificateur de bouclier"
 
 msgid ""
 "A shield generator that feeds off the ship's main energy line. It will allow "
@@ -13022,6 +13060,10 @@ msgid ""
 "lighter revision that's still stronger than Plasteel, making it a great "
 "choice to strengthen the hull of a medium-sized ship."
 msgstr ""
+"Dérivé du Blindage en Nanolites, le Blindage en Microlites est une version "
+"moins dense et plus légère, mais qui reste plus résistante que le "
+"Plastacier, ce qui en fait un excellent choix pour renforcer la coque d'un "
+"vaisseau de taille moyenne."
 
 msgid ""
 "Nanobond is the successor to Plasteel. It follows the same approach but has "
@@ -13029,6 +13071,10 @@ msgid ""
 "The result is a much more robust material, although it is substantially more "
 "expensive."
 msgstr ""
+"Les Nanolites sont les successeurs du Plastacier. Elles ont le même rôle, "
+"mais leur procédé de fabrication a été considérablement perfectionné pour "
+"offrir une densité de particules plus élevée. Il en résulte un matériau bien "
+"plus résistant, bien qu'il soit nettement plus cher."
 
 msgid ""
 "A ship without structural integrity is floating space junk. However, most "
@@ -13229,6 +13275,14 @@ msgid ""
 "The downside is that it takes up the valuable space necessary for a "
 "secondary hull layer."
 msgstr ""
+"Généralement utilisé par les réparateurs lors d'opérations de maintenance "
+"critiques sur les vaisseaux en mission, le PatchiGel permet de remettre "
+"rapidement en état de navigabilité une coque fortement endommagée. Bien "
+"qu'il soit conçu pour une application en extérieur, son intégration sous le "
+"revêtement principal permet une application rapide sur les zones "
+"endommagées, créant ainsi un blindage auto-réparateur dont la capacité de "
+"régénération augmente à mesure qu'il subit des dommages. L'inconvénient est "
+"qu'il occupe l'espace nécessaire à la couche secondaire de la coque."
 
 msgid "P.S. T-IVa 'Qickshell'"
 msgstr ""
@@ -13472,6 +13526,12 @@ msgid ""
 "in some overall stability issues, but not enough to offset its contributions "
 "in most cases."
 msgstr ""
+"Le dérivateur de charge utilise le surplus d'énergie des boucliers pour "
+"optimiser de nombreux systèmes du vaisseau, ce qui permet au reste du "
+"vaisseau de retrouver rapidement son état optimal quand les condensateurs de "
+"boucliers sont complètement chargés. Cela peut entraîner quelques problèmes "
+"de stabilité générale, mais ceux-ci ne sont généralement pas suffisants pour "
+"contrebalancer les avantages apportés par ce système."
 
 msgid ""
 "The Pipeline Conduit funnels excess shield energy into the ammunition and "
@@ -13519,6 +13579,12 @@ msgid ""
 "being even more ineffective unless the hull is at fairly critical "
 "conditions, when the gel is most effective."
 msgstr ""
+"Par rapport aux modèles de base, les Droïdes de réparation V2 sont capables "
+"de réparer la coque du vaisseau deux fois plus vite grâce à un ensemble "
+"d'outils variés, dont le très convoité PatchiGel©. Cependant, cela présente "
+"un inconvénient : leur efficacité est réduite quand la coque n'est pas dans "
+"un état critique, car c'est dans ces conditions que le gel est le plus "
+"efficace."
 
 msgid "Shield Modification"
 msgstr ""
@@ -13592,13 +13658,16 @@ msgid ""
 msgstr ""
 
 msgid "M. Impacto-Plastic Coating"
-msgstr ""
+msgstr "Blindage Impacto-Plastique M."
 
 msgid ""
 "The Milspec Impacto-Plastic Coating is based on memory nano-alloys that "
 "resist both impact and damage, quickly restoring the protected surface to "
 "its original state."
 msgstr ""
+"Le blindage Impacto-Plastique Milspec repose sur des nano-alliages à mémoire "
+"de forme, résistants aux chocs et aux dommages, et capables de rétablir "
+"instantanément la surface protégée dans son état d’origine."
 
 msgid ""
 "Protecting ships from nebula radiation is not an easy task given the "
@@ -14265,6 +14334,10 @@ msgid ""
 "The sheer damage dealing capacity of this weapon makes Dvaered Corvettes "
 "dangerous to engage by ships that aren't substantially larger than they are."
 msgstr ""
+"Le Broyeur porte bien son nom, donné par ses fabricants Dvaered. La "
+"puissance de feu impressionnante de cette arme rend les corvettes Dvaered "
+"particulièrement dangereuses pour les vaisseaux qui ne sont pas nettement "
+"plus grands qu'elles."
 
 msgid ""
 "This special model of the Heavy Laser Turret is one of the heaviest weapons "
@@ -20504,7 +20577,7 @@ msgid ""
 "seems to be of interest to many of the patrons."
 msgstr ""
 "Il n'y a rien de particulièrement remarquable dans ce bar, si ce n'est la "
-"machinerie complexe exposée à travers du plasteel translucide d'un mètre "
+"machinerie complexe exposée à travers du plastacier translucide d'un mètre "
 "d'épaisseur. Le bar est construit sous terre, dans un puits de mine "
 "longuement drainé, et l'équipement semble intéresser de nombreux clients."
 
@@ -25156,7 +25229,7 @@ msgid "Nougat I"
 msgstr ""
 
 msgid "Nougat II"
-msgstr ""
+msgstr "Nougat II"
 
 msgid ""
 "The outer few kilometres of Nougat II are frozen solid, but the core of the "
@@ -25164,6 +25237,11 @@ msgid ""
 "ceramic that acts as a strong insulator, leading to the drastic temperature "
 "differences between the interior and exterior."
 msgstr ""
+"La surface de Nougat II est complètement gelée sur quelques kilomètres, mais "
+"le noyau de la planète est toujours actif et très chaud. La majeure partie "
+"de la masse planétaire est constituée de céramique poreuse qui agit comme un "
+"puissant isolant, entraînant des différences de température drastiques entre "
+"l'intérieur et l'extérieur."
 
 msgid "Nova Shakar"
 msgstr ""
@@ -61082,7 +61160,7 @@ msgid "Bye, suckers!"
 msgstr ""
 
 msgid "Just wait for my shredders to..."
-msgstr ""
+msgstr "Attends un peu que mes broyeurs..."
 
 msgctxt "fw04"
 msgid "Come on!"
@@ -61605,7 +61683,7 @@ msgid "S&K Skirmish Plating x2"
 msgstr ""
 
 msgid "You receive three Shredders as a reward."
-msgstr "Vous recevez trois déchiqueteuses en récompense."
+msgstr "Vous recevez trois Broyeurs en récompense."
 
 msgid "Major Tam warns you, and gives you a new task."
 msgstr "Le major Tam vous avertit et vous confie une nouvelle tâche."
@@ -97964,7 +98042,7 @@ msgid "Activate (hail with {key}) the {obelisk} ({sys} system)"
 msgstr "Aller au système suivant"
 
 msgid "Equip a Flow amplifier or Sirius ship"
-msgstr ""
+msgstr "Équiper un amplificateur d'influx ou un vaisseau Sirius"
 
 msgid ""
 "The Fyrra echelon individual seems to be clearly staring at you. After you "
@@ -98089,6 +98167,10 @@ msgid ""
 "constant headaches. However, to unlock the full abilities you'll need to "
 "equip a Flow amplifier or fly a House Sirius ship.\""
 msgstr ""
+"\"Grâce aux bases que je viens de vous enseigner, vous devriez pouvoir "
+"éviter les maux de tête à répétition. Cependant, pour exploiter pleinement "
+"vos capacités, vous devrez vous équiper d'un amplificateur d'influx ou de "
+"piloter un vaisseau de la Maison Sirius.\""
 
 msgid ""
 "\"By the Sirichana! I almost forgot. To truly master Flow, you have to tune "
@@ -98126,6 +98208,12 @@ msgid ""
 "into the obelisk. You should be able to figure out the rest from there. May "
 "the Sirichana guide you.\""
 msgstr ""
+"Ils vous donnent les coordonnées de {spob} avec enthousiasme.\n"
+"\"Assurez-vous d’être équipé d’un amplificateur d'influx, qu’il s’agisse "
+"d’un appareil externe ou d’un modèle intégré à un vaisseau de la Maison "
+"Sirius, et utilisez les exercices que je vous ai enseignés pour vous "
+"connecter à l’obélisque. Vous devriez pouvoir comprendre la suite par vous-"
+"même. Que le Sirichana vous guide.\""
 
 msgid ""
 "You take your leave and hope you haven't bitten off more than you can chew."
@@ -107445,6 +107533,12 @@ msgid ""
 "please equip some additional shield boosters and shield capacitors. Just in "
 "case that there will be a problem with the prototype.\""
 msgstr ""
+"\"Je suis ravi d'apprendre que tu es partant. Tout d'abord, puisque notre "
+"devise est \"la sécurité avant tout\"… Attends, pourquoi tu lèves les yeux "
+"au ciel ? Bref, il te faudra au moins un vaisseau de type corvette, ou mieux "
+"encore, quelque chose de plus grand, et n'oublie pas d'équiper ton vaisseau "
+"d'amplificateurs de bouclier et de condensateurs de bouclier "
+"supplémentaires. Juste au cas où il y aurait un problème avec le prototype.\""
 
 msgid ""
 "\"My team will bring the shielding prototype onboard your ship. Don't forget "
@@ -109337,7 +109431,7 @@ msgid "engine using ancestral propellant technology"
 msgstr ""
 
 msgid "UHP-nanobond engine"
-msgstr ""
+msgstr "Moteur en Nanolites-UHP"
 
 msgid "ancient engine discovered at an old crash site"
 msgstr ""
@@ -109820,10 +109914,14 @@ msgid ""
 "Provides {regen} flow regeneration per second up to 50% maximum capacity. "
 "Requires a flow amplifier."
 msgstr ""
+"Fournit une régénération d'influx {regen} par seconde pouvant atteindre 50 % "
+"de la capacité maximale. Nécessite un amplificateur d'influx."
 
 #. Doesn't become active
 msgid "Provides {flow} maximum flow capacity. Requires a flow amplifier."
 msgstr ""
+"Permet d'obtenir une capacité maximale d'influx de {flow}. Nécessite un "
+"amplificateur d'influx."
 
 msgid ""
 "Additional +{bonus}% damage (for a total of {total}%) when using unguided "
@@ -111933,23 +112031,34 @@ msgid ""
 "New call for Flow Resonator Calibrator Specialists. Inquire at your nearest "
 "Monastery now!"
 msgstr ""
+"Nouvel appel à candidatures pour des spécialistes en étalonnage de "
+"Résonateurs d'influx. Renseignez-vous dès maintenant auprès du Monastère le "
+"plus proche de chez vous !"
 
 msgid "All Praise Sirichana! Paid for by the Sirichana Preacher Association."
 msgstr ""
+"Gloire à Sirichana ! Financé par l'Association des Prédicateurs de Sirichana."
 
 #. Special ads that can be multi-faction
 msgid "Nexus Augmentation: trust the galactic leader in cyber-organs rental!"
 msgstr ""
+"Augmentations Nexus : faites confiance au leader galactique de la location "
+"d'organes cybernétiques !"
 
 msgid ""
 "Love your children? Get them the new Nexus Augmentation NCB-567K cyber-brain "
 "and they will never fail an exam!"
 msgstr ""
+"Vous aimez vos enfants ? Offrez-leur la nouvelle augmentation Nexus, le "
+"cyber-cerveau NCB-567K et ils ne rateront plus jamais un examen !"
 
 msgid ""
 "Rent arrears for your cyber-organs? Take out a credit at Nexus Bank and save "
 "your vital organs from being removed!"
 msgstr ""
+"Des arriérés de loyer pour vos organes cybernétiques ? Souscrivez un crédit "
+"auprès de la banque Nexus et évitez que vos organes vitaux ne vous soient "
+"prélevés !"
 
 msgid ""
 "Remember to fill in your EX-29528-B form if returning to the Empire from "
@@ -111968,22 +112077,22 @@ msgid "PUAAA"
 msgstr ""
 
 msgid "No to terraforming!"
-msgstr ""
+msgstr "Non à la terraformation !"
 
 msgid "Leave the planets alone!"
 msgstr "Laissez les planètes tranquilles !"
 
 msgid "The Universe is beautiful as it is!"
-msgstr ""
+msgstr "L'Univers est magnifique tel qu'il est !"
 
 msgid "No modifying atmospheres!"
-msgstr ""
+msgstr "Non aux modifications des atmosphères !"
 
 msgid "Keep our planets safe!"
-msgstr ""
+msgstr "Protégeons nos planètes !"
 
 msgid "No to destroying planets!"
-msgstr ""
+msgstr "Non à la destruction des planètes !"
 
 #. Assume it's an event
 #. luacheck: globals evt
@@ -111994,33 +112103,45 @@ msgid ""
 "You land and go check on the Astral Orchids you found last times. They are "
 "almost the same as you left them last time, with pretty much no nectar."
 msgstr ""
+"Vous atterrissez et allez vérifier les Orchidées Astrales trouvées la "
+"dernière fois. Elles n'ont pas évolué depuis la dernière fois, et n'ont "
+"pratiquement aucun nectar."
 
 msgid ""
 "You land and go check on the Astral Orchids you found last times. It seems "
 "like not enough time has passed for the nectar to fully reform."
 msgstr ""
+"Vous atterrissez et allez vérifier les Orchidées Astrales trouvées la "
+"dernière fois. Il faut encore un peu de temps pour que leur nectar se "
+"régénère complètement."
 
 msgid ""
 "You land and go check on the Astral Orchids you found last times. They are "
 "nearing fullness and you should be able to harvest them in not too long of a "
 "time."
 msgstr ""
+"Vous atterrissez et allez vérifier les Orchidées Astrales trouvées la "
+"dernière fois. Elles approchent de leur pleine floraison et vous devriez "
+"bientôt pouvoir les récolter."
 
 #. Skip intro stuff
 msgid ""
 "You land and go check on the Astral Orchids you found last time. It seems "
 "like they are ready to harvest again."
 msgstr ""
+"Vous atterrissez et allez vérifier les Orchidées Astrales trouvées la "
+"dernière fois. On dirait qu'elles sont à nouveau prêtes à être récoltées."
 
 msgid "Harvest the Orchids."
-msgstr ""
+msgstr "Récolter les Orchidées."
 
-#, fuzzy
 msgid "Let them be."
-msgstr "Accepter la mission"
+msgstr "Les laisser comme ça."
 
 msgid "Your ship lands, and you run a preliminary scan, when {ainame} pops up."
 msgstr ""
+"Votre vaisseau atterrit, et vous lancez un scan préliminaire, quand {ainame} "
+"apparaît."
 
 #. Unicorn II
 msgid ""
@@ -112028,17 +112149,24 @@ msgid ""
 "interest. Or not. I lack the statistical priors to estimate your response to "
 "such data.\""
 msgstr ""
+"\"J'ai détecté la présence de matière organique dans une grotte voisine, ce "
+"qui pourrait vous intéresser. Ou peut-être pas. Je ne dispose pas de données "
+"statistiques suffisantes pour évaluer votre réaction face à ces "
+"informations.\""
 
 msgid "Explore the caves."
-msgstr ""
+msgstr "Explorer les grottes."
 
 msgid "Maybe next time."
-msgstr ""
+msgstr "Peut-être la prochaine fois."
 
 msgid ""
 "You don your atmospheric suit and take a weapon with you as you leave your "
 "ship, just in case. You head towards the coordinates provided by {ainame}."
 msgstr ""
+"Vous enfilez votre combinaison atmosphérique et prenez une arme avec vous en "
+"quittant votre vaisseau, par précaution. Vous vous dirigez vers les "
+"coordonnées fournies par {ainame}."
 
 msgid ""
 "You find the entrance to a cave nearby, and start exploring the subterranean "
@@ -112046,70 +112174,99 @@ msgid ""
 "nearby organic matter. Looking carefully, you find some small plants that "
 "seem to be flowering, what are tho odds?"
 msgstr ""
+"Vous découvrez l'entrée d'une grotte à proximité et commencez à explorer ce "
+"monde souterrain. Vous finissez par atteindre une vaste caverne, où vos "
+"capteurs détectent la présence de matière organique à proximité. En y "
+"regardant de plus près, vous apercevez de petites plantes qui semblent être "
+"en fleur. Quelle coïncidence !"
 
 #. Chloe I
 msgid ""
 "\"I have detected an unusual structure nearby that may be of interest.\""
 msgstr ""
+"\"J'ai détecté une structure inhabituelle à proximité qui pourrait présenter "
+"un intérêt.\""
 
 msgid "Explore the structure."
-msgstr ""
+msgstr "Explorer la structure."
 
 msgid ""
 "You put on an atmosphere suit, pick up a weapon, and head out towards the "
 "coordinates provided by {ainame}."
 msgstr ""
+"Vous enfilez votre combinaison atmosphérique, en prenant une arme avec vous, "
+"et vous vous dirigez vers les coordonnées fournies par {ainame}."
 
 msgid ""
 "You walk around, pushing your way through the vegetation, and eventually "
 "your scanner picks up some large metal object. You have to dig through the "
 "vegetation and eventually find some sort of ancient rusted hatch."
 msgstr ""
+"Vous avancez en vous frayant un chemin à travers la végétation, et votre "
+"scanner finit par détecter un gros objet métallique. Vous devez dégager la "
+"végétation et découvrez finalement une sorte d'ancienne trappe rouillée."
 
-#, fuzzy
 msgid "Leave it be."
-msgstr "Partez immédiatement."
+msgstr "Laisser tomber."
 
 msgid ""
 "You leave the hatch and return to your ship. Maybe some things are left "
 "unknown."
 msgstr ""
+"Vous laissez la trappe derrière vous et regagnez votre vaisseau. Il vaut "
+"parfois mieux ne pas être trop curieux."
 
 msgid ""
 "It takes quite a bit of effort, but you are eventually able to pry the hatch "
 "open. It seems to lead down into a man-made cave."
 msgstr ""
+"Cela vous demande pas mal d'efforts, mais vous parvenez finalement à ouvrir "
+"la trappe. Elle semble mener à une grotte creusée par l'homme."
 
 msgid ""
 "You make your way into it, happy to be unobstructed by denser vegetation, "
 "and find yourself surrounded by small flowering plants."
 msgstr ""
+"Vous y pénétrez, heureux d'échapper à la végétation dense, et vous vous "
+"retrouvez entouré de petites plantes fleurissantes."
 
 #. Nougat II
 msgid ""
 "\"There seems to be an anomaly in the planetary surface nearby. You might "
 "wish to investigate.\""
 msgstr ""
+"\"Il semble y avoir une anomalie à la surface de la planète, non loin d'ici. "
+"Vous voudrez peut-être aller voir cela de plus près.\""
 
 msgid "Explore the surface anomaly."
-msgstr ""
+msgstr "Explorer l'anomalie en surface."
 
 msgid ""
 "You stretch a bit, don your gear, and get ready to head out into the eternal "
 "snowstorm that is Nougat II towards the coordinates provided by {ainame}."
 msgstr ""
+"Vous vous étirez, enfilez votre équipement, et vous préparez à affronter la "
+"tempête de neige éternelle qui règne sur Nougat II, en direction des "
+"coordonnées fournies par {ainame}."
 
 msgid ""
 "You trudge along and eventually find a mount of ice and snow that seems to "
 "be mainly hollow. You set your weapon to cook and melt a passage that seems "
 "to lead to an interior cavern."
 msgstr ""
+"Vous avancez péniblement et finissez par trouver un monticule de glace et de "
+"neige qui semble être creux en grande partie. Vous utilisez votre arme pour "
+"faire fondre un passage qui semble mener à une caverne souterraine."
 
 msgid ""
 "As you make your way, you notice that the temperature goes up nearly a "
 "hundred degrees to something somewhat acceptable. You also notice that there "
 "seems to be many small flowering plants nearby."
 msgstr ""
+"À mesure que vous avancez, vous remarquez que la température grimpe de près "
+"de cent degrés pour atteindre un niveau un peu plus supportable. Vous "
+"remarquez également qu'il semble y avoir de nombreuses petites fleurs à "
+"proximité."
 
 #. Quai IIb
 msgid ""
@@ -112118,14 +112275,23 @@ msgid ""
 "strange picked up on the sensor nearby. You may be interested in further "
 "enjoying the toxic sludge with a stroll to check it out.\""
 msgstr ""
+"\"Même si j'admire votre confiance dans la capacité de ce vaisseau spatial à "
+"atterrir dans un environnement aussi toxique, je tiens à signaler que le "
+"capteur semble avoir détecté quelque chose d'étrange à proximité. Vous "
+"apprécierez peut-être encore davantage ces boues toxiques en allant y faire "
+"un petit tour pour voir de quoi il s'agit.\""
 
 msgid "Explore the strange area and enjoy a stroll in the toxic sludge."
 msgstr ""
+"Explorer cette zone étrange et profiter d'une balade dans les boues toxiques."
 
 msgid ""
 "You don your extra-protective atmospheric suit, hope that it survives the "
 "local environment, and head off to the coordinates provided by {ainame}."
 msgstr ""
+"Vous enfilez votre combinaison atmosphérique ultra-protectrice, en espérant "
+"qu'elle résiste à l'environnement local, puis vous vous mettez en route vers "
+"les coordonnées fournies par {ainame}."
 
 msgid ""
 "Eventually you find what seems to be a cave blocked by a large boulder, "
@@ -112133,38 +112299,57 @@ msgid ""
 "{spb}, you roll it a bit out of the way and enter the cave, which seems to "
 "have been shielded from the toxic sludge."
 msgstr ""
+"Vous finissez par tomber sur ce qui semble être une grotte bouchée par un "
+"gros rocher, pesant peut-être plusieurs centaines de kilogrammes. Profitant "
+"pleinement de la faible gravité sur {spb}, vous le faites rouler sur le côté "
+"pour vous frayer un passage et pénétrez dans la grotte, qui semble protégée "
+"des boues toxiques."
 
 msgid ""
 "You explore around and find that it seems to be covered in lots of cute "
 "small flowering plants."
 msgstr ""
+"Vous explorez les alentours et découvrez que l'endroit semble recouvert de "
+"nombreuses petites plantes fleuries ravissantes."
 
-#, fuzzy
 msgid "Astral Orchids"
-msgstr "Projection Astrale"
+msgstr "Orchidées Astrales"
 
 msgid ""
 "\"These seem to be {crop}, a rare species that requires specific conditions "
 "to thrive, and do rely on chemosynthesis for survival. They are quite rare "
 "and highly sought after by gourmets for their nectar.\""
 msgstr ""
+"\"Ces plantes semblent être des {crop}, une espèce rare qui nécessite des "
+"conditions spécifiques pour prospérer et qui dépend de la chimiosynthèse "
+"pour survivre. Elles sont assez rares et très recherchées par les gourmets "
+"pour leur nectar.\""
 
 msgid ""
 "\"It looks like you found another cluster of {crop}. This should be the last "
 "of the locations that were planted according to the derelict we found.\""
 msgstr ""
+"\"On dirait que vous avez encore trouvé des {crop}. C'est probablement le "
+"dernier site de plantation, d'après ce qu'indiquait l'épave que nous avons "
+"trouvée.\""
 
 msgid ""
 "\"It looks like you found another cluster of {crop}. Including this, you "
 "have found {num} planted areas. There should be {left} locations left, in "
 "particular, {spobs_left}.\""
 msgstr ""
+"\"On dirait que vous avez encore trouvé des {crop}. En comptant celui-ci, "
+"vous avez trouvé {num} zones cultivées. Il devrait rester {left} "
+"emplacements, dont notamment {spobs_left}.\""
 
 msgid ""
 "\"However, the plant was deemed to be extinct. This may be related to the "
 "derelict we found that mentioned planting Astral Orchids at {locations} "
 "systems.\""
 msgstr ""
+"\"Cependant, cette plante était considérée comme éteinte. Cela pourrait être "
+"lié à l'épave que nous avons découverte, qui mentionnait des plantations "
+"d'orchidées astrales dans les systèmes {locations}.\""
 
 msgid ""
 "\"It seems like you found yet another cluster of {crop}, making it a total "
@@ -112172,16 +112357,26 @@ msgid ""
 "Maybe the different locations are related with a similar underlying cause? I "
 "shall revise my databases for additional information.\""
 msgstr ""
+"\"On dirait que vous avez encore trouvé des {crop}, ce qui porte le total à "
+"{num}. Ceci est statistiquement improbable pour une plante considérée comme "
+"éteinte. Peut-être que ces sites sont liées à une cause sous-jacente "
+"commune ? Je dois examiner mes bases de données pour trouver des "
+"informations supplémentaires.\""
 
 msgid ""
 "\"However, the plant was deemed to be extinct. It is incredible that you "
 "were able to find wild ones growing in such a remote location.\""
 msgstr ""
+"\"Cependant, cette plante était considérée comme éteinte. C'est incroyable "
+"que vous ayez pu en trouver des spécimens sauvages poussant dans un endroit "
+"aussi reculé.\""
 
 msgid ""
 "You let the Astral Orchids be, and make your way back to your ship. Some "
 "things are best left alone."
 msgstr ""
+"Vous laissez les Orchidées astrales où elles sont et retournez à votre "
+"vaisseau. Parfois, il vaut mieux ne pas toucher à certaines choses."
 
 #. Small time delay, TODO make visible to the player?
 msgid ""
