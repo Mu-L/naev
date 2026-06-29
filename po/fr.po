@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: naev 0.9.0-alpha\n"
 "Report-Msgid-Bugs-To: https://codeberg.org/naev/naev/issues\n"
 "POT-Creation-Date: 2026-02-23 21:29+0900\n"
-"PO-Revision-Date: 2026-06-29 00:14+0000\n"
+"PO-Revision-Date: 2026-06-29 11:38+0000\n"
 "Last-Translator: raazqaer <raazqaer@noreply.codeberg.org>\n"
 "Language-Team: French <https://translate.codeberg.org/projects/naev/naev/fr/>"
 "\n"
@@ -80144,187 +80144,189 @@ msgid " for clogging the commander's toilet"
 msgstr " pour avoir bouché les toilettes du commandant"
 
 msgid " for dishonouring their tribe"
-msgstr ""
+msgstr " pour avoir déshonoré sa tribu"
 
 msgid " for insulting their ancestors"
-msgstr ""
+msgstr " pour avoir insulté ses ancêtres"
 
 msgid " for contempt by purposely using incorrect pronouns"
-msgstr ""
+msgstr " pour outrage par usage délibéré de pronoms incorrects"
 
 msgid " for abusing bioships"
-msgstr ""
+msgstr " pour abus de vaisseaux biologiques"
 
 msgid " for dangerous and volatile biological modifications"
-msgstr ""
+msgstr " pour modification biologique dangereuse et instable"
 
 msgid " for developing dangerous bioweapons"
-msgstr ""
+msgstr " pour développement d'armes biologiques dangereuses"
 
 msgid " for disrespecting Soromid history"
-msgstr ""
+msgstr " pour avoir manqué de respect à l'histoire Soromide"
 
 msgid " for insulting biological modifications"
-msgstr ""
+msgstr " pour avoir dénigré les modifications biologiques"
 
 msgid " for denouncing the theory of evolution"
-msgstr ""
+msgstr " pour ses critiques de la théorie de l'évolution"
 
 msgid " for refusing to undergo gene treatment"
-msgstr ""
+msgstr " pour refus de se soumettre à une thérapie génique"
 
 msgid " for attempting to reverse-engineer Soromid technology"
-msgstr ""
+msgstr " pour tentative de rétro-ingénierie de la technologie Soromide"
 
 msgid " for disrespecting the sacrifices of the Soromid tribes"
 msgstr ""
+" pour son manque de respect envers les sacrifices consentis par les tribus "
+"Soromides"
 
-#, fuzzy
 msgid " for spreading misinformation about the Soromid"
-msgstr "Station Akra"
+msgstr " pour diffusion de fausses informations concernant les Soromides"
 
 msgid " for attempting to misuse genetic data"
-msgstr ""
+msgstr " pour abus présumé de données génétiques"
 
-#, fuzzy
 msgid " for conspiring against the tribe"
-msgstr "Station Akra"
+msgstr " pour conspiration contre la tribu"
 
 msgid " for hoarding resources meant for the tribe"
-msgstr ""
+msgstr " pour détournement de ressources destinées à la tribu"
 
 msgid " for deserting a key research station"
-msgstr ""
+msgstr " pour avoir abandonné ses recherches stratégiques"
 
-#, fuzzy
 msgid " for spreading dissent among the Soromid ranks"
-msgstr "Station Akra"
+msgstr " pour avoir semé la dissension dans les rangs des Soromides"
 
 msgid " for attempting to create artificial life"
-msgstr ""
+msgstr " pour avoir tenté de créer une vie artificielle"
 
 msgid " for biohacking without consent"
-msgstr ""
+msgstr " pour piratage biologique sans consentement"
 
 msgid " for blasphemy"
-msgstr ""
+msgstr " pour blasphème"
 
 msgid " for disrespecting the Serra echelon"
-msgstr ""
+msgstr " pour son manque de respect envers l'échelon des Serra"
 
 msgid " for abuse of psychic powers"
-msgstr ""
+msgstr " pour usage abusif de pouvoirs psychiques"
 
 msgid " for attempting to sabotage an obelisk"
-msgstr ""
+msgstr " pour tentative de sabotage d'un obélisque"
 
 msgid " for trying to breakdance in a meditation chamber"
-msgstr ""
+msgstr " pour avoir voulu faire du breakdance dans une salle de méditation"
 
 msgid " for trafficking of pilgrims"
-msgstr ""
+msgstr " pour traite de pèlerins"
 
 msgid " for posing as a member of another echelon"
-msgstr ""
+msgstr " pour avoir prétendu appartenir à un autre échelon"
 
 msgid " for disrupting the harmony of House Sirius"
-msgstr ""
+msgstr " pour trouble à l'harmonie de la Maison Sirius"
 
 msgid " for desecrating a sacred obelisk"
-msgstr ""
+msgstr " pour avoir profané un obélisque sacré"
 
-#, fuzzy
 msgid " for spreading heresy about the Sirichana's reincarnations"
-msgstr "Station Akra"
+msgstr " pour diffusion d'hérésies concernant les réincarnations de Sirichana"
 
 msgid " for impersonating a member of the theocratic government"
-msgstr ""
+msgstr " pour avoir usurpé l'identité d'un membre du gouvernement théocratique"
 
 msgid " for disrupting the harmony of Crater City"
 msgstr ""
 
 msgid " for attempting to steal a relic from the Tower of the Sirichana"
-msgstr ""
+msgstr " pour tentative de vol d'une relique de la Tour de Sirichana"
 
 msgid " for practising dark magic in a meditation chamber"
-msgstr ""
+msgstr " pour pratique de la magie noire dans une salle de méditation"
 
 msgid " for conspiring against an Arch-Canter"
 msgstr ""
 
 msgid " for vandalizing a sacred text"
-msgstr ""
+msgstr " pour avoir vandalisé un texte sacré"
 
 msgid " for attempting to flee the echelon system"
-msgstr ""
+msgstr " pour avoir tenté de se soustraire au système des échelons"
 
 msgid ""
 " for speaking ill of the 34th Emperor's decision to grant House Sirius "
 "autonomy"
 msgstr ""
+" pour avoir critiqué la décision du 34e Empereur d'accorder l'autonomie à la "
+"Maison Sirius"
 
 msgid ""
 " for refusing to supply the Empire with Goddard battlecruisers during a time "
 "of war"
 msgstr ""
+" pour avoir refusé de fournir des croiseurs de combat Goddard à l'Empire en "
+"temps de guerre"
 
 msgid " for attempting to reverse-engineer Imperial technology"
-msgstr ""
+msgstr " pour tentative de rétro-ingénierie de la technologie Impériale"
 
 msgid " for disrespecting the memory of Eduard Goddard"
-msgstr ""
+msgstr " pour avoir manqué de respect à la mémoire d'Eduard Goddard"
 
 msgid ""
 " for spreading misinformation about the capabilities of the Goddard "
 "battlecruiser"
 msgstr ""
+" pour diffusion de fausses informations concernant les performances des "
+"croiseurs de combat Goddard"
 
 msgid " for attempting to steal Goddard family secrets"
-msgstr ""
+msgstr " pour tentative de vol de secrets de la famille Goddard"
 
 msgid " for conspiring against the current leader of House Goddard"
-msgstr ""
+msgstr " pour conspiration contre l'actuel chef de la Maison Goddard"
 
 msgid " for hoarding resources meant for the people of Zhiru"
-msgstr ""
+msgstr " pour détournement de ressources destinées à la population de Zhiru"
 
-#, fuzzy
 msgid " for spreading dissent among the Goddard family ranks"
-msgstr "Station Akra"
+msgstr " pour avoir semé la dissension dans les rangs de la famille Goddard"
 
-#, fuzzy
 msgid " for refusing to pay taxes to the Empire"
-msgstr "Station Akra"
+msgstr " pour son refus de payer ses impôts à l'Empire"
 
 msgid " for attempting to create a rival to the Goddard battlecruiser"
-msgstr ""
+msgstr " pour avoir tenté de créer un rival au croiseur de combat Goddard"
 
 msgid " for disrespecting the Imperial navy"
-msgstr ""
+msgstr " pour avoir manqué de respect à la flotte Impériale"
 
-#, fuzzy
 msgid " for spreading false rumours about the Goddard family"
-msgstr "Station Akra"
+msgstr " pour diffusion de fausses rumeurs concernant la famille Goddard"
 
 msgid " for attempting to sabotage Goddard battlecruiser production"
 msgstr ""
+" pour tentative de sabotage de la production de croiseurs de combat Goddard"
 
-#, fuzzy
 msgid " for conspiring with rival Houses against the Empire"
-msgstr "Station Akra"
+msgstr " pour conspiration avec des Maisons rivales contre l'Empire"
 
 msgid " for deserting a key diplomatic mission"
-msgstr ""
+msgstr " pour abandon d'une mission diplomatique cruciale"
 
-#, fuzzy
 msgid " for spreading dissent among the people of Zhiru"
-msgstr "Station Akra"
+msgstr " pour avoir semé la discorde parmi la population de Zhiru"
 
 msgid " for refusing to provide aid to the Empire during a natural disaster"
 msgstr ""
+" pour avoir refusé d'apporter son aide à l'Empire lors d'une catastrophe "
+"naturelle"
 
 msgid " for deserting a key Goddard production line"
-msgstr ""
+msgstr " pour son abandon d'une chaîne de production essentielle de Goddard"
 
 #. Set up the ship, credits, and reputation based on the level.
 #. No pirates nearby
@@ -80332,13 +80334,13 @@ msgstr ""
 #. See if alive only
 #. have to pass by name
 msgid "Capture {plt}"
-msgstr ""
+msgstr "Capturer {plt}"
 
 #. Reason for the bounty
 #. Faction prefix
 #. Set mission details
 msgid "#nReputation Gained:#0 {fct}"
-msgstr ""
+msgstr "#nRéputation gagnée :#0 {fct}"
 
 #.
 #. <?xml version='1.0' encoding='utf8'?>
@@ -93643,6 +93645,16 @@ msgid ""
 "#nLast seen:#0 {sys} system\n"
 "#nTime limit:#0 {deadline}"
 msgstr ""
+"Un pilote {fct} indiscret, connu sous le nom de {plt}, a récemment été "
+"aperçu dans le système {sys}. Les barons du crime locaux veulent la mort de "
+"ce pilote {reason}. On sait que {plt} pilote un vaisseau de classe "
+"{shipclass}. Ce pilote risque de disparaître si vous mettez trop de temps à "
+"atteindre le système {sys}.{msg}\n"
+"\n"
+"#nCible : #0 {plt} (vaisseau de classe {shipclass})\n"
+"#nRecherché : #0 Mort\n"
+"#nDernière position :#0 Système {sys}\n"
+"#nLimite de temps :#0 {deadline}"
 
 #. We're not on a pirate stronghold, so include a clear warning that the
 #. mission is in fact illegal.
@@ -104394,6 +104406,16 @@ msgid ""
 "#nTime limit:#0 {deadline}\n"
 "#nReputation Gained:#0 {fct}"
 msgstr ""
+"Un traître d'O'rez connu sous le nom de {name} s'est rendu tristement "
+"célèbre par ses actes de violence contre la Maison Yetmer dans le système "
+"{sys}. Son élimination contribuera à l'effort de guerre visant à vaincre les "
+"traîtres.\n"
+"\n"
+"#nCible :#0 {name} (vaisseau de classe {shipclass})\n"
+"#nRecherché :#0 Mort\n"
+"#nDernière position :#0 Système {sys}\n"
+"#nLimite de temps :#0 {deadline}\n"
+"#nRéputation gagnée :#0 {fct}"
 
 #. Set up the ship, credits, and reputation based on the level.
 #. TODO update when they get their own ships
@@ -112937,7 +112959,7 @@ msgid "#nCargo:#0 {cargo}"
 msgstr "#nCargo:#0 {cargo}"
 
 msgid "#nTime limit:#0 {deadline}"
-msgstr ""
+msgstr "#nLimite de temps :#0 {deadline}"
 
 #.
 #. Helper for census missions (where the player has to get in range
