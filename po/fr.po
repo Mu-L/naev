@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: naev 0.9.0-alpha\n"
 "Report-Msgid-Bugs-To: https://codeberg.org/naev/naev/issues\n"
 "POT-Creation-Date: 2026-02-23 21:29+0900\n"
-"PO-Revision-Date: 2026-06-29 12:12+0000\n"
+"PO-Revision-Date: 2026-06-29 12:34+0000\n"
 "Last-Translator: raazqaer <raazqaer@noreply.codeberg.org>\n"
 "Language-Team: French <https://translate.codeberg.org/projects/naev/naev/fr/>"
 "\n"
@@ -48906,10 +48906,14 @@ msgid ""
 "\"I love the space pirate shanty, but every time I learn the lyrics I end up "
 "getting piss drunk and forget them the next morning…\""
 msgstr ""
+"\"J'adore la complainte des pirates de l'espace, mais à chaque fois que "
+"j'apprends les paroles, je finis par me saouler à mort et je les oublie le "
+"lendemain matin…\""
 
 #. First part of the space pirate shanty
 msgid "They are singing the first part of the Space Pirate Shanty."
 msgstr ""
+"Ils chantent la première partie de la Complainte des pirates de l'espace."
 
 msgid ""
 "♬\"I lost my friend and fam’ly to a pirate raid\n"
@@ -48933,6 +48937,7 @@ msgstr ""
 #. Second part of the space pirate shanty
 msgid "They are singing the second part of the Space Pirate Shanty."
 msgstr ""
+"Ils chantent la deuxième partie de la Complainte des pirates de l'espace."
 
 msgid ""
 "♬\"The empire sent their warships, to capture our fair crew\n"
@@ -93554,79 +93559,81 @@ msgid " for excessive amounts of pineapple on pizza"
 msgstr " pour avoir mis trop d'ananas sur une pizza"
 
 msgid " for messing with 'the business'"
-msgstr ""
+msgstr " pour s'être mêlé des 'affaires du milieu'"
 
 msgid " for cozying up to the wrong pirate clans"
-msgstr ""
+msgstr " pour avoir sympathisé avec les mauvais clans de pirates"
 
 msgid " for increasing their bribe fees"
-msgstr ""
+msgstr " pour avoir augmenté le montant de leurs pots-de-vin"
 
 msgid " for being too nosy"
-msgstr ""
+msgstr " pour sa trop grande curiosité"
 
 msgid " for winning in blackjack"
-msgstr ""
+msgstr " pour avoir gagné au blackjack"
 
 msgid " for being a beacon of order and peace"
-msgstr ""
+msgstr " pour avoir été un modèle d'ordre et de paix"
 
 msgid " for thwarting piracy"
-msgstr ""
+msgstr " pour avoir combattu la piraterie"
 
 msgid " for not respecting the pirate code"
-msgstr ""
+msgstr " pour non-respect du code des pirates"
 
 msgid " for throwing out pineapple pizza"
-msgstr ""
+msgstr " pour avoir jeté une pizza à l'ananas"
 
 msgid " for being a tool of bourgeoisie oppression"
-msgstr ""
+msgstr " pour avoir été un instrument de l'oppression bourgeoise"
 
 msgid " for putting fellow pirates in prison"
-msgstr ""
+msgstr " pour avoir envoyé des pirates en prison"
 
-#, fuzzy
 msgid " for being an asshole"
-msgstr "Parasite !"
+msgstr " pour avoir été un salaud"
 
 msgid " for taking a Pirate Lord's landing spot"
-msgstr ""
+msgstr " pour s'être emparé du point d'atterrissage d'un pirate"
 
 msgid " for abandoning a pet cat"
-msgstr ""
+msgstr " pour abandon d'un chat de compagnie"
 
 msgid ""
 " for using pirates as scapegoats in insurance fraud and not giving a cut of "
 "the share"
 msgstr ""
+" pour avoir utilisé les pirates comme boucs émissaires dans une affaire de "
+"fraude à l'assurance et ne pas leur avoir versé leur part du butin"
 
 msgid " for disrespecting poor people"
-msgstr ""
+msgstr " pour son manque de respect envers les personnes démunies"
 
 msgid " for fomenting class warfare"
-msgstr ""
+msgstr " pour avoir attisé la lutte des classes"
 
 msgid " for not respecting human freedom"
-msgstr ""
+msgstr " pour non-respect de la liberté humaine"
 
 msgid " for just being a piece of shit human"
-msgstr ""
+msgstr " parce qu’il n'est qu'une ordure"
 
 msgid " for spitting sunflower seeds on the space station floor"
 msgstr ""
+" pour avoir craché des graines de tournesol sur le sol d'une station spatiale"
 
 msgid " for not properly recycling their garbage"
-msgstr ""
+msgstr " pour ne pas avoir correctement trié ses déchets"
 
 msgid " for hosting a lame party"
-msgstr ""
+msgstr " pour avoir organisé une fête minable"
 
 msgid " for raising tariffs on cheese imports"
-msgstr ""
+msgstr " pour avoir augmenté les droits de douane sur l'importation de fromage"
 
 msgid " for making fun of the space pirate shanty"
-msgstr ""
+msgstr " pour avoir tourné en dérision la complainte des pirates de l'espace"
 
 #. Determine paying faction probabilistic
 #. No enemy presence nearby
