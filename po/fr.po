@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: naev 0.9.0-alpha\n"
 "Report-Msgid-Bugs-To: https://codeberg.org/naev/naev/issues\n"
 "POT-Creation-Date: 2026-02-23 21:29+0900\n"
-"PO-Revision-Date: 2026-06-29 11:38+0000\n"
+"PO-Revision-Date: 2026-06-29 12:12+0000\n"
 "Last-Translator: raazqaer <raazqaer@noreply.codeberg.org>\n"
 "Language-Team: French <https://translate.codeberg.org/projects/naev/naev/fr/>"
 "\n"
@@ -41319,21 +41319,20 @@ msgid "Dvaered Patrol"
 msgstr "Patrouille Dvaered"
 
 msgid "Frontier Patrol"
-msgstr "Patrouille de la frontière"
+msgstr "Patrouille de la Frontière"
 
 #. Set a bunch of vars, for no real reason
 #. Caution: if you change this, change the location for base Sindbad in unidiff.xml as well!
 #. Ship broadcasts an SOS every 10 seconds, until boarded or destroyed.
 msgid "SOS. This is {plt}. Primary systems down. Requesting assistance."
-msgstr ""
-"SOS. Ici {plt}. Les principaux systèmes sont HS. Requerrons assistance."
+msgstr "SOS. Ici {plt}. Systèmes principaux hors service. Demandons assistance."
 
 #. Ship broadcasts an SOS every 10 seconds, until boarded or destroyed.
 msgid ""
 "Calling all ships. This is {plt}. Engines down, ship damaged. Please help."
 msgstr ""
-"Appel à tous les vaisseaux. Ici {plt}. Les moteurs sont coupés, le vaisseau "
-"est endommagé. Aidez moi."
+"Appel à tous les vaisseaux. Ici {plt}. Vaisseau endommagé, nos moteurs sont "
+"en panne. Aidez-nous, s'il vous plaît."
 
 #.
 #. <?xml version='1.0' encoding='utf8'?>
@@ -93471,7 +93470,7 @@ msgstr "Livrer des boîtes au clan pirate de {pnt}, dans le système {sys}."
 
 #. Flavour text and mini-briefing
 msgid "Spaceport Bar"
-msgstr ""
+msgstr "Bar du spatioport"
 
 #. Set up the goal
 msgid "Pirate Packages"
@@ -93533,26 +93532,26 @@ msgstr ""
 #. Forward-declared functions
 #. Mission details
 msgid "Quick Assassination Job in {sys}"
-msgstr "Assassinat rapide dans {sys}"
+msgstr "Contrat d'assassinat dans {sys} - Rapide"
 
 msgid "Small Assassination Job in {sys}"
-msgstr "Petit travail d'assassinat dans {sys}"
+msgstr "Contrat d'assassinat dans {sys} - Mineur"
 
 msgid "Moderate Assassination Job in {sys}"
-msgstr "Travail d'assassinat modéré dans {sys}"
+msgstr "Contrat d'assassinat dans {sys} - Modéré"
 
 msgid "Big Assassination Job in {sys}"
-msgstr "Gros travail d'assassinat dans {sys}"
+msgstr "Contrat d'assassinat dans {sys} - Important"
 
 msgid "Dangerous Assassination Job in {sys}"
-msgstr "Dangereuse mission d'assassinat dans {sys}"
+msgstr "Contrat d'assassinat dans {sys} - Dangereux"
 
 msgid "Highly Dangerous Assassination Job in {sys}"
-msgstr "Mission d'assassinat très dangereuse dans {sys}"
+msgstr "Contrat d'assassinat dans {sys} - Très dangereux"
 
 #. Reasons
 msgid " for excessive amounts of pineapple on pizza"
-msgstr ""
+msgstr " pour avoir mis trop d'ananas sur une pizza"
 
 msgid " for messing with 'the business'"
 msgstr ""
