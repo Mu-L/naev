@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: naev 0.9.0-alpha\n"
 "Report-Msgid-Bugs-To: https://codeberg.org/naev/naev/issues\n"
 "POT-Creation-Date: 2026-02-23 21:29+0900\n"
-"PO-Revision-Date: 2026-06-30 00:50+0000\n"
+"PO-Revision-Date: 2026-06-30 05:31+0000\n"
 "Last-Translator: raazqaer <raazqaer@noreply.codeberg.org>\n"
 "Language-Team: French <https://translate.codeberg.org/projects/naev/naev/fr/>"
 "\n"
@@ -3267,15 +3267,17 @@ msgid ""
 msgstr ""
 
 msgid "Sovereign Proteron Autarchy"
-msgstr ""
+msgstr "Autarchie Souveraine Protéron"
 
 msgid "# Sovereign Proteron Autarchy"
-msgstr ""
+msgstr "# Autarchie Souveraine Protéron"
 
 msgid ""
 "Formed from the former Great House Proteron, the Sovereign Proteron Autarchy "
 "played a pivotal role in the history of the universe."
 msgstr ""
+"Issue de l'ancienne Grande Maison Protéron, l'Autarchie Souveraine Protéron "
+"a joué un rôle déterminant dans l'histoire de l'univers."
 
 msgid ""
 "It arose from an Emperor's desire to create a revolution in the sphere of "
@@ -3298,7 +3300,7 @@ msgid "## Oganization"
 msgstr "Formation"
 
 msgid "* **Leader:** High Autarch Python"
-msgstr ""
+msgstr "* **Dirigeant :** Le Grand Autarque Python"
 
 msgid "* **Leading Structure:** Circle of Autarchs"
 msgstr "* **Structure dirigeante :**Cercle des Autarques"
@@ -3383,20 +3385,29 @@ msgstr ""
 msgid ""
 "The local planetary governments were directly responsible to an Autarch."
 msgstr ""
+"Les gouvernements planétaires locaux relevaient directement d'un Autarque."
 
 msgid ""
 "An Autarch managed many worlds as a sector, with the number depending on how "
 "densely populated and productive the worlds were."
 msgstr ""
+"Un autarque gérait plusieurs planètes regroupées en un secteur, dont le "
+"nombre dépendait de la densité de population et de la productivité de ces "
+"planètes."
 
 msgid "Once every four cycles all the Proteron Autarchs met in a Circle."
 msgstr ""
+"Une fois tous les quatre cycles, tous les Autarques Préteron se réunissaient "
+"dans un Cercle."
 
 msgid ""
 "During these meeting, the Autarchs would evaluate the development of each "
 "Proteron world individually as well as that of the greater Proteron body in "
 "general."
 msgstr ""
+"Au cours de ces réunions, les Autarques évaluaient le développement de "
+"chaque planète Protéron individuellement, ainsi que celui de la société "
+"Protéron dans son ensemble."
 
 msgid "Based on this evaluation, goals were set for the next four cycles."
 msgstr ""
@@ -3405,12 +3416,18 @@ msgid ""
 "Each Autarch was expected to meet or exceed these goals, and those Autarchs "
 "who failed to do so were removed from office - in a very permanent manner."
 msgstr ""
+"Chaque Autarque avait des objectifs à atteindre, voire à dépasser, et ceux "
+"qui n'y parvenaient pas étaient démis de leurs fonctions, de manière "
+"définitive."
 
 msgid ""
 "For period-to-period and urgent decisions that could not wait for many "
 "cycles, and further to ensure that the Circle did not become complacent, the "
 "Proteron also had a High Autarch."
 msgstr ""
+"Pour les décisions urgentes qui ne peuvent attendre plusieurs cycles, et "
+"afin d’éviter que le Cercle ne tombe dans une certaine routine, Protéron "
+"dispose également un Grand Autarque."
 
 msgid "They and the Circle were supposed to balance each other's power."
 msgstr ""
@@ -3493,7 +3510,7 @@ msgid ""
 msgstr ""
 
 msgid "### The Sovereign Proteron Autarchy and the Incident"
-msgstr ""
+msgstr "### L'Autarchie Souveraine Protéron et l'Incident"
 
 msgid ""
 "With its new title, House Proteron enjoyed more freedom and independence "
@@ -3570,6 +3587,9 @@ msgid ""
 "But when the Proteron High Autarch delivered this message to the Emperor, he "
 "was furious at the perceived insult and ordered all Autarchs executed."
 msgstr ""
+"Mais lorsque le Grand Autarque Protéron transmit ce message à l'Empereur, "
+"celui-ci, furieux de ce qu'il considéra comme une insulte, ordonna "
+"l'exécution de tous les Autarques."
 
 msgid ""
 "Appalled at this reaction, the Circle concluded in an emergency meeting that "
@@ -18850,10 +18870,10 @@ msgid ""
 "phenomena on the planet that those whose interests in geology might find "
 "interesting."
 msgstr ""
-"Le bar présente des photos des scientifiques célèbres qui ont donné leur nom "
-"à la planète, ainsi que diverses photos et holo-peintures de certains "
-"phénomènes de la planète qui pourraient intéresser ceux qui s'intéressent à "
-"la géologie."
+"Le bar expose les portraits des célèbres scientifiques qui ont donné leur "
+"nom à la planète, ainsi que diverses photos et holo-peintures illustrant "
+"certains des phénomènes observés sur la planète, qui pourraient intéresser "
+"les passionnés de géologie."
 
 msgid "Cutha"
 msgstr ""
@@ -27779,10 +27799,10 @@ msgid ""
 "mountains, and skyline, as well as the progress on the world's terraforming. "
 "The laid-back and casual ambience is also very fitting."
 msgstr ""
-"Ce bar est orné d'holo-peintures représentant certains des canyons, des "
-"montagnes et de la ligne d'horizon à couper le souffle de Rulk'ar, ainsi que "
-"les progrès de la terraformation de la planète. L'ambiance décontractée est "
-"également très appropriée."
+"Ce bar est orné d'holo-peintures représentant pour certains des canyons, des "
+"montagnes ou les paysages à couper le souffle de Rulk'ar, ainsi que "
+"l'avancement des travaux de terraformation de cette planète. L'ambiance "
+"décontractée et informelle qui y règne est également des plus agréables."
 
 msgid "Ruttwi I"
 msgstr ""
@@ -49273,34 +49293,46 @@ msgid ""
 "\"The Wild Ones clan is too out of control for me. It seems like all they "
 "want to do is pillage and destroy!\""
 msgstr ""
-"\"Les Sauvageons est bien trop chaotique pour moi. On dirait que tout ce "
-"qu'ils veulent, c'est piller et détruire !\""
+"\"Le clan des Sauvageons est bien trop chaotique pour moi. On dirait que "
+"tout ce qu'ils veulent, c'est piller et détruire !\""
 
 msgid ""
 "\"The Black Lotus pirates are so boring. All they do is paperwork and "
 "extortion. Can you call yourself a pirate if you don't pillage?\""
 msgstr ""
+"\"Les pirates du Lotus Noir sont trop ennuyeux. Ils ne font que de la "
+"paperasse et de l'extorsion. Peut-on vraiment se dire pirate si on ne pille "
+"pas ?\""
 
 msgid ""
 "\"Dreamer Clan pirates never show up to the pirate assemblies. Probably "
 "doing too many illegal substances…\""
 msgstr ""
+"\"Les pirates du clan des Rêveurs ne viennent jamais aux assemblées de "
+"pirates. Ils consomment sans doute trop de substances illicites…\""
 
 msgid ""
 "\"If it weren't for the Raven Clan pirates, piracy would have gone extinct "
 "ages ago! Our supplies and organization are second to none!\""
 msgstr ""
+"\"Sans les pirates du clan des Corbeaux, la piraterie aurait disparu depuis "
+"bien longtemps ! Nos ressources et notre organisation sont sans égal !\""
 
 msgid ""
 "\"I ate a weird mushroom yesterday, and I haven't stopped tripping. Are you "
 "real?\""
 msgstr ""
+"\"J'ai mangé un champignon bizarre hier, et je n'ai pas arrêté de planer "
+"depuis. Tu es bien réel, au moins ?\""
 
 msgid ""
 "\"Ya noticed all the large constructions being built recently in space? They "
 "need a lot of rare resources which the resource ships great targets for "
 "plundering! Arr!\""
 msgstr ""
+"\"T'as r'marqué tous ces grands chantiers qui ont été lancés récemment dans "
+"l'espace ? Ils ont besoin d'énormément de ressources rares, ce qui fait des "
+"vaisseaux de ravitaillement des cibles de choix pour le pillage ! Arr !\""
 
 msgid ""
 "\"There been news of all these hypergates going online throughout the "
@@ -49317,19 +49349,19 @@ msgstr ""
 #. local fmt = require "format"
 #. State. Nothing persists.
 msgid "A proteron civilian."
-msgstr ""
+msgstr "Un civil Protéron."
 
 msgid "An individual idly waiting for a drink."
-msgstr ""
+msgstr "Une personne qui attend tranquillement qu'on lui serve un verre."
 
 msgid "A determined looking individual."
-msgstr ""
+msgstr "Une personne à l'air déterminé."
 
 msgid "A person who looks full of self-confidence."
-msgstr ""
+msgstr "Une personne qui semble déborder de confiance en soi."
 
 msgid "An civilian with a strong gaze."
-msgstr ""
+msgstr "Un civil au regard intense."
 
 #. desc_list["agriculture"] = {}
 #. desc_list["industrial"] = {}
@@ -49346,29 +49378,40 @@ msgid ""
 "\"Our system of government is clearly superior to all others. Nothing could "
 "be more obvious.\""
 msgstr ""
+"\"Notre système politique est clairement supérieur à tous les autres. Rien "
+"n'est plus évident.\""
 
 msgid ""
 "\"The Incident really set back our plan for galactic dominance, but that was "
 "only temporary.\""
 msgstr ""
+"\"L'Incident a vraiment mis un frein à notre projet de domination "
+"galactique, mais ce n'était que temporaire.\""
 
 msgid ""
 "\"We don't have time for fun and games. The whole reason we're so great is "
 "because we're more productive than any other society.\""
 msgstr ""
+"\"On n'a pas le temps de s'amuser. Notre succès tient justement au fait que "
+"nous sommes plus productifs que n'importe quelle autre société.\""
 
 msgid ""
 "\"We are superior, so of course we deserve control over the galaxy. It's our "
 "destiny.\""
 msgstr ""
+"\"Nous sommes les meilleurs, alors bien sûr que nous méritons de régner sur "
+"la galaxie. C'est notre destin.\""
 
 msgid "\"The Empire is weak, obsolete. That is why we must replace them.\""
 msgstr ""
+"\"L'Empire est faible, dépassé. C'est pourquoi nous devons le remplacer.\""
 
 msgid ""
 "\"Slaves? Of course we're not slaves. Slaves are beaten and starved. We are "
 "in top shape so we can serve our Autarch better.\""
 msgstr ""
+"\"Des esclaves ? Bien sûr que non. Les esclaves, on les bat et on les "
+"affame. Nous, on est en pleine forme pour mieux servir notre Autarque.\""
 
 msgid ""
 "\"I can't believe the Empire continues to allow families. So primitive. "
@@ -55764,24 +55807,29 @@ msgstr ""
 #. Note that games before 0.10.0 will have lastplayed set days from the unix epoch
 #. Hack to avoid the player seeing the message every time they load a game without quitting
 msgid "Your ship AI, {ainame}, materializes in front of you."
-msgstr ""
+msgstr "L'IA de votre vaisseau, {ainame}, apparaît devant vous."
 
 msgid ""
 "\"Welcome back, {player}! My ship logs indicate that you have not played "
 "Naev in quite a long time!\""
 msgstr ""
+"\"Bon retour parmi nous, {player} ! D'après mon journal de bord, cela fait "
+"un bon moment que vous n'avez pas joué à Naev !\""
 
 msgid ""
 "\"With that said, would you like me to reset the in-game advice as you do "
 "things throughout the game? Some might refer to things you are already "
 "familiar with, but it could help you learn new things.\""
 msgstr ""
+"\"Voulez-vous que je rétablisse les conseils de jeu pendant votre "
+"progression ? Certains pourraient faire référence à des éléments que vous "
+"connaissez déjà, mais cela pourrait vous aider à en découvrir de nouveaux.\""
 
 msgid "Reset and enable tutorial hints"
-msgstr ""
+msgstr "Réinitialiser et activer les conseils du didacticiel"
 
 msgid "Leave as is (hints are {state})"
-msgstr ""
+msgstr "Ne rien changer (les indices sont {state})"
 
 msgid "off"
 msgstr "désactivé"
@@ -55795,6 +55843,11 @@ msgid ""
 "please do so from the '#oShip AI#0' button in the #oInformation#0 window you "
 "can open with {infokey}. Now, let's go adventuring!\""
 msgstr ""
+"\"D'accord, je ne réinitialiserai pas les conseils et je les laisserai tels "
+"quels. Si vous souhaitez modifier mes paramètres, activer les conseils ou "
+"obtenir des informations et des conseils, veuillez utiliser le bouton '#oIA "
+"du vaisseau#0' dans la fenêtre #oInformations#0 que vous pouvez ouvrir avec "
+"{infokey}. Maintenant, partons à l'aventure !\""
 
 #. Done
 #.
@@ -56832,7 +56885,7 @@ msgid "Legend"
 msgstr "Légende"
 
 msgid "Hero"
-msgstr "Héro"
+msgstr "Héros"
 
 msgid "Comrade"
 msgstr "Camarade"
@@ -56850,7 +56903,7 @@ msgid "Outlaw"
 msgstr "Hors-la-loi"
 
 msgid "Enemy"
-msgstr "Ennemi "
+msgstr "Ennemi"
 
 msgid "Friendly"
 msgstr "Amical"
@@ -56932,7 +56985,7 @@ msgstr "Corrompu"
 #. Set current faction standing
 #. Marauder faction standing script
 msgid "Ignored"
-msgstr ""
+msgstr "Ignoré"
 
 msgid "Potential Victim"
 msgstr "Victime potentielle"
@@ -56943,7 +56996,7 @@ msgstr "Victime potentielle"
 #. Goddard faction standing script
 #. Pirate faction standing script
 msgid "Respected"
-msgstr ""
+msgstr "Respecté"
 
 msgid "Common Thief"
 msgstr "Voleur ordinaire"
@@ -57145,6 +57198,8 @@ msgid ""
 "Cooling down...\n"
 "%.1f seconds remaining"
 msgstr ""
+"Refroidissement. . .\n"
+"%.1f secondes restantes"
 
 #. p +=
 msgid "Off"
@@ -57202,19 +57257,19 @@ msgstr "Désactivé"
 
 #, lua-format
 msgid "Armour: %.0f%%"
-msgstr ""
+msgstr "Armure : %.0f%%"
 
 #, lua-format
 msgid "Shield: %.0f%%"
-msgstr ""
+msgstr "Bouclier : %.0f%%"
 
 #. Render faction logo.
 #. Renders the miscellaneous stuff
 msgid "Creds:"
-msgstr ""
+msgstr "Crédits :"
 
 msgid "Cargo Free:"
-msgstr ""
+msgstr "Espace libre :"
 
 #. Renders the warnings like system volatility
 #. Render warnings
@@ -57331,15 +57386,15 @@ msgid "UNAVAILABLE"
 msgstr "INDISPONIBLE"
 
 msgid "Boardable"
-msgstr ""
+msgstr "Abordable"
 
 msgid "Cooling Down"
-msgstr ""
+msgstr "Refroidissement"
 
 #. Render bars.
 #. Dist
 msgid "DIST"
-msgstr ""
+msgstr "DIST"
 
 #. Dir
 msgid "DIR"
@@ -57403,17 +57458,19 @@ msgstr ""
 #.
 #. --
 #. Function for adding log entries for miscellaneous one-off missions.
-#, fuzzy
 msgid "Baron"
 msgstr "Baron"
 
 msgid "A tidy sum of money"
-msgstr "Une confortable somme d'argent"
+msgstr "Une coquette somme d'argent"
 
 msgid ""
 "You've been hired as a courier for one Baron Sauterfeldt. Your job is to "
 "transport a holopainting from a Dvaered world to the Baron's ship."
 msgstr ""
+"Vous avez été engagé comme coursier par un certain baron Sauterfeldt. Votre "
+"mission consiste à transporter une holo-peinture depuis une planète Dvaered "
+"jusqu'au vaisseau du baron."
 
 msgid "Fly to the {sys} system and land on planet {pnt}"
 msgstr ""
@@ -102966,7 +103023,7 @@ msgid ""
 msgstr ""
 
 msgid "Noisy Pacifier"
-msgstr ""
+msgstr "Patrouilleur bruyant"
 
 msgid ""
 "Nelly: \"You disabled it! Now get on top of the ship and board it with "
