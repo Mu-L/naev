@@ -1,0 +1,6 @@
+<unidiff name="baron_gone">
+ <spob name="Ulios">
+  <description>Ulios is a backwater world. Formerly a province of the Old Empire before the Incident, the planet had recently declared its independence and was governed by a small political elite headed by Baron Dovai Sauterfeldt. Shortly after you dismantled the bulk of the Ulios defense fleet and took the Baron into custody, the Empire moved a small military force into the Ingot system and appointed a replacement governor. Now the government of Ulios is quickly reorganizing into a typical Empire bureaucracy.</description>
+  <faction>Empire</faction>
+ </spob>
+</unidiff>

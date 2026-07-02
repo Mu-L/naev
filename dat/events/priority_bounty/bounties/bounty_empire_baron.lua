@@ -60,4 +60,8 @@ return {
       return player.misnDone("Prince") --Must have completed Baron Sauterfeldt missions.
          and (var.peek("astra_vigilis_points") or 0) > 500
    end,
+   completefunc = function ()
+      diff.apply("baron_gone")
+      return true
+   end,   
 }
