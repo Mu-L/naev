@@ -17,9 +17,10 @@ function cooldown( p, po, done, opt )
       if opt then
          -- Really bad way of checking, but if starting health is the same as ending health,
          -- we assume it's run in row and thus doing single cycle and needs full heal.
-         local a, s, stress = p:health(true)
+         local _a, s, stress = p:health()
+         local a = p:armour(true)
          if mem.a==a then
-            p:setHealthAbs( a, s, stress )
+            p:setHealth( 100, s, stress )
          end
       end
       -- Stop repairing
