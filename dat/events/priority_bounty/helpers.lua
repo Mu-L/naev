@@ -1,3 +1,5 @@
+local lf = require "love.filesystem"
+
 local bhelp = {}
 
 bhelp.ships = {
@@ -150,9 +152,36 @@ function bhelp.choose_ships_from_points_and_capship( capship, shiplist, points )
    return ships
 end
 
+-- Coounts how many priority bounties were done by the player
+function bhelp.count_done()
+   local nc = naev.cache()
+   if not nc._priority_bounty_done then
+      nc._priority_bounty_done = {}
+      for k,v in ipairs(lf.getDirectoryItems("events/priority_bounty/bounties")) do
+         local filename = "events.priority_bounty.bounties."..string.gsub(v,".lua","")
+         local b     = require( filename )
+         table.insert( nc._priority_bounty_done, b.var or v )
+      end
+   end
+
+   local done = 0
+   for k,v in ipairs(nc._priority_bounty_done) do
+      if var.peek( v ) then
+         done = done+1
+      end
+   end
+   return done
+end
+
+-- Checks to see if the player has done a certain amount of bounties
+function bhelp.cond_priority_bounty_done( done )
+   return bhelp.count_done() >= done
+end
+
+-- Checks to see if the player meets a required amount of points
 function bhelp.cond_bounty_points( points )
    return function ()
-      return (var.peek( "astra_vigilis_points" ) or 0) > points
+      return (var.peek( "astra_vigilis_points" ) or 0) >= points
    end
 end
 
