@@ -123,7 +123,7 @@ function bounty.init( system, targetname, targetship, reward, params )
       end
    end
    if params.osd_reward ~= nil then
-      b.osd_erward = params.osd_reward
+      b.osd_reward = params.osd_reward
    else
       b.osd_reward = (b.payingfaction:static() and osd_reward_static_def) or osd_reward_def
    end
