@@ -63,5 +63,5 @@ return {
    completefunc = function ()
       diff.apply("baron_gone")
       return true
-   end,   
+   end,
 }
