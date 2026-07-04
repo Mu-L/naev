@@ -2716,23 +2716,9 @@ static void outfit_parseSMunition( Outfit *temp, const xmlNodePtr parent )
    /* Standard stats. */
    l = os_printD( temp->summary_raw, l, temp->u.mnt.dmg.penetration,
                   &penetration_opts );
-   if ( outfit_isSeeker( temp ) ) {
-      l = os_printD( temp->summary_raw, l, temp->u.mnt.lockon, &lockon_opts );
-      l = os_printD( temp->summary_raw, l, temp->u.mnt.iflockon,
-                     &inflight_calib_opts );
-      l = os_printD_range( temp->summary_raw, l, temp->u.mnt.trackmin,
-                           temp->u.mnt.trackmax, &tracking_opts );
-   } else {
-      if ( outfit_isLauncher( temp ) )
-         SDESC_ADD( l, temp, "\n%s", _( "No Seeking" ) );
-      if ( outfit_isTurret( temp ) || temp->u.mnt.swivel > 0. ) {
-         l = os_printD_range( temp->summary_raw, l, temp->u.mnt.trackmin,
-                              temp->u.mnt.trackmax, &tracking_opts );
-         l = os_printD( temp->summary_raw, l, temp->u.mnt.swivel * 180. / M_PI,
-                        &swivel_opts );
-      }
-   }
-
+   l = os_printD( temp->summary_raw, l, 1. / temp->u.mnt.delay,
+                  &fire_rate_opts );
+   l = os_printD( temp->summary_raw, l, outfit_rangeRaw( temp ), &range_opts );
    if ( temp->u.mnt.radius > 0. ) {
       char radius[STRMAX_SHORT];
       snprintf( radius, sizeof( radius ),
@@ -2750,9 +2736,22 @@ static void outfit_parseSMunition( Outfit *temp, const xmlNodePtr parent )
       };
       l = os_printD( temp->summary_raw, l, temp->u.mnt.radius, &radius_opts );
    }
-   l = os_printD( temp->summary_raw, l, 1. / temp->u.mnt.delay,
-                  &fire_rate_opts );
-   l = os_printD( temp->summary_raw, l, outfit_rangeRaw( temp ), &range_opts );
+   if ( outfit_isSeeker( temp ) ) {
+      l = os_printD( temp->summary_raw, l, temp->u.mnt.lockon, &lockon_opts );
+      l = os_printD( temp->summary_raw, l, temp->u.mnt.iflockon,
+                     &inflight_calib_opts );
+      l = os_printD_range( temp->summary_raw, l, temp->u.mnt.trackmin,
+                           temp->u.mnt.trackmax, &tracking_opts );
+   } else {
+      if ( outfit_isLauncher( temp ) )
+         SDESC_ADD( l, temp, "\n%s", _( "No Seeking" ) );
+      if ( outfit_isTurret( temp ) || temp->u.mnt.swivel > 0. ) {
+         l = os_printD_range( temp->summary_raw, l, temp->u.mnt.trackmin,
+                              temp->u.mnt.trackmax, &tracking_opts );
+         l = os_printD( temp->summary_raw, l, temp->u.mnt.swivel * 180. / M_PI,
+                        &swivel_opts );
+      }
+   }
 
    if ( temp->u.mnt.accel > 0. ) {
       if ( temp->u.mnt.speed > 0. )
@@ -2765,7 +2764,8 @@ static void outfit_parseSMunition( Outfit *temp, const xmlNodePtr parent )
       l = os_printD( temp->summary_raw, l, temp->u.mnt.speed,
                      &initial_speed_opts );
    }
-   if ( !( temp->u.mnt.accel > 0. && temp->u.mnt.speed > 0. ) )
+   if ( ( fabs( temp->u.mnt.accel ) > DOUBLE_TOL &&
+          fabs( temp->u.mnt.speed ) > DOUBLE_TOL ) )
       l = os_printD( temp->summary_raw, l, temp->u.mnt.speed_max,
                      &max_speed_opts );
    l = os_printD( temp->summary_raw, l, temp->u.mnt.dispersion * 180. / M_PI,
@@ -2776,9 +2776,13 @@ static void outfit_parseSMunition( Outfit *temp, const xmlNodePtr parent )
       l = os_printD( temp->summary_raw, l, temp->u.mnt.reload_time,
                      &reload_opts );
    }
-   l = os_printD( temp->summary_raw, l, temp->u.mnt.armour, &armour_opts );
-   l = os_printD( temp->summary_raw, l, temp->u.mnt.dmg_absorb, &absorp_opts );
-   if ( temp->u.mnt.ai != +AMMO_AI_UNGUIDED ) {
+   if ( temp->u.mnt.armour > 0. ) {
+      l = os_printD( temp->summary_raw, l, temp->u.mnt.armour, &armour_opts );
+      l = os_printD( temp->summary_raw, l, temp->u.mnt.dmg_absorb,
+                     &absorp_opts );
+   }
+   if ( ( temp->u.mnt.ai != AMMO_AI_UNGUIDED ) &&
+        ( isfinite( temp->u.mnt.resist ) ) ) {
       l = os_printD( temp->summary_raw, l, temp->u.mnt.resist * 100.,
                      &jam_res_opts );
    }
