@@ -31,7 +31,7 @@ function update( p, _dt )
 
    -- Update when enemies in range change
    if totalPoints ~= mem.nearbyPoints then
-      if totalPoints > 0 then
+      if totalPoints >= POINT_STEP then
 
          local bonusMultiplier = math.floor(totalPoints / POINT_STEP)
          local totalBonus = math.min(bonusMultiplier * BONUS, BONUSMAX)
@@ -42,7 +42,7 @@ function update( p, _dt )
             ew_signature = -totalBonus,
          }
       else
-         p:clear()
+         p:shippropReset( p )
       end
 
       mem.nearbyPoints = totalPoints
