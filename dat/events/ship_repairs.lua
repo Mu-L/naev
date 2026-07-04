@@ -12,11 +12,12 @@
 
 --]]
 local vn = require "vn"
-local vni = require "vnimage"
 local fmt = require "format"
 
 local NAME = _("Ship Repairer")
 local OUTFIT = outfit.get("Heavily Damaged")
+local NPC_IMAGE = "solomon.svg"
+local NPC_PORTRAIT = "solomon.svg"
 
 function create ()
    hook.land("land")
@@ -50,21 +51,20 @@ local function repairable_ships ()
    return repairables
 end
 
-local img, prt, npcid
+local npcid
 function land ()
    local scur = spob.cur()
    if not scur or not scur:services().shipyard then return end
 
    if #repairable_ships() <= 0 then return end
 
-   img, prt = vni.generic()
-   npcid = evt.npcAdd( "approach", NAME, prt, _("A ship handyperson who may be able to repair your #oHeavily Damaged#0 ships that you captured.") )
+   npcid = evt.npcAdd( "approach", NAME, NPC_PORTRAIT, _("A ship handyperson who may be able to repair your #oHeavily Damaged#0 ships that you captured.") )
 end
 
 function approach ()
    vn.clear()
    vn.scene()
-   local npc = vn.newCharacter( NAME, { image=img } )
+   local npc = vn.newCharacter( NAME, { image=NPC_IMAGE } )
    vn.transition()
    npc(_([["Hey, it looks like you have some #oHeavily Damaged#0 ships. I can fix them up for you."]]))
 
