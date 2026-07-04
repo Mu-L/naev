@@ -12,7 +12,7 @@
   <cpu>-60</cpu>
  </general>
  <specific type="turret bolt">
-  <gfx type="shader" size="8" col_size="5">particles/laser_purple.frag</gfx>
+  <gfx type="shader" size="8" col_size="5">particles/laser_pulse.frag</gfx>
   <sound>laser</sound>
   <spfx_shield>Shi-S</spfx_shield>
   <spfx_armour>Exp-S</spfx_armour>
