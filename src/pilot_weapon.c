@@ -335,7 +335,7 @@ void pilot_weapSetUpdate( Pilot *p )
                               -1. otherwise. */
             continue;
          else if ( outfit_isBolt( o ) ) {
-            if ( pilot_outfitRange( p, o ) / outfit_speed( o ) < time )
+            if ( pilot_outfitRange( p, o, 0 ) / outfit_speed( o ) < time )
                continue;
          } else if ( outfit_isLauncher( o ) ) {
             if ( outfit_launcherDuration( o ) * p->stats.launch_range *
@@ -621,7 +621,7 @@ void pilot_weapSetAdd( Pilot *p, int id, const PilotOutfitSlot *o )
    slot         = &array_grow( &ws->slots );
    slot->slotid = o->id;
    if ( o->outfit != NULL )
-      slot->range2 = pow2( pilot_outfitRange( p, o->outfit ) );
+      slot->range2 = pow2( pilot_outfitRange( p, o->outfit, 1 ) );
    else
       slot->range2 = 0.;
    pilot_weapSetUpdateOutfits( p, ws );
@@ -744,7 +744,7 @@ static void pilot_weapSetUpdateRange( const Pilot *p, PilotWeaponSet *ws )
          continue;
 
       /* Get range. */
-      range = pilot_outfitRange( p, pos->outfit );
+      range = pilot_outfitRange( p, pos->outfit, 1 );
       if ( range >= 0. ) {
          /* Calculate. */
          range_accum += range;
@@ -932,7 +932,7 @@ double pilot_weapFlyTime( const Outfit *o, const Pilot *parent, const vec2 *pos,
 
    /* Beam weapons */
    if ( outfit_isBeam( o ) ) {
-      if ( dist <= pilot_outfitRange( parent, o ) )
+      if ( dist <= pilot_outfitRange( parent, o, 0 ) )
          return INFINITY;
       return -1.; /* Impossible. */
    }

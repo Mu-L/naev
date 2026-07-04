@@ -99,16 +99,13 @@ static double weapon_aimTurret( const Outfit *outfit, const Pilot *parent,
                                 const vec2 *vel, double dir, double time );
 static double weapon_aimTurretStatic( const vec2 *target_pos, const vec2 *pos,
                                       double dir, double swivel );
-static void   weapon_createBolt( Weapon *w, const Outfit *outfit, double dir,
-                                 const vec2 *pos, const vec2 *vel,
-                                 const Pilot *parent, double time, int aim );
-static void   weapon_createAmmo( Weapon *w, const Outfit *outfit, double dir,
-                                 const vec2 *pos, const vec2 *vel,
-                                 const Pilot *parent, double time, int aim );
-static int    weapon_create( Weapon *w, PilotOutfitSlot *po, const Outfit *ref,
-                             double dir, const vec2 *pos, const vec2 *vel,
-                             const Pilot *parent, const Target *target,
-                             double time, int aim );
+static void weapon_createMunition( Weapon *w, const Outfit *outfit, double dir,
+                                   const vec2 *pos, const vec2 *vel,
+                                   const Pilot *parent, double time, int aim );
+static int  weapon_create( Weapon *w, PilotOutfitSlot *po, const Outfit *ref,
+                           double dir, const vec2 *pos, const vec2 *vel,
+                           const Pilot *parent, const Target *target,
+                           double time, int aim );
 static double weapon_computeTimes( double rdir, double rx, double ry,
                                    double dvx, double dvy, double pxv,
                                    double vmin, double acc, double *tt );
@@ -181,9 +178,8 @@ static void weapon_updateVBO( void )
  */
 static int weapon_cmp( const void *ptr1, const void *ptr2 )
 {
-   const Weapon *w1, *w2;
-   w1 = (const Weapon *)ptr1;
-   w2 = (const Weapon *)ptr2;
+   const Weapon *w1 = ptr1;
+   const Weapon *w2 = ptr2;
    return w1->id - w2->id;
 }
 
@@ -2280,102 +2276,6 @@ static double weapon_computeTimes( double rdir, double rx, double ry,
 }
 
 /**
- * @brief Creates the bolt specific properties of a weapon.
- *
- *    @param w Weapon to create bolt specific properties of.
- *    @param outfit Outfit which spawned the weapon.
- *    @param dir Direction the shooter is facing.
- *    @param pos Position of the slot (absolute).
- *    @param vel Velocity of the slot (absolute).
- *    @param parent Shooter.
- *    @param time Expected flight time.
- *    @param aim Whether or not to aim.
- */
-static void weapon_createBolt( Weapon *w, const Outfit *outfit, double dir,
-                               const vec2 *pos, const vec2 *vel,
-                               const Pilot *parent, double time, int aim )
-{
-   vec2             v;
-   double           mass, rdir, m;
-   const OutfitGFX *gfx;
-
-   if ( aim )
-      rdir =
-         weapon_aimTurret( outfit, parent, &w->target, pos, vel, dir, time );
-   else {
-      if ( pilot_isPlayer( parent ) && input_mouseIsShown() ) {
-         vec2 tv;
-         gl_screenToGameCoords( &tv.x, &tv.y, player.mousex, player.mousey );
-         rdir =
-            weapon_aimTurretStatic( &tv, pos, dir, outfit_swivel( outfit ) );
-      } else
-         rdir = dir;
-   }
-
-   /* Disperse as necessary. */
-   double dispersion = outfit_dispersion( outfit );
-   if ( dispersion > 0. )
-      rdir += RNG_1SIGMA() * dispersion;
-
-   /* Stat modifiers. */
-   double speed_mod = parent->stats.weapon_speed;
-   if ( outfit_type( outfit ) == OUTFIT_TYPE_TURRET_BOLT ) {
-      w->dam_mod *= parent->stats.tur_damage * parent->stats.weapon_damage;
-      /* dam_as_dis is computed as multiplier, must be corrected. */
-      w->dam_as_dis_mod = parent->stats.tur_dam_as_dis - 1.;
-      w->range_mod      = parent->stats.tur_range * parent->stats.weapon_range;
-      speed_mod *= parent->stats.tur_speed;
-   } else {
-      w->dam_mod *= parent->stats.fwd_damage * parent->stats.weapon_damage;
-      /* dam_as_dis is computed as multiplier, must be corrected. */
-      w->dam_as_dis_mod = parent->stats.fwd_dam_as_dis - 1.;
-      w->range_mod      = parent->stats.fwd_range * parent->stats.weapon_range;
-      speed_mod *= parent->stats.fwd_speed;
-   }
-   w->dam_as_dis_mod += parent->stats.weapon_dam_as_dis - 1.;
-   /* Clamping, but might not actually be necessary if weird things want to be
-    * done. */
-   w->dam_as_dis_mod = CLAMP( 0., 1., w->dam_as_dis_mod );
-
-   /* Calculate direction. */
-   rdir = angle_clean( rdir );
-
-   mass = 1.; /* Lasers are presumed to have unitary mass, just like the real
-                 world. */
-   double speed            = outfit_speed( outfit ) * speed_mod;
-   v                       = *vel;
-   m                       = speed;
-   double speed_dispersion = outfit_speed_dispersion( outfit );
-   if ( speed_dispersion > 0. )
-      m += RNG_1SIGMA() * speed_dispersion;
-   vec2_cadd( &v, m * cos( rdir ), m * sin( rdir ) );
-   solid_init( &w->solid, mass, rdir, pos, &v, SOLID_UPDATE_EULER );
-   // TODO maybe change bolt outfits to use duration instead? simpler
-   double accel = outfit_accel( outfit );
-   if ( fabs( accel ) < DOUBLE_TOL ) {
-      w->timer   = outfit_range( outfit ) / speed * w->range_mod;
-      w->falloff = w->timer - outfit_falloff( outfit ) / speed;
-   } else {
-      double res[2];
-      nmath_solve2Eq( res, accel, speed,
-                      -outfit_range( outfit ) * w->range_mod );
-      w->timer = ( res[0] > res[1] ) ? res[0] : res[1];
-      nmath_solve2Eq( res, accel, speed,
-                      -outfit_falloff( outfit ) * w->range_mod );
-      w->falloff = w->timer - ( ( res[0] > res[1] ) ? res[0] : res[1] );
-      weapon_setAccel( w, accel );
-   }
-   w->voice = sound_playPos( outfit_sound( w->outfit ), w->solid.pos.x,
-                             w->solid.pos.y, w->solid.vel.x, w->solid.vel.y );
-
-   /* Set facing direction. */
-   gfx = outfit_gfx( w->outfit );
-   if ( gfx->tex != NULL )
-      gl_getSpriteFromDir( &w->sx, &w->sy, tex_sx( gfx->tex ),
-                           tex_sy( gfx->tex ), w->solid.dir );
-}
-
-/**
  * @brief Creates the ammo specific properties of a weapon.
  *
  *    @param w Weapon to create ammo specific properties of.
@@ -2387,89 +2287,128 @@ static void weapon_createBolt( Weapon *w, const Outfit *outfit, double dir,
  *    @param time Expected flight time.
  *    @param aim Whether or not to aim.
  */
-static void weapon_createAmmo( Weapon *w, const Outfit *outfit, double dir,
-                               const vec2 *pos, const vec2 *vel,
-                               const Pilot *parent, double time, int aim )
+static void weapon_createMunition( Weapon *w, const Outfit *outfit, double dir,
+                                   const vec2 *pos, const vec2 *vel,
+                                   const Pilot *parent, double time, int aim )
 {
-   vec2             v;
-   double           mass, rdir, m;
+   double           mass, rdir;
    const OutfitGFX *gfx;
 
-   if ( aim )
+   if ( aim ) {
       rdir =
          weapon_aimTurret( outfit, parent, &w->target, pos, vel, dir, time );
-   else {
+   } else {
       if ( pilot_isPlayer( parent ) && input_mouseIsShown() ) {
          vec2 tv;
          gl_screenToGameCoords( &tv.x, &tv.y, player.mousex, player.mousey );
          rdir =
             weapon_aimTurretStatic( &tv, pos, dir, outfit_swivel( outfit ) );
-      } else
+      } else {
          rdir = dir;
+      }
    }
 
    /* Disperse as necessary. */
-   if ( outfit_dispersion( outfit ) > 0. )
-      rdir += RNG_1SIGMA() * outfit_dispersion( outfit );
+   double dispersion = outfit_dispersion( outfit );
+   if ( dispersion > 0. )
+      rdir += RNG_1SIGMA() * dispersion;
    /* Make sure angle is in range. */
    rdir = angle_clean( rdir );
 
-   /* Snapshot. */
-   w->dam_mod *= parent->stats.launch_damage * parent->stats.weapon_damage;
-   w->accel_mod = parent->stats.launch_accel;
-   w->speed_mod = parent->stats.launch_speed;
-   w->turn_mod  = parent->stats.launch_turn;
+   /* Stat modifiers. */
+   int type = outfit_type( outfit );
+   if ( type == OUTFIT_TYPE_TURRET_BOLT ) {
+      w->dam_mod *= parent->stats.tur_damage;
+      // dam_as_dis is computed as multiplier, must be corrected
+      w->dam_as_dis_mod = parent->stats.tur_dam_as_dis - 1.;
+      w->range_mod      = parent->stats.tur_range;
+      w->speed_mod      = parent->stats.tur_speed;
+   } else if ( type == OUTFIT_TYPE_BOLT ) {
+      w->dam_mod *= parent->stats.fwd_damage;
+      // dam_as_dis is computed as multiplier, must be corrected
+      w->dam_as_dis_mod = parent->stats.fwd_dam_as_dis - 1.;
+      w->range_mod      = parent->stats.fwd_range;
+      w->speed_mod      = parent->stats.fwd_speed;
+   } else {
+      w->dam_mod *= parent->stats.launch_damage;
+      // dam_as_dis is computed as multiplier, must be corrected
+      w->dam_as_dis_mod = parent->stats.launch_dam_as_dis - 1.;
+      w->range_mod      = parent->stats.launch_range;
+      w->accel_mod      = parent->stats.launch_accel;
+      w->speed_mod      = parent->stats.launch_speed;
+      w->turn_mod       = parent->stats.launch_turn;
+   }
+   // Global stat modifiers
+   w->dam_mod *= parent->stats.weapon_damage;
+   w->range_mod *= parent->stats.weapon_range;
+   w->speed_mod *= parent->stats.weapon_speed;
+   w->dam_as_dis_mod += parent->stats.weapon_dam_as_dis - 1.;
+   w->dam_as_dis_mod = CLAMP( 0., 1., w->dam_as_dis_mod );
 
-   /* If accel is 0. we assume it starts out at speed. */
-   v = *vel;
-   m = outfit_launcherSpeed( outfit ) * w->speed_mod;
-   if ( outfit_speed_dispersion( outfit ) > 0. )
-      m += RNG_1SIGMA() * outfit_speed_dispersion( outfit );
+   // Compute starting velocity
+   double speed = outfit_speed( outfit ) * w->speed_mod;
+   vec2   v     = *vel;
+   double m     = speed;
+   vec2_cadd( &v, m * cos( rdir ), m * sin( rdir ) );
+   double speed_dispersion = outfit_speed_dispersion( outfit );
+   if ( speed_dispersion > 0. )
+      m += RNG_1SIGMA() * speed_dispersion;
    vec2_cadd( &v, m * cos( rdir ), m * sin( rdir ) );
 
-   /* Set up ammo details. */
-   mass     = 1.;
-   w->timer = outfit_launcherDuration( w->outfit ) *
-              parent->stats.launch_range * parent->stats.weapon_range /
-              w->speed_mod;
+   // Create the mass
+   mass = 1.; // Doesn't matter, just placeholder
    solid_init( &w->solid, mass, rdir, pos, &v, SOLID_UPDATE_EULER );
    w->solid.aerodynamics = w->speed_mod;
 
-   if ( outfit_launcherAccel( w->outfit ) > 0. ) {
-      weapon_setAccel( w, outfit_launcherAccel( w->outfit ) * w->accel_mod );
-      /* Limit speed, we only relativize in the case it has accel + initial
-       * speed. */
-      w->solid.speed_max = outfit_launcherSpeedMax( w->outfit ) * w->speed_mod;
-      if ( outfit_launcherSpeed( w->outfit ) > 0. )
-         w->solid.speed_max = -1; /* No limit. */
+   // Handle case of acceleration
+   double accel = outfit_launcherAccel( w->outfit );
+   if ( accel > 0. ) {
+      weapon_setAccel( w, accel * w->accel_mod );
+      // Limit speed, we only relativize in the case it has accel + initial
+      // speed.
+      if ( outfit_launcherSpeed( w->outfit ) < 0. ) {
+         w->solid.speed_max =
+            outfit_launcherSpeedMax( w->outfit ) * w->speed_mod;
+      }
       w->real_vel = VMOD( v );
-   } else
+
+      // Compute timer duration, this is a bit tricky.
+      double res[2];
+      double duration =
+         outfit_launcherDuration( w->outfit ) * w->range_mod / w->speed_mod;
+      nmath_solve2Eq( res, accel, speed, -duration * speed );
+      w->timer = ( res[0] > res[1] ) ? res[0] : res[1];
+      double falloff =
+         outfit_falloff( w->outfit ) * w->range_mod / w->speed_mod;
+      nmath_solve2Eq( res, accel, speed, -falloff * speed );
+      w->falloff = w->timer - ( ( res[0] > res[1] ) ? res[0] : res[1] );
+   } else {
       w->real_vel = 0.;
 
-   w->dam_as_dis_mod = ( parent->stats.launch_dam_as_dis - 1. ) *
-                       ( parent->stats.weapon_dam_as_dis - 1. );
-   /* Clamping, but might not actually be necessary if weird things want to be
-    * done. */
-   w->dam_as_dis_mod = CLAMP( 0., 1., w->dam_as_dis_mod );
+      w->timer =
+         outfit_launcherDuration( w->outfit ) * w->range_mod / w->speed_mod;
+      w->falloff = outfit_falloff( w->outfit );
+      ;
+   }
 
-   /* Handle health if necessary. */
-   if ( outfit_launcherArmour( w->outfit ) > 0. ) {
-      w->armour = outfit_launcherArmour( w->outfit );
+   // If it has health, it'll be destroyable
+   double armour = outfit_launcherArmour( w->outfit );
+   if ( armour > 0. ) {
+      w->armour = armour;
       weapon_setFlag( w, WEAPON_FLAG_HITTABLE );
    }
 
-   /* Handle seekers. */
+   // Handle case of seeking ammo
    if ( outfit_launcherAI( w->outfit ) != AMMO_AI_UNGUIDED ) {
       w->timer2 =
          outfit_launcherIFLockon( outfit ) * parent->stats.launch_calibration;
-      w->paramf =
-         outfit_launcherIFLockon( outfit ) * parent->stats.launch_calibration;
+      w->paramf = w->timer2;
       w->status = ( w->timer2 > 0. ) ? WEAPON_STATUS_LOCKING : WEAPON_STATUS_OK;
 
-      w->think = think_seeker; /* AI is the same atm. */
-      w->r     = RNGF();       /* Used for jamming. */
+      w->think = think_seeker; // AI is the same atm.
+      w->r     = RNGF();       // Used for jamming.
 
-      /* If they are seeking a pilot, increment lockon counter. */
+      // If they are seeking a pilot, increment lockon counter.
       if ( w->target.type == TARGET_PILOT ) {
          Pilot *pilot_target = pilot_get( w->target.u.id );
          if ( pilot_target != NULL )
@@ -2478,17 +2417,17 @@ static void weapon_createAmmo( Weapon *w, const Outfit *outfit, double dir,
    } else
       w->status = WEAPON_STATUS_OK;
 
-   /* Play sound. */
+   // Play sound.
    w->voice = sound_playPos( outfit_sound( w->outfit ), w->solid.pos.x,
                              w->solid.pos.y, w->solid.vel.x, w->solid.vel.y );
 
-   /* Set facing direction. */
+   // Set facing direction.
    gfx = outfit_gfx( w->outfit );
    if ( gfx->tex != NULL )
       gl_getSpriteFromDir( &w->sx, &w->sy, tex_sx( gfx->tex ),
                            tex_sy( gfx->tex ), w->solid.dir );
 
-   /* Set up trails. */
+   // Set up trails.
    if ( outfit_launcherTrailSpec( w->outfit ) != NULL )
       w->trail = spfx_trail_create( outfit_launcherTrailSpec( w->outfit ) );
 }
@@ -2558,7 +2497,9 @@ static int weapon_create( Weapon *w, PilotOutfitSlot *po, const Outfit *ref,
    /* Bolts treated together */
    case OUTFIT_TYPE_BOLT:
    case OUTFIT_TYPE_TURRET_BOLT:
-      weapon_createBolt( w, outfit, dir, pos, vel, parent, time, aim );
+   case OUTFIT_TYPE_LAUNCHER:
+   case OUTFIT_TYPE_TURRET_LAUNCHER:
+      weapon_createMunition( w, outfit, dir, pos, vel, parent, time, aim );
       break;
 
    /* Beam weapons are treated together. */
@@ -2622,12 +2563,6 @@ static int weapon_create( Weapon *w, PilotOutfitSlot *po, const Outfit *ref,
       }
       w->dam_as_dis_mod *= parent->stats.weapon_dam_as_dis;
       w->dam_as_dis_mod = CLAMP( 0., 1., w->dam_as_dis_mod - 1. );
-      break;
-
-   /* Treat seekers together. */
-   case OUTFIT_TYPE_LAUNCHER:
-   case OUTFIT_TYPE_TURRET_LAUNCHER:
-      weapon_createAmmo( w, outfit, dir, pos, vel, parent, time, aim );
       break;
 
    /* just dump it where the player is */

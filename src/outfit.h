@@ -174,37 +174,6 @@ typedef struct Damage_ {
    double knockback; /**< Amount of knockback in impulse. */
 } Damage;
 
-/**
- * @brief Represents the particular properties of a bolt weapon.
- */
-typedef struct OutfitBoltData_ {
-   double delay;   /**< Delay between shots */
-   double speed;   /**< How fast it goes. */
-   double accel;   /**< How fast it accelerates. */
-   double range;   /**< How far it goes. */
-   double falloff; /**< Point at which damage falls off. */
-   double energy;  /**< Energy usage */
-   Damage dmg;     /**< Damage done. */
-   double recoil;  /**< Recoil of the weapon. */
-   double radius;  /**< Explosion radius .*/
-
-   double trackmin;   /**< Ewarfare minimal tracking. */
-   double trackmax;   /**< Ewarfare maximal (optimal) tracking. */
-   double swivel;     /**< Amount of swivel (semiarc in radians of deviation the
-                         weapon can correct). */
-   double dispersion; /**< Angle amount to spread particles around. */
-   double speed_dispersion; /**< Dispersion, but for speed. */
-   int    shots;            /**< Number of particles shot when fired. */
-   int    mining_rarity;    /**< Maximum mining rarity the weapon can mine. */
-
-   /* Sound and graphics. */
-   OutfitGFX    gfx;         /**< Rendering information. */
-   const Sound *sound;       /**< Sound to play on shoot.*/
-   const Sound *sound_hit;   /**< Sound to play on hit. */
-   int          spfx_armour; /**< special effect on hit. */
-   int          spfx_shield; /**< special effect on hit. */
-} OutfitBoltData;
-
 typedef struct BeamShader {
    GLuint program;
    GLuint vertex;
@@ -247,11 +216,9 @@ typedef struct OutfitBeamData_ {
 } OutfitBeamData;
 
 /**
- * @brief Represents a particular missile launcher.
- *
- * The properties of the weapon are highly dependent on the ammunition.
+ * @brief Represents a particular munition-based weapon (bolt or launcher).
  */
-typedef struct OutfitLauncherData_ {
+typedef struct OutfitMunitionData {
    double delay;       /**< Delay between shots. */
    int    amount;      /**< Amount of ammo it can store. */
    double reload_time; /**< Time it takes to reload 1 ammo. */
@@ -270,6 +237,7 @@ typedef struct OutfitLauncherData_ {
    int    mining_rarity;    /**< Maximum mining rarity the weapon can mine. */
 
    double       duration; /**< How long the ammo lives. */
+   double       falloff;  /**< Duration at which damage falls off. */
    double       resist;   /**< Lowers chance of jamming by this amount */
    OutfitAmmoAI ai;       /**< Smartness of ammo. */
 
@@ -293,7 +261,7 @@ typedef struct OutfitLauncherData_ {
    int              spfx_shield; /**< special effect on hit */
    const TrailSpec *trail_spec;  /**< Trail style if applicable, else NULL. */
    double           trail_x_offset; /**< Offset x. */
-} OutfitLauncherData;
+} OutfitMunitionData;
 
 /**
  * @brief Represents a ship modification.
@@ -455,9 +423,8 @@ typedef struct Outfit {
    /* Type dependent */
    OutfitType type; /**< Type of the outfit. */
    union {
-      OutfitBoltData         blt;  /**< BOLT */
+      OutfitMunitionData     mnt;  /**< BOLT / LAUNCHER */
       OutfitBeamData         bem;  /**< BEAM */
-      OutfitLauncherData     lau;  /**< LAUNCHER */
       OutfitModificationData mod;  /**< MODIFICATION */
       OutfitAfterburnerData  afb;  /**< AFTERBURNER */
       OutfitFighterBayData   bay;  /**< FIGHTER_BAY */
@@ -494,6 +461,7 @@ int            outfit_isActive( const Outfit *o );
 int            outfit_isToggleable( const Outfit *o );
 int            outfit_isWeapon( const Outfit *o );
 int            outfit_isForward( const Outfit *o );
+int            outfit_isMunition( const Outfit *o );
 int            outfit_isBolt( const Outfit *o );
 int            outfit_isBeam( const Outfit *o );
 int            outfit_isLauncher( const Outfit *o );
