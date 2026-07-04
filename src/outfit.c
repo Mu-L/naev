@@ -1035,17 +1035,12 @@ double outfit_cpu( const Outfit *o )
  */
 double outfit_range( const Outfit *o )
 {
-   return pilot_outfitRange( NULL, o );
+   return pilot_outfitRange( NULL, o, 1 );
 }
 double outfit_rangeRaw( const Outfit *o )
 {
    if ( outfit_isMunition( o ) ) {
-      double dur = o->u.mnt.duration;
-      if ( fabs( o->u.mnt.accel ) > DOUBLE_TOL ) {
-         return dur * o->u.mnt.speed + dur * dur * o->u.mnt.accel;
-      } else {
-         return dur * o->u.mnt.speed;
-      }
+      return pilot_outfitRange( NULL, o, 0 );
    } else if ( outfit_isBeam( o ) )
       return o->u.bem.range;
    return 0;
@@ -2682,8 +2677,8 @@ static void outfit_parseSMunition( Outfit *temp, const xmlNodePtr parent )
       temp->u.mnt.speed_max = temp->u.mnt.speed;
    else if ( temp->u.mnt.speed > 0. &&
              temp->u.mnt.accel >
-                0. ) /* Condition for not taking max_speed into account. */
-      WARN( _( "Max speed of ammo '%s' will be ignored." ), temp->name );
+                0. ) // Condition for not taking max_speed into account.
+      WARN( _( "Max speed of outfit '%s' will be ignored." ), temp->name );
    temp->u.mnt.resist /= 100.;
 
    /* Short description. */
@@ -2718,7 +2713,7 @@ static void outfit_parseSMunition( Outfit *temp, const xmlNodePtr parent )
                   &penetration_opts );
    l = os_printD( temp->summary_raw, l, 1. / temp->u.mnt.delay,
                   &fire_rate_opts );
-   l = os_printD( temp->summary_raw, l, outfit_rangeRaw( temp ), &range_opts );
+   l = os_printD( temp->summary_raw, l, outfit_range( temp ), &range_opts );
    if ( temp->u.mnt.radius > 0. ) {
       char radius[STRMAX_SHORT];
       snprintf( radius, sizeof( radius ),

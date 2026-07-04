@@ -940,7 +940,7 @@ void pilot_fillAmmo( Pilot *pilot )
    }
 }
 
-double pilot_outfitRange( const Pilot *p, const Outfit *o )
+double pilot_outfitRange( const Pilot *p, const Outfit *o, int falloff )
 {
    if ( outfit_isBeam( o ) ) {
       double range = outfit_rangeRaw( o );
@@ -952,7 +952,9 @@ double pilot_outfitRange( const Pilot *p, const Outfit *o )
       }
       return range;
    } else if ( outfit_isMunition( o ) ) {
-      double duration  = ( outfit_duration( o ) + outfit_falloff( o ) ) * 0.5;
+      double duration =
+         ( falloff ) ? ( outfit_duration( o ) + outfit_falloff( o ) ) * 0.5
+                     : outfit_duration( o );
       double accel     = outfit_launcherAccel( o );
       double speed     = outfit_launcherSpeed( o );
       double speed_max = outfit_launcherSpeedMax( o );
