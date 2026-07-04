@@ -1022,6 +1022,65 @@ vec4 lightning( vec2 uv ) {
    return col;
 }
 
+vec4 laser_pulse(vec2 pos)
+{
+   float x = pos.x * 0.3;
+   float y = pos.y * 0.4;
+
+   float ax = abs(x);
+   float yy = y*y;
+
+   // Main beam
+   float beam = exp(-80.0 * yy)
+      * smoothstep(0.25, 0.10, ax); // rounding
+
+   // pulsations
+   beam *= 0.9 + 0.1 * sin(120.0 * x + u_time * 25.0);
+
+   // white core
+   float core = exp(-450.0 * yy)
+      * smoothstep(0.18, 0.02, ax); // rounding
+
+   // soft glow
+   float glow = exp(-18.0 * yy)
+      * smoothstep(0.45, 0.10, ax); // rounding
+
+   vec3 color = glow * vec3(0.5, 0.05, 0.05);
+   color     += beam * vec3(1.0, 0.15, 1.0);
+   color     += core * vec3(1.0);
+
+   float alpha = max(glow * 0.5, beam);
+
+   return vec4(color, alpha);
+}
+
+vec4 muon(vec2 pos)
+{
+   float t = u_time * 0.8 + 1000.0*u_r;
+
+   vec2 warp = vec2(
+         snoise(pos * 3.0 + vec2(t, 0.0)),
+         snoise(pos * 3.0 + vec2(0.0, t))
+         );
+   vec2 p = pos + warp * 0.08;
+   p *= 0.6;
+
+   float surfaceNoise = snoise(p * 3.6 + t)
+         + 0.5 * snoise(p * 7.2 - t * 1.5);
+   float d = sdCircle(p, 0.45 + surfaceNoise * 0.04);
+
+   float glow  = smoothstep( 0.25, -0.25, d);
+   float shell = smoothstep( 0.04, -0.04, d);
+   float core  = smoothstep(-0.18, -0.34, d);
+
+   vec3 col;
+   col  = glow  * vec3(0.1, 0.5, 1.0) * 0.4;
+   col += shell * vec3(0.2, 0.8, 1.0);
+   col += core  * vec3(1.0);
+
+   return vec4(col, glow);
+}
+
 vec4 effect( vec4 colour, Image tex, vec2 uv, vec2 px )
 {
    vec4 col_out;
@@ -1046,7 +1105,9 @@ vec4 effect( vec4 colour, Image tex, vec2 uv, vec2 px )
    //col_out = eruptor( uv_rel );
    //col_out = thorn( uv_rel );
    //col_out = mote( uv_rel );
-   col_out = lightning( uv_rel );
+   //col_out = lightning( uv_rel );
+   //col_out = laser_pulse( uv_rel );
+   col_out = muon( uv_rel );
 
    return mix( bg(uv), col_out, clamp(col_out.a, 0.0, 1.0) );
 }

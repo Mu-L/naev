@@ -800,7 +800,7 @@ static int misnL_osdHide( lua_State *L )
 
    /* Must be accepted. */
    if ( !cur_mission->accepted ) {
-      NLUA_WARN( L, _( "Can't create an OSD on an unaccepted mission!" ) );
+      NLUA_ERROR( L, _( "Can't create an OSD on an unaccepted mission!" ) );
       return 0;
    }
 
@@ -820,7 +820,7 @@ static int misnL_osdSetHide( lua_State *L )
 
    /* Must be accepted. */
    if ( !cur_mission->accepted ) {
-      NLUA_WARN( L, _( "Can't create an OSD on an unaccepted mission!" ) );
+      NLUA_ERROR( L, _( "Can't create an OSD on an unaccepted mission!" ) );
       return 0;
    }
 
@@ -849,7 +849,7 @@ static int misn_osdCreate( lua_State *L )
 
    /* Must be accepted. */
    if ( !cur_mission->accepted ) {
-      NLUA_WARN( L, _( "Can't create an OSD on an unaccepted mission!" ) );
+      NLUA_ERROR( L, _( "Can't create an OSD on an unaccepted mission!" ) );
       return 0;
    }
 
@@ -928,9 +928,10 @@ static int misn_osdActive( lua_State *L )
    n = n - 1; /* Convert to C index. */
 
    cur_mission = misn_getFromLua( L );
-
-   if ( cur_mission->osd != 0 )
-      osd_active( cur_mission->osd, n );
+   if ( cur_mission->osd != 0 ) {
+      if ( osd_active( cur_mission->osd, n ) )
+         NLUA_ERROR( L, "Failed to make OSD active" );
+   }
 
    return 0;
 }
