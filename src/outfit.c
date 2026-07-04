@@ -117,50 +117,59 @@ static int os_printD_rate( char *buffer, int i, double val,
                            double rate, const t_os_stat *rate_opts );
 
 /* Helpers for different attributes. */
-static os_opts darmour_opts = {
+static const os_opts darmour_opts = {
    N_( "Armour Damage" ), _UNIT_PERCENT, 1, 100, 0, 0 };
-static os_opts dshield_opts = {
+static const os_opts dshield_opts = {
    N_( "Shield Damage" ), _UNIT_PERCENT, 1, 100, 0, 0 };
-static os_opts cpu_opts         = { N_( "CPU" ), _UNIT_CPU, 1, 0, 1, 0 };
-static os_opts mass_opts        = { N_( "Mass" ), _UNIT_MASS, 0, 0, 1, 0 };
-static os_opts penetration_opts = { N_( "Penetration" ), NULL, 0, 0, 1, 0 };
-static os_opts damage_opts      = { N_( "Damage" ), _UNIT_ENERGY, 0, 1, 1, 1 };
-static os_opts dps_opts     = { N_( "Damage Rate" ), _UNIT_POWER, 0, 0, 1, 1 };
-static os_opts disable_opts = { N_( "Disable" ), _UNIT_ENERGY, 0, 1, 1, 1 };
-static os_opts disable_rate_opts = {
+static const os_opts cpu_opts  = { N_( "CPU" ), _UNIT_CPU, 1, 0, 1, 0 };
+static const os_opts mass_opts = { N_( "Mass" ), _UNIT_MASS, 0, 0, 1, 0 };
+static const os_opts penetration_opts = {
+   N_( "Penetration" ), NULL, 0, 0, 1, 0 };
+static const os_opts damage_opts = { N_( "Damage" ), _UNIT_ENERGY, 0, 1, 1, 1 };
+static const os_opts dps_opts    = {
+   N_( "Damage Rate" ), _UNIT_POWER, 0, 0, 1, 1 };
+static const os_opts disable_opts = {
+   N_( "Disable" ), _UNIT_ENERGY, 0, 1, 1, 1 };
+static const os_opts disable_rate_opts = {
    N_( "Disable Rate" ), _UNIT_POWER, 0, 0, 1, 1 };
-static os_opts fire_rate_opts = {
+static const os_opts fire_rate_opts = {
    N_( "Fire Rate" ), _UNIT_PER_TIME, 0, 0, 0, 1 };
-static os_opts energy_opts    = { N_( "Energy" ), _UNIT_ENERGY, 0, 1, 1, 1 };
-static os_opts knockback_opts = {
+static const os_opts energy_opts = { N_( "Energy" ), _UNIT_ENERGY, 0, 1, 1, 1 };
+static const os_opts knockback_opts = {
    N_( "Knockback" ), _UNIT_IMPULSE, 0, 0, 1, 1 };
-static os_opts power_opts      = { N_( "Power" ), _UNIT_POWER, 0, 0, 1, 1 };
-static os_opts range_opts      = { N_( "Range" ), _UNIT_DISTANCE, 0, 0, 1, 0 };
-static os_opts speed_opts      = { N_( "Speed" ), _UNIT_SPEED, 0, 0, 1, 0 };
-static os_opts dispersion_opts = {
+static const os_opts power_opts = { N_( "Power" ), _UNIT_POWER, 0, 0, 1, 1 };
+static const os_opts range_opts = { N_( "Range" ), _UNIT_DISTANCE, 0, 0, 1, 0 };
+static const os_opts speed_opts = { N_( "Speed" ), _UNIT_SPEED, 0, 0, 1, 0 };
+static const os_opts dispersion_opts = {
    N_( "Dispersion" ), _UNIT_ANGLE, 0, 0, 1, 0 };
-static os_opts swivel_opts   = { N_( "Swivel" ), _UNIT_ANGLE, 0, 0, 1, 0 };
-static os_opts tracking_opts = { N_( "Tracking" ), _UNIT_DISTANCE, 0, 0, 1, 0 };
-static os_opts duration_opts = { N_( "Duration" ), _UNIT_TIME, 0, 0, 1, 1 };
-static os_opts cooldown_opts = { N_( "Cooldown" ), _UNIT_TIME, 0, 0, 1, 1 };
-static os_opts lockon_opts   = { N_( "Lock-On" ), _UNIT_TIME, 0, 0, 1, 0 };
-static os_opts inflight_calib_opts = {
+static const os_opts swivel_opts = { N_( "Swivel" ), _UNIT_ANGLE, 0, 0, 1, 0 };
+static const os_opts tracking_opts = {
+   N_( "Tracking" ), _UNIT_DISTANCE, 0, 0, 1, 0 };
+static const os_opts duration_opts = {
+   N_( "Duration" ), _UNIT_TIME, 0, 0, 1, 1 };
+static const os_opts cooldown_opts = {
+   N_( "Cooldown" ), _UNIT_TIME, 0, 0, 1, 1 };
+static const os_opts lockon_opts = { N_( "Lock-On" ), _UNIT_TIME, 0, 0, 1, 0 };
+static const os_opts inflight_calib_opts = {
    N_( "In-flight Calibration" ), _UNIT_TIME, 0, 0, 1, 1 };
-static os_opts initial_speed_opts = {
+static const os_opts initial_speed_opts = {
    N_( "Launch Speed" ), _UNIT_SPEED, 0, 0, 1, 0 };
-static os_opts accel_opts     = { N_( "Accel" ), _UNIT_ACCEL, 0, 0, 1, 0 };
-static os_opts max_speed_opts = { N_( "Max Speed" ), _UNIT_SPEED, 0, 0, 1, 0 };
-static os_opts reload_opts    = { N_( "Reload Time" ), _UNIT_TIME, 0, 0, 1, 1 };
-static os_opts armour_opts    = { N_( "Armour" ), _UNIT_ENERGY, 0, 0, 1, 1 };
-static os_opts absorp_opts  = { N_( "Absorption" ), _UNIT_PERCENT, 0, 0, 1, 1 };
-static os_opts jam_res_opts = {
+static const os_opts accel_opts = { N_( "Accel" ), _UNIT_ACCEL, 0, 0, 1, 0 };
+static const os_opts max_speed_opts = {
+   N_( "Max Speed" ), _UNIT_SPEED, 0, 0, 1, 0 };
+static const os_opts reload_opts = {
+   N_( "Reload Time" ), _UNIT_TIME, 0, 0, 1, 1 };
+static const os_opts armour_opts = { N_( "Armour" ), _UNIT_ENERGY, 0, 0, 1, 1 };
+static const os_opts absorp_opts = {
+   N_( "Absorption" ), _UNIT_PERCENT, 0, 0, 1, 1 };
+static const os_opts jam_res_opts = {
    N_( "Jam Resistance" ), _UNIT_PERCENT, 0, 0, 1, 0 };
-static os_opts max_mass_opts = {
+static const os_opts max_mass_opts = {
    N_( "Max Effective Mass" ), _UNIT_MASS, 0, 0, 1, 0 };
-static os_opts rumble_opts      = { N_( "Rumble" ), NULL, 0, 0, 1, 1 };
-static os_opts shots_delay_opts = {
+static const os_opts rumble_opts      = { N_( "Rumble" ), NULL, 0, 0, 1, 1 };
+static const os_opts shots_delay_opts = {
    N_( "Shots Delay" ), _UNIT_TIME, 0, 0, 1, 1 };
-static os_opts ammo_opts = { N_( "Charges" ), NULL, 0, 0, 1, 0 };
+static const os_opts ammo_opts = { N_( "Charges" ), NULL, 0, 0, 1, 0 };
 
 static int outfit_cmp( const void *p1, const void *p2 )
 {
@@ -1031,7 +1040,7 @@ double outfit_range( const Outfit *o )
 double outfit_rangeRaw( const Outfit *o )
 {
    if ( outfit_isMunition( o ) ) {
-      double dur = ( o->u.mnt.duration + o->u.mnt.falloff ) * 0.5;
+      double dur = o->u.mnt.duration;
       if ( fabs( o->u.mnt.accel ) > DOUBLE_TOL ) {
          return dur * o->u.mnt.speed + dur * dur * o->u.mnt.accel;
       } else {
@@ -2641,7 +2650,7 @@ static void outfit_parseSMunition( Outfit *temp, const xmlNodePtr parent )
    // We can define outfits directly by range, but this can behave a bit funny
    // with modifiers and such
    if ( range > 0. ) {
-      if ( temp->u.mnt.accel > 0. ) {
+      if ( fabs( temp->u.mnt.accel ) > DOUBLE_TOL ) {
          double res[2];
          nmath_solve2Eq( res, temp->u.mnt.accel, temp->u.mnt.speed, -range );
          temp->u.mnt.duration = ( res[0] > res[1] ) ? res[0] : res[1];
@@ -2650,7 +2659,7 @@ static void outfit_parseSMunition( Outfit *temp, const xmlNodePtr parent )
       }
    }
    if ( falloff > 0. ) {
-      if ( temp->u.mnt.accel > 0. ) {
+      if ( fabs( temp->u.mnt.accel ) > DOUBLE_TOL ) {
          double res[2];
          nmath_solve2Eq( res, temp->u.mnt.accel, temp->u.mnt.speed, -falloff );
          temp->u.mnt.falloff = ( res[0] > res[1] ) ? res[0] : res[1];
@@ -2664,11 +2673,11 @@ static void outfit_parseSMunition( Outfit *temp, const xmlNodePtr parent )
    /* Post processing. */
    temp->u.mnt.swivel *= M_PI / 180.;
    temp->u.mnt.arc *= M_PI / 180.;
-   /* Note that arc will be 0. for turrets. */
+   // Note that arc will be 0. for turrets.
    if ( outfit_isTurret( temp ) )
       temp->u.mnt.swivel = M_PI;
    temp->u.mnt.dispersion *= M_PI / 180.;
-   temp->u.mnt.turn *= M_PI / 180.; /* Convert to rad/s. */
+   temp->u.mnt.turn *= M_PI / 180.;
    if ( temp->u.mnt.speed_max < 0. )
       temp->u.mnt.speed_max = temp->u.mnt.speed;
    else if ( temp->u.mnt.speed > 0. &&
@@ -2743,9 +2752,7 @@ static void outfit_parseSMunition( Outfit *temp, const xmlNodePtr parent )
    }
    l = os_printD( temp->summary_raw, l, 1. / temp->u.mnt.delay,
                   &fire_rate_opts );
-   l = os_printD( temp->summary_raw, l, outfit_range( temp ), &range_opts );
-   // l = os_printD( temp->summary_raw, l, temp->u.mnt.duration, &duration_opts
-   // );
+   l = os_printD( temp->summary_raw, l, outfit_rangeRaw( temp ), &range_opts );
 
    if ( temp->u.mnt.accel > 0. ) {
       if ( temp->u.mnt.speed > 0. )
