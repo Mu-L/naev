@@ -461,6 +461,7 @@ int            outfit_isActive( const Outfit *o );
 int            outfit_isToggleable( const Outfit *o );
 int            outfit_isWeapon( const Outfit *o );
 int            outfit_isForward( const Outfit *o );
+int            outfit_isMunition( const Outfit *o );
 int            outfit_isBolt( const Outfit *o );
 int            outfit_isBeam( const Outfit *o );
 int            outfit_isLauncher( const Outfit *o );

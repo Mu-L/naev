@@ -34,6 +34,7 @@
 #include "nlua_munition.h"
 #include "nlua_outfit.h"
 #include "nlua_pilotoutfit.h"
+#include "nmath.h"
 #include "nstring.h"
 #include "nxml.h"
 #include "pilot.h"
@@ -777,7 +778,7 @@ int outfit_isLauncher( const Outfit *o )
 }
 int outfit_isMunition( const Outfit *o )
 {
-   return outfit_isBolt( o ) && outfit_isLauncher( o );
+   return outfit_isBolt( o ) || outfit_isLauncher( o );
 }
 /**
  * @brief Checks if outfit is a seeking weapon.
@@ -786,7 +787,7 @@ int outfit_isMunition( const Outfit *o )
  */
 int outfit_isSeeker( const Outfit *o )
 {
-   if ( outfit_isMunition( o ) && ( o->u.mnt.ai > 0 ) )
+   if ( outfit_isMunition( o ) && ( o->u.mnt.ai != AMMO_AI_UNGUIDED ) )
       return 1;
    return 0;
 }
@@ -1029,10 +1030,14 @@ double outfit_range( const Outfit *o )
 }
 double outfit_rangeRaw( const Outfit *o )
 {
-   if ( outfit_isMunition( o ) )
-      // return o->u.mnt.range;
-      return 0;
-   else if ( outfit_isBeam( o ) )
+   if ( outfit_isMunition( o ) ) {
+      double dur = ( o->u.mnt.duration + o->u.mnt.falloff ) * 0.5;
+      if ( fabs( o->u.mnt.accel ) > DOUBLE_TOL ) {
+         return dur * o->u.mnt.speed + dur * dur * o->u.mnt.accel;
+      } else {
+         return dur * o->u.mnt.speed;
+      }
+   } else if ( outfit_isBeam( o ) )
       return o->u.bem.range;
    return 0;
 }
@@ -2440,6 +2445,7 @@ static void outfit_parseSMunition( Outfit *temp, const xmlNodePtr parent )
 
    double range            = -1.;
    double falloff          = -1.;
+   temp->u.mnt.ai          = AMMO_AI_UNGUIDED;
    temp->u.mnt.duration    = -1.;
    temp->u.mnt.falloff     = -1.;
    temp->u.mnt.trackmin    = -1.;
@@ -2447,7 +2453,6 @@ static void outfit_parseSMunition( Outfit *temp, const xmlNodePtr parent )
    temp->u.mnt.spfx_armour = -1;
    temp->u.mnt.spfx_shield = -1;
    temp->u.mnt.trail_spec  = NULL;
-   temp->u.mnt.ai          = -1;
    temp->u.mnt.speed_max   = -1.;
    temp->u.mnt.shots       = 1;
 
@@ -2455,7 +2460,22 @@ static void outfit_parseSMunition( Outfit *temp, const xmlNodePtr parent )
    do { /* load all the data */
       xml_onlyNodes( node );
       // Some alternate ways of defining values
-      xmlr_float( node, "range", range );
+      if ( xml_isNode( node, "range" ) ) {
+         char *buf;
+         xmlr_attr_strd( node, "blowup", buf );
+         if ( buf != NULL ) {
+            if ( strcmp( buf, "armour" ) == 0 )
+               outfit_setProp( temp, OUTFIT_PROP_WEAP_BLOWUP_SHIELD );
+            else if ( strcmp( buf, "shield" ) == 0 )
+               outfit_setProp( temp, OUTFIT_PROP_WEAP_BLOWUP_ARMOUR );
+            else
+               WARN( _( "Outfit '%s' has invalid blowup property: '%s'" ),
+                     temp->name, buf );
+            free( buf );
+         }
+         range = xml_getFloat( node );
+         continue;
+      }
       xmlr_float( node, "falloff", falloff );
       // Direct definitions
       xmlr_float( node, "delay", temp->u.mnt.delay );
@@ -2548,12 +2568,23 @@ static void outfit_parseSMunition( Outfit *temp, const xmlNodePtr parent )
          outfit_loadGFX( temp, node );
          continue;
       }
+      if ( xml_isNode( node, "gfx_end" ) ) {
+         temp->u.mnt.gfx.tex_end = xml_parseTexture(
+            node, OUTFIT_GFX_PATH "space/%s", 6, 6, OPENGL_TEX_MIPMAPS );
+         continue;
+      }
       if ( xml_isNode( node, "spfx_armour" ) ) {
          temp->u.mnt.spfx_armour = spfx_get( xml_get( node ) );
+         if ( temp->u.mnt.spfx_armour < 0 )
+            WARN( _( "Outfit '%s' has unknown spfx_armour '%s'!" ), temp->name,
+                  xml_get( node ) );
          continue;
       }
       if ( xml_isNode( node, "spfx_shield" ) ) {
          temp->u.mnt.spfx_shield = spfx_get( xml_get( node ) );
+         if ( temp->u.mnt.spfx_shield < 0 )
+            WARN( _( "Outfit '%s' has unknown spfx_shield '%s'!" ), temp->name,
+                  xml_get( node ) );
          continue;
       }
       if ( xml_isNode( node, "sound" ) ) {
@@ -2607,13 +2638,25 @@ static void outfit_parseSMunition( Outfit *temp, const xmlNodePtr parent )
       WARN( "Outfit '%s' has both 'falloff' and 'duration_falloff' specified!",
             temp->name );
 
+   // We can define outfits directly by range, but this can behave a bit funny
+   // with modifiers and such
    if ( range > 0. ) {
-      // TODO consider accel / max speed
-      temp->u.mnt.duration = range / temp->u.mnt.speed;
+      if ( temp->u.mnt.accel > 0. ) {
+         double res[2];
+         nmath_solve2Eq( res, temp->u.mnt.accel, temp->u.mnt.speed, -range );
+         temp->u.mnt.duration = ( res[0] > res[1] ) ? res[0] : res[1];
+      } else {
+         temp->u.mnt.duration = range / temp->u.mnt.speed;
+      }
    }
    if ( falloff > 0. ) {
-      // TODO consider accel / max speed
-      temp->u.mnt.falloff = falloff / temp->u.mnt.speed;
+      if ( temp->u.mnt.accel > 0. ) {
+         double res[2];
+         nmath_solve2Eq( res, temp->u.mnt.accel, temp->u.mnt.speed, -falloff );
+         temp->u.mnt.falloff = ( res[0] > res[1] ) ? res[0] : res[1];
+      } else {
+         temp->u.mnt.falloff = falloff / temp->u.mnt.speed;
+      }
    }
    if ( temp->u.mnt.falloff < 0. )
       temp->u.mnt.falloff = temp->u.mnt.duration;
@@ -2740,8 +2783,10 @@ static void outfit_parseSMunition( Outfit *temp, const xmlNodePtr parent )
          s ) /**< Define to help check for data errors. */
    MELEMENT( temp->u.mnt.delay == 0., "delay" );
    // MELEMENT(temp->cpu==0.,"cpu");
-   MELEMENT( temp->u.mnt.amount == 0., "amount" );
-   MELEMENT( temp->u.mnt.reload_time == 0., "reload_time" );
+   // MELEMENT( temp->u.mnt.amount == 0., "amount" );
+   if ( temp->u.mnt.amount > 0 ) {
+      MELEMENT( temp->u.mnt.reload_time == 0., "reload_time" );
+   }
    // MELEMENT(!outfit_isProp(temp,OUTFIT_PROP_SHOOT_DRY)&&temp->u.mnt.gfx_space==NULL,"gfx");
    /*
    MELEMENT( !outfit_isProp( temp, OUTFIT_PROP_SHOOT_DRY ) &&

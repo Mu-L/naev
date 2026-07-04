@@ -942,17 +942,7 @@ void pilot_fillAmmo( Pilot *pilot )
 
 double pilot_outfitRange( const Pilot *p, const Outfit *o )
 {
-   if ( outfit_isBolt( o ) ) {
-      double range = outfit_falloff( o ) +
-                     ( outfit_rangeRaw( o ) - outfit_falloff( o ) ) / 2.;
-      if ( p != NULL ) {
-         if ( outfit_isTurret( o ) )
-            range *= p->stats.tur_range * p->stats.weapon_range;
-         else if ( outfit_isForward( o ) )
-            range *= p->stats.fwd_range * p->stats.weapon_range;
-      }
-      return range;
-   } else if ( outfit_isBeam( o ) ) {
+   if ( outfit_isBeam( o ) ) {
       double range = outfit_rangeRaw( o );
       if ( p != NULL ) {
          if ( outfit_isTurret( o ) )
@@ -961,14 +951,21 @@ double pilot_outfitRange( const Pilot *p, const Outfit *o )
             range *= p->stats.fwd_range * p->stats.weapon_range;
       }
       return range;
-   } else if ( outfit_isLauncher( o ) ) {
-      double duration  = outfit_duration( o );
+   } else if ( outfit_isMunition( o ) ) {
+      double duration  = ( outfit_duration( o ) + outfit_falloff( o ) ) * 0.5;
       double accel     = outfit_launcherAccel( o );
       double speed     = outfit_launcherSpeed( o );
       double speed_max = outfit_launcherSpeedMax( o );
       if ( p != NULL ) {
          double speed_mod = p->stats.launch_speed * p->stats.weapon_speed;
-         duration *= p->stats.launch_range * p->stats.weapon_range;
+         if ( outfit_isLauncher( o ) ) {
+            duration *= p->stats.launch_range;
+         } else if ( outfit_isTurret( o ) ) {
+            duration *= p->stats.tur_range;
+         } else {
+            duration *= p->stats.fwd_range;
+         }
+         duration *= p->stats.weapon_range;
          speed *= speed_mod;
          accel *= p->stats.launch_accel;
          speed_max *= speed_mod;
