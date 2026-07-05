@@ -411,6 +411,7 @@ function enter()
          fleep = fleet.add( count, pilots, "Mercenary", nil, _("Artefact Hunter"), {ai="baddiepos"} )
          for i, j in ipairs(fleep) do
             j:setHostile(true)
+            j:memory().capturable = true
             j:memory().guardpos = player.pos() -- Just go towards the player position and attack if they are around
          end
       end

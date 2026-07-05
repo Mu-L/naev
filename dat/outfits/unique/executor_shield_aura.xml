@@ -5,7 +5,7 @@
   <typename>Aura</typename>
   <slot>utility</slot>
   <size>large</size>
-  <mass>0</mass>
+  <mass>3</mass>
   <price>5000000</price>
   <description>Developed as part of a confidential Empire program to push the limits of shield technology, the Executor Shield Aura uses polarized electromagnetic fields to remotely overdrive nearby ships. Through careful modulation of the polarization, the effect can be restricted to a subset of ships. Given the advanced technical requirements such as calibration and rare resources necessary, few of such devices are available, and their usage is limited to the fearsome Imperial Executors.</description>
   <gfx_store>executor_shield_aura</gfx_store>

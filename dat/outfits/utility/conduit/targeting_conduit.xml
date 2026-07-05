@@ -5,6 +5,7 @@
   <slot>utility</slot>
   <size>small</size>
   <rarity>1</rarity>
+  <licence>Medium Weapon</licence>
   <mass>2</mass>
   <price>675000</price>
   <gfx_store>targeting_conduit</gfx_store>

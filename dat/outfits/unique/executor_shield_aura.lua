@@ -5,10 +5,10 @@ local RANGE = 3000
 local BONUS = 30
 
 function descextra( _p, _o, _po )
-   return fmt.f(_("Gives +{bonus}% shield regeneration to all friendly ships within {range} units. Range is affected by detection bonus."),{
+   return "#b"..fmt.f(_("Gives +{bonus}% shield regeneration to all friendly ships within {range} units. Range is affected by detection bonus."),{
       range = RANGE,
       bonus = BONUS,
-   })
+   }).."#0"
 end
 
 -- Init function run on creation

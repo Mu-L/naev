@@ -9,6 +9,6 @@
  <stats>
   <fuel>-100</fuel>
   <fuel_regen>1</fuel_regen>
-  <jump_delay>50</jump_delay>
+  <jump_delay>30</jump_delay>
  </stats>
 </ship>
