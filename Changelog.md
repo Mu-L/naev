@@ -52,6 +52,7 @@
      immediately
    * Can only sell ships when a shipyard is available
    * Llama voyager no longer has a super efficient jumpdrive
+   * Some ultra-heavy ship utility/structural slot distribution changes
 
  ### Content
 
@@ -62,7 +63,7 @@
        - Pirates will raid systems
    * 4 new ships
    * 21 new outfits
-   * 2 new ship variants
+   * 3 new ship variants
    * Groove
    * Many more unique pilots
 
@@ -109,7 +110,7 @@
          time
        - `SELL_SHIP_MODIFIER` and `SELL_OUTFIT_MODIFIER` to control how much of
          a discount things are sold with
-   * Tech groups cand have conditional elements and the likes
+   * Tech groups can have conditional elements and the likes
    * All player visible resources now have a separate user-facing display name
    * Audio should try to switch devices when disconnected or default playback
      device changes
@@ -121,6 +122,8 @@
    * Collision polygon generated baked into the engine
    * Time system is completely customizable by plugins now
    * You can define scaling for map decorators
+   * Merged launchers and bolt weapons in the backend, which now allows to
+     share their properties and create things like seeking bolt weapons
    * Added support for sounds to spfx
    * Added some support for spob domination
 
