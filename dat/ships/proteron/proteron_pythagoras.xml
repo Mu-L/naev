@@ -40,7 +40,7 @@
   <utility size="large"/>
   <utility size="large"/>
   <utility size="large"/>
-  <utility size="large"/>
+  <utility size="medium"/>
   <structure size="large" prop="engines" name="engines">Unicorp Eagle 3000 Engine</structure>
   <structure size="large" prop="hull" name="hull">Unicorp D-58 Heavy Plating</structure>
   <structure prop="hull_secondary" name="hull_secondary" size="small">Unicorp D-2 Light Plating</structure>
@@ -48,6 +48,7 @@
   <structure size="large"/>
   <structure size="large"/>
   <structure size="large"/>
+  <structure size="medium"/>
  </slots>
  <stats>
   <speed_mod>5</speed_mod>
