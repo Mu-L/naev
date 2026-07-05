@@ -1,0 +1,18 @@
+<ship name="Clydesdale Blockade Buster" inherits="Clydesdale">
+ <lua>clydesdale_blockade_buster.lua</lua>
+ <rarity>2</rarity>
+ <price>5725000</price>
+ <time_mod>1.25</time_mod>
+ <description>The colonists of Antlejos V have now had a wealth of experience running crucial supplies through a hostile blockade. Some of the cargo capacity has been stripped in order to lighten the ship and increase agility both in and out of orbit. With the addition of extra maneuvering thrusters that can be supercharged when the ship is endangered, this variant of the venerable Clydesdale has earned a reputation for escaping many a tight spot.</description>
+ <characteristics>
+  <mass>1250</mass>
+  <cargo>130</cargo>
+ </characteristics>
+ <stats>
+  <turn_mod>-15</turn_mod>
+  <misc_reverse_thrust/>
+  <land_delay>-30</land_delay>
+  <armour_mod>10</armour_mod>
+  <cargo_inertia>-10</cargo_inertia>
+ </stats>
+</ship>
