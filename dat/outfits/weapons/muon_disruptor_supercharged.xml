@@ -2,35 +2,31 @@
  <general>
   <slot>weapon</slot>
   <size>large</size>
-  <mass>48</mass>
+  <mass>72</mass>
   <price>1450000</price>
   <licence>Heavy Weapon</licence>
   <rarity>2</rarity>
   <description>This exotic weapon system is the largest manufactured by the Thurion, launching seeking microbot swarms sheathed in a corona of highly volatile exotic particles. Their high energy charge slows them down somewhat compared to their smaller cousins.</description>
-  <gfx_store>neutronheavy</gfx_store>
+  <gfx_store>disruptor_battery2</gfx_store>
   <cpu>-350</cpu>
  </general>
- <specific type="launcher">
-  <gfx type="shader" size="9.0" col_size="9.0">particles/disruptor_s2.frag</gfx>
+ <specific type="turret bolt">
+  <gfx type="shader" size="10.0" col_size="10.0">particles/muon.frag</gfx>
   <sound>neutron</sound>
   <spfx_shield>Shi-S</spfx_shield>
   <spfx_armour>Exp-S</spfx_armour>
   <delay>2.5</delay>
-  <reload_time>2.5</reload_time>
-  <ammo_mass>0.0</ammo_mass>
-  <amount>3</amount>
-  <lockon>0.01</lockon>
-  <iflockon>0.01</iflockon>
-  <duration blowup="shield">5.0</duration>
+  <lockon>0.10</lockon>
+  <iflockon>0.20</iflockon>
   <accel>200</accel>
-  <turn>70</turn>  
+  <turn>75</turn>  
   <speed>400</speed>
+  <range>1800</range>
+  <falloff>1650</falloff>
   <energy>192</energy>
-  <trackmin>5000</trackmin>
-  <trackmax>20000</trackmax>
+  <trackmin>4000</trackmin>
+  <trackmax>16000</trackmax>
   <resist>100</resist>
-  <swivel>22</swivel>
-  <arc>180</arc>
   <damage>
    <type>energy</type>
    <penetrate>190</penetrate>
