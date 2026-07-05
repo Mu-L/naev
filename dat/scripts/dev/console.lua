@@ -6,6 +6,7 @@ A sort of useful scripts that will be loaded right away in the console, allowing
 
 --]]
 local fmt = require "format"
+local lf = require "love.filesystem"
 
 local function _disp( v, mul )
    if v~=nil then
@@ -107,4 +108,29 @@ local equipopt
 dev.debug_goodness = function (...)
    equipopt = require "equipopt"
    return equipopt.optimize.debug_goodness(...)
+end
+
+local function find_bounty( varname )
+   for k,v in ipairs(lf.getDirectoryItems("events/priority_bounty/bounties")) do
+      local filename = "events.priority_bounty.bounties."..string.gsub(v,".lua","")
+      local b     = require( filename )
+      b.filename  = filename
+      b.var       = b.var or v
+      if b.var == varname then
+         return b
+      end
+   end
+end
+function dev.start_priority_bounty( name )
+   local b = find_bounty( name )
+   if not b then
+      error(fmt.f("bounty '{b}' not found", {
+         b = name,
+      } ) )
+   end
+
+   local nc = naev.cache()
+   nc._priority_bounty = b
+   naev.missionStart("Priority Bounty")
+   nc._priority_bounty = nil
 end

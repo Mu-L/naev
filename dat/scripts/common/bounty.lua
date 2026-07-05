@@ -46,12 +46,6 @@ local msg_shared_def = {
    _([["Ha ha ha, looks like I beat you to it this time, eh? Well, I don't do this often, but here, have some of the bounty. I think you deserve it."]]),
 }
 
-mem.misn_desc = _([[The pirate known as {pirname} was recently seen in the {sys} system. {fct} authorities want this pirate dead or alive. {pirname} is believed to be flying a {shipclass}-class ship. The pirate may disappear if you take too long to reach the {sys} system.
-
-#nTarget:#0 {pirname} ({shipclass}-class ship)
-#nWanted:#0 Dead or Alive
-#nLast seen:#0 {sys} system]])
-
 -- Messages
 local msg_gotaway_def = _("{plt} got away.")
 local msg_eliminated_other_def = _("Another pilot eliminated {plt}.")
