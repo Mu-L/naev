@@ -608,6 +608,7 @@ dat/ships/neutral/ancestor.xml
 dat/ships/neutral/ancestor_hg_eagle-eye.xml
 dat/ships/neutral/bedivere.xml
 dat/ships/neutral/clydesdale.xml
+dat/ships/neutral/clydesdale_blockade_buster.xml
 dat/ships/neutral/gawain.xml
 dat/ships/neutral/gawain_xy37.xml
 dat/ships/neutral/goddard.xml
@@ -3874,6 +3875,7 @@ dat/scripts/vn/vn.lua
 dat/scripts/vnextras.lua
 dat/scripts/vnimage.lua
 dat/scripts/vntk.lua
+dat/ships/lua/clydesdale_blockade_buster.lua
 dat/ships/lua/dvaered.lua
 dat/ships/lua/empire_admonisher_longbow.lua
 dat/ships/lua/empire_pacifier_hoplite.lua

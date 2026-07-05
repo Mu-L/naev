@@ -4376,11 +4376,15 @@ static int pilotL_shippropReset( lua_State *L )
  *
  * @usage p:shippropSet( "turn", -50 ) -- Lowers the turn rate of pilot p by
  * 50%
+ * @usage p:shippropSet( { "speed" = 25, "accel" = 25 } ) -- Adding 25 speed and
+ * accel at the same time.
  *
  *    @luatparam Pilot p Pilot to set stat of.
- *    @luatparam string name Name of the stat to set. It is the same as in
- * the xml.
- *    @luatparam number value Value to set the stat to.
+ *    @luatparam string|table name Name of the stat to set. It is the same as in
+ * the xml. Can also be a unordered table of name:value pairs to apply a set of
+ * stats at the same time.
+ *    @luatparam number|nil value Value to set the stat to. Only used if name is
+ * a string.
  * @luafunc shippropSet
  */
 static int pilotL_shippropSet( lua_State *L )
