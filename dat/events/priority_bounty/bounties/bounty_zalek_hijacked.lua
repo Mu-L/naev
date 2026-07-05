@@ -18,11 +18,16 @@ return {
       local fct = bounty.get_faction()
       local p = pilot.add( b.targetship[1], fct, params, b.targetname, {ai="baddie_norun", naked = true } )
       equipopt.zalek( p, {
+         outfits_add = {
+            "Pipeline Conduit" -- very good synergy with the RAT, not something to pass up on
+         },
          prefer = {
-            ["Za'lek Reaper Launcher"] = 100
+            ["Pipeline Conduit"] = 100,
+            ["Milspec Scrambler"] = 50,
+            ["Milspec Jammer"] = 50
          },
          type_range = {
-            ["Launcher"] = { min = 4 },
+            ["Launcher"] = { min = 6 },
          },
       } )
       local m = p:memory()
