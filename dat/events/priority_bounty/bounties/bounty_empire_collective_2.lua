@@ -17,6 +17,7 @@ return {
       local fct = bounty.get_faction()
       local p = pilot.add( b.targetship[1], fct, params, b.targetname, { ai = "baddie_norun", naked = true } )
       p:outfitAddIntrinsic("Escape Pod")
+      equipopt.empire( p )
       local m = p:memory()
       if not m.lootables then
          m.lootables = {}
