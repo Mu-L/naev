@@ -2346,10 +2346,9 @@ static void weapon_createMunition( Weapon *w, const Outfit *outfit, double dir,
    w->dam_as_dis_mod = CLAMP( 0., 1., w->dam_as_dis_mod );
 
    // Compute starting velocity
-   double speed = outfit_speed( outfit ) * w->speed_mod;
-   vec2   v     = *vel;
-   double m     = speed;
-   vec2_cadd( &v, m * cos( rdir ), m * sin( rdir ) );
+   double speed            = outfit_speed( outfit ) * w->speed_mod;
+   vec2   v                = *vel;
+   double m                = speed;
    double speed_dispersion = outfit_speed_dispersion( outfit );
    if ( speed_dispersion > 0. )
       m += RNG_1SIGMA() * speed_dispersion;
