@@ -14,6 +14,7 @@
   <sound>neutron</sound>
   <spfx_shield>Shi-S</spfx_shield>
   <spfx_armour>Exp-S</spfx_armour>
+  <delay>2.0</delay>
   <lockon>0.10</lockon>
   <iflockon>0.20</iflockon>
   <accel>300</accel>

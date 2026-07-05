@@ -23,7 +23,7 @@
   <speed>500</speed>
   <range>1400</range>
   <falloff>1250</falloff>
-  <energy>110</energy>
+  <energy>94</energy>
   <trackmin>2400</trackmin>
   <trackmax>9600</trackmax>
   <resist>100</resist>

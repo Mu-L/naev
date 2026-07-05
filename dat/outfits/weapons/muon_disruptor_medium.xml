@@ -15,6 +15,7 @@
   <sound>neutron</sound>
   <spfx_shield>Shi-S</spfx_shield>
   <spfx_armour>Exp-S</spfx_armour>
+  <delay>2.2</delay>
   <lockon>0.10</lockon>
   <iflockon>0.20</iflockon>
   <accel>275</accel>
@@ -22,7 +23,7 @@
   <speed>550</speed>
   <range>1000</range>
   <falloff>850</falloff>
-  <energy>45</energy>
+  <energy>65</energy>
   <trackmin>1200</trackmin>
   <trackmax>4800</trackmax>
   <resist>100</resist>
