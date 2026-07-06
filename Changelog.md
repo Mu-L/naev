@@ -62,7 +62,7 @@
    * 8 new events
        - Pirates will raid systems
    * 4 new ships
-   * 21 new outfits
+   * 26 new outfits
    * 3 new ship variants
    * Groove
    * Many more unique pilots

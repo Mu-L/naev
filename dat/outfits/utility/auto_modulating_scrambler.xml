@@ -2,7 +2,7 @@
  <general>
   <shortname>A.M. Scrambler</shortname>
   <typename>Electronic Warfare Scrambler</typename>
-  <rarity>2</rarity>  
+  <rarity>2</rarity>
   <slot>utility</slot>
   <size>large</size>
   <mass>2</mass>
@@ -10,7 +10,7 @@
   <description>Instead of reflecting signals or drowning nearby space with noise, this advanced scrambler pulses radiation over the ship's hull, using computated noise patterns to mimic the background radiation of nearby space, acting as effective camouflage to sensors and weapon tracking systems. This auto-modulation process imposes a small computational burden on the ship's computer to maintain.</description>
   <gfx_store>jammer1</gfx_store>
   <limit>scrambler</limit>
-  <cpu>-75</cpu>  
+  <cpu>-75</cpu>
  </general>
  <specific type="modification">
   <ew_signature>-20</ew_signature>
