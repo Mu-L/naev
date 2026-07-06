@@ -44,7 +44,7 @@ local function recalculate( domsg )
       local q = player.outfitNum(o)
       cap = cap + q*compute_capacity( o:tags() )
    end
-   local pbounty = math.floor( bhelp.count_done() / 5 )
+   local pbounty = math.floor( bhelp.bounty_done() / 5 )
    cap = cap + 5*pbounty
 
    player.fleetCapacitySet( cap )

@@ -153,7 +153,7 @@ function bhelp.choose_ships_from_points_and_capship( capship, shiplist, points )
 end
 
 -- Coounts how many priority bounties were done by the player
-function bhelp.count_done()
+function bhelp.bounty_done()
    local nc = naev.cache()
    if not nc._priority_bounty_done then
       nc._priority_bounty_done = {}
@@ -176,7 +176,7 @@ end
 -- Checks to see if the player has done a certain amount of bounties
 function bhelp.cond_bounty_done( done )
    return function ()
-      return bhelp.count_done() >= done
+      return bhelp.bounty_done() >= done
    end
 end
 
@@ -190,7 +190,7 @@ end
 -- Combines cond_priority_bounty_done and cond_bounty_points
 function bhelp.cond_bounty_points_done( points, done )
    return function ()
-      return (bhelp.count_done() >= done) and
+      return (bhelp.bounty_done() >= done) and
             ((var.peek( "astra_vigilis_points" ) or 0) >= points)
    end
 end
