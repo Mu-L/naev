@@ -175,7 +175,9 @@ end
 
 -- Checks to see if the player has done a certain amount of bounties
 function bhelp.cond_priority_bounty_done( done )
-   return bhelp.count_done() >= done
+   return function ()
+      return bhelp.count_done() >= done
+   end
 end
 
 -- Checks to see if the player meets a required amount of points
