@@ -2809,8 +2809,9 @@ static void outfit_parseSMunition( Outfit *temp, const xmlNodePtr parent )
       MELEMENT( temp->u.mnt.turn == 0, "turn" );
       MELEMENT( temp->u.mnt.trackmin < 0, "trackmin" );
       MELEMENT( temp->u.mnt.trackmax < 0, "trackmax" );
-      MELEMENT( temp->u.mnt.lockon < 0, "lockon" );
-      MELEMENT( !outfit_isTurret( temp ) && ( temp->u.mnt.arc == 0. ), "arc" );
+      MELEMENT( ( temp->u.mnt.lockon > 0. ) && !outfit_isTurret( temp ) &&
+                   ( temp->u.mnt.arc == 0. ),
+                "arc" );
    }
    MELEMENT( !outfit_isProp( temp, OUTFIT_PROP_SHOOT_DRY ) &&
                 temp->u.mnt.speed_max == 0,
