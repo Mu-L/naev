@@ -5,7 +5,7 @@ return {
    var            = "bounty_soromid_poachers_3",
    title          = _("Stop the Slaughter"),
    desc           = _("We've been given the last known location of one 'Doctor Slaughter', a Za'lek renegade who appears to be behind the largest poaching operation in Soromid space."),
-   escorts        = _("with a large posse of poachers"),
+   escorts        = _("with a posse of poachers"),
    reward         = 2.5e6,
    system         = system.get("NGC-13322"),
    name           = _("Doctor Slaughter"),
@@ -29,7 +29,7 @@ return {
       m.taunt = saying
       m.comm_greet = saying
       local enemies = {p}
-      for k,s in ipairs(bhelp.choose_ships_from_points_and_capship( p:ship(), bhelp.ships.pirate, 400 )) do
+      for k,s in ipairs(bhelp.choose_ships_from_points_and_capship( p:ship(), bhelp.ships.pirate, 200 )) do
          local e = pilot.add( s, fct, params )
          e:memory().capturable = true
          e:setLeader(p)
@@ -39,6 +39,6 @@ return {
    end,
    cond = function ()
       return var.peek("bounty_soromid_poachers_2")
-         and (var.peek("astra_vigilis_points") or 0) > 400
+         and bhelp.bounty_done() >= 10
    end,
 }

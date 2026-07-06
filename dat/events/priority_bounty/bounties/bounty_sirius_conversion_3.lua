@@ -52,5 +52,6 @@ return {
    cond = function ()
       return var.peek("bounty_sirius_conversion_1")
          and var.peek("bounty_sirius_conversion_2")
+         and bhelp.bounty_done() >= 5
    end,
 }

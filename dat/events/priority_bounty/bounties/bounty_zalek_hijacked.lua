@@ -61,5 +61,5 @@ return {
       p:rename( _("the ship's AI core") )
       return true
    end,
-   cond = bhelp.cond_bounty_points( 500 ),
+   cond = bhelp.cond_bounty_done( 20 ),
 }

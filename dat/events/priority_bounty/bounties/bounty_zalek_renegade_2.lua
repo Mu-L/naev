@@ -29,7 +29,7 @@ return {
       m.taunt = saying
       m.comm_greet = saying
       local enemies = {p}
-      for k,s in ipairs(bhelp.choose_ships_from_points_and_capship( p:ship(), bhelp.ships.pirate, 200 )) do
+      for k,s in ipairs(bhelp.choose_ships_from_points_and_capship( p:ship(), bhelp.ships.pirate, 150 )) do
          local e = pilot.add( s, fct, params )
          e:memory().capturable = true
          e:setLeader(p)
@@ -39,6 +39,6 @@ return {
    end,
    cond = function ()
       return var.peek("bounty_zalek_renegade_1")
-         and (var.peek("astra_vigilis_points") or 0) > 300
+         and bhelp.bounty_done() >= 5
    end,
 }
