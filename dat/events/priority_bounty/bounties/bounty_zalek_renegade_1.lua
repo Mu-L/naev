@@ -37,5 +37,5 @@ return {
       end
       return enemies
    end,
-   cond = bhelp.cond_bounty_points( 200 ),
+   cond = bhelp.cond_bounty_points( 100 ),
 }

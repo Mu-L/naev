@@ -39,7 +39,7 @@ return {
       m.taunt = saying
       m.comm_greet = saying
       local enemies = {p}
-      for k,s in ipairs(bhelp.choose_ships_from_points_and_capship( p:ship(), bhelp.ships.pirate, 250 )) do
+      for k,s in ipairs(bhelp.choose_ships_from_points_and_capship( p:ship(), bhelp.ships.pirate, 150 )) do
          local e = pilot.add( s, fct, params )
          e:memory().capturable = true
          e:setLeader(p)
@@ -49,6 +49,6 @@ return {
    end,
    cond = function ()
       return var.peek("bounty_soromid_poachers_1")
-         and (var.peek("astra_vigilis_points") or 0) > 250
+         and bhelp.bounty_done() >= 5
    end,
 }

@@ -48,6 +48,5 @@ return {
    end,
    cond = function ()
       return var.peek("bounty_goddard_espionage_1")
-         and (var.peek("astra_vigilis_points") or 0) > 200
    end,
 }

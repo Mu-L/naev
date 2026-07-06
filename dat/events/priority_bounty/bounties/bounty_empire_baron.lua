@@ -58,7 +58,7 @@ return {
    end,
    cond = function ()
       return player.misnDone("Prince") --Must have completed Baron Sauterfeldt missions.
-         and (var.peek("astra_vigilis_points") or 0) > 500
+         and bhelp.bounty_done() >= 10
    end,
    completefunc = function ()
       diff.apply("baron_gone")

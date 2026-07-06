@@ -39,6 +39,5 @@ return {
    cond = function ()
       return not diff.isApplied("collective_dead") --Only available pre-Collective plot. Serves as worldbuilding, Empire rep, and to guide players gently to finding it.
          and var.peek("bounty_empire_collective_1")
-         and (var.peek("astra_vigilis_points") or 0) > 150
    end,
 }

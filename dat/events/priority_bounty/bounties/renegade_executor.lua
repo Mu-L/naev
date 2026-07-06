@@ -40,5 +40,5 @@ The Astra Vigilis has received an exceptional order to eliminate a renegade Exec
       end
       return enemies
    end,
-   cond = bhelp.cond_bounty_points( 500 ),
+   cond = bhelp.cond_bounty_done( 15 ),
 }
