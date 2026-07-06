@@ -828,13 +828,12 @@ int pilot_rmAmmo( Pilot *pilot, PilotOutfitSlot *s, int quantity )
    int q;
 
    /* Failure cases. */
-   if ( !outfit_isLauncher( s->outfit ) && !outfit_isFighterBay( s->outfit ) )
-      return 0;
-   else if ( s->outfit == NULL ) {
+   if ( s->outfit == NULL ) {
       WARN( _( "Pilot '%s': Trying to remove ammo from unequipped slot." ),
             pilot->name );
       return 0;
-   }
+   } else if ( outfit_amount( s->outfit ) <= 0 )
+      return 0;
 
    /* Remove ammo. */
    q = MIN( quantity, s->u.ammo.quantity );

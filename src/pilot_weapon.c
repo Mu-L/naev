@@ -334,6 +334,7 @@ void pilot_weapSetUpdate( Pilot *p )
          if ( time <= 0. ) /* Beam will have a fly time of INFINITY in range, or
                               -1. otherwise. */
             continue;
+         // TODO fix this stuff to be consistent
          else if ( outfit_isBolt( o ) ) {
             if ( pilot_outfitRange( p, o, 0 ) / outfit_speed( o ) < time )
                continue;
@@ -740,7 +741,9 @@ static void pilot_weapSetUpdateRange( const Pilot *p, PilotWeaponSet *ws )
          continue;
 
       /* Empty Launchers aren't valid */
-      if ( outfit_isLauncher( pos->outfit ) && ( pos->u.ammo.quantity <= 0 ) )
+      if ( outfit_isMunition( pos->outfit ) &&
+           ( outfit_amount( pos->outfit ) > 0 ) &&
+           ( pos->u.ammo.quantity <= 0 ) )
          continue;
 
       /* Get range. */
@@ -943,7 +946,7 @@ double pilot_weapFlyTime( const Outfit *o, const Pilot *parent, const vec2 *pos,
 
    /* Missiles use absolute velocity while bolts and unguided rockets use
     * relative vel */
-   if ( outfit_isLauncher( o ) && outfit_launcherAI( o ) != AMMO_AI_UNGUIDED )
+   if ( outfit_launcherAI( o ) != AMMO_AI_UNGUIDED )
       vec2_cset( &approach_vector, -vel->x, -vel->y );
    else
       vec2_cset( &approach_vector, VX( parent->solid.vel ) - vel->x,
@@ -1028,13 +1031,13 @@ static int pilot_shootWeaponSetOutfit( Pilot *p, const Outfit *o,
                                        const Target *target, double time,
                                        int aim )
 {
-   int    is_launcher, is_bay;
+   int    is_munition, is_bay;
    double rate_mod, energy_mod;
    int    maxp, minh;
    double q, maxt;
 
    /* Stores if it is a launcher or bay. */
-   is_launcher = outfit_isLauncher( o );
+   is_munition = outfit_isMunition( o );
    is_bay      = outfit_isFighterBay( o );
 
    /* Calculate rate modifier. */
@@ -1057,12 +1060,13 @@ static int pilot_shootWeaponSetOutfit( Pilot *p, const Outfit *o,
          continue;
 
       /* Launcher only counts with ammo. */
-      if ( ( is_launcher || is_bay ) && ( pos->u.ammo.quantity <= 0 ) )
+      if ( ( is_munition || is_bay ) && ( outfit_amount( o ) > 0 ) &&
+           ( pos->u.ammo.quantity <= 0 ) )
          continue;
 
       /* Get coolest that can fire. */
       if ( pos->timer <= 0. ) {
-         if ( is_launcher ) {
+         if ( is_munition ) {
             if ( ( minh < 0 ) ||
                  ( p->outfits[minh]->u.ammo.quantity < pos->u.ammo.quantity ) )
                minh = i;
@@ -1134,39 +1138,10 @@ int pilot_shootWeapon( Pilot *p, PilotOutfitSlot *w, const Target *target,
    vp.x += p->solid.pos.x;
    vp.y += p->solid.pos.y;
 
-   /* Regular bolt weapons. */
-   if ( outfit_isBolt( w->outfit ) ) {
-      /* enough energy? */
-      if ( outfit_energy( w->outfit ) * energy_mod > p->energy )
-         return 0;
-
-      /* Lua test. */
-      if ( ( aim >= 0 ) && ( outfit_luaOnshoot( w->outfit ) != LUA_NOREF ) &&
-           !pilot_outfitLOnshoot( p, w ) )
-         return 0;
-
-      energy = outfit_energy( w->outfit ) * energy_mod;
-      p->energy -= energy;
-      if ( !outfit_isProp( w->outfit, OUTFIT_PROP_SHOOT_DRY ) ) {
-         for ( int i = 0; i < outfit_shots( w->outfit ); i++ ) {
-            const Weapon *ww = weapon_add( w, NULL, p->solid.dir, &vp, &vv, p,
-                                           target, time, aim );
-            if ( i == 0 ) {
-               // Recoil
-               // TODO use average of shots and not just the first one to
-               // determine direction
-               double recoil = -outfit_recoil( w->outfit );
-               vec2_padd( &p->solid.vel, recoil / p->solid.mass,
-                          ww->solid.dir );
-            }
-         }
-      }
-   }
-
    /*
     * Beam weapons.
     */
-   else if ( outfit_isBeam( w->outfit ) ) {
+   if ( outfit_isBeam( w->outfit ) ) {
       /* Don't fire if the existing beam hasn't been destroyed yet. */
       if ( w->u.beamid > 0 )
          return 0;
@@ -1200,10 +1175,10 @@ int pilot_shootWeapon( Pilot *p, PilotOutfitSlot *w, const Target *target,
    /*
     * Missile launchers
     */
-   else if ( outfit_isLauncher( w->outfit ) ) {
+   else if ( outfit_isMunition( w->outfit ) ) {
       Target wt;
       /* Must have ammo left. */
-      if ( w->u.ammo.quantity <= 0 )
+      if ( ( outfit_amount( w->outfit ) > 0 ) && w->u.ammo.quantity <= 0 )
          return 0;
 
       /* enough energy? */
@@ -1283,7 +1258,8 @@ int pilot_shootWeapon( Pilot *p, PilotOutfitSlot *w, const Target *target,
          escort_create( p, outfit_bayShip( w->outfit ), &vp, &p->solid.vel,
                         p->solid.dir, ESCORT_TYPE_BAY, 1, dockslot );
 
-      w->u.ammo.quantity -= 1; /* we just shot it */
+      /* we just shot it */
+      pilot_rmAmmo( p, w, 1 );
    } else
       WARN( _( "Shooting unknown weapon type: %s" ), outfit_name( w->outfit ) );
 
