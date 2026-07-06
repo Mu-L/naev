@@ -69,7 +69,7 @@ This will be a difficult battle, captain.]]), {
    end,
    cond = function ()
       return var.peek("bounty_dvaered_flf_2")
-         and (var.peek("astra_vigilis_points") or 0) > 600
          and player.fleetCapacity() > 0 -- To be able to capture
+         and bhelp.bounty_done() >= 15
    end,
 }

@@ -40,7 +40,7 @@ return {
       m.taunt = saying
       m.comm_greet = saying
       local enemies = {p}
-      for k,s in ipairs(bhelp.choose_ships_from_points_and_capship( p:ship(), bhelp.ships.pirate, 400 )) do
+      for k,s in ipairs(bhelp.choose_ships_from_points_and_capship( p:ship(), bhelp.ships.pirate, 250 )) do
          local e = pilot.add( s, fct, params )
          e:memory().capturable = true
          e:setLeader(p)
@@ -50,7 +50,7 @@ return {
    end,
    cond = function ()
       return var.peek("bounty_zalek_renegade_2")
-         and (var.peek("astra_vigilis_points") or 0) > 400
+         and bhelp.bounty_done() >= 10
          and player.fleetCapacity() > 0 -- Don't allow earning the prototype ramscoop until Chapter 1.
    end,
 }

@@ -48,6 +48,6 @@ return {
    end,
    cond = function ()
       return var.peek("bounty_frontier_warlord_2")
-         and (var.peek("astra_vigilis_points") or 0) > 400
+         and bhelp.bounty_done() >= 10
    end,
 }
