@@ -77,42 +77,43 @@ end
 ```
 
 ### List of Bounties
-# Easy Bounties - no special requirements:
-bounty_empire_collective_1 (and collective not yet done)
-bounty_empire_collective_2 (and collective not yet done)
-bounty_soromid_poachers_1
-bounty_sirius_conversion_1
-bounty_sirius_conversion_2
-bounty_frontier_warlord_1
-bounty_zalek_renegade_1
-bounty_goddard_espionage_1
-bounty_goddard_espionage_2
-rogue_bounty_hunter_hellhound
 
-# Medium Bounties - Requires 5 other Priority Bounties done
-bounty_zalek_renegade_2
-bounty_goddard_espionage_3 - Unlocks railcannon
-bounty_soromid_poachers_2
-bounty_sirius_conversion_3
-bounty_dvaered_flf_1
-bounty_frontier_warlord_2
-rogue_bounty_hunter_hellhound_2
-bounty_sirius_starbridge_herald
+#### Easy Bounties - no special requirements:
+1. bounty_empire_collective_1 (and collective not yet done)
+1. bounty_empire_collective_2 (and collective not yet done)
+1. bounty_soromid_poachers_1
+1. bounty_sirius_conversion_1
+1. bounty_sirius_conversion_2
+1. bounty_frontier_warlord_1
+1. bounty_zalek_renegade_1
+1. bounty_goddard_espionage_1
+1. bounty_goddard_espionage_2
+1. rogue_bounty_hunter_hellhound
 
-# Hard Bounties - Requires 10 other Priority Bounties done
-bounty_soromid_poachers_3
-bounty_empire_collective_3 (and collective plot done) - Unlocks drone carrier & heavy drone fbays
-bounty_empire_baron (and Baron & Prince missions done)
-bounty_dvaered_flf_2
-bounty_frontier_warlord_3
-bounty_zalek_renegade_3 (and must be in Chapter 1+) - Rewards Modular Ramscoop
+#### Medium Bounties - Requires 5 other Priority Bounties done
+1. bounty_zalek_renegade_2
+1. bounty_goddard_espionage_3 - Unlocks railcannon
+1. bounty_soromid_poachers_2
+1. bounty_sirius_conversion_3
+1. bounty_dvaered_flf_1
+1. bounty_frontier_warlord_2
+1. rogue_bounty_hunter_hellhound_2
+1. bounty_sirius_starbridge_herald
 
-# Special Bounties - Requires 15 other Priority Bounties Done
-bounty_dvaered_flf_3 (and must be in Chapter 1+) -Rewards Emerald Sword & Black Diamond fbay
-renegade_executor - Rewards Executor Shield Aura
+#### Hard Bounties - Requires 10 other Priority Bounties done
+1. bounty_soromid_poachers_3
+1. bounty_empire_collective_3 (and collective plot done) - Unlocks drone carrier & heavy drone fbays
+1. bounty_empire_baron (and Baron & Prince missions done)
+1. bounty_dvaered_flf_2
+1. bounty_frontier_warlord_3
+1. bounty_zalek_renegade_3 (and must be in Chapter 1+) - Rewards Modular Ramscoop
 
-# Extra Challenge Bounties - Requires 20 other Priority Bounties Done
-bounty_zalek_hijacked
+#### Special Bounties - Requires 15 other Priority Bounties Done
+1. bounty_dvaered_flf_3 (and must be in Chapter 1+) -Rewards Emerald Sword & Black Diamond fbay
+1. renegade_executor - Rewards Executor Shield Aura
 
-# Others w/ Special Requirements:
-rainbow_goatee (All Goatee blockades done)
+##### Extra Challenge Bounties - Requires 20 other Priority Bounties Done
+1. bounty_zalek_hijacked
+
+##### Others w/ Special Requirements:
+1. rainbow_goatee (All Goatee blockades done)
