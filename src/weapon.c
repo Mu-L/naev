@@ -31,7 +31,6 @@
 #include "nlua_outfit.h"
 #include "nlua_pilot.h"
 #include "nlua_vec2.h"
-#include "nmath.h"
 #include "ntracing.h"
 #include "opengl.h"
 #include "pilot.h"
@@ -2361,7 +2360,7 @@ static void weapon_createMunition( Weapon *w, const Outfit *outfit, double dir,
 
    // Handle case of acceleration
    double accel = outfit_launcherAccel( w->outfit );
-   if ( accel > 0. ) {
+   if ( accel > DOUBLE_TOL ) {
       weapon_setAccel( w, accel * w->accel_mod );
       // Limit speed, we only relativize in the case it has accel + initial
       // speed.
@@ -2370,25 +2369,12 @@ static void weapon_createMunition( Weapon *w, const Outfit *outfit, double dir,
             outfit_launcherSpeedMax( w->outfit ) * w->speed_mod;
       }
       w->real_vel = VMOD( v );
-
-      // Compute timer duration, this is a bit tricky.
-      double res[2];
-      double duration =
-         outfit_launcherDuration( w->outfit ) * w->range_mod / w->speed_mod;
-      nmath_solve2Eq( res, accel, speed, -duration * speed );
-      w->timer = ( res[0] > res[1] ) ? res[0] : res[1];
-      double falloff =
-         outfit_falloff( w->outfit ) * w->range_mod / w->speed_mod;
-      nmath_solve2Eq( res, accel, speed, -falloff * speed );
-      w->falloff = w->timer - ( ( res[0] > res[1] ) ? res[0] : res[1] );
    } else {
       w->real_vel = 0.;
-
-      w->timer =
-         outfit_launcherDuration( w->outfit ) * w->range_mod / w->speed_mod;
-      w->falloff = outfit_falloff( w->outfit );
-      ;
    }
+   w->timer =
+      outfit_launcherDuration( w->outfit ) * w->range_mod / w->speed_mod;
+   w->falloff = outfit_falloff( w->outfit );
 
    // If it has health, it'll be destroyable
    double armour = outfit_launcherArmour( w->outfit );

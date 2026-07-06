@@ -2434,6 +2434,32 @@ static void outfit_parseSBeam( Outfit *temp, const xmlNodePtr parent )
 #undef MELEMENT
 }
 
+static double duration_from_range( double range, double speed, double speed_max,
+                                   double accel )
+{
+   // Trivial case no accel or already max speed
+   if ( ( fabs( accel ) <= DOUBLE_TOL ) ||
+        ( speed >= speed_max - DOUBLE_TOL ) ) {
+      return range / speed_max;
+   }
+
+   double t_accel = MAX( 0.0, ( speed_max - speed ) / accel );
+   double d_accel = speed_max * t_accel + 0.5 * accel * t_accel * t_accel;
+   // Never reaches max speed
+   if ( range <= d_accel ) {
+      // Solve quadratic: 0.5 a t^2 + v0 t - d = 0
+      double discriminant = speed * speed + 2.0 * accel * range;
+      if ( discriminant < 0.0 )
+         return INFINITY;
+
+      return ( -speed + sqrt( discriminant ) ) / accel;
+   }
+
+   // Accelerates to max and continues going
+   double t = ( range - d_accel ) / speed_max;
+   return t_accel + t;
+}
+
 /**
  * @brief Parses the specific area for a munition (bolt/launcher) and loads it
  * into Outfit.
@@ -2635,36 +2661,6 @@ static void outfit_parseSMunition( Outfit *temp, const xmlNodePtr parent )
       WARN( _( "Outfit '%s' has unknown node '%s'" ), temp->name, node->name );
    } while ( xml_nextNode( node ) );
 
-   if ( ( range > 0. ) && ( temp->u.mnt.duration > 0. ) )
-      WARN( "Outfit '%s' has both 'range' and 'duration' specified!",
-            temp->name );
-   if ( ( falloff > 0. ) && ( temp->u.mnt.falloff > 03 ) )
-      WARN( "Outfit '%s' has both 'falloff' and 'duration_falloff' specified!",
-            temp->name );
-
-   // We can define outfits directly by range, but this can behave a bit funny
-   // with modifiers and such
-   if ( range > 0. ) {
-      if ( fabs( temp->u.mnt.accel ) > DOUBLE_TOL ) {
-         double res[2];
-         nmath_solve2Eq( res, temp->u.mnt.accel, temp->u.mnt.speed, -range );
-         temp->u.mnt.duration = ( res[0] > res[1] ) ? res[0] : res[1];
-      } else {
-         temp->u.mnt.duration = range / temp->u.mnt.speed;
-      }
-   }
-   if ( falloff > 0. ) {
-      if ( fabs( temp->u.mnt.accel ) > DOUBLE_TOL ) {
-         double res[2];
-         nmath_solve2Eq( res, temp->u.mnt.accel, temp->u.mnt.speed, -falloff );
-         temp->u.mnt.falloff = ( res[0] > res[1] ) ? res[0] : res[1];
-      } else {
-         temp->u.mnt.falloff = falloff / temp->u.mnt.speed;
-      }
-   }
-   if ( temp->u.mnt.falloff < 0. )
-      temp->u.mnt.falloff = temp->u.mnt.duration;
-
    /* Post processing. */
    temp->u.mnt.swivel *= M_PI / 180.;
    temp->u.mnt.arc *= M_PI / 180.;
@@ -2680,6 +2676,27 @@ static void outfit_parseSMunition( Outfit *temp, const xmlNodePtr parent )
                 0. ) // Condition for not taking max_speed into account.
       WARN( _( "Max speed of outfit '%s' will be ignored." ), temp->name );
    temp->u.mnt.resist /= 100.;
+
+   // Handle range and duration overlap
+   if ( ( range > 0. ) && ( temp->u.mnt.duration > 0. ) )
+      WARN( "Outfit '%s' has both 'range' and 'duration' specified!",
+            temp->name );
+   if ( ( falloff > 0. ) && ( temp->u.mnt.falloff > 03 ) )
+      WARN( "Outfit '%s' has both 'falloff' and 'duration_falloff' specified!",
+            temp->name );
+
+   // We can define outfits directly by range, but this can behave a bit funny
+   // with modifiers and such
+   if ( range > 0. ) {
+      temp->u.mnt.duration = duration_from_range(
+         range, temp->u.mnt.speed, temp->u.mnt.speed_max, temp->u.mnt.accel );
+   }
+   if ( falloff > 0. ) {
+      temp->u.mnt.falloff = duration_from_range(
+         falloff, temp->u.mnt.speed, temp->u.mnt.speed_max, temp->u.mnt.accel );
+   }
+   if ( temp->u.mnt.falloff < 0. )
+      temp->u.mnt.falloff = temp->u.mnt.duration;
 
    /* Short description. */
    temp->summary_raw = calloc( OUTFIT_SHORTDESC_MAX, 1 );

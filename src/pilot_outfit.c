@@ -971,21 +971,18 @@ double pilot_outfitRange( const Pilot *p, const Outfit *o, int falloff )
          accel *= p->stats.launch_accel;
          speed_max *= speed_mod;
       }
-      if ( outfit_launcherAccel( o ) != 0. ) {
-         double speedinc;
-         if ( speed >
-              0. ) /* Ammo that don't start stopped don't have max speed. */
-            speedinc = INFINITY;
-         else
-            speedinc = speed_max - speed;
-         double at = speedinc / accel;
-         if ( at < duration )
-            return speedinc * ( duration - at / 2. ) + speed * duration;
-
-         /* Maximum speed will never be reached. */
-         return pow2( duration ) * accel / 2. + duration * speed;
+      if ( fabs( accel ) <= DOUBLE_TOL ) {
+         return speed_max * duration;
       }
-      return speed * duration;
+
+      double t_accel = ( speed_max - speed ) / accel;
+      // Never reaches full speed
+      if ( duration < t_accel )
+         return speed * duration + 0.5 * accel * accel * duration;
+
+      double d_accel  = speed * t_accel + 0.5 * accel * t_accel * t_accel;
+      double d_cruise = speed_max * ( duration - t_accel );
+      return d_accel + d_cruise;
    } else if ( outfit_isFighterBay( o ) )
       return INFINITY;
    return -1.;
