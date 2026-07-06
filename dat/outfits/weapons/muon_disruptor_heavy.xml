@@ -6,7 +6,7 @@
   <price>575000</price>
   <licence>Heavy Weapon</licence>
   <rarity>2</rarity>
-  <description>The destroyer-grade version of the Muon Disruptor launches microbot swarms sheathed in a highly-energized sheathe of exotic particles, able to cause significant damage to even heavy armor plating.</description>
+  <description>The destroyer-grade version of the Muon Disruptor launches microbot swarms sheathed in a highly-energized sheathe of exotic particles, able to cause significant damage to even heavy armour plating.</description>
   <gfx_store>razorturret1</gfx_store>
   <cpu>-75</cpu>
  </general>
@@ -16,10 +16,9 @@
   <spfx_shield>Shi-S</spfx_shield>
   <spfx_armour>Exp-S</spfx_armour>
   <delay>2.4</delay>
-  <lockon>0.10</lockon>
   <iflockon>0.20</iflockon>
   <accel>250</accel>
-  <turn>90</turn>  
+  <turn>90</turn>
   <speed>500</speed>
   <range>1400</range>
   <falloff>1250</falloff>
@@ -31,7 +30,7 @@
    <type>energy</type>
    <penetrate>145</penetrate>
    <physical>35</physical>
-   <disable>16</disable>   
+   <disable>16</disable>
   </damage>
   <shots>3</shots>
   <dispersion>30</dispersion>

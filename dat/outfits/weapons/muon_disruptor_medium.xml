@@ -16,7 +16,6 @@
   <spfx_shield>Shi-S</spfx_shield>
   <spfx_armour>Exp-S</spfx_armour>
   <delay>2.2</delay>
-  <lockon>0.10</lockon>
   <iflockon>0.20</iflockon>
   <accel>275</accel>
   <turn>110</turn>
@@ -31,7 +30,7 @@
    <type>energy</type>
    <penetrate>70</penetrate>
    <physical>27</physical>
-   <disable>13</disable>   
+   <disable>13</disable>
   </damage>
   <shots>3</shots>
   <dispersion>30</dispersion>

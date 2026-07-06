@@ -460,6 +460,7 @@ dat/outfits/unique/veil_of_penelope.xml
 dat/outfits/unique/zd5_guardian_unit.xml
 dat/outfits/utility/apollos_gaze.xml
 dat/outfits/utility/asteroid_scanner.xml
+dat/outfits/utility/auto_modulating_scrambler.xml
 dat/outfits/utility/berserk_chip.xml
 dat/outfits/utility/blink_drive.xml
 dat/outfits/utility/boarding_androids_mk1.xml
@@ -537,6 +538,10 @@ dat/outfits/weapons/laser_turret_mk2.xml
 dat/outfits/weapons/mass_driver.xml
 dat/outfits/weapons/mining_lance_mk1.xml
 dat/outfits/weapons/mining_lance_mk2.xml
+dat/outfits/weapons/muon_disruptor_heavy.xml
+dat/outfits/weapons/muon_disruptor_light.xml
+dat/outfits/weapons/muon_disruptor_medium.xml
+dat/outfits/weapons/muon_disruptor_supercharged.xml
 dat/outfits/weapons/neutron_disruptor.xml
 dat/outfits/weapons/nexus_drill_lance.xml
 dat/outfits/weapons/orion_beam.xml
