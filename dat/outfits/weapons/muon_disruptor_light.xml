@@ -1,0 +1,41 @@
+<outfit name="Light Muon Disruptor">
+ <general>
+  <slot>weapon</slot>
+  <size>small</size>
+  <mass>4</mass>
+  <price>37500</price>
+  <rarity>2</rarity>
+  <description>The Light Muon Disruptor is a curious weapon, firing a volley of energy-sheathed microbots, able to seek and impact targets at short ranges with a volatile burst of high-energy particles. As the microbots utilize swarm consensus for targeting and guidance they are exceptionally resistant to electonic jamming.</description>
+  <gfx_store>neutronheavy</gfx_store>
+  <cpu>-24</cpu>
+ </general>
+ <specific type="bolt">
+  <gfx type="shader" size="6.0" col_size="6.0">particles/muon.frag</gfx>
+  <sound>neutron</sound>
+  <spfx_shield>Shi-S</spfx_shield>
+  <spfx_armour>Exp-S</spfx_armour>
+  <delay>2.0</delay>
+  <lockon>0.10</lockon>
+  <iflockon>0.20</iflockon>
+  <accel>300</accel>
+  <turn>125</turn>
+  <speed>600</speed>
+  <range>800</range>
+  <falloff>650</falloff>
+  <energy>20</energy>
+  <trackmin>0</trackmin>
+  <trackmax>2000</trackmax>
+  <resist>100</resist>
+  <swivel>33</swivel>
+  <damage>
+   <type>energy</type>
+   <penetrate>20</penetrate>
+   <physical>20</physical>
+   <disable>10</disable>
+  </damage>
+  <shots>3</shots>
+  <dispersion>30</dispersion>
+  <speed_dispersion>0</speed_dispersion>
+  <ai>seek</ai>
+ </specific>
+</outfit>

@@ -1,0 +1,41 @@
+<outfit name="Heavy Muon Disruptor">
+ <general>
+  <slot>weapon</slot>
+  <size>large</size>
+  <mass>36</mass>
+  <price>575000</price>
+  <licence>Heavy Weapon</licence>
+  <rarity>2</rarity>
+  <description>The destroyer-grade version of the Muon Disruptor launches microbot swarms sheathed in a highly-energized sheathe of exotic particles, able to cause significant damage to even heavy armor plating.</description>
+  <gfx_store>razorturret1</gfx_store>
+  <cpu>-75</cpu>
+ </general>
+ <specific type="turret bolt">
+  <gfx type="shader" size="8.0" col_size="8.0">particles/muon.frag</gfx>
+  <sound>neutron</sound>
+  <spfx_shield>Shi-S</spfx_shield>
+  <spfx_armour>Exp-S</spfx_armour>
+  <delay>2.4</delay>
+  <lockon>0.10</lockon>
+  <iflockon>0.20</iflockon>
+  <accel>250</accel>
+  <turn>90</turn>  
+  <speed>500</speed>
+  <range>1400</range>
+  <falloff>1250</falloff>
+  <energy>94</energy>
+  <trackmin>2400</trackmin>
+  <trackmax>9600</trackmax>
+  <resist>100</resist>
+  <damage>
+   <type>energy</type>
+   <penetrate>145</penetrate>
+   <physical>35</physical>
+   <disable>16</disable>   
+  </damage>
+  <shots>3</shots>
+  <dispersion>30</dispersion>
+  <speed_dispersion>0</speed_dispersion>
+  <ai>seek</ai>
+ </specific>
+</outfit>

@@ -9,7 +9,7 @@ return {
             systems = outfit.get("Milspec Aegis 2201 Core System"),
             engines = outfit.get("Nexus Dart 160 Engine"),
             hull = outfit.get("Unicorp D-2 Light Plating"),
-            outfit.get("Electron Burst Cannon"),
+            outfit.get("Light Muon Disruptor"),
             outfit.get("Unicorp Scrambler"),
             outfit.get("Sensor Array"),
             outfit.get("Reactor Class I"),
