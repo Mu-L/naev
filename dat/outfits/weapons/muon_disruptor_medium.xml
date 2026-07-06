@@ -16,9 +16,8 @@
   <spfx_shield>Shi-S</spfx_shield>
   <spfx_armour>Exp-S</spfx_armour>
   <delay>2.2</delay>
-  <iflockon>0.20</iflockon>
   <accel>275</accel>
-  <turn>110</turn>
+  <turn>125</turn>
   <speed>550</speed>
   <range>1000</range>
   <falloff>850</falloff>
@@ -34,7 +33,7 @@
   </damage>
   <shots>3</shots>
   <dispersion>30</dispersion>
-  <speed_dispersion>0</speed_dispersion>
+  <speed_dispersion>50</speed_dispersion>
   <ai>seek</ai>
  </specific>
 </outfit>
