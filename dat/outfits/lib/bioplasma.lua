@@ -7,6 +7,7 @@ bonus_mod = bonus_mod or 1
 effect_name = effect_name or "Plasma Burn"
 damage_mod = damage_mod or 1
 base_duration = base_duration or 5
+melting = melting or 0
 
 local damage
 local onload_old = onload
@@ -73,6 +74,9 @@ function onimpact( p, target, _pos, _vel, _o, armour, shield )
    local dmg = armour + shield
    local dur = base_duration
 
+   if melting > 0 then
+   target:effectAdd( "Melting Armor", dur, nil, p )
+   end
    if mem.corrosion_ii then
       dur = dur + dur * bonus_mod
       target:effectAdd( effect_name, dur, dmg, p )
