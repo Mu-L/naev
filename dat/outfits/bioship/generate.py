@@ -247,17 +247,17 @@ for siz, nam, dbl, gfx, output_pref, outputs, cpu in [
       shield = 0.25*ref['shield']
       shield_regen = 0.25*ref['shield_regen']
       ref['shield'] *= 0.25
-      ref['shield_regen'] *= 0.25
+      ref['shield_regen'] *= 0.75
    elif gfx[0] == 'm':
       shield = 0.5*ref['shield']
       shield_regen = 0.5*ref['shield_regen']
       ref['shield'] *= 0.25
-      ref['shield_regen'] *= 0.25
+      ref['shield_regen'] *= 0.7
    else:
       shield = 0.15*ref['shield']
       shield_regen = 0.15*ref['shield_regen']
       ref['shield'] *= 0.1
-      ref['shield_regen'] *= 0.1
+      ref['shield_regen'] *= 0.65
 
    BioOutfit( 'cerebrum.xml.template', {
       'price':          lerpr(ref['price'],        ref['price']+price),
