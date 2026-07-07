@@ -10,18 +10,13 @@ local soromid_outfits = eoutfits.merge{{
    "Soromid Brigand Bay",
    "Heavy Laser Turret", "Grave Beam",
    -- Medium Weapons
-   "Enygma Systems Turreted Fury Launcher",
-   "Enygma Systems Turreted Headhunter Launcher",
-   "Enygma Systems Spearhead Launcher", "Unicorp Caesar IV Launcher",
-   "TeraCom Fury Launcher", "TeraCom Headhunter Launcher",
-   "TeraCom Medusa Launcher", "TeraCom Vengeance Launcher",
-   "TeraCom Imperator Launcher",
+   "Savage Amoeba Colony",
    "Plasma Cluster Cannon",
    "Plasma Turret MK2",
    -- Small Weapons
    "Plasma Cannon", "Plasma Turret MK1",
    "Plasma Blaster MK1", "Plasma Blaster MK2",
-   "TeraCom Banshee Launcher", "TeraCom Mace Launcher",
+   "Amoeba Colony",
    -- Point Defence
    "Spittle Tubuloid Cluster",
    -- Utility
