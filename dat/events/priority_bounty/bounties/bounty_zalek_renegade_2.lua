@@ -5,6 +5,8 @@ return {
    var            = "bounty_zalek_renegade_2",
    title          = _("The Stolen Prototype"),
    desc           = _("Two students were working on a modular prototype ramscoop as their graduate thesis project. One of them stole it, and is believed to be trying to fence it on the black market. Za'lek authorities don't care about the renegade student or the prototype: they just don't want the Black Lotus Clan to have it. Crash the sale and blast everyone out of the sky."),
+   msg_subdue     = { _("Though perhaps officially a pirate now, having sold stolen technology, Sarah isn't any better armed than before. The crew she hired on for her ship likewise don't want to get killed, and offer no resistance. You take Sarah into custody without incident."), },
+   msg_captured   = { _("As Sarah is led away, it seems to hit her that this time she's probably going to prison."), },
    escorts        = _("with a group of pirates"),
    reward         = 1.9e6,
    system         = system.get("Somard"),

@@ -5,6 +5,7 @@ return {
    var            = "bounty_dvaered_flf_1",
    title          = _("Ghost in the Mist"),
    desc           = _("A Frontier Liberation Front terrorist going by the moniker 'Ghost' is rumored to have recovered some kind of strange ship from within the Nebula. It is reported to be difficult to track on sensors. Find and deal with it."),
+   msg_subdue     = { _("Disabled, the strange ship lies eerily silent. You and your boarding team make your way through spartan cooridors to the bridge, encountering no resistance. You find your target, Ghost, and a handful of injured crew sheltering on the bridge. They drop their weapons and are quickly subdued."), },
    escorts        = _("with some other terrorists"),
    reward         = 1.7e6,
    system         = system.get("Zacron"),

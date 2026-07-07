@@ -5,6 +5,7 @@ return {
    var            = "bounty_frontier_warlord_3",
    title          = _("Wrath and Railguns"),
    desc           = _("Lord Flakfinger has been dealt with, but now his aunt, Lady Railfist, is out for vengeance. Put a stop to this problem, once and for all."),
+   msg_subdue     = { _("Your boarding party breaches into the battleship with an explosive charge, and are met by an unpleasant surprise. A hail of minigun fire tears down the corridor as you and your crew dive back into your ship. You hold tight while one of your crew spacewalks up the hull, and plants another explosive on the exterior, at your target's estimated location. When the dust clears, you find your target and her retinue pinned under rubble and nursing their injuries. You disarm and take them into custody without further incident."), },
    escorts        = _("with a dangerous fleet"),
    reward         = 3.75e6,
    system         = system.get("Chraan"),

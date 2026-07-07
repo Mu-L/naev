@@ -4,6 +4,9 @@ return {
    var            = "bounty_empire_collective_1",
    title          = _("Abominable Intelligence"),
    desc           = _("SECRET: An experimental wing of drone fightercraft have been misplaced, and the Empire would like them destroyed quietly and without any fuss. Your prompt attention to and silence on this matter is appreciated."),
+   msg_subdue     = { _("You open an access hatch on the drone. The interior is cramped with equipment and a couple of spider-like maintenance bots which evidently shut down when the ship was disabled, but the vessel does appear to have inactive life support systems and an uncomfortable berth for a pilot. The cockpit has an empty seat, with a spherical device affixed to the dash and wired into all of the systems with a mess of cables. You uncerimoniously rip it out. Maybe the Empire wants it back."), },
+   msg_captured   = { _("Your Astra Vigilis contact seems suprised when you drop a fist-sized computer core in front of them."), },
+   msg_killed     = { _("the target"), },   
    escorts        = _("with a few light drone escorts."),
    reward         = 0.8e6,
    system         = system.get("Chloe"),
@@ -34,10 +37,6 @@ return {
          table.insert( enemies, e )
       end
       return enemies
-   end,
-   boardfunc = function( p )
-      p:rename( _("the ship's AI core") )
-      return true
    end,
    cond = function ()
       return not diff.isApplied("collective_dead") --Only available pre-Collective plot. Serves as worldbuilding, Empire rep, and to guide players gently to finding it.

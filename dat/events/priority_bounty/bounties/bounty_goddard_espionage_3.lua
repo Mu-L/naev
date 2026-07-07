@@ -5,6 +5,7 @@ return {
    var            = "bounty_goddard_espionage_3",
    title          = _("Weapons Free"),
    desc           = _("Foreign agents have stolen House Goddard's test platform, an old demilitarized Goddard hull, which was currently loaded with experimental weapons not yet available to the public. They have two jobs for you: First, protect House Goddard intellectual property by preventing the escape of the ship. Second: Assuming you survive, report back on how effective the weapons were in a real firefight. If you die, they'll consider it a successful test."),
+   msg_subdue     = { _("Fortunately this ship was manned with only the skeleton crew that stole it, and most of them were injured in the battle. The disabled hulk is still an impressive sight on the inside, and only a few crewmen are able to put up minor resistance as you storm the bridge. Your target takes a shot to his arm and drops his weapon, then is quickly subdued."), },
    escorts        = _("with a sizable escort"),
    reward         = 1.5e6,
    system         = system.get("Pas"),
@@ -24,6 +25,7 @@ return {
          },
          prefer = {
             ["Railcannon"] = 100,
+            ["Reactor Class III"] = 100,
          },
          type_range = {
             ["Point Defense"] = { max = 0 },

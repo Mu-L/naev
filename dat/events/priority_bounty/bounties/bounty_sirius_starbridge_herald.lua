@@ -5,6 +5,7 @@ return {
    var            = "bounty_sirius_starbridge_herald",
    title          = _("Nubulous Iconoclast"),
    desc           = _("The Sirius government has placed a bounty on one Sister Brightstar, wanted dead or alive for heretical teachings."),
+   msg_subdue     = { _("As you breach the vessel, the crew call out that they are unarmed and intend to offer no resistance. You find Sister Brightstar sitting with several of her disciples in the ship's meditation chamber. She says nothing as you apprehend her."), },
    escorts        = _("with her congregation"),
    reward         = 1.4e6,
    system         = system.get("Atlantis"),

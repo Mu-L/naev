@@ -5,6 +5,7 @@ return {
    var            = "bounty_sirius_conversion_1",
    title          = _("Conversion Therapy"),
    desc           = _("The Sirius government has placed a bounty on a notorious smuggler who they say is 'destabilizing the social fabric of the community'. They insist that she be delivered alive for therapeutic intervention."),
+   msg_subdue     = { _("Haskins surrenders sullenly, posing no resistance as she's dragged to your brig."), },
    escorts        = _("with a few other undesirables"),
    reward         = 1.2e6,
    system         = system.get("Suna"),

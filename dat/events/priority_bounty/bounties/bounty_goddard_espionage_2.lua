@@ -5,6 +5,7 @@ return {
    var            = "bounty_goddard_espionage_2",
    title          = _("Stolen Blueprints"),
    desc           = _("House Goddard has interrogated the spy you captured for them, and learned that another foreign agent has just managed to breach Goddard systems and has copied secure House Goddard blueprints for an unreleased technology in development. It may not be too late to catch the spy. Kill them if necessary."),
+   msg_subdue     = { _("You breach the pirate ship and find the crew holding a gun to your target's head. They offer to give him up in exchange for leniency. Well, that was easy."), },
    escorts        = _("with a small fleet"),
    reward         = 1.1e6,
    system         = system.get("Overture"),

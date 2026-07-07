@@ -10,6 +10,7 @@ Empire intelligence has shared information with Dvaered High Command and Astra V
 This will be a difficult battle, captain.]]), {
    outfit = "#o".._("nuclear based armament and autonomous drone fighter-bombers").."#0",
 } ),
+   msg_subdue     = { _("The aesthetics of this battleship look like something from an ancient holo-documentary, a relic from centuries ago. The bulkheads lie in sharp angles and clean lines, and despite the damage from your battle, you can tell that the ship was fully overhauled very recently and refurbished with more modern systems. As you breach the vessel, you receive a communication from the captain, who wishes to negotiate their surrender in exchange for more lenient treatment of their crew. You take them into custody swiftly and without incident."), },
    escorts        = _("with an enormous terrorist fleet"),
    reward         = 5e6,
    system         = system.get("Arandon"), --Fleet is on its way back from somewhere in the Nebula where the Emerald Sword was recovered. This system has enough volatility to discourage player fighter spam.

@@ -5,6 +5,7 @@ return {
    var            = "bounty_frontier_warlord_1",
    title          = _("Flak and Frenzy"),
    desc           = _("Travellers entering Frontier space have been complaining of harassment and shakedowns from a self-proclaimed 'warlord'. Capture him alive if possible."),
+   msg_subdue     = { _("The ship's crew stand down as you breach the vessel. Lord Flakfinger himself, young and arrogant, throws a punch but is quickly knocked down by your crew. He scoffs as you cuff him. 'Auntie will have me out within a day.'"), },
    escorts        = _("with small escort"),
    reward         = 1.6e6,
    system         = system.get("Koit"),
