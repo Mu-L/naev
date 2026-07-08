@@ -83,6 +83,7 @@ dat/effects/fractured_reality.xml
 dat/effects/hypergate_enter.xml
 dat/effects/hypergate_exit.xml
 dat/effects/ionization.xml
+dat/effects/melting_armor.xml
 dat/effects/onionized.xml
 dat/effects/paralyzing_plasma.xml
 dat/effects/plasma_burn.xml
