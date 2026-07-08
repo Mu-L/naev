@@ -675,7 +675,7 @@ function optimize.optimize( p, cores, outfit_list, params )
       for j,o in ipairs(s.outfits) do
          local stats = outfit_cache[o]
          local name = string.format("s%d-%s", i, stats.name)
-         local slotmod = ((slots.size==stats.size) and 1) or params.mismatch
+         local slotmod = ((s.size==stats.size) and 1) or params.mismatch
          local objf = (1+rndness*rnd.sigma()) * stats.goodness * slotmod -- contribution to objective function
          lp:set_col( c, name, objf, "binary" ) -- constraints set automatically
          -- CPU constraint
