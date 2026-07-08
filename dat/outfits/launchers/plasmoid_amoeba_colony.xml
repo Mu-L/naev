@@ -1,6 +1,6 @@
-<outfit name="Plasmoid Colony">
+<outfit name="Plasmoid Amoeba Colony">
  <general>
-  <shortname>Plasmoid</shortname>
+  <shortname>P. Amoeba</shortname>
   <slot>weapon</slot>
   <size>small</size>
   <licence>Medium Weapon</licence>
@@ -9,7 +9,7 @@
   <rarity>1</rarity>
   <mass>24</mass>
   <price>97000</price>
-  <description>This launcher is an extensively bioengineered colony of spaceflight-capable single celled organisms. On demand, a pheromone release with a complex biologically encoded target signature will signal the colony's 'defense response', and a pair of plasmoids will be released to persue a matching target. They will rupture on contact, releasing a soup of bioplasma to melt through the target's hull. As they are purely biological, most forms of conventional missile jamming are ineffective against these creatures.</description>
+  <description>This launcher is an extensively bioengineered colony of spaceflight-capable single celled organisms. On demand, a pheromone release with a complex biologically encoded target signature will signal the colony's 'defense response', and a pair of amoebae will be released to persue a matching target. They will rupture on contact, releasing a soup of bioplasma to melt through the target's hull. The biological systems they use to sense and track their targets are difficult to jam through conventional methods.</description>
   <gfx_store>placeholder</gfx_store>
   <cpu>-4</cpu>
  </general>
@@ -17,6 +17,8 @@
   <lua>outfits/weapons/plasma2.lua</lua>
   <delay>2</delay>
   <reload_time>40</reload_time>
+  <lockon>0.6</lockon>
+  <iflockon>1.0</iflockon>  
   <trackmin>0</trackmin>
   <trackmax>4000</trackmax>
   <amount>14</amount>
@@ -30,7 +32,7 @@
   <accel>100</accel>
   <turn>200</turn>
   <speed_max>270</speed_max>
-  <resist>200</resist>
+  <resist>60</resist>
   <damage>
    <type>plasma</type>
    <penetrate>51</penetrate>
