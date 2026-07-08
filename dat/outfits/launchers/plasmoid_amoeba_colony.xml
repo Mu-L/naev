@@ -13,7 +13,7 @@
   <gfx_store>placeholder</gfx_store>
   <cpu>-4</cpu>
  </general>
- <specific type="launcher" secondary="1">
+ <specific type="turret launcher" secondary="1">
   <lua>outfits/weapons/plasma2.lua</lua>
   <delay>2</delay>
   <reload_time>40</reload_time>
