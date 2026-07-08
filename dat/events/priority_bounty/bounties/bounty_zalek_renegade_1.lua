@@ -5,6 +5,8 @@ return {
    var            = "bounty_zalek_renegade_1",
    title          = _("AWOL Lab Partner"),
    desc           = _("A university graduate student has put a bounty out on their lab partner, who vanished in the middle of their thesis project on modular fuel synethesis dynamics. Bring her back alive, please."),
+   msg_subdue     = { _("Your target is an unarmed student, and she offers no resistance as you apprehend her."), },
+   msg_captured   = { _("Sarah grumbles and glares at you as you turn her over to her lab partner."), },   
    escorts        = _("with a small group of shady pirates"),
    reward         = 1.1e6,
    system         = system.get("Severus"),

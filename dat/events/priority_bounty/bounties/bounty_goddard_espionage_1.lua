@@ -5,6 +5,7 @@ return {
    var            = "bounty_goddard_espionage_1",
    title          = _("Intellectual Property"),
    desc           = _("House Goddard, the shipyard responsible for the Goddard battleship and related intellectual property, has asked us to apprehend one 'Norm Alphurson', nominally there as a purchaser for an independent station. Apparently he and his escort have been lingering around the Goddard shipyards, taking suspicious deep scans of Goddard property."),
+   msg_subdue     = { _("As your boarding party prepares to breach into the corvette, your target hails you with a frantic surrender. It seems they don't intend to put up a fight, and are quickly taken into custody."), },
    escorts        = _("with a small escort"),
    reward         = 0.6e6,
    system         = system.get("Goddard"),
