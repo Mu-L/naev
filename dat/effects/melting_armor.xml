@@ -1,0 +1,10 @@
+<effect name="Melting Armor">
+ <description>Armor is melting!</description>
+ <duration>10</duration>
+ <icon>/gfx/misc/icons/cracked-shield</icon>
+ <shader>effects/antimatter_taint.frag</shader>
+ <debuff/>
+ <stats>
+  <absorb>-0.1</absorb>
+ </stats>
+</effect>
