@@ -850,7 +850,7 @@ function optimize.optimize( p, cores, outfit_list, params )
       -- Due to the approximation, sometimes they end up with not enough
       -- energy, we'll try again with more relaxed energy constraints
       local stn = p:stats()
-      if not z or (stn.energy_regen < energygoal and try <= 5 and (emod*energygoal - stn.energy_regen) > min_energy) then
+      if not z or (try < 5 and (stn.energy_regen < energygoal and try <= 5 and (emod*energygoal - stn.energy_regen) > min_energy)) then
          p:outfitsEquip( outfits_base ) -- Should restore initial outfits
          emod = (5 - try ) / 5
          if try >= 3 then
