@@ -10,13 +10,13 @@ local soromid_outfits = eoutfits.merge{{
    "Soromid Brigand Bay",
    "Heavy Laser Turret", "Grave Beam",
    -- Medium Weapons
-   "Savage Amoeba Colony",
+   "Magnaplasmoid Colony",
    "Plasma Cluster Cannon",
    "Plasma Turret MK2",
    -- Small Weapons
    "Plasma Cannon", "Plasma Turret MK1",
    "Plasma Blaster MK1", "Plasma Blaster MK2",
-   "Amoeba Colony",
+   "Plasmoid Colony",
    -- Point Defence
    "Spittle Tubuloid Cluster",
    -- Utility
