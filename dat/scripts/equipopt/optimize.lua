@@ -855,7 +855,7 @@ function optimize.optimize( p, cores, outfit_list, params )
       local stn = p:stats()
       if not z or (try < 5 and (stn.energy_regen < math.min(emod*energygoal - st.energy_regen))) then
          p:outfitsEquip( outfits_base ) -- Should restore initial outfits
-         emod = (5 - try ) / 5
+         emod = emod * 0.5
          if try >= 3 then
             print(fmt.f("Pilot '{name}' ('{ship}' ship): optimization attempt {try} of {trymax}: emod={emod}", {
                name = p:name(),
