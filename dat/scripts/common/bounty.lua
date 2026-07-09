@@ -206,7 +206,7 @@ function bounty.choose_spawn_pos()
    local m = 3e3 -- margin
    local L = lanes.get( bounty.get_faction(), "non-friendly")
    if b.last_sys then
-      local jmp = jump.get( system.cur(), b.last_sys )
+      local jmp = jump.exists( system.cur(), b.last_sys )
       if jmp then
          local r =  6e3
          local p = jmp:pos()

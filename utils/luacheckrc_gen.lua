@@ -487,6 +487,7 @@ stds.jump = {
       jump = {
          fields = {
             get = {},
+            exists = {},
             __eq = {},
             __tostring = {},
             reverse = {},

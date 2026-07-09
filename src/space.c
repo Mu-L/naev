@@ -1259,12 +1259,17 @@ JumpPoint *jump_get( const char *jumpname, const StarSystem *sys )
  */
 JumpPoint *jump_getTarget( const StarSystem *target, const StarSystem *sys )
 {
+   JumpPoint *jp = jump_getTargetW( target, sys );
+   WARN( _( "Jump point to '%s' not found in %s" ), target->name, sys->name );
+   return NULL;
+}
+JumpPoint *jump_getTargetW( const StarSystem *target, const StarSystem *sys )
+{
    for ( int i = 0; i < array_size( sys->jumps ); i++ ) {
       JumpPoint *jp = &sys->jumps[i];
       if ( jp->target->id == target->id )
          return jp;
    }
-   WARN( _( "Jump point to '%s' not found in %s" ), target->name, sys->name );
    return NULL;
 }
 

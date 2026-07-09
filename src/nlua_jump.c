@@ -26,6 +26,7 @@ RETURNS_NONNULL static JumpPoint *luaL_validjumpSystem( lua_State *L, int ind,
 
 /* Jump metatable methods */
 static int jumpL_get( lua_State *L );
+static int jumpL_exists( lua_State *L );
 static int jumpL_eq( lua_State *L );
 static int jumpL_tostring( lua_State *L );
 static int jumpL_reverse( lua_State *L );
@@ -43,6 +44,7 @@ static int jumpL_setKnown( lua_State *L );
 
 static const luaL_Reg jump_methods[] = {
    { "get", jumpL_get },
+   { "exists", jumpL_exists },
    { "__eq", jumpL_eq },
    { "__tostring", jumpL_tostring },
    { "reverse", jumpL_reverse },
@@ -238,7 +240,7 @@ static int jumpL_get( lua_State *L )
    if ( ( a == NULL ) || ( b == NULL ) )
       return NLUA_ERROR( L, _( "No matching jump points found." ) );
 
-   if ( jump_getTarget( b, a ) != NULL ) {
+   if ( jump_getTargetW( b, a ) != NULL ) {
       LuaJump lj;
       lj.srcid  = a->id;
       lj.destid = b->id;
@@ -251,7 +253,41 @@ static int jumpL_get( lua_State *L )
       return 2;
    }
 
-   WARN( "No jump found between %s and %s systems", a->name, b->name );
+   NLUA_ERROR( L, "No jump found between %s and %s systems", a->name, b->name );
+   return 0;
+}
+
+/**
+ * @brief Gets a jump without raising warnings if it doesn't exist. Works the
+ * same as get.
+ *
+ *    @luatparam string|System src See description.
+ *    @luatparam string|System dest See description.
+ *    @luatreturn Jump Returns the jump.
+ *    @luatreturn Jump Returns the inverse.
+ * @luafunc exists
+ */
+static int jumpL_exists( lua_State *L )
+{
+   const StarSystem *a = luaL_validsystem( L, 1 );
+   const StarSystem *b = luaL_validsystem( L, 2 );
+
+   if ( ( a == NULL ) || ( b == NULL ) )
+      return NLUA_ERROR( L, _( "No matching jump points found." ) );
+
+   if ( jump_getTargetW( b, a ) != NULL ) {
+      LuaJump lj;
+      lj.srcid  = a->id;
+      lj.destid = b->id;
+      lua_pushjump( L, lj );
+
+      /* The inverse. If it doesn't exist, there are bigger problems. */
+      lj.srcid  = b->id;
+      lj.destid = a->id;
+      lua_pushjump( L, lj );
+      return 2;
+   }
+
    return 0;
 }
 

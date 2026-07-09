@@ -448,6 +448,7 @@ VirtualSpob *virtualspob_get( const char *name );
  */
 JumpPoint  *jump_get( const char *jumpname, const StarSystem *sys );
 JumpPoint  *jump_getTarget( const StarSystem *target, const StarSystem *sys );
+JumpPoint  *jump_getTargetW( const StarSystem *target, const StarSystem *sys );
 const char *jump_getSymbol( const JumpPoint *jp );
 
 /*
