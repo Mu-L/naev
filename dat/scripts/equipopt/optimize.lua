@@ -685,7 +685,7 @@ function optimize.optimize( p, cores, outfit_list, params )
          -- Energy constraint
          table.insert( ia, 2 )
          table.insert( ja, c )
-         table.insert( ar, stats.energy_regen-params.eps_weight*(stats.eps or 0) )
+         table.insert( ar, stats.energy_regen - params.eps_weight*(stats.eps or 0) )
          -- Mass constraint
          table.insert( ia, 3 )
          table.insert( ja, c )
@@ -862,7 +862,7 @@ function optimize.optimize( p, cores, outfit_list, params )
                emod = string.format("%.3f", emod),
             }))
          end
-         lp:set_row( 2, "energy_regen", math.max( min_energy, emod*energygoal - stn.energy_regen ))
+         lp:set_row( 2, "energy_regen", math.max( min_energy, emod*energygoal - st.energy_regen ))
          done = false
       end
    until done or try >= 5 -- attempts should be fairly fast since we just do optimization step
