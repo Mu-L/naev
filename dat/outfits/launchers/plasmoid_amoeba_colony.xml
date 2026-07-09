@@ -1,0 +1,48 @@
+<outfit name="Plasmoid Amoeba Colony">
+ <general>
+  <shortname>P. Amoeba</shortname>
+  <slot>weapon</slot>
+  <size>small</size>
+  <licence>Medium Weapon</licence>
+  <cond>require("buyrep")("Soromid", 30)</cond>
+  <condstr>You need at least 30% reputation with the Soromid.</condstr>
+  <rarity>1</rarity>
+  <mass>24</mass>
+  <price>97000</price>
+  <description>This launcher is an extensively bioengineered colony of spaceflight-capable single celled organisms. On demand, a pheromone release with a complex biologically encoded target signature will signal the colony's 'defense response', and a pair of amoebae will be released to persue a matching target. They will rupture on contact, releasing a soup of bioplasma to melt through the target's hull. The biological systems they use to sense and track their targets are difficult to jam through conventional methods.</description>
+  <gfx_store>placeholder</gfx_store>
+  <cpu>-4</cpu>
+ </general>
+ <specific type="turret launcher" secondary="1">
+  <lua>outfits/weapons/plasma2.lua</lua>
+  <delay>2</delay>
+  <reload_time>40</reload_time>
+  <lockon>0.6</lockon>
+  <iflockon>1.0</iflockon>  
+  <trackmin>0</trackmin>
+  <trackmax>4000</trackmax>
+  <amount>14</amount>
+  <gfx type="shader" size="6" col_size="5">particles/amoeba.frag</gfx>
+  <sound>plasma</sound>
+  <sound_hit>lrgexp0</sound_hit>
+  <spfx_shield>Pla-S2</spfx_shield>
+  <spfx_armour>Pla-S2</spfx_armour>
+  <trail_generator x="-6">soromid</trail_generator>
+  <duration blowup="armour">8</duration>
+  <accel>100</accel>
+  <turn>200</turn>
+  <speed_max>270</speed_max>
+  <resist>60</resist>
+  <damage>
+   <type>plasma</type>
+   <penetrate>51</penetrate>
+   <physical>27</physical>
+  </damage>
+  <armour>20</armour>
+  <absorb>10</absorb>
+  <shots>2</shots>
+  <dispersion>60</dispersion>
+  <speed_dispersion>50</speed_dispersion>
+  <ai>seek</ai>
+ </specific>
+</outfit>
