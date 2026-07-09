@@ -1,7 +1,7 @@
 -- Need to set effect_name before requiring
 local fmt = require "format"
 
--- luacheck: globals bonus_mod effect_name damage_mod base_duration
+-- luacheck: globals bonus_mod effect_name damage_mod base_duration melting
 
 bonus_mod = bonus_mod or 1
 effect_name = effect_name or "Plasma Burn"

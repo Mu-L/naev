@@ -5,7 +5,7 @@ return {
    var            = "bounty_empire_collective_2",
    title          = _("A Collective Conspiracy"),
    desc           = _("SECRET: A deserter is attempting to make off with a squadron of experimental drone fighters. You are to proceed to Polack and destroy them. Once they are dealt with, you will forget anything you know about the traitor or this drone technology."),
-   msg_subdue     = { _("Most of the crew were injured in the battle, but a determined few still resist, and your boarding party has a firefight halfway down the Pacifier's main access corridor. You caught them in the open and swiftly dispatch the remaining defenders, before blasting the bridge door open with a low-yield detonator. Your target makes a show of dropping their service pistol, and are taken into custody."), },   
+   msg_subdue     = { _("Most of the crew were injured in the battle, but a determined few still resist, and your boarding party has a firefight halfway down the Pacifier's main access corridor. You caught them in the open and swiftly dispatch the remaining defenders, before blasting the bridge door open with a low-yield detonator. Your target makes a show of dropping their service pistol, and are taken into custody."), },
    escorts        = _("with a few light drone escorts."),
    reward         = 1.4e6,
    system         = system.get("Polack"),

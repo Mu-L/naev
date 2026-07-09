@@ -334,7 +334,9 @@ dat/outfits/launchers/enygma_systems_huntsman_launcher.xml
 dat/outfits/launchers/enygma_systems_spearhead_launcher.xml
 dat/outfits/launchers/enygma_systems_turreted_fury_launcher.xml
 dat/outfits/launchers/enygma_systems_turreted_headhunter_launcher.xml
+dat/outfits/launchers/magnaplasmoid_amoeba_hive.xml
 dat/outfits/launchers/pincushion_battery.xml
+dat/outfits/launchers/plasmoid_amoeba_colony.xml
 dat/outfits/launchers/repeating_banshee_launcher.xml
 dat/outfits/launchers/shatterer_launcher.xml
 dat/outfits/launchers/space_mine_layer.xml
@@ -3162,6 +3164,7 @@ dat/events/priority_bounty/bounties/bounty_sirius_starbridge_herald.lua
 dat/events/priority_bounty/bounties/bounty_soromid_poachers_1.lua
 dat/events/priority_bounty/bounties/bounty_soromid_poachers_2.lua
 dat/events/priority_bounty/bounties/bounty_soromid_poachers_3.lua
+dat/events/priority_bounty/bounties/bounty_traders_drugsmuggler.lua
 dat/events/priority_bounty/bounties/bounty_zalek_hijacked.lua
 dat/events/priority_bounty/bounties/bounty_zalek_renegade_1.lua
 dat/events/priority_bounty/bounties/bounty_zalek_renegade_2.lua

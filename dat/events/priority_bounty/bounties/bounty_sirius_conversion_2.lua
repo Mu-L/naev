@@ -5,7 +5,7 @@ return {
    var            = "bounty_sirius_conversion_2",
    title          = _("New Disciples"),
    desc           = _("The Sirius government has placed a bounty on a pirate operating in the southern reaches of Sirian space. We have been told that this pirate has been 'leading the flock astray', and is to be delivered alive for re-education."),
-   msg_subdue     = { _("The pirate crew take a few shots at your boarding party, but between their injuries and the battle damage to their ship they pose little resistance. You find Freejoy on the bridge, lying crumpled on the floor, injured but alive."), },   
+   msg_subdue     = { _("The pirate crew take a few shots at your boarding party, but between their injuries and the battle damage to their ship they pose little resistance. You find Freejoy on the bridge, lying crumpled on the floor, injured but alive."), },
    escorts        = _("with a small band of pirates"),
    reward         = 1.2e6,
    system         = system.get("Lapis"),
