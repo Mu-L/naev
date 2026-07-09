@@ -10,7 +10,7 @@ The Astra Vigilis has received an exceptional order to eliminate a renegade Exec
    outfit = "#o".._("shield aura generator").."#0",
 } ),
    msg_subdue     = { _("Alarms blare in the corridors of this once-mighty Peacemaker, and the hissing of damaged systems and shouts of injured crew echo down the halls. Your boarding party quickly and professionally makes its way to the bridge, encountering only minor resistance from the dazed crew, who are quickly subdued. Blasting the secured bridge hatch open with a low-yield detonator, you find that the captain's console had exploded when overloaded, and your target lies injured and unconscious. The remaining uninjured crew surrender as you drag Executor Sable back to your ship."), },
-   msg_captured   = { _("A surprisingly large contigent of Empire soldiers meet you at the landing pad, where they take Sable into custody."), },
+   msg_captured   = { _("A surprisingly large contingent of Empire soldiers meet you at the landing pad, where they take Sable into custody."), },
    escorts        = _("with support"),
    reward         = 2e6,
    system         = system.get("Merisi"),

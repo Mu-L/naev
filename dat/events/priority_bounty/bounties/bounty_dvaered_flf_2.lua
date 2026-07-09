@@ -5,7 +5,7 @@ return {
    var            = "bounty_dvaered_flf_2",
    title          = _("Raising the Dead"),
    desc           = _("Dvaered intelligence reports another FLF operative has been sighted deeper into the nebula, in command of some kind of previously unseen battleship. We don't know where they found it, but the Dvaered can not allow FLF terrorists to possess this kind of technology."),
-   msg_subdue     = { _("This vessel seems designed for an atypically small crew for a battleship. From an access terminal, a quick check of the ship's computer systems shows that most of the surviving crew is sheltering in the medbay or armory. Dim emergency lighting guides your way through silent corridors to the bridge, where you find your target lying injured and unconscious in the captain's chair."), },
+   msg_subdue     = { _("This vessel seems designed for an atypically small crew for a battleship. From an access terminal, a quick check of the ship's computer systems shows that most of the surviving crew is sheltering in the medbay or armoury. Dim emergency lighting guides your way through silent corridors to the bridge, where you find your target lying injured and unconscious in the captain's chair."), },
    escorts        = _("with a terrorist fleet"),
    reward         = 2.8e6,
    system         = system.get("Zylex"),

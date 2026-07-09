@@ -5,7 +5,7 @@ return {
    var            = "bounty_sirius_conversion_3",
    title          = _("The Wandering Lamb"),
    desc           = _("The Sirius government has placed an urgent bounty to capture a Dreamer Clan pirate lord. We have been cautioned that they are known to manifest powerful psychic abilities."),
-   msg_subdue     = { _("Of the pirate crew, those not injured from the battle seem to be delirious or high on a number of substances. When your boarding party enters the bridge, it's a truly strange sight: the room is dominated by a dance floor in the center, complete with a disco ball and pumping electronic music. The captain herself is swaying and spinning with several of her crew, who don't seem to notice as you cuff her and lead her away."), },
+   msg_subdue     = { _("Of the pirate crew, those not injured from the battle seem to be delirious or high on a number of substances. When your boarding party enters the bridge, it's a truly strange sight: the room is dominated by a dance floor in the centre, complete with a disco ball and pumping electronic music. The captain herself is swaying and spinning with several of her crew, who don't seem to notice as you cuff her and lead her away."), },
    escorts        = _("with a sizable pirate crew"),
    reward         = 2e6,
    system         = system.get("Seifer"),
