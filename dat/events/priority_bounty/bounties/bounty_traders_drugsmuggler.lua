@@ -5,7 +5,7 @@ return {
    var            = "bounty_traders_drugsmuggler",
    title          = _("Blazing in the Nebula"),
    desc           = _("A smuggler is operating around the edge of the Nebula near the border between Empire and Soromid space. Normally this wouldn't be an issue, as a healthy grey market keeps commerce moving. But in this case, they've been dealing a new highly addictive and dangerous drug, and it's attracting too much attention. Put a stop to it before the Empire is forced to crack down on regional commerce."),
-   msg_subdue     = { _("Your boarding party breaches into the cargo bay of the Clydesdale, finding it full of pallet after pallet of narcotics. Making your way carefully down the length of the disabled ship, a few of the uninjured crew take potshots at you, but are quickly overwhelmed and disarmed. The door to the bridge is sealed and bolted, but a small demolition charge swiftly takes care of that problem, and within moments of entry, the notorious drug runner Eisenhorn is cuffed and on his way to your brig."), },
+   msg_subdue     = { _("Your boarding party breaches into the cargo bay of the Clydesdale, finding it full of pallet after pallet of narcotics. Making your way carefully down the length of the disabled ship, a few of the uninjured crew take potshots at you, but are quickly overwhelmed and disarmed. The door to the bridge is sealed and bolted, but a small demolition charge swiftly takes care of that problem, and within moments of entry, the notorious drug runner Eisenberg is cuffed and on his way to your brig."), },
    escorts        = _("with a moderate escort gang."),
    reward         = 1.6e6,
    system         = system.get("Eisenhorn"),
