@@ -326,9 +326,12 @@ local function compute_goodness( outfit_list, p, st, ss, params, limits )
       oo.armour = os.armour_mod * (os.armour + st.armour) - st.armour
       oo.shield = os.shield_mod * (os.shield + st.shield) - st.shield
       oo.energy = os.energy_mod * (os.energy + st.energy) - st.energy
-      oo.armour_regen = os.armour_regen_mod * (ss.armour_regen_mod * os.armour_regen + st.armour_regen) - os.armour_regen_malus - st.armour_regen
-      oo.shield_regen = os.shield_regen_mod * (ss.shield_regen_mod * os.shield_regen + st.shield_regen) - os.shield_regen_malus - st.shield_regen
-      oo.energy_regen = os.energy_regen_mod * (ss.energy_regen_mod * os.energy_regen + st.energy_regen) - os.energy_regen_malus - st.energy_regen
+      oo.armour_regen = os.armour_regen_mod * (ss.armour_regen_mod * os.armour_regen + st.armour_regen + ss.armour_regen_malus)
+                     - os.armour_regen_malus - st.armour_regen - ss.armour_regen_malus
+      oo.shield_regen = os.shield_regen_mod * (ss.shield_regen_mod * os.shield_regen + st.shield_regen + ss.shield_regen_malus)
+                     - os.shield_regen_malus - st.shield_regen - ss.shield_regen_malus
+      oo.energy_regen = os.energy_regen_mod * (ss.energy_regen_mod * os.energy_regen + st.energy_regen + ss.energy_regen_malus)
+                     - os.energy_regen_malus - st.energy_regen - ss.energy_regen_malus
       oo.nebu_absorb = os.nebu_absorb
       -- Misc
       oo.cargo = os.cargo_mod * (os.cargo + ss.cargo) - ss.cargo
