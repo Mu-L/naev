@@ -99,6 +99,7 @@ end
 1. bounty_frontier_warlord_2
 1. rogue_bounty_hunter_hellhound_2
 1. bounty_sirius_starbridge_herald
+1. bounty_traders_drugsmuggler
 
 #### Hard Bounties - Requires 10 other Priority Bounties done
 1. bounty_soromid_poachers_3
