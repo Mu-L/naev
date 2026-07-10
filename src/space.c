@@ -1260,7 +1260,9 @@ JumpPoint *jump_get( const char *jumpname, const StarSystem *sys )
 JumpPoint *jump_getTarget( const StarSystem *target, const StarSystem *sys )
 {
    JumpPoint *jp = jump_getTargetW( target, sys );
-   WARN( _( "Jump point to '%s' not found in %s" ), target->name, sys->name );
+   if ( jp == NULL )
+      WARN( _( "Jump point to '%s' not found in %s" ), target->name,
+            sys->name );
    return jp;
 }
 JumpPoint *jump_getTargetW( const StarSystem *target, const StarSystem *sys )
