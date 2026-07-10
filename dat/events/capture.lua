@@ -154,7 +154,7 @@ function plt_death ()
    player.msg(fmt.f(_("Your captured ship {shp} was destroyed!"),
       {shp=plt:ship():name()}))
    plt = nil
-   player.pilot():intrinsicSet( "mass", 0 )
+   player.pilot():intrinsicSet( "mass", 0, true )
    naev.trigger( "drag_change" )
    evt.finish(false)
 end
@@ -210,7 +210,7 @@ function plt_hail ()
       plt:setFriendly(false)
       plt:setInvincPlayer(false)
       plt = nil
-      player.pilot():intrinsicSet( "mass", 0 )
+      player.pilot():intrinsicSet( "mass", 0, true )
       naev.trigger( "drag_change" )
       evt.finish(false)
    end
@@ -321,7 +321,7 @@ function land ()
       end
 
       plt = nil
-      pp:intrinsicSet( "mass", 0 )
+      pp:intrinsicSet( "mass", 0, true )
       evt.finish(true)
    end
 
