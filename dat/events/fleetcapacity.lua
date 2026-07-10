@@ -45,7 +45,7 @@ local function recalculate( domsg )
       cap = cap + q*compute_capacity( o:tags() )
    end
    local pbounty = math.floor( bhelp.bounty_done() / 5 )
-   cap = cap + 5*pbounty
+   cap = cap + math.min( 25, 5*pbounty )
 
    player.fleetCapacitySet( cap )
 
