@@ -1,6 +1,6 @@
 local bhelp    = require "events.priority_bounty.helpers"
 local bounty   = require "common.bounty"
---local equipopt = require "equipopt"
+local equipopt = require "equipopt"
 return {
    var            = "bounty_rainbow_goatee",
    title          = _("One Goatee to Rule them All"),
@@ -18,11 +18,30 @@ return {
       local fct = bounty.get_faction()
       local p = pilot.add( b.targetship[1], fct, params, b.targetname, {ai="baddie_norun", naked = true } )
       p:outfitAddIntrinsic("Escape Pod")
+      equipopt.pirate( p, {
+         outfits_add = {
+			"Goatee Marker",
+            "Hyperbolic Blink Engine",
+			"Biometal Armour",
+			"Emergency Stasis Inducer",
+			"Milspec Impacto-Plastic Coating"
+         },
+         prefer = {
+            ["Goatee Marker"] = 100,
+            ["Hyperbolic Blink Engine"] = 100,
+            ["Biometal Armour"] = 100,
+            ["Nexus Concealment Coating"] = 0,
+            ["Emergency Stasis Inducer"] = 100,
+            ["Milspec Impacto-Plastic Coating"] = 100,
+            ["S&K War Plating"] = 100,
+         },
+         type_range = {
+            ["Armour Modifier"] = { max = 1 },
+            ["Speed Modifier"] = { max = 1 },
+         },
+      } )
       local m = p:memory()
-      if not m.lootables then
-         m.lootables = {}
-      end
-      m.lootables["encrypted_data_matrix"] = 3
+      m.lootable_outfit = outfit.get("Goatee Marker")
       m.capturable = true
       local saying = _("The Goatees shall never be forgotten!")
       m.taunt = saying

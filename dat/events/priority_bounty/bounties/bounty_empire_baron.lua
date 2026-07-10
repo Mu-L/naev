@@ -43,10 +43,10 @@ return {
       local enemies = {p} --Main force of Ulios planetary defense fleet
       for k,s in ipairs(tmergei({
             ship.get("Goddard"),
+            ship.get("Hawking"),
+            ship.get("Hawking"),
             ship.get("Pacifier"),
             ship.get("Pacifier"),
-            ship.get("Vigilance"),
-            ship.get("Vigilance")
          },
          bhelp.choose_ships_from_points_and_capship( p:ship(), bhelp.ships.mercenary, 200 ))
       ) do --And some smaller than destroyer-size ships
@@ -58,7 +58,7 @@ return {
       return enemies
    end,
    cond = function ()
-      return player.misnDone("Prince") --Must have completed Baron Sauterfeldt missions.
+      return player.misnDone("Prince") and player.misnDone("Sharkman Is Back") --Must have completed Baron Sauterfeldt missions & 1st two Shark campaign missions.
          and bhelp.bounty_done() >= 10
    end,
    completefunc = function ()
