@@ -30,7 +30,7 @@ return {
             ["Milspec Jammer"] = 50
          },
          type_range = {
-            ["Launcher"] = { min = 6 },
+            ["Launcher"] = { min = 6, max = 8 },
          },
       } )
       local m = p:memory()
