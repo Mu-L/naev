@@ -18,7 +18,7 @@ return {
    spawnfunc      = function( b, params )
       local fct = bounty.get_faction()
       local p = pilot.add( b.targetship[1], fct, params, b.targetname, {ai="baddie_norun", naked = true } )
-      p:outfitAddIntrinsic("Escape Pod")
+      p:outfitAddIntrinsic("Pirate Branding")
       equipopt.pirate( p, {
          outfits_add={"Biometal Armour"},
          prefer={["Biometal Armour"] = 100},
