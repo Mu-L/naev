@@ -60,9 +60,5 @@ return {
       end
       return enemies
    end,
-   boardfunc = function( p )
-      p:rename( _("the ship's AI core") )
-      return true
-   end,
    cond = bhelp.cond_bounty_done( 20 ),
 }
