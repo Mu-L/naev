@@ -357,6 +357,8 @@ static int linoptL_setrow( lua_State *L )
          type = GLP_FX;
       else
          type = GLP_DB;
+      if ( ub < lb )
+         WARN( "setrow: '%s' has ub=%f lower than lb=%f", name, lb, ub );
    } else if ( haslb )
       type = GLP_LO;
    else if ( hasub )
