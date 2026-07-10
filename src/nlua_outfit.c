@@ -692,18 +692,23 @@ static int outfitL_getShipStat( lua_State *L )
    return 1;
 }
 
+#define SETFIELD( name, value )                                                \
+   lua_pushnumber( L, value );                                                 \
+   lua_setfield( L, -2, name )
+#define SETFIELDI( name, value )                                               \
+   lua_pushinteger( L, value );                                                \
+   lua_setfield( L, -2, name )
+#define SETFIELDB( name, value )                                               \
+   lua_pushboolean( L, value );                                                \
+   lua_setfield( L, -2, name )
 /**
  * @brief Computes statistics for weapons.
  *
  *    @luatparam Outfit o Outfit to compute for.
  *    @luatparam[opt=nil] Pilot p Pilot to use ship stats when computing.
- *    @luatreturn number Damage per second of the outfit.
- *    @luatreturn number Disable per second of the outfit.
- *    @luatreturn number Energy per second of the outfit.
- *    @luatreturn number Range of the outfit.
- *    @luatreturn number trackmin Minimum tracking value of the outfit.
- *    @luatreturn number trackmax Maximum tracking value of the outfit.
- *    @luatreturn number lockon Time to lockon.
+ *    @luatreturn A table with the following fields: dps, disable, energy,
+ * range, trackmin, trackmax, lockon, iflockon, guided. Note that not all the
+ * fields may be set depending on the weapon type.
  * @luafunc weapstats
  */
 static int outfitL_weapStats( lua_State *L )
@@ -720,6 +725,7 @@ static int outfitL_weapStats( lua_State *L )
       return 0;
 
    /* Special case beam weapons .*/
+   lua_newtable( L );
    if ( outfit_isBeam( o ) ) {
       if ( p ) {
          /* Special case due to continuous fire. */
@@ -750,11 +756,11 @@ static int outfitL_weapStats( lua_State *L )
       /* Bolts have energy per hit, while beams are sustained energy, so flip.
        */
       eps = mod_shots * mod_energy * outfit_energy( o );
-      lua_pushnumber( L, dps );
-      lua_pushnumber( L, disable );
-      lua_pushnumber( L, eps );
-      lua_pushnumber( L, outfit_range( o ) );
-      return 4;
+      SETFIELD( "dps", dps );
+      SETFIELD( "disable", disable );
+      SETFIELD( "eps", eps );
+      SETFIELD( "range", outfit_range( o ) );
+      return 1;
    }
 
    if ( p ) {
@@ -802,30 +808,20 @@ static int outfitL_weapStats( lua_State *L )
    }
    eps = mod_energy * MAX( outfit_energy( o ), 0. );
 
-   lua_pushnumber( L, dps );
-   lua_pushnumber( L, disable );
-   lua_pushnumber( L, eps );
-   lua_pushnumber( L, outfit_range( o ) );
-   lua_pushnumber( L, outfit_trackmin( o ) );
-   lua_pushnumber( L, outfit_trackmax( o ) );
-   if ( outfit_isLauncher( o ) ) {
-      lua_pushnumber( L, outfit_launcherLockon( o ) );
-      lua_pushnumber( L, outfit_launcherIFLockon( o ) );
-      lua_pushboolean( L, outfit_launcherAI( o ) != AMMO_AI_UNGUIDED );
-      return 9;
+   SETFIELD( "dps", dps );
+   SETFIELD( "disable", disable );
+   SETFIELD( "eps", eps );
+   SETFIELD( "range", outfit_range( o ) );
+   SETFIELD( "trackmin", outfit_trackmin( o ) );
+   SETFIELD( "trackmax", outfit_trackmax( o ) );
+   if ( outfit_isMunition( o ) ) {
+      SETFIELD( "lockon", outfit_launcherLockon( o ) );
+      SETFIELD( "iflockon", outfit_launcherIFLockon( o ) );
+      SETFIELDB( "guided", outfit_launcherAI( o ) != AMMO_AI_UNGUIDED );
    }
-   return 6;
+   return 1;
 }
 
-#define SETFIELD( name, value )                                                \
-   lua_pushnumber( L, value );                                                 \
-   lua_setfield( L, -2, name )
-#define SETFIELDI( name, value )                                               \
-   lua_pushinteger( L, value );                                                \
-   lua_setfield( L, -2, name )
-#define SETFIELDB( name, value )                                               \
-   lua_pushboolean( L, value );                                                \
-   lua_setfield( L, -2, name )
 /**
  * @brief Returns raw data specific to each outfit type.
  *

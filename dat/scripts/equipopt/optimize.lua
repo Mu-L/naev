@@ -294,10 +294,15 @@ local function compute_goodness( outfit_list, p, st, ss, params, limits )
       oo.is_stru = (oo.slot=="Structure")
       local os = outfit_stats[oo.name]
       oo.stats    = os
-      oo.dps, oo.disable, oo.eps, oo.range, oo.trackmin, oo.trackmax, oo.lockon, oo.iflockon, oo.seeker = out:weapstats( p )
-      oo.trackmin = oo.trackmin or 0
-      oo.trackmax = oo.trackmax or 0
-      oo.lockon   = (oo.lockon or 0) + (oo.iflockon or 0)
+      local ws    = out:weapstats( p ) or {}
+      oo.dps      = ws.dps
+      oo.disable  = ws.disable
+      oo.eps      = ws.eps
+      oo.range    = ws.range
+      oo.trackmin = ws.trackmin or 0
+      oo.trackmax = ws.trackmax or 0
+      oo.seeker   = ws.guided
+      oo.lockon   = (ws.lockon or 0) + (ws.iflockon or 0)
       oo.cpu      = os.cpu - st.cpu_max * os.cpu_mod + st.cpu_max - os.cpu_max
       oo.mass     = os.mass * ss.mass_mod
       oo.price    = os.price

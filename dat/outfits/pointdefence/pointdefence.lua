@@ -9,10 +9,10 @@ function pd.setTrack( track )
 end
 
 function onload( o )
-   local _dps, _disps, _eps, _trackmin, trackmax_local
-   _dps, _disps, _eps, range, _trackmin, trackmax_local = o:weapstats()
-   trackmax = trackmax or trackmax_local -- Replace if not defined
-   range2 = range*range -- Effective range
+   local ws = o:weapstats()
+   trackmax = trackmax or ws.trackmax -- Replace if not defined
+   range    = ws.range
+   range2   = range*range -- Effective range
    hitships = not o:missShips()
 end
 

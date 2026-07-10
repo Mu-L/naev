@@ -486,6 +486,7 @@ function atk.ranged( target, dist )
          or atk.seekers_speed() < target:speedMax()*1.2
          or range < atk.primary_range()*1.5 then
       ___atk_g_ranged_dogfight( target, dist )
+
    elseif target:target()==ai.pilot() and dist < range and ai.hasprojectile() then
       local tvel = target:vel()
       local pvel = ai.pilot():vel()
@@ -497,6 +498,7 @@ function atk.ranged( target, dist )
       -- Getting chased, try to kite
          ___atk_g_ranged_kite( target, dist )
       end
+
    else
       -- Enemy is distracted, try to strafe and harass without engaging
       ___atk_g_ranged_strafe( target, dist )

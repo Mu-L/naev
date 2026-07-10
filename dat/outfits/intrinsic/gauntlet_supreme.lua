@@ -14,8 +14,8 @@ local function update_damage( p, po )
    local hasunguided = false
    for k,o in ipairs(p:outfits()) do
       if o and o:typeBroad()=="Launcher" then
-         local _dps, _disable, _eps, _range, _trackmin, _trackmax, _lockon, _iflockon, guided = o:weapstats()
-         if not guided then
+         local ws = o:weapstats()
+         if ws and not ws.guided then
             hasunguided = true
             break
          end

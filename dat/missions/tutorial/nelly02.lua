@@ -63,9 +63,10 @@ local enemies, rampant, rampant_pos, rampant_pos_idx, spotter, spotter_pos -- No
 local reward_amount = tutnel.reward.nelly02
 
 local function has_disable( o )
-   local dmg, dis = o:weapstats()
-   dmg = dmg or 0
-   dis = dis or 0
+   local ws = o:weapstats()
+   if not ws then return false end
+   local dmg = ws.dps or 0
+   local dis = ws.disable or 0
    return dis > dmg
 end
 
