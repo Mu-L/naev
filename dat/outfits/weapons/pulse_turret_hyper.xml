@@ -17,8 +17,8 @@
   <spfx_shield>Shi-M</spfx_shield>
   <spfx_armour>Exp-M</spfx_armour>
   <delay>0.725</delay>
-  <!-- 300 more than Turbolaser -->
-  <speed>1600</speed>
+  <!-- 100 more than Turbolaser -->
+  <speed>1400</speed>
   <!-- 100 more than Turbolaser -->
   <range>2500</range>
   <!-- 100 more than Turbolaser -->

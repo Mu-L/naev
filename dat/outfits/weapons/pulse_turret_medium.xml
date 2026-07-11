@@ -17,8 +17,8 @@
   <spfx_shield>Shi-S</spfx_shield>
   <spfx_armour>Exp-S</spfx_armour>
   <delay>0.5</delay>
-  <!-- 300 more than Laser Turret MK2 -->
-  <speed>1400</speed>
+  <!-- 100 more than Laser Turret MK2 -->
+  <speed>1200</speed>
   <!-- 100 more than Laser Turret MK2 -->
   <range>1200</range>
   <!-- 100 more than Laser Turret MK2 -->
