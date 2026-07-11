@@ -18,7 +18,7 @@
   <spfx_armour>Exp-S</spfx_armour>
   <delay>0.4</delay>
   <!-- 100 more than Laser Turret MK1 -->
-  <speed>1400</speed>
+  <speed>1200</speed>
   <!-- 100 more than Laser Turret MK1 -->
   <range>1000</range>
   <!-- 100 more than Laser Turret MK1 -->

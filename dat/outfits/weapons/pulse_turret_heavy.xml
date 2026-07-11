@@ -17,8 +17,8 @@
   <spfx_shield>Shi-M</spfx_shield>
   <spfx_armour>Exp-M</spfx_armour>
   <delay>0.7</delay>
-  <!-- 300 more than Heavy Laser Turret -->
-  <speed>1400</speed>
+  <!-- 100 more than Heavy Laser Turret -->
+  <speed>1200</speed>
   <!-- 100 more than Heavy Laser Turret -->
   <range>1850</range>
   <!-- 100 more than Heavy Laser Turret -->

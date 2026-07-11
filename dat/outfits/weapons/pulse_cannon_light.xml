@@ -18,8 +18,8 @@
   <spfx_armour>Exp-S</spfx_armour>
   <!-- 50% faster than Laser Cannon MK1. -->
   <delay>0.4</delay>
-  <!-- 300 more than Laser Cannon MK1 -->
-  <speed>1400</speed>
+  <!-- 100 more than Laser Cannon MK1 -->
+  <speed>1200</speed>
   <!-- 100 more than Laser Cannon MK1 -->
   <range>1000</range>
   <!-- 100 more than Laser Cannon MK1 -->

@@ -16,6 +16,7 @@
   <spfx_shield>Shi-S</spfx_shield>
   <spfx_armour>Exp-S</spfx_armour>
   <delay>2.2</delay>
+  <iflockon>0.4</iflockon>  
   <accel>275</accel>
   <turn>125</turn>
   <speed>550</speed>
