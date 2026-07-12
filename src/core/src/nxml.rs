@@ -25,31 +25,27 @@ macro_rules! nxml_err_attr_missing {
 
 #[macro_export]
 macro_rules! nxml_warn_node_unknown {
-   ($nodetype: expr, $name: expr, $node: expr) => {
-      $crate::nlog::warnx!(gettext::gettext(
-         format!(
-            "{nodetype} '{name}' has unknown node '{node}'.",
-            nodetype = $nodetype,
-            name = $name,
-            node = $node,
-         )
-         .as_str(),
-      ))
-   };
+   ($nodetype: expr, $name: expr, $node: expr) => {{
+      let msg = format!(
+         "{nodetype} '{name}' has unknown node '{node}'.",
+         nodetype = $nodetype,
+         name = $name,
+         node = $node,
+      );
+      $crate::nlog::warnx!(gettext::gettext(msg.as_str(),))
+   }};
 }
 
 #[macro_export]
 macro_rules! nxml_warn_attr_missing {
-   ($nodetype: expr, $name: expr) => {
-      $crate::nlog::warnx!(gettext::gettext(
-         format!(
-            "{nodetype} missing attribute '{name}'.",
-            nodetype = $nodetype,
-            name = $name,
-         )
-         .as_str(),
-      ))
-   };
+   ($nodetype: expr, $name: expr) => {{
+      let msg = format!(
+         "{nodetype} missing attribute '{name}'.",
+         nodetype = $nodetype,
+         name = $name,
+      );
+      $crate::nlog::warnx!(gettext::gettext(msg.as_str(),))
+   }};
 }
 
 pub fn node_str<'a>(node: Node<'a, 'a>) -> Result<&'a str> {

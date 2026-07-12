@@ -64,12 +64,12 @@ collide = { path="@BUILD@/src/collide" }
 physics = { path="@BUILD@/src/physics" }
 pluginmgr = { path="@BUILD@/src/pluginmgr" }
 pluginmgr-gui = { path="@BUILD@/src/pluginmgr-gui" }
-formatx = "0.3"
-glow = "0.17"
+formatx = "0.4"
+glow = "0.18"
 nalgebra = { version = "0.35", features = ["bytemuck", "encase", "serde-serialize"] }
 encase = { version = "0.12" } # Needed for shader voodoo
 bytemuck = { version = "1.25", features = ["derive"] } # Needed for shader voodoo
-regex = "1.12"
+regex = "1.13"
 # need dav1d 0.11.1 or newer, will appear in the version after 0.25.9
 image = { version = "~0.25.10", default-features = false, features = [ "avif-native", "jpeg", "png", "webp" ]  }
 mlua = { version = "0.11.6", features = ["luajit", "anyhow", "send", "serialize", "macros"] }
