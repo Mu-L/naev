@@ -20,11 +20,11 @@ return {
       p:outfitAddIntrinsic("Escape Pod")
       equipopt.pirate( p, {
          outfits_add = {
-			"Goatee Marker",
+            "Goatee Marker",
             "Hyperbolic Blink Engine",
-			"Biometal Armour",
-			"Emergency Stasis Inducer",
-			"Milspec Impacto-Plastic Coating"
+            "Biometal Armour",
+            "Emergency Stasis Inducer",
+            "Milspec Impacto-Plastic Coating"
          },
          prefer = {
             ["Goatee Marker"] = 100,
