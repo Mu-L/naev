@@ -135,7 +135,6 @@ pub fn mount_at<P: AsRef<Path>>(new_dir: P, mount_point: &str, append: bool) -> 
 }
 
 /// Possible ways to open a file.
-#[allow(dead_code)]
 #[derive(Copy, Clone)]
 pub enum Mode {
    /// Append to the end of the file.

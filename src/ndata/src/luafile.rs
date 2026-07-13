@@ -6,35 +6,41 @@ use sdl::iostream::IOStream;
 use sdl3 as sdl;
 use std::io::{Read, Seek, Write};
 use std::ops::Deref;
+use std::sync::{Mutex, MutexGuard};
 
 pub struct OpenFile {
    mode: Mode,
-   io: IOStream<'static>,
+   io: Mutex<IOStream<'static>>,
 }
+// SAFETY: IOStream isn't necessarily thread safe, but becomes so via the Mutex.
+unsafe impl Sync for OpenFile {}
+unsafe impl Send for OpenFile {}
 
 pub struct LuaFile {
    pub path: String,
    file: Option<OpenFile>,
 }
-unsafe impl Send for LuaFile {}
 
 impl LuaFile {
    fn open(&mut self, mode: Mode) -> Result<()> {
       let io = physfs::iostream(&self.path, mode)?;
-      self.file = Some(OpenFile { mode, io });
+      self.file = Some(OpenFile {
+         mode,
+         io: Mutex::new(io),
+      });
       Ok(())
    }
 
-   pub fn iostream(&self) -> Option<&IOStream<'static>> {
+   pub fn iostream(&self) -> Option<MutexGuard<'_, IOStream<'static>>> {
       if let Some(file) = &self.file {
-         Some(&file.io)
+         Some(file.io.lock().unwrap())
       } else {
          None
       }
    }
-   pub fn iostream_mut(&mut self) -> Option<&mut IOStream<'static>> {
+   pub fn iostream_mut(&mut self) -> Option<MutexGuard<'_, IOStream<'static>>> {
       if let &mut Some(ref mut file) = &mut self.file {
-         Some(&mut file.io)
+         Some(file.io.lock().unwrap())
       } else {
          None
       }
@@ -47,17 +53,20 @@ impl LuaFile {
             anyhow::bail!(format!("LuaFile '{}' not open", self.path));
          }
       };
-      Ok(file.io)
+      Ok(file.io.into_inner().unwrap_or_else(|e| e.into_inner()))
    }
 
    pub fn take_iostream(&mut self) -> Option<IOStream<'static>> {
-      self.file.take().map(|file| file.io)
+      self
+         .file
+         .take()
+         .map(|file| file.io.into_inner().unwrap_or_else(|e| e.into_inner()))
    }
 
    pub fn try_clone(&self) -> Result<Self> {
       let file = if let Some(f) = &self.file {
          Some(OpenFile {
-            io: physfs::iostream(&self.path, f.mode)?,
+            io: Mutex::new(physfs::iostream(&self.path, f.mode)?),
             mode: f.mode,
          })
       } else {
@@ -110,7 +119,7 @@ impl UserData for LuaFile {
             let file = OpenFile {
                mode: Mode::Read,
                io: match IOStream::from_vec(data) {
-                  Ok(io) => io,
+                  Ok(io) => io.into(),
                   Err(e) => return Err(mlua::Error::RuntimeError(e.to_string())),
                },
             };
@@ -175,14 +184,15 @@ impl UserData for LuaFile {
          "read",
          |_, this, bytes: Option<usize>| -> mlua::Result<(String, usize)> {
             if let Some(file) = &mut this.file {
+               let mut io = file.io.lock().unwrap();
                let (out, read) = if let Some(bytes) = bytes {
                   let mut out: Vec<u8> = vec![0; bytes];
-                  let read = file.io.read(&mut out)?;
+                  let read = io.read(&mut out)?;
                   out.truncate(read);
                   (out, read)
                } else {
                   let mut out: Vec<u8> = Vec::new();
-                  let read = file.io.read_to_end(&mut out)?;
+                  let read = io.read_to_end(&mut out)?;
                   (out, read)
                };
                // Todo something better than this I guess
@@ -209,7 +219,7 @@ impl UserData for LuaFile {
                if let Some(len) = len {
                   bytes.truncate(len);
                }
-               Ok(file.io.write(&bytes)?)
+               Ok(file.io.lock().unwrap().write(&bytes)?)
             } else {
                file_not_open!()
             }
@@ -227,7 +237,7 @@ impl UserData for LuaFile {
          "seek",
          |_, this, pos: u64| -> mlua::Result<(bool, Option<String>)> {
             if let Some(file) = &mut this.file {
-               match file.io.seek(std::io::SeekFrom::Start(pos)) {
+               match file.io.lock().unwrap().seek(std::io::SeekFrom::Start(pos)) {
                   Ok(res) => Ok((pos == res, None)),
                   Err(e) => Ok((false, Some(e.to_string()))),
                }
@@ -274,7 +284,7 @@ impl UserData for LuaFile {
        */
       methods.add_method("getSize", |_, this, ()| -> mlua::Result<Option<usize>> {
          if let Some(file) = &this.file {
-            Ok(file.io.len())
+            Ok(file.io.lock().unwrap().len())
          } else {
             file_not_open!()
          }

@@ -435,7 +435,7 @@ impl NLua {
    pub fn environment_eval<R: FromLuaMulti>(
       &self,
       env: mlua::Table,
-      chunk: mlua::Chunk,
+      chunk: mlua::chunk::Chunk,
    ) -> Result<R> {
       let globals = self.lua.globals();
       let prev_env: Option<mlua::Table> = globals.raw_get(ENV)?;
@@ -521,7 +521,7 @@ impl LuaEnv {
 
    /// Calls a function with the environment
    #[instrument(skip_all,fields(name = &self.name))]
-   pub fn eval<R: FromLuaMulti>(&self, lua: &NLua, chunk: mlua::Chunk) -> Result<R> {
+   pub fn eval<R: FromLuaMulti>(&self, lua: &NLua, chunk: mlua::chunk::Chunk) -> Result<R> {
       lua.environment_eval(self.table.clone(), chunk)
    }
 
