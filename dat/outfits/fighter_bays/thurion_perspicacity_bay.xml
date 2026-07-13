@@ -10,7 +10,9 @@
   <mass>107</mass>
   <price>1780000</price>
   <gfx_store>thurion_perspicacity_fighter</gfx_store>
-  <description>This bay allows your ship to carry four Thurion Perspicacity fighters. It comes with all the devices required for the maintenance and flight of the fighters.</description>
+  <description>This bay allows your ship to carry four Thurion Perspicacity fighters. It comes with all the devices required for the maintenance and flight of the fighters.
+
+The Thurion Perspicacity Bay uses a modular design construction process that intelligently adapts the fighter frame depending on local nebula volatility.</description>
   <cpu>-420</cpu>
  </general>
  <specific type="fighter bay">
