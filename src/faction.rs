@@ -631,7 +631,7 @@ impl Faction {
       } else {
          anyhow::bail!(
             "reputation_max function not defined for faction '{}'",
-            &self.data.name
+            self.data.name
          )
       }
    }
@@ -693,7 +693,7 @@ impl Faction {
          unsafe { naevc::space_factionChange() };
          Ok(delta)
       } else {
-         anyhow::bail!("hit function not defined for faction '{}'", &self.data.name)
+         anyhow::bail!("hit function not defined for faction '{}'", self.data.name)
       }
    }
 
@@ -719,7 +719,7 @@ impl Faction {
       } else {
          anyhow::bail!(
             "hit_test function not defined for faction '{}'",
-            &self.data.name
+            self.data.name
          )
       }
    }

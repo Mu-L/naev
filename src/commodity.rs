@@ -375,7 +375,7 @@ pub fn load() -> Result<()> {
             base: *commap.get(price_ref).with_context(|| {
                format!(
                   "commodity '{}' has missing price_ref '{price_ref}'",
-                  &com.name
+                  com.name
                )
             })?,
             modifier: com_mod,

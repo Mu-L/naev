@@ -1837,7 +1837,7 @@ impl UserData for Texture {
          MetaMethod::ToString,
          |_, this, ()| -> mlua::Result<String> {
             let name = this.path.as_deref().unwrap_or("???");
-            Ok(format!("Texture( {} )", &name))
+            Ok(format!("Texture( {} )", name))
          },
       );
       /*@

@@ -264,7 +264,7 @@ impl ProgramSource {
       let fragshader = Self::compile(gl, ShaderType::Fragment, &fragname, &fragdata)?;
       let name = match name {
          Some(name) => name,
-         None => &format!("{}-{}", &vertname, &fragname),
+         None => &format!("{}-{}", vertname, fragname),
       };
       let program = Self::link(gl, name, vertshader, fragshader)?;
 
