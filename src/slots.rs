@@ -163,7 +163,7 @@ static SLOT_PROPERTIES: LazyLock<Vec<SlotProperty>> = LazyLock::new(|| load().un
 pub fn get(name: &str) -> Result<&'static SlotProperty> {
    match binary_search_by_key_ref(&SLOT_PROPERTIES, name, |sp: &SlotProperty| &sp.name) {
       Ok(i) => Ok(SLOT_PROPERTIES.get(i).expect("")),
-      Err(_) => anyhow::bail!("Slot Property '{name}' not found .", name = name,),
+      Err(_) => anyhow::bail!("Slot Property '{name}' not found", name = name,),
    }
 }
 
@@ -214,7 +214,7 @@ pub extern "C" fn sp_get(name: *const c_char) -> c_int {
       match binary_search_by_key_ref(&SLOT_PROPERTIES, name, |sp: &SlotProperty| &sp.name) {
          Ok(i) => (i + 1) as c_int,
          Err(_) => {
-            warn!("slot property '{name}' not found");
+            warn!("Slot property '{name}' not found");
             0
          }
       }
