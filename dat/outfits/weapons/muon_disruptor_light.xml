@@ -24,7 +24,7 @@
   <energy>20</energy>
   <trackmin>0</trackmin>
   <trackmax>2000</trackmax>
-  <resist>100</resist>
+  <resist>92</resist>
   <swivel>33</swivel>
   <damage>
    <type>energy</type>

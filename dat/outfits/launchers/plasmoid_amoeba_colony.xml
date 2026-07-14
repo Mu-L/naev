@@ -32,7 +32,7 @@
   <accel>100</accel>
   <turn>200</turn>
   <speed_max>270</speed_max>
-  <resist>60</resist>
+  <resist>81</resist>
   <damage>
    <type>plasma</type>
    <penetrate>51</penetrate>
