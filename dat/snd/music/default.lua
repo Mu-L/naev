@@ -101,6 +101,7 @@ return {
    -- Spob-specific songs. Replace songs for certain spobs
    spob_songs = {
       ["Minerva Station"] = { "meeting_mtfox" },
+      ["Totoran"] = { "dvaered2" },
       ["Strangelove Lab"] = { "landing_sinister" },
       ["One-Wing Goddard"] = { "/snd/sounds/songs/inca-spa" },
       ["Research Post Sigma-13"] = function ()

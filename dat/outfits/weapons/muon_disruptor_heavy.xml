@@ -25,7 +25,7 @@
   <energy>94</energy>
   <trackmin>2400</trackmin>
   <trackmax>9600</trackmax>
-  <resist>100</resist>
+  <resist>123</resist>
   <damage>
    <type>energy</type>
    <penetrate>145</penetrate>
