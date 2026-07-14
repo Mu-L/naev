@@ -169,8 +169,8 @@ local function spawn_large ()
 end
 
 return function ( t, max )
-   t.trader = { f = spawn_trader, w = 300-max }
-   t.small  = { f = spawn_small,  w = math.max(1, max)  }
-   t.medium = { f = spawn_medium, w = math.max(1, -80 + max) }
-   t.large  = { f = spawn_large,  w = math.max(1, -300 + max) }
+   t.trader = { f = spawn_trader, w = 300-max*5 }
+   t.small  = { f = spawn_small,  w = math.max(1, max*5)  }
+   t.medium = { f = spawn_medium, w = math.max(1, -80 + max*5) }
+   t.large  = { f = spawn_large,  w = math.max(1, -300 + max*5) }
 end, 10

@@ -220,8 +220,8 @@ return function ( t, max )
 
    -- Create weights for spawn table
    t.loner = { f=spawn_loner, w=400 } -- codespell:ignore loner
-   t.fleet_small = { f=spawn_fleet_small, w=math.max(1, -150, max ) * (1-hostnorm) }
-   t.fleet_small_guarded = { f=spawn_fleet_small_guarded, w=math.max(1, -200, max ) * hostnorm }
-   t.fleet_med = { f=spawn_fleet_med, w=math.max(1, -300 + max) * (1-hostnorm) }
-   t.fleet_med_guarded = { f=spawn_fleet_med_guarded, w=math.max(1, -300 + max) * (1-hostnorm) }
+   t.fleet_small = { f=spawn_fleet_small, w=math.max(1, -150, max*5 ) * (1-hostnorm) }
+   t.fleet_small_guarded = { f=spawn_fleet_small_guarded, w=math.max(1, -200, max*5 ) * hostnorm }
+   t.fleet_med = { f=spawn_fleet_med, w=math.max(1, -300 + max*5) * (1-hostnorm) }
+   t.fleet_med_guarded = { f=spawn_fleet_med_guarded, w=math.max(1, -300 + max*5) * (1-hostnorm) }
 end, 10

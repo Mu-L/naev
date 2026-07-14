@@ -111,15 +111,15 @@ return function ( t, max )
    frontier = csys:presences()["Frontier"]
 
    -- Solitary civilians
-   t.solitary = { f=spawn_solitary_civilians, w=max }
+   t.solitary = { f=spawn_solitary_civilians, w=max*5 }
 
    -- Lone bounty hunters
-   t.bounty_hunter_sml = { f=spawn_bounty_hunter_sml, w=math.min( 0.3*max, 50 ) }
-   t.bounty_hunter_med = { f=spawn_bounty_hunter_med, w=math.min( 0.2*max, math.max(1, -150 + host ) ) }
-   t.bounty_hunter_lrg = { f=spawn_bounty_hunter_lrg, w=math.min( 0.1*max, math.max(1, -300 + host ) ) }
+   t.bounty_hunter_sml = { f=spawn_bounty_hunter_sml, w=math.min( 0.3*max*5, 50 ) }
+   t.bounty_hunter_med = { f=spawn_bounty_hunter_med, w=math.min( 0.2*max*5, math.max(1, -150 + host ) ) }
+   t.bounty_hunter_lrg = { f=spawn_bounty_hunter_lrg, w=math.min( 0.1*max*5, math.max(1, -300 + host ) ) }
 
    -- The more hostiles, the less advertisers
    -- The modifier should be 0.15 at 10% hostiles, 0.001 at 100% hostiles, and
    -- 1 at 0% hostiles
-   t.advert = { f=spawn_advert, w=0.1*max*math.exp(-hostnorm*5) }
+   t.advert = { f=spawn_advert, w=0.1*max*5*math.exp(-hostnorm*5) }
 end, 10

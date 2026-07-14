@@ -34,5 +34,5 @@ end
 
 return function ( t, max )
    t.patrol  = { f = spawn_patrol,  w = 100 }
-   t.squad   = { f = spawn_squad,   w = math.max(1, -80 + 0.80 * max) }
+   t.squad   = { f = spawn_squad,   w = math.max(1, -80 + 0.80 * max*5) }
 end, 10
