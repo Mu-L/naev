@@ -7,8 +7,8 @@
  </GFX>
  <presence>
   <faction>Empire</faction>
-  <base>150</base>
-  <bonus>80</bonus>
+  <base>30</base>
+  <bonus>16</bonus>
   <range>3</range>
  </presence>
  <general>

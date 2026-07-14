@@ -6,8 +6,8 @@
  </GFX>
  <presence>
   <faction>Traders Society</faction>
-  <base>120</base>
-  <bonus>60</bonus>
+  <base>24</base>
+  <bonus>12</bonus>
   <range>3</range>
  </presence>
  <general>

@@ -7,8 +7,8 @@
  </GFX>
  <presence>
   <faction>Pirate</faction>
-  <base>200</base>
-  <bonus>120</bonus>
+  <base>40</base>
+  <bonus>24</bonus>
   <range>4</range>
  </presence>
  <general>

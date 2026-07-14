@@ -1,8 +1,8 @@
 <spob name="Independent Trader Local">
  <presence>
   <faction>Trader</faction>
-  <base>30.000000</base>
-  <bonus>15.000000</bonus>
+  <base>6</base>
+  <bonus>3</bonus>
   <range>0</range>
  </presence>
 </spob>

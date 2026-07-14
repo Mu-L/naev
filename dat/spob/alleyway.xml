@@ -7,8 +7,8 @@
  </GFX>
  <presence>
   <faction>Free Trader</faction>
-  <base>70</base>
-  <bonus>30</bonus>
+  <base>14</base>
+  <bonus>6</bonus>
   <range>0</range>
  </presence>
  <general>

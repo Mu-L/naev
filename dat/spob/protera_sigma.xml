@@ -6,8 +6,8 @@
  </GFX>
  <presence>
   <faction>Proteron</faction>
-  <base>1150</base>
-  <bonus>50</bonus>
+  <base>230</base>
+  <bonus>10</bonus>
   <range>4</range>
  </presence>
  <general>

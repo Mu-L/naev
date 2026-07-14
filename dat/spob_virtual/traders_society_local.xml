@@ -1,8 +1,8 @@
 <spob name="Traders Society Local">
  <presence>
   <faction>Traders Society</faction>
-  <base>16.666667</base>
-  <bonus>8.333333</bonus>
+  <base>3.3333334</base>
+  <bonus>1.6666666</bonus>
   <range>0</range>
  </presence>
 </spob>

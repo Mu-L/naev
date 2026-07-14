@@ -1,8 +1,8 @@
 <spob name="Pirate Medium">
  <presence>
   <faction>Pirate</faction>
-  <base>100.000000</base>
-  <bonus>50.000000</bonus>
+  <base>20</base>
+  <bonus>10</bonus>
   <range>3</range>
  </presence>
 </spob>

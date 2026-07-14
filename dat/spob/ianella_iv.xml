@@ -6,8 +6,8 @@
  </GFX>
  <presence>
   <faction>Dvaered</faction>
-  <base>30</base>
-  <bonus>15</bonus>
+  <base>6</base>
+  <bonus>3</bonus>
   <range>2</range>
  </presence>
  <general>

@@ -1,8 +1,8 @@
 <spob name="Miner Local">
  <presence>
   <faction>Miner</faction>
-  <base>46.666667</base>
-  <bonus>23.333333</bonus>
+  <base>9.3333334</base>
+  <bonus>4.6666666</bonus>
   <range>0</range>
  </presence>
 </spob>

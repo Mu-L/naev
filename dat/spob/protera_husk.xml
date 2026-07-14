@@ -7,7 +7,7 @@
  </GFX>
  <presence>
   <faction>Lost</faction>
-  <base>500</base>
+  <base>100</base>
   <bonus>0</bonus>
   <range>5</range>
  </presence>

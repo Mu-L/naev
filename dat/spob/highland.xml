@@ -6,8 +6,8 @@
  </GFX>
  <presence>
   <faction>O'rez</faction>
-  <base>200</base>
-  <bonus>100</bonus>
+  <base>40</base>
+  <bonus>20</bonus>
   <range>1</range>
  </presence>
  <general>

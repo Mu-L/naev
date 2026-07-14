@@ -1,8 +1,8 @@
 <spob name="Pirate Tiny">
  <presence>
   <faction>Pirate</faction>
-  <base>40</base>
-  <bonus>20</bonus>
+  <base>8</base>
+  <bonus>4</bonus>
   <range>2</range>
  </presence>
 </spob>

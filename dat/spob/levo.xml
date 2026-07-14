@@ -6,8 +6,8 @@
  </GFX>
  <presence>
   <faction>Independent</faction>
-  <base>30</base>
-  <bonus>20</bonus>
+  <base>6</base>
+  <bonus>4</bonus>
   <range>1</range>
  </presence>
  <general>

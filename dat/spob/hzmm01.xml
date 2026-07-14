@@ -6,8 +6,8 @@
  </GFX>
  <presence>
   <faction>Za'lek</faction>
-  <base>8</base>
-  <bonus>4</bonus>
+  <base>1.6</base>
+  <bonus>0.8</bonus>
   <range>0</range>
  </presence>
  <general>

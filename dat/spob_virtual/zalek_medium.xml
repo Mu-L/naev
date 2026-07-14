@@ -1,8 +1,8 @@
 <spob name="Za'lek Medium">
  <presence>
   <faction>Za'lek</faction>
-  <base>100.000000</base>
-  <bonus>50.000000</bonus>
+  <base>20</base>
+  <bonus>10</bonus>
   <range>2</range>
  </presence>
 </spob>

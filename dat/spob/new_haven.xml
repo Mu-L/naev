@@ -7,8 +7,8 @@
  </GFX>
  <presence>
   <faction>Wild Ones</faction>
-  <base>400</base>
-  <bonus>50</bonus>
+  <base>80</base>
+  <bonus>10</bonus>
   <range>5</range>
  </presence>
  <general>

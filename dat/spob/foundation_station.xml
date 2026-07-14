@@ -7,8 +7,8 @@
  </GFX>
  <presence>
   <faction>Raven Clan</faction>
-  <base>200</base>
-  <bonus>50</bonus>
+  <base>40</base>
+  <bonus>10</bonus>
   <range>4</range>
  </presence>
  <general>

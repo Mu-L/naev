@@ -1,22 +1,22 @@
 <spob name="Trade Lane">
  <presence>
   <faction>Trader</faction>
-  <base>100.000000</base>
+  <base>20</base>
  </presence>
  <presence>
   <faction>Trader</faction>
-  <base>50.000000</base>
-  <bonus>50.000000</bonus>
+  <base>10</base>
+  <bonus>10</bonus>
   <range>1</range>
  </presence>
  <presence>
   <faction>Independent</faction>
-  <base>80.000000</base>
+  <base>16</base>
  </presence>
  <presence>
   <faction>Independent</faction>
-  <base>50.000000</base>
-  <bonus>40.000000</bonus>
+  <base>10</base>
+  <bonus>8</bonus>
   <range>1</range>
  </presence>
 </spob>

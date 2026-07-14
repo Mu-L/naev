@@ -1,13 +1,13 @@
 <spob name="Yetmer-O'rez Unpresence">
  <presence>
   <faction>Yetmer</faction>
-  <base>0.000000</base>
+  <base>0</base>
   <bonus>-100000.000000</bonus>
   <range>0</range>
  </presence>
  <presence>
   <faction>O'rez</faction>
-  <base>0.000000</base>
+  <base>0</base>
   <bonus>-100000.000000</bonus>
   <range>0</range>
  </presence>

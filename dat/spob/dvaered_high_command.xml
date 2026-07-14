@@ -8,8 +8,8 @@
  </GFX>
  <presence>
   <faction>Dvaered</faction>
-  <base>250</base>
-  <bonus>50</bonus>
+  <base>50</base>
+  <bonus>10</bonus>
   <range>2</range>
  </presence>
  <general>
