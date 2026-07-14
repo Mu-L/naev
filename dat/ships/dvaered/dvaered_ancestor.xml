@@ -1,6 +1,6 @@
 <ship name="Dvaered Ancestor">
  <lua>dvaered.lua</lua>
- <points>40</points>
+ <points>8</points>
  <base_type>Ancestor</base_type>
  <gfx size="65">ancestor_dvaered.gltf</gfx>
  <rarity>1</rarity>

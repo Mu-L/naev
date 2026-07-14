@@ -1,6 +1,6 @@
 <ship name="Thurion Apprehension">
  <lua>thurion.lua</lua>
- <points>90</points>
+ <points>18</points>
  <base_type>Apprehension</base_type>
  <gfx sy="12" sx="12" size="90">apprehension.gltf</gfx>
  <rarity>3</rarity>

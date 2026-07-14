@@ -1,5 +1,5 @@
 <ship name="Vigilance">
- <points>90</points>
+ <points>18</points>
  <base_type>Vigilance</base_type>
  <gfx sy="10" sx="10" size="95">vigilance.gltf</gfx>
  <sound pitch="0.7">engine_melendez</sound>

@@ -1,6 +1,6 @@
 <ship name="Dvaered Arsenal">
  <lua>dvaered.lua</lua>
- <points>120</points>
+ <points>24</points>
  <base_type>Arsenal</base_type>
  <gfx sy="12" sx="12" size="128">arsenal_dvaered.gltf</gfx>
  <rarity>1</rarity>

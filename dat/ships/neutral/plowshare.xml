@@ -1,5 +1,5 @@
 <ship name="Plowshare">
- <points>50</points>
+ <points>10</points>
  <base_type>Plowshare</base_type>
  <gfx sy="10" sx="10" size="69">plowshare.gltf</gfx>
  <sound pitch="0.85">engine_melendez</sound>

@@ -1,6 +1,6 @@
 <ship name="Soromid Nyx">
  <lua>soromid.lua</lua>
- <points>90</points>
+ <points>18</points>
  <base_type>Nyx</base_type>
  <gfx size="96" sx="10" sy="10">nyx.gltf</gfx>
  <rarity>1</rarity>

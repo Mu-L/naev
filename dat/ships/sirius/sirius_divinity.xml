@@ -1,6 +1,6 @@
 <ship name="Sirius Divinity">
  <lua>sirius_divinity.lua</lua>
- <points>200</points>
+ <points>40</points>
  <base_type>Divinity</base_type>
  <gfx sy="12" sx="12" size="180">divinity.gltf</gfx>
  <rarity>1</rarity>

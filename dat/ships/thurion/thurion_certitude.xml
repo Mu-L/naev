@@ -1,6 +1,6 @@
 <ship name="Thurion Certitude">
  <lua>thurion.lua</lua>
- <points>200</points>
+ <points>40</points>
  <base_type>Certitude</base_type>
  <gfx sy="12" sx="12" size="120">certitude.gltf</gfx>
  <rarity>3</rarity>

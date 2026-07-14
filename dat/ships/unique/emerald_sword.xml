@@ -3,7 +3,7 @@
   <unique/>
  </flags>
  <rarity>6</rarity>
- <points>200</points>
+ <points>40</points>
  <base_type>Emerald_Sword</base_type>
  <gfx size="130">emerald_sword.gltf</gfx>
  <sound pitch="0.5">engine_thurion</sound>

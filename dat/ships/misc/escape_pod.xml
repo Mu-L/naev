@@ -1,6 +1,6 @@
 <ship name="Escape Pod">
  <lua>escape_pod.lua</lua>
- <points>1</points>
+ <points>0</points>
  <base_type>Escape_Pod</base_type>
  <gfx size="30">escape_pod.gltf</gfx>
  <sound>engine_nexus</sound>

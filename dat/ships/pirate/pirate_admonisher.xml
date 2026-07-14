@@ -1,6 +1,6 @@
 <ship name="Pirate Admonisher">
  <lua>pirate.lua</lua>
- <points>70</points>
+ <points>14</points>
  <base_type>Admonisher</base_type>
  <gfx size="68">admonisher_pirate.gltf</gfx>
  <rarity>1</rarity>

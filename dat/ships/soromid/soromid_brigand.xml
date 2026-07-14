@@ -1,6 +1,6 @@
 <ship name="Soromid Brigand">
  <lua>soromid.lua</lua>
- <points>30</points>
+ <points>6</points>
  <base_type>Brigand</base_type>
  <gfx size="60">brigand.gltf</gfx>
  <rarity>1</rarity>

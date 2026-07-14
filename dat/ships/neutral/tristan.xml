@@ -1,5 +1,5 @@
 <ship name="Tristan">
- <points>35</points>
+ <points>7</points>
  <base_type>Tristan</base_type>
  <gfx size="39">tristan.gltf</gfx>
  <sound>engine_nexus</sound>

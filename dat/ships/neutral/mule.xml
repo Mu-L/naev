@@ -1,5 +1,5 @@
 <ship name="Mule">
- <points>60</points>
+ <points>12</points>
  <base_type>Mule</base_type>
  <gfx sy="10" sx="10" size="96">mule.gltf</gfx>
  <sound pitch="0.9">engine_melendez</sound>

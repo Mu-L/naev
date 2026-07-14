@@ -1,6 +1,6 @@
 <ship name="Sirius Providence">
  <lua>sirius_providence.lua</lua>
- <points>120</points>
+ <points>24</points>
  <base_type>Providence</base_type>
  <gfx sy="12" sx="12" size="126">providence.gltf</gfx>
  <rarity>1</rarity>

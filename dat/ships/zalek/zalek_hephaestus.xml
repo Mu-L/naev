@@ -1,6 +1,6 @@
 <ship name="Za'lek Hephaestus">
  <lua>zalek_hephaestus.lua</lua>
- <points>300</points>
+ <points>60</points>
  <base_type>Hephaestus</base_type>
  <gfx sy="12" sx="12" size="171">hephaestus.gltf</gfx>
  <rarity>1</rarity>

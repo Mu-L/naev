@@ -1,6 +1,6 @@
 <ship name="Soromid Ira">
  <lua>soromid.lua</lua>
- <points>200</points>
+ <points>40</points>
  <base_type>Ira</base_type>
  <gfx size="112" sx="12" sy="12">ira.gltf</gfx>
  <rarity>1</rarity>

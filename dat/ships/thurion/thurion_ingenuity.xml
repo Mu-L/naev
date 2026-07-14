@@ -1,6 +1,6 @@
 <ship name="Thurion Ingenuity">
  <lua>thurion.lua</lua>
- <points>40</points>
+ <points>8</points>
  <base_type>Ingenuity</base_type>
  <gfx size="56">ingenuity.gltf</gfx>
  <rarity>3</rarity>

@@ -1,5 +1,5 @@
 <ship name="Schroedinger">
- <points>20</points>
+ <points>4</points>
  <base_type>Schroedinger</base_type>
  <gfx size="47">schroedinger.gltf</gfx>
  <sound>engine_sirius</sound>

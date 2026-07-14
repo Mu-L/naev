@@ -1,5 +1,5 @@
 <ship name="Proteron Euler">
- <points>20</points>
+ <points>4</points>
  <base_type>Euler</base_type>
  <gfx size="45">euler.gltf</gfx>
  <rarity>3</rarity>

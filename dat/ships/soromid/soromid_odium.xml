@@ -1,6 +1,6 @@
 <ship name="Soromid Odium">
  <lua>soromid.lua</lua>
- <points>60</points>
+ <points>12</points>
  <base_type>Odium</base_type>
  <gfx size="72">odium.gltf</gfx>
  <rarity>1</rarity>

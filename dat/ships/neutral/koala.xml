@@ -1,5 +1,5 @@
 <ship name="Koala">
- <points>30</points>
+ <points>6</points>
  <base_type>Koala</base_type>
  <gfx size="46">koala.gltf</gfx>
  <sound pitch="0.95">engine_melendez</sound>

@@ -1,5 +1,5 @@
 <ship name="Proteron Dalton">
- <points>30</points>
+ <points>6</points>
  <base_type>Dalton</base_type>
  <gfx size="40">dalton.gltf</gfx>
  <rarity>3</rarity>

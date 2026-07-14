@@ -1,6 +1,6 @@
 <ship name="Heavy Drone">
  <lua>thurion.lua</lua>
- <points>50</points>
+ <points>10</points>
  <base_type>Drone</base_type>
  <gfx sy="10" sx="10" size="100">drone_heavy</gfx>
  <rarity>3</rarity>

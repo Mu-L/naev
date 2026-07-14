@@ -1,5 +1,5 @@
 <ship name="Shark ΨIIIa" inherits="Shark">
- <points>20</points>
+ <points>4</points>
  <rarity>2</rarity>
  <price>290000</price>
  <class>Scout</class>

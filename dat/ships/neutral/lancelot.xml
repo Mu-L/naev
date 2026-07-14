@@ -1,5 +1,5 @@
 <ship name="Lancelot">
- <points>40</points>
+ <points>8</points>
  <base_type>Lancelot</base_type>
  <gfx size="56">lancelot.gltf</gfx>
  <sound>engine_nexus</sound>

@@ -1,6 +1,6 @@
 <ship name="Soromid Reaver">
  <lua>soromid.lua</lua>
- <points>40</points>
+ <points>8</points>
  <base_type>Reaver</base_type>
  <gfx size="68">reaver.gltf</gfx>
  <rarity>1</rarity>

@@ -1,5 +1,5 @@
 <ship name="Gawain">
- <points>20</points>
+ <points>4</points>
  <base_type>Gawain</base_type>
  <gfx size="56">gawain.gltf</gfx>
  <sound>engine_nexus</sound>

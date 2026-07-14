@@ -1,5 +1,5 @@
 <ship name="Hyena">
- <points>30</points>
+ <points>6</points>
  <base_type>Hyena</base_type>
  <gfx size="44">hyena.gltf</gfx>
  <sound>engine_nexus</sound>

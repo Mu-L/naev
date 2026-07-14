@@ -1,6 +1,6 @@
 <ship name="Drone (Hyena)">
  <lua>scavenger.lua</lua>
- <points>20</points>
+ <points>4</points>
  <base_type>Drone</base_type>
  <gfx size="70">drone_hyena.gltf</gfx>
  <flags>

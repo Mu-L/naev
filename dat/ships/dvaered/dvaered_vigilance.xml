@@ -1,6 +1,6 @@
 <ship name="Dvaered Vigilance">
  <lua>dvaered.lua</lua>
- <points>90</points>
+ <points>18</points>
  <base_type>Vigilance</base_type>
  <gfx sy="10" sx="10" size="95">vigilance_dvaered.gltf</gfx>
  <rarity>1</rarity>

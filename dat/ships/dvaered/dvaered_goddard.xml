@@ -1,6 +1,6 @@
 <ship name="Dvaered Goddard">
  <lua>dvaered.lua</lua>
- <points>200</points>
+ <points>40</points>
  <base_type>Goddard</base_type>
  <gfx sy="12" sx="12" size="125">goddard_dvaered.gltf</gfx>
  <rarity>1</rarity>

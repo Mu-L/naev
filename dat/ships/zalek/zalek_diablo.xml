@@ -1,6 +1,6 @@
 <ship name="Za'lek Diablo">
  <lua>zalek.lua</lua>
- <points>200</points>
+ <points>40</points>
  <base_type>Diablo</base_type>
  <gfx sy="12" sx="12" size="171">diablo.gltf</gfx>
  <rarity>1</rarity>

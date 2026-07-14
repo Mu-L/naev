@@ -1,5 +1,5 @@
 <ship name="Llama">
- <points>20</points>
+ <points>4</points>
  <base_type>Llama</base_type>
  <gfx size="47">llama.gltf</gfx>
  <sound>engine_melendez</sound>

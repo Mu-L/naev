@@ -1,6 +1,6 @@
 <ship name="Thurion Scintillation">
  <lua>thurion.lua</lua>
- <points>40</points>
+ <points>8</points>
  <base_type>Scintillation</base_type>
  <gfx size="70">scintillation.gltf</gfx>
  <rarity>3</rarity>

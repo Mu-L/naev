@@ -1,6 +1,6 @@
 <ship name="Pirate Starbridge">
  <lua>pirate.lua</lua>
- <points>80</points>
+ <points>16</points>
  <base_type>Starbridge</base_type>
  <gfx sy="10" sx="10" size="80">starbridge_pirate.gltf</gfx>
  <rarity>1</rarity>

@@ -1,6 +1,6 @@
 <ship name="Soromid Vox">
  <lua>soromid.lua</lua>
- <points>240</points>
+ <points>48</points>
  <base_type>Vox</base_type>
  <gfx size="171" sx="12" sy="12">vox.gltf</gfx>
  <rarity>1</rarity>

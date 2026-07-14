@@ -1,5 +1,5 @@
 <ship name="Rhino">
- <points>80</points>
+ <points>16</points>
  <base_type>Rhino</base_type>
  <gfx sy="10" sx="10" size="100">rhino.gltf</gfx>
  <sound pitch="0.9">engine_melendez</sound>

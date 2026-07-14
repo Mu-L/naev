@@ -1,5 +1,5 @@
 <ship name="Starbridge">
- <points>80</points>
+ <points>16</points>
  <base_type>Starbridge</base_type>
  <gfx sy="10" sx="10" size="80">starbridge.gltf</gfx>
  <sound pitch="0.9">engine_nexus</sound>

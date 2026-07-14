@@ -1,6 +1,6 @@
 <ship name="Pirate Zebra">
  <lua>pirate.lua</lua>
- <points>180</points>
+ <points>36</points>
  <base_type>Zebra</base_type>
  <gfx sy="12" sx="12" size="128">zebra_pirate.gltf</gfx>
  <rarity>2</rarity>

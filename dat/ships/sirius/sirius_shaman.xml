@@ -1,6 +1,6 @@
 <ship name="Sirius Shaman">
  <lua>sirius_shaman.lua</lua>
- <points>40</points>
+ <points>8</points>
  <base_type>Shaman</base_type>
  <rarity>1</rarity>
  <gfx size="68">shaman.gltf</gfx>

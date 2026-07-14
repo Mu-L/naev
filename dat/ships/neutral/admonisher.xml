@@ -1,5 +1,5 @@
 <ship name="Admonisher">
- <points>60</points>
+ <points>12</points>
  <base_type>Admonisher</base_type>
  <gfx size="68">admonisher.gltf</gfx>
  <sound pitch="0.9">engine_nexus</sound>
