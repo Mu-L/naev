@@ -7,7 +7,7 @@ return function ()
    local spres = scur:presences()
    local pirates = pir.systemPresence( scur )
 
-   if pirates > 300 then
+   if pirates > 60 then
       table.insert( pers, {
          spawn = function ()
             local p = require("common.minerva").pink_demon( nil, {ai="pers_pirate"} )
@@ -21,7 +21,7 @@ return function ()
       } )
    end
 
-   if not player.misnDone("Kex's Freedom 3") and (spres["Dvaered"] or 0) > 100 then
+   if not player.misnDone("Kex's Freedom 3") and (spres["Dvaered"] or 0) > 20 then
       table.insert( pers, {
          spawn = function ()
             local p = pilot.add("Dvaered Goddard", "Dvaered", nil, _("Major Malik"), {naked=true, ai="pers_patrol"})
@@ -54,7 +54,7 @@ return function ()
       } )
    end
 
-   if player.misnDone("Maikki's Father 2") and (spres["Za'lek"] or 0) > 30 and pirates < 30 then
+   if player.misnDone("Maikki's Father 2") and (spres["Za'lek"] or 0) > 6 and pirates < 6 then
       table.insert( pers, {
          spawn = function ()
             local p = pilot.add("Za'lek Sting", "Za'lek", nil, _("Dr. Cayne"), {naked=true, ai="pers"} )

@@ -70,7 +70,7 @@ local function travellingRisk( system )
 end
 
 function create ()
-   mem.sys = cens.findTarget( 0, 5, "Pirate", 10 ) -- Use standard pirates to see if system is suitable
+   mem.sys = cens.findTarget( 0, 5, "Pirate", 2 ) -- Use standard pirates to see if system is suitable
    if not misn.claim(mem.sys) then misn.finish(false) end
 
    local credits1

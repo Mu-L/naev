@@ -37,7 +37,7 @@ local vntk   = require 'vntk'
 local detected
 
 function create ()
-   mem.sys = cens.findTarget( 0, 3, "Dvaered", 50 )
+   mem.sys = cens.findTarget( 0, 3, "Dvaered", 10 )
    if not misn.claim(mem.sys) then misn.finish(false) end
 
    mem.nbships, mem.credits = cens.calculateNb( mem.sys, {faction.get("Dvaered")} )

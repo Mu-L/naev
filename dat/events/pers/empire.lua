@@ -10,7 +10,7 @@ return function ()
    end
 
    -- Larger ships can be there
-   if presence > 200 then
+   if presence > 40 then
       local function executor_spawn( name, ad, taunt )
          return function ()
             local p = pilot.add("Empire Peacemaker", "Empire", nil, name, {naked=true, ai="pers_patrol"})
@@ -64,7 +64,7 @@ return function ()
    end
 
    -- Medium ships here
-   if presence > 100 then
+   if presence > 20 then
       for k,v in ipairs{
          {
             spawn = function ()

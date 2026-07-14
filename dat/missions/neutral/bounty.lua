@@ -249,7 +249,7 @@ local function bounty_setup_pirate( payingfaction, points )
          return false
       end
       -- More likely to only appear in empty systems with high points
-      if rnd.rnd() < points/200 then
+      if rnd.rnd() < points/40 then
          for k,spb in ipairs(s:spobs()) do
             if spb:services().inhabited then
                local f = spb:faction()
@@ -259,7 +259,7 @@ local function bounty_setup_pirate( payingfaction, points )
             end
          end
       end
-      return pir.systemPresence( s ) > math.min( 400, points*0.5 )
+      return pir.systemPresence( s ) > math.min( 80, points*0.5 )
    end
 
    local systems = lmisn.getSysAtDistance( system.cur(), 1, 3, test_system )
@@ -275,20 +275,20 @@ local function bounty_setup_pirate( payingfaction, points )
    local missys = systems[ rnd.rnd( #systems ) ]
 
    local level
-   if points <= 50 then
+   if points <= 10 then
       level = 1
-   elseif points <= 100 then
+   elseif points <= 20 then
       level = 2
-   elseif points <= 200 then
+   elseif points <= 40 then
       level = 3
-   elseif points <= 300 then
+   elseif points <= 60 then
       level = 4
    else
       level = 5
    end
 
-   local calcpoints  = points / 200
-   if points > 200 then
+   local calcpoints  = points / 40
+   if points > 40 then
       calcpoints = 1 + (calcpoints - 1) * 0.5
    end
    local credits     = 1e6 * calcpoints * (0.9 + 0.2 * rnd.rnd())
@@ -379,7 +379,7 @@ function create ()
    else
       local var = var.peek("astra_vigilis_points") or 0
       -- Starts out like Easy, but pushes towards harder, while keeping easy bounties. Caps out a bit lower than challenging.
-      points = 30 + (100 + math.min(500, 0.5*var)) * rnd.rnd()
+      points = 6 + (20 + math.min(100, 0.5*var)) * rnd.rnd()
    end
 
    -- Pirate details

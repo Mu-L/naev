@@ -10,7 +10,7 @@ return function ()
    end
 
    -- Medium ships here
-   if presence > 100 then
+   if presence > 20 then
       for k,v in ipairs{
          {
             spawn = function ()

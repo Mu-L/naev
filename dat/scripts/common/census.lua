@@ -25,7 +25,7 @@ function cens.calculateNb( system, fact_list )
          pres = pres + p[ fact:nameRaw() ]
       end
    end
-   local nbships = math.floor( pres/(20*(3+rnd.rnd())) ) + 2
+   local nbships = math.floor( pres*5/(20*(3+rnd.rnd())) ) + 2
    local credits = (20+nbships)*(5+rnd.rnd())*200
    return nbships, credits
 end

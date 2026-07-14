@@ -9,7 +9,7 @@ return function ()
       return nil -- Need at least some presence
    end
 
-   if presence > 100 then
+   if presence > 20 then
       for k,v in ipairs{
          {
             spawn = function ()

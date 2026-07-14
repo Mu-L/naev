@@ -32,7 +32,7 @@ return function ()
    --end
 
    -- Larger ships can be there
-   if pirpres > 50 and enemies < 600 then
+   if pirpres > 10 and enemies < 120 then
       for k,v in ipairs{
          { -- Anchovy Brothers
             spawn = function ()
@@ -114,7 +114,7 @@ return function ()
       end
    end
 
-   if pirpres > 400 then
+   if pirpres > 80 then
       for k,v in ipairs {
          {
             spawn = function ()
@@ -144,7 +144,7 @@ return function ()
    local pres = scur:presences()
 
    local wildones = pres["Wild Ones"] or 0
-   if wildones > 50  and enemies <= 600 then
+   if wildones > 10  and enemies <= 120 then
       for k,v in ipairs{
          {
             spawn = function ()
@@ -213,7 +213,7 @@ return function ()
    end
 
    local ravenclan = pres["Raven Clan"] or 0
-   if ravenclan > 150 and enemies < 900 then
+   if ravenclan > 30 and enemies < 180 then
       for k,v in ipairs{
          {
             spawn = function ()
@@ -255,7 +255,7 @@ return function ()
    end
 
    local dreamerclan = pres["Dreamer Clan"] or 0
-   if dreamerclan > 100 and enemies <= 700 then
+   if dreamerclan > 20 and enemies <= 140 then
       for k,v in ipairs{
          {
             spawn = function ()
@@ -286,7 +286,7 @@ return function ()
    end
 
    local blacklotus = pres["Black Lotus"] or 0
-   if blacklotus > 50 and enemies <= 700 then
+   if blacklotus > 10 and enemies <= 140 then
       for k,v in ipairs{
          {
             spawn = function ()
@@ -335,7 +335,7 @@ return function ()
          table.insert( pers, v )
       end
    end
-   if blacklotus > 125 and enemies <= 1000 then
+   if blacklotus > 25 and enemies <= 200 then
       for k,v in ipairs{
          {
             spawn = function ()
@@ -368,7 +368,7 @@ return function ()
          table.insert( pers, v )
       end
    end
-   if blacklotus > 200 then
+   if blacklotus > 40 then
       for k,v in ipairs{
          {
             spawn = function ()

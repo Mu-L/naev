@@ -82,7 +82,7 @@ function create ()
       function(s)
          local this_faction = s:presence(mem.paying_faction)
          local enemies = get_enemies(s)
-         return this_faction ~= nil and this_faction > 0 and enemies > 0 and enemies < 700
+         return this_faction ~= nil and this_faction > 0 and enemies > 0 and enemies < 140
       end, nil, mem.use_hidden_jumps )
    if get_enemies( system.cur() ) then
       systems[ #systems+1 ] = system.cur()
@@ -151,7 +151,7 @@ function create ()
    if n_enemies == 0 then
       misn.finish( false )
    end
-   mem.credits = n_enemies * 1000
+   mem.credits = n_enemies * 5000
    mem.credits = mem.credits + rnd.sigma() * (mem.credits / 3)
    mem.reputation = math.floor( n_enemies / 15 )
 
