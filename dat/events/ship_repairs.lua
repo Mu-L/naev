@@ -53,6 +53,7 @@ end
 
 local npcid
 function land ()
+   if not player.isLanded() then return end
    local scur = spob.cur()
    if not scur or not scur:services().shipyard then return end
 
