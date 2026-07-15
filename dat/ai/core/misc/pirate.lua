@@ -158,7 +158,7 @@ function pirate.hailSetup ()
       mem.refuel_base = mem.refuel_base or rnd.rnd( 2000, 4000 )
       if not mem.bribe_base then
          local worth = pirate.playerWorth()
-         mem.bribe_base = (150 * rnd.rnd() + 425) * p:ship():points() * math.max( 0.5, worth / 700e3 )
+         mem.bribe_base = (150 * rnd.rnd() + 425) * 5 * p:ship():points() * math.max( 0.5, worth / 700e3 )
       end
       mem.bribe_prompt_prefix = ""
       if lmisn.is_luxury() then

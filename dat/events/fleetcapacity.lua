@@ -12,7 +12,7 @@ local fmt = require "format"
 local bhelp    = require "events.priority_bounty.helpers"
 
 local cap_tags_list = {
-   ["fleetcap_10"] = 25,
+   ["fleetcap_10"] = 5,
 }
 
 local function compute_capacity( tags )
@@ -32,7 +32,7 @@ local function recalculate( domsg )
    end
 
    local cur = player.fleetCapacity()
-   cap = 150
+   cap = 30
 
    for i,e in ipairs(player.evtDoneList()) do
       cap = cap + compute_capacity( e.tags )
@@ -45,7 +45,7 @@ local function recalculate( domsg )
       cap = cap + q*compute_capacity( o:tags() )
    end
    local pbounty = math.floor( bhelp.bounty_done() / 5 )
-   cap = cap + math.min( 25, 5*pbounty )
+   cap = cap + math.min( 5, pbounty )
 
    player.fleetCapacitySet( cap )
 

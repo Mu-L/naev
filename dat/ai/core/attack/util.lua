@@ -509,7 +509,7 @@ function atk.ranged( target, dist )
 end
 
 function atk.prefer_similar( p, h, v )
-   local w = math.abs( p:points() - h:points() ) -- Similar in points
+   local w = 5*math.abs( p:points() - h:points() ) -- Similar in points
    w = w + 50 / math.pow( mem.atk_pref_range, 2 ) * p:pos():dist2( h:pos() ) -- Squared distance normalized to 1
    -- Bring down vulnerability a bit
    if not v then
@@ -519,7 +519,7 @@ function atk.prefer_similar( p, h, v )
 end
 
 function atk.prefer_capship( p, h, v )
-   local w = -math.min( 100, h:points() ) -- Random threshold
+   local w = -math.min( 100, 5*h:points() ) -- Random threshold
    -- distance is less important to capships
    w = w + 10 / math.pow( mem.atk_pref_range, 2 ) * p:pos():dist2( h:pos() )
    -- Bring down vulnerability a bit
@@ -530,7 +530,7 @@ function atk.prefer_capship( p, h, v )
 end
 
 function atk.prefer_weaker( p, h, v )
-   local w = math.max( 0, h:points() - p:points() ) -- penalize if h has more points
+   local w = 5*math.max( 0, h:points() - p:points() ) -- penalize if h has more points
    w = w + 50 / math.pow( mem.atk_pref_range, 2 ) * p:pos():dist2( h:pos() ) -- Squared distance normalized to 1
    -- Bring down vulnerability a bit
    if not v then

@@ -141,8 +141,8 @@ function spawnDV()
    end
 
    local ppp = player.pilot():points()
-   if ppp < 100 then
-      local mod = -math.max((100-2*ppp), 90)
+   if ppp < 20 then
+      local mod = -math.max((100-10*ppp), 90)
       for k,p in ipairs(fleetDV) do
          p:intrinsicSet( "weapon_damage", mod )
       end

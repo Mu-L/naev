@@ -215,7 +215,7 @@ function create ()
 
    mem.name = pilotname.generic()
    local var = var.peek("pirate_bounty_points") or 0
-   local points = 30 + (200 + math.min(500, 0.5*var)) * rnd.rnd()
+   local points = 6 + (40 + math.min(100, 0.5*var)) * rnd.rnd()
    local target = bounty_setup( mem.target_faction, points )
 
    -- Set mission details

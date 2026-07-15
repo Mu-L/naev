@@ -3,7 +3,7 @@ local fmt = require "format"
 local RANGE       = 3000
 local BONUS       = 5
 local BONUSMAX    = 25
-local POINT_STEP  = 50
+local POINT_STEP  = 10
 
 function descextra( _p, _s )
    return "#y"..fmt.f(_([[For each {step} fleet capacity points worth of hostile ships within {range} distance, gain {bonus}% additional turn, speed, and signature reduction up to a maximum of {bonusmax}%. Range is affected by detection bonus.]]), {
