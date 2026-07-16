@@ -106,9 +106,10 @@ static double map_dt              = 0.; /**< Nebula animation stuff. */
 static int    map_minimal_mode    = 0;  /**< Map is in minimal mode. */
 static double map_flyto_speed =
    1500.; /**< Linear speeed at which the map flies to a location. */
-static double map_mx         = 0.; /**< X mouse position */
-static double map_my         = 0.; /**< Y mouse position */
-static char   map_show_notes = 0;  /**< Boolean for showing system notes */
+static double map_mx           = 0.; /**< X mouse position */
+static double map_my           = 0.; /**< Y mouse position */
+static char   map_show_notes   = 0;  /**< Boolean for showing system notes */
+static double map_max_presence = 0.; /**< Maximum presence in a system. */
 
 /*
  * extern
@@ -219,10 +220,15 @@ static int map_shouldRenderSys( const StarSystem *sys, int editor )
 
 static void map_setup( void )
 {
+   map_max_presence = 0.;
+
    /* Mark systems as discovered as necessary. */
    for ( int i = 0; i < array_size( systems_stack ); i++ ) {
       StarSystem *sys = &systems_stack[i];
       sys_rmFlag( sys, SYSTEM_DISCOVERED | SYSTEM_INTEREST );
+
+      // Get maximum presence
+      map_max_presence = MAX( map_max_presence, sys->ownerpresence );
 
       /* Check to see if system has landable spobs. */
       sys_rmFlag( sys, SYSTEM_HAS_LANDABLE | SYSTEM_HAS_KNOWN_SPOB |
@@ -1237,10 +1243,10 @@ void map_renderFactionDisks( double x, double y, double zoom, double r,
       /* System has faction and is known or we are in editor. */
       if ( sys->faction != FACTION_NULL ) {
          const glColour *col;
-         double          presence = sqrt( sys->ownerpresence );
+         double presence = sqrt( sys->ownerpresence / map_max_presence );
 
          /* draws the disk representing the faction */
-         double sr = ( 40. + presence * 3. ) * zoom * 0.5;
+         double sr = ( 20.0 + 180. * presence ) * zoom * 0.5;
 
          col = faction_colour( sys->faction );
          c.r = col->r;
