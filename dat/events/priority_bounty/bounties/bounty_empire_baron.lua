@@ -48,7 +48,7 @@ return {
             ship.get("Pacifier"),
             ship.get("Pacifier"),
          },
-         bhelp.choose_ships_from_points_and_capship( p:ship(), bhelp.ships.mercenary, 200 ))
+         bhelp.choose_ships_from_points_and_capship( p:ship(), bhelp.ships.mercenary, 40 ))
       ) do --And some smaller than destroyer-size ships
          local e = pilot.add( s, fct, params )
          e:memory().capturable = true

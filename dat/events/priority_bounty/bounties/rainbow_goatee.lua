@@ -57,7 +57,7 @@ return {
          ship.get("Pirate Starbridge")
       },
          -- Have the rest be smaller than the starbridge so there's a bit of weird cruft there
-         bhelp.choose_ships_from_points_and_capship( ship.get("Pirate Starbridge"), bhelp.ships.mercenary, 200 ))
+         bhelp.choose_ships_from_points_and_capship( ship.get("Pirate Starbridge"), bhelp.ships.mercenary, 40 ))
       ) do
          local e = pilot.add( s, fct, params )
          e:memory().capturable = true

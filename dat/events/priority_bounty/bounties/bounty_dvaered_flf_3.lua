@@ -52,7 +52,7 @@ This will be a difficult battle, captain.]]), {
       m.taunt = saying
       m.comm_greet = saying
       local enemies = {p}
-      for k,s in ipairs(bhelp.choose_ships_from_points_and_capship( p:ship(), bhelp.ships.flf, 600 )) do
+      for k,s in ipairs(bhelp.choose_ships_from_points_and_capship( p:ship(), bhelp.ships.flf, 120 )) do
          local e = pilot.add( s, fct, params )
          e:outfitAddIntrinsic("Wild Space Taint") --Help support fleet survive Arandon. Also, they've apparently spent a little too long in the deep Nebula...
          equipopt.pirate( e, {

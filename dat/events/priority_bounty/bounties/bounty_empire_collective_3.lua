@@ -40,7 +40,7 @@ return {
       m.taunt = saying
       m.comm_greet = saying
       local enemies = {p}
-      for k,s in ipairs(bhelp.choose_ships_from_points_and_capship( p:ship(), bhelp.ships.collective, 250 )) do
+      for k,s in ipairs(bhelp.choose_ships_from_points_and_capship( p:ship(), bhelp.ships.collective, 50 )) do
          local e = pilot.add( s, fct, params )
          e:memory().capturable = true
          e:setLeader(p)

@@ -42,7 +42,7 @@ return {
       m.taunt = saying
       m.comm_greet = saying
       local enemies = {p}
-      for k,s in ipairs(bhelp.choose_ships_from_points_and_capship( p:ship(), bhelp.ships.dvaered, 150 )) do
+      for k,s in ipairs(bhelp.choose_ships_from_points_and_capship( p:ship(), bhelp.ships.dvaered, 30 )) do
          local e = pilot.add( s, fct, params )
          e:memory().capturable = true
          e:setLeader(p)
@@ -50,5 +50,5 @@ return {
       end
       return enemies
    end,
-   cond = bhelp.cond_bounty_points( 100 ),
+   cond = bhelp.cond_bounty_points( 20 ),
 }

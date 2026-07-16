@@ -50,7 +50,7 @@ return {
             ship.get("Za'lek Demon"),
             ship.get("Za'lek Demon")
          },
-         bhelp.choose_ships_from_points_and_capship( ship.get("Za'lek Demon"), bhelp.ships.mercenary, 200 ))
+         bhelp.choose_ships_from_points_and_capship( ship.get("Za'lek Demon"), bhelp.ships.mercenary, 40 ))
       ) do
          local e = pilot.add( s, fct, params )
          equipopt.zalek( e )
