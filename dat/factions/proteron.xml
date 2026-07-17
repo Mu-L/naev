@@ -23,8 +23,8 @@
   <enemy>Sirius</enemy>
   <enemy>Goddard</enemy>
  </enemies>
- <lane_length_per_presence>250</lane_length_per_presence>
- <lane_base_cost>50</lane_base_cost>
+ <lane_length_per_presence>1250</lane_length_per_presence>
+ <lane_base_cost>10</lane_base_cost>
  <tags>
   <tag>misn_cargo</tag>
  </tags>

@@ -16,8 +16,8 @@
   <enemy>Black Lotus</enemy>
   <enemy>O'rez</enemy>
  </enemies>
- <lane_length_per_presence>300</lane_length_per_presence>
- <lane_base_cost>50</lane_base_cost>
+ <lane_length_per_presence>1500</lane_length_per_presence>
+ <lane_base_cost>10</lane_base_cost>
  <tags>
   <tag>minorhouse</tag>
   <tag>genericnews</tag>

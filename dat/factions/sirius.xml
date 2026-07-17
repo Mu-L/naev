@@ -21,8 +21,8 @@
   <enemy>Raven Clan</enemy>
   <enemy>Black Lotus</enemy>
  </enemies>
- <lane_length_per_presence>200</lane_length_per_presence>
- <lane_base_cost>35</lane_base_cost>
+ <lane_length_per_presence>1000</lane_length_per_presence>
+ <lane_base_cost>7</lane_base_cost>
  <tags>
   <tag>greathouse</tag>
   <tag>generic</tag>

@@ -24,8 +24,8 @@
   <neutral>FLF</neutral>
   <neutral>Dvaered</neutral>
  </neutrals>
- <lane_length_per_presence>400</lane_length_per_presence>
- <lane_base_cost>50</lane_base_cost>
+ <lane_length_per_presence>2000</lane_length_per_presence>
+ <lane_base_cost>10</lane_base_cost>
  <tags>
   <tag>generic</tag>
  </tags>

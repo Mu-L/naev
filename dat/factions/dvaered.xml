@@ -26,8 +26,8 @@
   <neutral>Sirius</neutral>
   <neutral>Soromid</neutral>
  </neutrals>
- <lane_length_per_presence>250</lane_length_per_presence>
- <lane_base_cost>40</lane_base_cost>
+ <lane_length_per_presence>1250</lane_length_per_presence>
+ <lane_base_cost>8</lane_base_cost>
  <tags>
   <tag>greathouse</tag>
   <tag>generic</tag>
