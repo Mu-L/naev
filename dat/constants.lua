@@ -39,6 +39,9 @@ local constants = {
    WARN_BUY_INTRINSICS  = true, -- Whether to warn the player when they are buying intrinsic outfits
    RADAR_RES_DEFAULT    = 100, -- Default resolution of the GUI radar.
 
+   -- Miscellaneous constants
+   PATROL_LANES_LAMBDA  = 8e8, -- Regularization term for patrol lane generation. Was 2e10 until 0.13.0
+
    -- Constants used by multiple Lua scripts
    BITE_ACCEL_MOD = 390, -- like hades_torch (was 500 before 0.13.0)
    BITE_SPEED_MOD = 110, -- like adrenal_glands_ii (was 80 before 0.13.0)

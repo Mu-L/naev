@@ -44,6 +44,7 @@
 
 #include "array.h"
 #include "conf.h"
+#include "constants.h"
 #include "log.h"
 #include "union_find.h"
 #include "valgrind.h"
@@ -51,8 +52,7 @@
 /*
  * Global parameters.
  */
-static const double ALPHA  = 9.;   /**< Lane efficiency parameter. */
-static const double LAMBDA = 2e10; /**< Regularization term for score. */
+static const double ALPHA = 9.; /**< Lane efficiency parameter. */
 static const double JUMP_CONDUCTIVITY =
    0.001; /**< Conductivity value for inter-system jump-point connections. */
 static const double MIN_ANGLE =
@@ -925,7 +925,7 @@ static int safelanes_activateByGradient( const cholmod_dense *Lambda_tilde,
                                                sjs - sys_base + lal_base );
                Linv = safelanes_initialConductivity( ei );
                score *= ALPHA * Linv * Linv;
-               score += LAMBDA;
+               score += CTS.PATROL_LANES_LAMBDA;
 
                cost = 1. / safelanes_initialConductivity( ei ) /
                          faction_stack[fi].lane_length_per_presence +

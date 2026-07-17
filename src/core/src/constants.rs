@@ -37,6 +37,7 @@ pub struct Constants {
    pub sell_outfit_modifier: f32,
    pub warn_buy_intrinsics: bool,
    pub radar_res_default: f32,
+   pub patrol_lanes_lambda: f32,
 }
 impl Constants {
    #[instrument]
@@ -114,6 +115,7 @@ impl Constants {
       let sell_outfit_modifier = get_f32(&tbl, "SELL_OUTFIT_MODIFIER", 1.0);
       let warn_buy_intrinsics = get_bool(&tbl, "WARN_BUY_INTRINSICS", true);
       let radar_res_default = get_f32(&tbl, "RADAR_RES_DEFAULT", 100.0);
+      let patrol_lanes_lambda = get_f32(&tbl, "PATROL_LANES_LAMBDA", 2e10);
 
       // TODO remove this
       unsafe {
@@ -146,6 +148,7 @@ impl Constants {
          naevc::CTS.SELL_OUTFIT_MODIFIER = sell_outfit_modifier as f64;
          naevc::CTS.WARN_BUY_INTRINSICS = warn_buy_intrinsics as i32;
          naevc::CTS.RADAR_RES_DEFAULT = radar_res_default as f64;
+         naevc::CTS.PATROL_LANES_LAMBDA = patrol_lanes_lambda as f64;
       }
 
       Ok(Self {
@@ -179,6 +182,7 @@ impl Constants {
          sell_outfit_modifier,
          warn_buy_intrinsics,
          radar_res_default,
+         patrol_lanes_lambda,
       })
    }
 
@@ -224,6 +228,7 @@ impl Constants {
          sell_outfit_modifier: 1.0,
          warn_buy_intrinsics: true,
          radar_res_default: 100.0,
+         patrol_lanes_lambda: 2e10,
       }
    }
 }
