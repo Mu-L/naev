@@ -34,7 +34,6 @@
 #include "nlua_munition.h"
 #include "nlua_outfit.h"
 #include "nlua_pilotoutfit.h"
-#include "nmath.h"
 #include "nstring.h"
 #include "nxml.h"
 #include "pilot.h"

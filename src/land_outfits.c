@@ -224,7 +224,7 @@ void outfits_open( unsigned int wid, const Outfit **outfits, int blackmarket )
    window_addText( wid, 20 + iw + 20, -40, w - ( 20 + iw + 20 ) - 264 - 40, 160,
                    0, "txtOutfitName", &gl_defFont, NULL, NULL );
    window_addText( wid, 20 + iw + 20, -40 - gl_defFont.h * 2. - 30,
-                   w - ( 20 + iw + 20 ) - 264 - 40, 400, 0, "txtDescShort",
+                   w - ( 20 + iw + 20 ) - 264 - 40, 500, 0, "txtDescShort",
                    &gl_defFont, NULL, NULL );
 
    window_addText( wid, 20 + iw + 20, 0, 90, 160, 0, "txtSDesc", &gl_defFont,
