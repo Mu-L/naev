@@ -6,7 +6,7 @@
   <price>37500</price>
   <rarity>2</rarity>
   <description>The Light Muon Disruptor is a curious weapon, firing a volley of energy-sheathed microbots, able to seek and impact targets at short ranges with a volatile burst of high-energy particles. As the microbots utilize swarm consensus for targeting and guidance they are exceptionally resistant to electonic jamming.</description>
-  <gfx_store>neutronheavy</gfx_store>
+  <gfx_store>muon_disruptor1</gfx_store>
   <cpu>-24</cpu>
  </general>
  <specific type="bolt">

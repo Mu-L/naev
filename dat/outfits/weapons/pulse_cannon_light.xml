@@ -7,7 +7,7 @@
   <mass>3</mass>
   <price>16000</price>
   <description>The Light Pulse Cannon is a technologically advanced upgrade to the Laser Cannon, firing rapid charged energy pulses that penetrate more effectively than standard lasers, although it operates less efficiently.</description>
-  <gfx_store>laser</gfx_store>
+  <gfx_store>pulse_cannon1</gfx_store>
   <!-- 20% more than Laser Cannon MK1 -->
   <cpu>-6</cpu>
  </general>

@@ -7,7 +7,7 @@
   <mass>75</mass>
   <price>1400000</price>
   <description>Cycles of extravagantly funded Proteron weapons research programs resulted in the Hyperpulse Turret, a battleship-scale 'superweapon'. Compared to the Turbolaser, its predecessor in Proteron fleet doctrine, the Hyperpulse Turret fires even faster energy pulses with better penetration against even the toughest battleship and carrier hull plating.</description>
-  <gfx_store>laserturret2</gfx_store>
+  <gfx_store>pulse_cannon5</gfx_store>
   <!-- 20% more than Turbolaser -->
   <cpu>-420</cpu>
  </general>

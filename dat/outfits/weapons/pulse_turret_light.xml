@@ -7,7 +7,7 @@
   <mass>18</mass>
   <price>40000</price>
   <description>A pair of further overcharged Light Pulse Cannons mounted on a rotating turret, this turret can penetrate small plating with relative ease, although it is energy-hungry and requires computing power to operate at rates that can be difficult for small craft to support.</description>
-  <gfx_store>laserturret</gfx_store>
+  <gfx_store>pulse_cannon2</gfx_store>
   <!-- 25% more than Laser Turret MK1 -->
   <cpu>-30</cpu>
  </general>

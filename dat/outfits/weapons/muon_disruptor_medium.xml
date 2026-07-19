@@ -7,7 +7,7 @@
   <licence>Medium Weapon</licence>
   <rarity>2</rarity>
   <description>Equally as esoteric as the light Muon Disruptor, this turreted variant launches slightly larger microbot swarms containing higher particle charge.</description>
-  <gfx_store>razorturret1</gfx_store>
+  <gfx_store>muon_disruptor2</gfx_store>
   <cpu>-50</cpu>
  </general>
  <specific type="turret bolt">

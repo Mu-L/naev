@@ -7,7 +7,7 @@
   <licence>Heavy Weapon</licence>
   <rarity>2</rarity>
   <description>The destroyer-grade version of the Muon Disruptor launches microbot swarms sheathed in a highly-energized sheathe of exotic particles, able to cause significant damage to even heavy armour plating.</description>
-  <gfx_store>razorturret1</gfx_store>
+  <gfx_store>muon_disruptor3</gfx_store>
   <cpu>-75</cpu>
  </general>
  <specific type="turret bolt">

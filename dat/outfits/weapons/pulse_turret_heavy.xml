@@ -7,7 +7,7 @@
   <mass>36</mass>
   <price>640000</price>
   <description>The Heavy Pulse Turret is a terrifying Proteron heavy destroyer and cruiser-scale weapon, considered a more advanced refinement of the venerable Heavy Laser Turret. In Proteron fleet doctrine, cruisers and destroyers will coordinate withering hails of rapid fire from these turrets, destroying all but the largest capital ships with horrific speed.</description>
-  <gfx_store>laserturret2</gfx_store>
+  <gfx_store>pulse_cannon3</gfx_store>
   <!-- 20% more than Heavy Laser Turret -->
   <cpu>-90</cpu>
  </general>

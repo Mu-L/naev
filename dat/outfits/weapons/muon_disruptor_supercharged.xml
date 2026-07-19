@@ -7,7 +7,7 @@
   <licence>Heavy Weapon</licence>
   <rarity>2</rarity>
   <description>This exotic weapon system is the largest manufactured by the Thurion, launching seeking microbot swarms sheathed in a corona of highly volatile exotic particles. Their high energy charge slows them down somewhat compared to their smaller cousins.</description>
-  <gfx_store>disruptor_battery2</gfx_store>
+  <gfx_store>muon_disruptor4</gfx_store>
   <cpu>-350</cpu>
  </general>
  <specific type="turret bolt">
