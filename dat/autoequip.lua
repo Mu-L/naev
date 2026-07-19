@@ -26,8 +26,10 @@ function autoequip( p )
    end
 
    local outfits_pre = {}
-   for k,v in ipairs( player.outfits() ) do
-      outfits_pre[ v:nameRaw() ] = player.outfitNum( v )
+   if __debugging then
+      for k,v in ipairs( player.outfits() ) do
+         outfits_pre[ v:nameRaw() ] = player.outfitNum( v )
+      end
    end
 
    -- Remove all non-cores from the ship and add to inventory
@@ -77,28 +79,29 @@ function autoequip( p )
       tk.msg(_("Autoequipper Failure!"),_("Autoequipper failed to equip! Please make sure that the equipped required outfits are adequate for this ship."))
    end
 
-   local outfits_post = {}
-   for k,v in ipairs( player.outfits() ) do
-      outfits_post[ v:nameRaw() ] = player.outfitNum( v )
-   end
-
-   local fmt = require "format"
-   for k,v in pairs(outfits_pre) do
-      if outfits_pre[k] ~= outfits_post[k] then
-         print(fmt.f("Outfit mismatch [{o}]: {pre} -> {post}", {
-            o = k,
-            pre = outfits_pre[k] or 0,
-            post = outfits_post[k] or 0,
-         }))
+   -- Bug reported with missing outfits, so make sure to check that they are consistent
+   if __debugging then
+      local outfits_post = {}
+      for k,v in ipairs( player.outfits() ) do
+         outfits_post[ v:nameRaw() ] = player.outfitNum( v )
       end
-   end
-   for k,v in pairs(outfits_post) do
-      if outfits_pre[k] ~= outfits_post[k] then
-         print(fmt.f("Outfit mismatch [{o}]: {pre} -> {post}", {
-            o = k,
-            pre = outfits_pre[k] or 0,
-            post = outfits_post[k] or 0,
-         }))
+
+      local fmt = require "format"
+      local function check_outfit( k )
+         if outfits_pre[k] ~= outfits_post[k] then
+            warn(fmt.f("autoequip: inventory mismatch [{o}]: {pre} -> {post}", {
+               o = k,
+               pre = outfits_pre[k] or 0,
+               post = outfits_post[k] or 0,
+            }))
+         end
+      end
+
+      for k,v in pairs(outfits_pre) do
+         check_outfit(k)
+      end
+      for k,v in pairs(outfits_post) do
+         check_outfit(k)
       end
    end
 
