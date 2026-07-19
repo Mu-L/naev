@@ -782,7 +782,7 @@ end
 
 local unidiff_list = {
    ["heavy_combat_vessel_license"] = "heavy_combat_vessel_licence",
-   ["heavy_weapons_license"] = "heavy_weapons_license",
+   ["heavy_weapons_license"] = "heavy_weapons_licence",
 }
 function unidiff( name )
    -- Internals stuff so we don't expose to the player
