@@ -25,6 +25,11 @@ function autoequip( p )
       return
    end
 
+   local outfits_pre = {}
+   for k,v in ipairs( player.outfits() ) do
+      outfits_pre[ v:nameRaw() ] = player.outfitNum( v )
+   end
+
    -- Remove all non-cores from the ship and add to inventory
    for k,v in ipairs( s:getSlots() ) do
       if not v.required and not v.locked then
@@ -61,7 +66,7 @@ function autoequip( p )
    for k,v in ipairs( s:getSlots() ) do
       if not v.required and not v.locked then
          local o = p:outfitGet(k)
-         if o and not o:tags().core then
+         if o and not o:unique() and not o:tags().core then
             player.outfitRm( o )
          end
       end
@@ -71,5 +76,31 @@ function autoequip( p )
    if not success then
       tk.msg(_("Autoequipper Failure!"),_("Autoequipper failed to equip! Please make sure that the equipped required outfits are adequate for this ship."))
    end
+
+   local outfits_post = {}
+   for k,v in ipairs( player.outfits() ) do
+      outfits_post[ v:nameRaw() ] = player.outfitNum( v )
+   end
+
+   local fmt = require "format"
+   for k,v in pairs(outfits_pre) do
+      if outfits_pre[k] ~= outfits_post[k] then
+         print(fmt.f("Outfit mismatch [{o}]: {pre} -> {post}", {
+            o = k,
+            pre = outfits_pre[k] or 0,
+            post = outfits_post[k] or 0,
+         }))
+      end
+   end
+   for k,v in pairs(outfits_post) do
+      if outfits_pre[k] ~= outfits_post[k] then
+         print(fmt.f("Outfit mismatch [{o}]: {pre} -> {post}", {
+            o = k,
+            pre = outfits_pre[k] or 0,
+            post = outfits_post[k] or 0,
+         }))
+      end
+   end
+
    return success
 end

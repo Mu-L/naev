@@ -2942,9 +2942,14 @@ int player_outfitOwned( const Outfit *o )
       return pilot_hasIntrinsic( player.p, o );
 
    /* Try to find it. */
-   for ( int i = 0; i < array_size( player_outfits ); i++ )
-      if ( player_outfits[i].o == o )
+   for ( int i = 0; i < array_size( player_outfits ); i++ ) {
+      if ( player_outfits[i].o == o ) {
+         if ( ( player_outfits[i].q > 0 ) &&
+              outfit_isProp( o, OUTFIT_PROP_UNIQUE ) )
+            return 1;
          return player_outfits[i].q;
+      }
+   }
 
    return 0;
 }
@@ -2958,6 +2963,8 @@ int player_outfitOwnedTotal( const Outfit *o )
    q += pilot_numOutfit( player.p, o );
    for ( int i = 0; i < array_size( player_stack ); i++ )
       q += pilot_numOutfit( player_stack[i].p, o );
+   if ( ( q > 0 ) && outfit_isProp( o, OUTFIT_PROP_UNIQUE ) )
+      return 1;
 
    return q;
 }
