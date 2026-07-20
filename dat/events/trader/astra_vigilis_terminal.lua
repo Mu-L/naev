@@ -85,7 +85,7 @@ What do you want to do?]]))
       end
       return opts
    end, function ( opt )
-      if type(opt)==string then
+      if type(opt)=="string" then
          return vn.jump(opt)
       end
       if opt[2]==N_("Unspecified") then
