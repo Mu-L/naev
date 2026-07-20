@@ -68,7 +68,7 @@ local ssmsg = {
    _("The passengers faces are pressed up against the windows of your ship."),
    _("Everyone seems like they're having a good time."),
    _("A collective gasp of wonder travels through the cabin."),
-   _("A sense of terror and mystery engulfs the passengers as they contemplate their existence above the skies."),
+   _("A sense of awe and mystery engulfs the passengers as they contemplate their existence above the skies."),
    _("Truly a sight to behold for the passengers."),
 }
 
