@@ -214,11 +214,11 @@ local reason_list = {
 }
 
 local DIFFICULTIES = {
-   Easy        = function () return 30  + 100 * rnd.rnd() end,
-   Medium      = function () return 100 + 100 * rnd.rnd() end,
-   Hard        = function () return 200 + 200 * rnd.rnd() end,
-   Challenging = function () return 300 + 300 * rnd.rnd() end,
-   Extreme     = function () return 400 + 400 * rnd.rnd() end,
+   Easy        = function () return 6  + 20 * rnd.rnd() end,
+   Medium      = function () return 20 + 20 * rnd.rnd() end,
+   Hard        = function () return 40 + 40 * rnd.rnd() end,
+   Challenging = function () return 60 + 60 * rnd.rnd() end,
+   Extreme     = function () return 80 + 80 * rnd.rnd() end,
 }
 
 -- Set up the ship, credits, and reputation based on the level.
