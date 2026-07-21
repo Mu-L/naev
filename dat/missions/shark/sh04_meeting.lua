@@ -137,7 +137,7 @@ function enter()
    mem.enable = false
    hook.timer(5.0,"enabling")
    -- Ambush !
-   if system.cur():presence(faction.get("Za'lek")) > 50 then  -- Only in Za'lek space
+   if system.cur():presence(faction.get("Za'lek")) > 10 then  -- Only in Za'lek space
       if mem.stage == 0 and rnd.rnd() < mem.proba then
          ambush()
       else

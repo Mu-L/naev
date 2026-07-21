@@ -46,9 +46,9 @@ function spir.initDirectory( dir, faction, params )
       -- Some special properties based on the system
       local handicap = 0
       local total_presence = pir.systemPresence()
-      if total_presence < ((chapter0 and 150) or 100) then
+      if total_presence < ((chapter0 and 30) or 20) then
          handicap = handicap+2
-      elseif total_presence < ((chapter0 and 300) or 200) then
+      elseif total_presence < ((chapter0 and 60) or 40) then
          handicap = handicap+1
       end
       -- Marauders are terribad
@@ -62,7 +62,7 @@ function spir.initDirectory( dir, faction, params )
 
          -- Marauders can be further handicapped randomly
          local hcp = handicap
-         if total_presence < ((chapter0 and 500) or 300) and rnd.rnd() < 0.5 then
+         if total_presence < ((chapter0 and 100) or 60) and rnd.rnd() < 0.5 then
             hcp = hcp+1
          end
 

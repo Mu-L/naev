@@ -74,7 +74,7 @@ function create ()
       end
       local pirates = pir.systemPresence(sys)
       -- Some presence check
-      if total < 300 or pirates > total then
+      if total < 60 or pirates > total then
          return false
       end
       -- Must not be claimed
