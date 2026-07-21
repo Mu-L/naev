@@ -4,7 +4,7 @@
  <location>enter</location>
  <chance>5</chance>
  <cond>
-   if require("common.pirate").systemPresence() &lt; 100 or system.cur():presence("Independent") &lt; 100 then
+   if require("common.pirate").systemPresence() &lt; 20 or system.cur():presence("Independent") &lt; 20 then
       return false
    end
    if system.cur():tags().restricted then

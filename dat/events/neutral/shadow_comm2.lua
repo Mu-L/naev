@@ -3,7 +3,7 @@
 <event name="Shadowcomm2">
  <location>enter</location>
  <chance>3</chance>
- <cond>system.cur():presence("hostile") &lt; 300 and player.misnDone("Shadow Vigil") and not (player.misnDone("Dark Shadow") or var.peek("darkshadow_active") == true) and system.cur():presence("Independent") &gt; 100</cond>
+ <cond>system.cur():presence("hostile") &lt; 60 and player.misnDone("Shadow Vigil") and not (player.misnDone("Dark Shadow") or var.peek("darkshadow_active") == true) and system.cur():presence("Independent") &gt; 20</cond>
  <notes>
   <done_misn name="Shadow Vigil"/>
   <campaign>Shadow</campaign>

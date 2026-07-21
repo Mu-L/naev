@@ -76,7 +76,7 @@ function create ()
    local credits1
    mem.nbships, credits1 = cens.calculateNb( mem.sys, pir.factions )
    local risk = travellingRisk( mem.sys )
-   mem.credits = credits1*2 + risk*500
+   mem.credits = credits1*2 + risk*2500
 
    -- Mission details
    misn.setTitle(fmt.f(dv.prefix.._("Monitor Pirate Activity in {sys}"), {sys=mem.sys}))

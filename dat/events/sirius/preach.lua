@@ -4,7 +4,7 @@
  <location>enter</location>
  <chance>10</chance>
  <cond>
-   if system.cur():presence(faction.get("Sirius"))&lt;50 then
+   if system.cur():presence(faction.get("Sirius"))&lt;10 then
       return false
    end
    if player.evtActive("Sirius Preacher") then

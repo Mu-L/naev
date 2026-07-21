@@ -47,11 +47,11 @@ function create ()
    if num_dvaereds == nil then num_dvaereds = 0 end
    if num_empire == nil then num_empire = 0 end
    if num_flf == nil then num_flf = 0 end
-   mem.dv_attention_target = num_dvaereds / 50
-   mem.credits = 200 * (num_dvaereds + num_empire - num_flf)
+   mem.dv_attention_target = num_dvaereds / 10
+   mem.credits = 1000 * (num_dvaereds + num_empire - num_flf)
    mem.credits = mem.credits * (system.cur():jumpDist( mem.missys, true )+1) / 3
    mem.credits = mem.credits * (1 + 0.2*rnd.sigma())
-   mem.reputation = math.max( (num_dvaereds + num_empire - num_flf) / 5, 1 )
+   mem.reputation = math.max( num_dvaereds + num_empire - num_flf, 1 )
    if mem.credits < 10e3 then misn.finish( false ) end
 
    -- Set mission details
