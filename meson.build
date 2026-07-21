@@ -22,7 +22,8 @@ project('naev', ['c', 'rust'],
 # 1.93 vec::into_raw_parts
 rust_version = '1.89' # version for Cargo.toml's 'rust-version' field
 rustc_needed_version = '>=@0@.0'.format( rust_version )
-bindgen_needed_version = '>=0.72.0'
+# windows apparently needs 0.72.1 or it gives a ton of overflow warnings
+bindgen_needed_version = '>=0.72.1'
 cargo_needed_version = '>=1.77.2'
 
 copyright_year = 2026
