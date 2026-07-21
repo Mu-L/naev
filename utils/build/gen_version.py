@@ -13,7 +13,7 @@ def get_date(source_root: str) -> Optional[str]:
    """Return the short git commit SHA, or None if unavailable."""
    try:
       proc = subprocess.run(
-         ['git', '-C', source_root, 'log', '-1', '--date=format:%y-%m-%d-%H', '--format="%ad"'],
+         ['git', '-C', source_root, 'log', '-1', '--date=format:%y-%m-%d-%H', '--format=%ad'],
          capture_output=True,
          text=True,
          check=True,
