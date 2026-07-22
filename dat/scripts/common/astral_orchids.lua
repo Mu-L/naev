@@ -52,7 +52,7 @@ function lib.create()
 
    local ao = mem._astral_orchids
    local lastpicked = var.peek( varname )
-   local canpick = (not lastpicked) or (lastpicked >= time.cur() + ao.regrow_time)
+   local canpick = (not lastpicked) or (time.cur() >= lastpicked + ao.regrow_time)
    local didpoi = (var.peek( "poi_orchids" ) or 0) > 0
    local orchids_found = 0
    for k,v in ipairs(player.evtDoneList()) do
