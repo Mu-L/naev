@@ -3,6 +3,7 @@ local fmt = require "format"
 local ccomm = require "common.comm"
 local srs = require "common.sirius"
 local tut = require "common.tutorial"
+local flow = require "ships.lua.lib.flow"
 
 local obelisk = {}
 
@@ -17,6 +18,10 @@ function obelisk.can_land ()
    -- No psychic powers
    if not srs.playerIsPsychic() then
       return false, _("The obelisk seems to be inert.")
+   end
+
+   if flow.max( player.pilot() ) <= 0 then
+      return false, _("You need a flow amplifier to be able to establish psychic communication with the obelisk.")
    end
 
    return false, fmt.f(_("It seems like you may be able to establish psychic communication with the obelisk by hailing it with {key}."), {key=tut.getKey("hail")})
