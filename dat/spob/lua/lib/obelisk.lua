@@ -20,7 +20,7 @@ function obelisk.can_land ()
       return false, _("The obelisk seems to be inert.")
    end
 
-   if flow.max( player.pilot() ) <= 0 then
+   if not flow.has( player.pilot() ) then
       return false, _("You need a flow amplifier to be able to establish psychic communication with the obelisk.")
    end
 
