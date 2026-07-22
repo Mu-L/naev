@@ -88,6 +88,11 @@ function flow.has( p )
    return sm._flow_mod~=nil
 end
 
+function flow.is_dreamer( p )
+   local sm = p:shipMemory()
+   return sm._flow_dreamer~=nil
+end
+
 function flow.get( p, sm )
    sm = sm or p:shipMemory()
    return sm._flow or 0
@@ -160,20 +165,31 @@ function flow.recalculate( p )
    local sm = p:shipMemory()
    local has_amplifier = false
    local is_dreamer = false
-   local fm, fb, fr
+   local fm, fb, fr, dfm, dfb, dfr
 
    -- Try to find the amplifier if applicable
    local wplayer = p:withPlayer()
    local sn = p:ship():nameRaw()
+   -- Normal stats
    fm = flow_mod[ sn ] or 1
    fb = flow_base[ sn ] or 0
    fr = flow_regen[ sn ] or 0
+   -- Dreamer stats (they don't mix)
+   dfm = flow_mod[ sn ] or 1
+   dfb = flow_base[ sn ] or 0
+   dfr = flow_regen[ sn ] or 0
    for k,v in ipairs(p:outfitsList("all")) do
       local vn = v:nameRaw()
-      fm = fm * (flow_mod[ vn ] or 1)
-      fb = fb + (flow_base[ vn ] or 0)
-      fr = fr + (flow_regen[ vn ] or 0)
       local t = v:tags()
+      if t.dreamer then
+         dfm = dfm * (flow_mod[ vn ] or 1)
+         dfb = dfb + (flow_base[ vn ] or 0)
+         dfr = dfr + (flow_regen[ vn ] or 0)
+      else
+         fm = fm * (flow_mod[ vn ] or 1)
+         fb = fb + (flow_base[ vn ] or 0)
+         fr = fr + (flow_regen[ vn ] or 0)
+      end
       if t.flow_amplifier and (not wplayer) or (wplayer and srs.playerIsPsychic()) or t.dreamer then
          has_amplifier = true
       end
@@ -193,18 +209,20 @@ function flow.recalculate( p )
             end
          end
          fm = fm + 0.05 * math.max( 0, fam-1 )
+         dfm = dfm + 0.05 * math.max( 0, fam-1 )
       end
-
-      -- Base stats
-      sm._flow_mod   = fm
-      sm._flow_base  = fb * fm
-      sm._flow_regen = fr
 
       -- Dreamers change behaiour a bit
       if is_dreamer then
          sm._flow_dreamer = true
+         sm._flow_mod   = dfm
+         sm._flow_base  = dfb * dfm
+         sm._flow_regen = dfr
       else
          sm._flow_dreamer = false
+         sm._flow_mod   = fm
+         sm._flow_base  = fb * fm
+         sm._flow_regen = fr
       end
    else
       sm._flow_mod = nil
