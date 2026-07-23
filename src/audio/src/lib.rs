@@ -1435,11 +1435,13 @@ impl AudioBuilder {
          audio
             .al_source()
             .parameter_i32(AL_DIRECT_CHANNELS_SOFT, AL_REMIX_UNMATCHED_SOFT);
+         audio.set_relative(true);
       } else {
          //if !stereo {
          audio.set_relative(true);
       }
       if self.ingame {
+         // If already set ingame gets ignored
          audio.set_ingame();
          // Sort of ugly hack, because we don't actually handle position with the groups
          if self.groupid.is_some() {
