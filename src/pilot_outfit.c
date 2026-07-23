@@ -1292,7 +1292,9 @@ PilotOutfitSlot *pilot_getSlotByName( Pilot *pilot, const char *name )
 double pilot_massFactor( const Pilot *pilot )
 {
    double mass = pilot->solid.mass;
-   if ( mass > pilot->stats.engine_limit ) {
+   // Be kind and ignore going a bit over, helps with floating point error
+   // accumulation
+   if ( mass - pilot->stats.engine_limit > 0.1 ) {
       if ( pilot->stats.engine_limit > 0. ) {
          double f =
             ( mass - pilot->stats.engine_limit ) / pilot->stats.engine_limit;
