@@ -410,8 +410,18 @@ function race_landed ()
 
    if elapsed_time <= 0.0 then return end
 
+   -- Be kind and round down
+   elapsed_time = math.floor( elapsed_time * 10 ) * 0.1
+
+   local MARGIN = 0.1
    for i, g in ipairs({'Gold', 'Silver', 'Bronze'}) do
-      if elapsed_time <= mem.track.goaltime[g] then
+      local gt = mem.track.goaltime[g]
+      -- Nobody likes to lose by a little bit, so if the player fails by MARGIN,
+      -- we actually just pretend they did it OK
+      if elapsed_time <= gt + MARGIN then
+         if elapsed_time > gt then
+            elapsed_time = gt
+         end
          local ratio = mem.track.goaltime[g] / elapsed_time - 1.0
          reward = mem.track.reward  * 2^(2-i)
          bonus = math.floor( ratio * reward / 1000) * 1000
