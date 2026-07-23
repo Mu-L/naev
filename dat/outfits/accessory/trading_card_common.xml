@@ -14,4 +14,7 @@
  <specific type="modification">
   <loot_mod>25</loot_mod>
  </specific>
+ <tags>
+  <tag>nosteal</tag>
+ </tags>
 </outfit>

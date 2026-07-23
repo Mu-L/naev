@@ -14,4 +14,7 @@
  </general>
  <!-- Implemented in dat/outfits/lib/blink.lua -->
  <specific type="modification"/>
+ <tags>
+  <tag>nosteal</tag>
+ </tags>
 </outfit>

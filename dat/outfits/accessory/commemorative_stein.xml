@@ -15,4 +15,7 @@
   <ew_track>15</ew_track>
   <launch_lockon>-20</launch_lockon>
  </specific>
+ <tags>
+  <tag>nosteal</tag>
+ </tags>
 </outfit>

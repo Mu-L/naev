@@ -16,4 +16,7 @@
   <shielddown_mod>-17</shielddown_mod>
   <ew_detect>5</ew_detect>
  </specific>
+ <tags>
+  <tag>nosteal</tag>
+ </tags>
 </outfit>

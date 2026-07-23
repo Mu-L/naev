@@ -18,4 +18,7 @@
   <jam_chance>10</jam_chance>
   <fwd_firerate>5</fwd_firerate>
  </specific>
+ <tags>
+  <tag>nosteal</tag>
+ </tags>
 </outfit>

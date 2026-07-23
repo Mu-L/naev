@@ -16,4 +16,7 @@
   <shield_mod>10</shield_mod>
   <loot_mod>10</loot_mod>
  </specific>
+ <tags>
+  <tag>nosteal</tag>
+ </tags>
 </outfit>

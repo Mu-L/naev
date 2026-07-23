@@ -17,4 +17,7 @@
   <shield_mod>5</shield_mod>
   <jam_chance>11</jam_chance>
  </specific>
+ <tags>
+  <tag>nosteal</tag>
+ </tags>
 </outfit>

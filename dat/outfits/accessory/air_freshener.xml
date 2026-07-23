@@ -15,4 +15,7 @@
   <turn_mod>-25</turn_mod>
   <speed_mod>9</speed_mod>
  </specific>
+ <tags>
+  <tag>nosteal</tag>
+ </tags>
 </outfit>

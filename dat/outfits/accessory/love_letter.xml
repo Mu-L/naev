@@ -17,4 +17,7 @@
   <launch_range>9</launch_range>
   <launch_turn>8</launch_turn>
  </specific>
+ <tags>
+  <tag>nosteal</tag>
+ </tags>
 </outfit>

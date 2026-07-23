@@ -15,4 +15,7 @@
   <launch_reload>50</launch_reload>
   <action_speed>2</action_speed>
  </specific>
+ <tags>
+  <tag>nosteal</tag>
+ </tags>
 </outfit>

@@ -16,4 +16,7 @@
   <speed_mod>3</speed_mod>
   <accel_mod>3</accel_mod>
  </specific>
+ <tags>
+  <tag>nosteal</tag>
+ </tags>
 </outfit>

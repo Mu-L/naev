@@ -17,4 +17,7 @@
   <fbay_health>6.5</fbay_health>
   <fbay_rate>13</fbay_rate>
  </specific>
+ <tags>
+  <tag>nosteal</tag>
+ </tags>
 </outfit>

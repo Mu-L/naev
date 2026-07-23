@@ -17,4 +17,7 @@
   <stress_dissipation>15</stress_dissipation>
   <ew_signature>-10</ew_signature>
  </specific>
+ <tags>
+  <tag>nosteal</tag>
+ </tags>
 </outfit>

@@ -16,4 +16,7 @@
   <fwd_range>6</fwd_range>
   <stress_dissipation>9</stress_dissipation>
  </specific>
+ <tags>
+  <tag>nosteal</tag>
+ </tags>
 </outfit>

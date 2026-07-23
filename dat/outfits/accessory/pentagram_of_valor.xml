@@ -15,4 +15,7 @@
   <armour_mod>10</armour_mod>
   <fwd_firerate>5</fwd_firerate>
  </specific>
+ <tags>
+  <tag>nosteal</tag>
+ </tags>
 </outfit>

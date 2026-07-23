@@ -15,4 +15,7 @@
   <cooldown_mod>-25</cooldown_mod>
   <loot_mod>25</loot_mod>
  </specific>
+ <tags>
+  <tag>nosteal</tag>
+ </tags>
 </outfit>

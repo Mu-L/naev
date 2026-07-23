@@ -15,4 +15,7 @@
   <stress_dissipation>30</stress_dissipation>
   <cooldown_time>-10</cooldown_time>
  </specific>
+ <tags>
+  <tag>nosteal</tag>
+ </tags>
 </outfit>

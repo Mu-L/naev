@@ -16,4 +16,7 @@
   <land_delay>-10</land_delay>
   <ew_stealth_min>-4</ew_stealth_min>
  </specific>
+ <tags>
+  <tag>nosteal</tag>
+ </tags>
 </outfit>
