@@ -27,7 +27,7 @@
 local fmt = require "format"
 require "proximity"
 local portrait = require "portrait"
-local bioship = require "bioship"
+--local bioship = require "bioship"
 local ai_setup = require "ai.core.setup"
 
 -- NPC
@@ -185,15 +185,14 @@ function enter()
       --Actually spawn the opponent
       local ships = {}
       ships[1] = {"Hyena", "Shark"}
-      ships[2] = {"Hyena", "Shark", "Shark", "Lancelot", "Soromid Reaver"}
-      ships[3] = {"Shark", "Lancelot", "Lancelot", "Vendetta", "Soromid Reaver"}
-      ships[4] = {"Lancelot", "Vendetta", "Vendetta", "Soromid Reaver", "Empire Lancelot", "Dvaered Vendetta"}
+      ships[2] = {"Hyena", "Shark", "Shark", "Lancelot"}
+      ships[3] = {"Shark", "Lancelot", "Lancelot", "Vendetta"}
+      ships[4] = {"Lancelot", "Vendetta", "Vendetta", "Empire Lancelot", "Dvaered Vendetta"}
       ships[5] = {"Vendetta", "Empire Lancelot", "Dvaered Vendetta", "Dvaered Vendetta", "Dvaered Vendetta"}
 
       local shiplist = ships[mem.level+1]
       local oppotype = shiplist[ rnd.rnd(1,#shiplist) ]
       opponent = pilot.add( oppotype, "Mercenary", mispla, mem.opponame, {ai="baddie", naked=true} )
-
       oppotype = opponent:ship()
 
       --The core systems
@@ -201,8 +200,12 @@ function enter()
          opponent:outfitAdd("Tricon Zephyr Engine")
          opponent:outfitAdd("Milspec Orion 2301 Core System")
          opponent:outfitAdd("S&K Skirmish Plating")
+
+      --[[ Disabled because builtin plasma will kill the player.
       elseif oppotype == ship.get("Soromid Reaver") then
          bioship.simulate( opponent, bioship.maxstage( opponent ) )
+      --]]
+
       else
          opponent:outfitAdd("Tricon Zephyr Engine",2)
          opponent:outfitAdd("Milspec Orion 2301 Core System",2)
@@ -385,7 +388,8 @@ end
 
 function oppo_disabled()  --Regular way to win
    won()
-   opponent:setHostile(false)  --in case he recovers from disabling before the player landed
+   opponent:setHostile(false)  -- in case he recovers from disabling before the player landed
+   opponent:setDisable(false) -- permanently disable
    hook.rm(mem.pldihook)
    hook.rm(mem.opdihook)
    mem.boardhook = hook.pilot( opponent, "board", "oppo_boarded" )
