@@ -137,9 +137,6 @@ static int cli_script( lua_State *L )
    fname = luaL_checkstring( L, 1 );
    n     = lua_gettop( L );
 
-   /* Clear cache. */
-   lua_clearCache();
-
    /* Reset loaded buffer. */
    if ( cli_env != NULL ) {
       /* We can't just clear the table with a new one, because this is actually
