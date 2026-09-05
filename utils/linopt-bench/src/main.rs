@@ -201,11 +201,11 @@ fn main() {
    };
 
    println!(
-      "{:>5} {:>5} {:>9} {:>10} {:>10} {:>10} {:>10}   problem",
-      "cols", "rows", "glpk", "HiGHS", "HiGHS+", "microlp", "coin_cbc",
+      "{:>5} {:>5} {:>9} {:>10} {:>10} {:>10} {:>10} {:>10}   problem",
+      "cols", "rows", "glpk", "HiGHS", "HiGHS+", "microlp", "coin_cbc", "scip",
    );
 
-   let mut totals = [0.0f64; 5];
+   let mut totals = [0.0f64; 6];
    let mut disagreed = 0;
    for path in &files {
       let (lp, problem) = read(path);
@@ -222,6 +222,7 @@ fn main() {
       });
       let (micro_ms, zm) = solve(&problem, good_lp::microlp, |m| m);
       let (micro_cbc, zc) = solve(&problem, good_lp::coin_cbc, |m| m);
+      let (micro_scip, zs) = solve(&problem, good_lp::scip, |m| m);
 
       let agrees = |z: f64| (zg - z).abs() <= 1e-6 * zg.abs().max(1.0);
       let mark = |z: f64| if agrees(z) { " " } else { "*" };
@@ -230,7 +231,7 @@ fn main() {
       }
 
       println!(
-         "{:>5} {:>5} {:>9.2} {:>9.2}{} {:>9.2}{} {:>9.2}{} {:>9.2}{}  {}",
+         "{:>5} {:>5} {:>9.2} {:>9.2}{} {:>9.2}{} {:>9.2}{} {:>9.2}{} {:>9.2}{}  {}",
          problem.ncols,
          problem.nrows,
          glpk_ms,
@@ -242,9 +243,11 @@ fn main() {
          mark(zm),
          micro_cbc,
          mark(zc),
+         micro_scip,
+         mark(zs),
          path.file_name().unwrap_or_default().to_string_lossy()
       );
-      for (slot, ms) in [glpk_ms, highs_ms, tuned_ms, micro_ms, micro_cbc]
+      for (slot, ms) in [glpk_ms, highs_ms, tuned_ms, micro_ms, micro_cbc, micro_scip]
          .iter()
          .enumerate()
       {
@@ -254,7 +257,7 @@ fn main() {
 
    let n = files.len().max(1) as f64;
    println!(
-      "\n{:>5} {:>5} {:>9.2} {:>9.2} {:>10.2} {:>10.2} {:>10.2}   average over {} problems",
+      "\n{:>5} {:>5} {:>9.2} {:>9.2} {:>10.2} {:>10.2} {:>10.2} {:>10.2}   average over {} problems",
       "",
       "",
       totals[0] / n,
@@ -262,6 +265,7 @@ fn main() {
       totals[2] / n,
       totals[3] / n,
       totals[4] / n,
+      totals[5] / n,
       files.len()
    );
    println!(

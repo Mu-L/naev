@@ -9,6 +9,7 @@ good_lp = { version = "1.15", default-features = false, features = [
   "highs",
   "microlp",
   "coin_cbc",
+  "scip",
 ] }
 
 [build-dependencies]
