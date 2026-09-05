@@ -5,7 +5,11 @@ edition = "2024"
 publish = false
 
 [dependencies]
-good_lp = { version = "1.15", default-features = false, features = ["highs", "microlp"] }
+good_lp = { version = "1.15", default-features = false, features = [
+  "highs",
+  "microlp",
+  "coin_cbc",
+] }
 
 [build-dependencies]
 bindgen = "0.72"
