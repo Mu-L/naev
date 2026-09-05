@@ -110,30 +110,6 @@ fn require(lua: &mlua::Lua, filename: BorrowedStr) -> mlua::Result<mlua::Value> 
    )))
 }
 
-pub fn loader_ndata(lua: &mlua::Lua, filename: mlua::BorrowedStr) -> mlua::Result<mlua::Value> {
-   let globals = lua.globals();
-   let package_val: mlua::Value = globals.get("package")?;
-   let package: mlua::Table = match package_val {
-      mlua::Value::Table(t) => t,
-      _ => {
-         return Ok(mlua::Value::String(
-            lua.create_string(gettext(" package not found."))?,
-         ));
-      }
-   };
-   let filename = filename.replace('.', "/");
-   let path: BorrowedStr = package.get("path")?;
-   for p in path.split(';') {
-      let p = p.replace('?', &filename);
-      if ndata::is_file(&p) {
-         let d = ndata::read_to_string(&p)?;
-         let c = lua.load(d).set_name(&p);
-         return c.into_function().map(mlua::Value::Function);
-      }
-   }
-   Ok(mlua::Value::Nil)
-}
-
 pub fn loader_rust_libs(lua: &mlua::Lua, filename: mlua::BorrowedStr) -> mlua::Result<mlua::Value> {
    match &*filename {
       "ryaml" => Ok(mlua::Value::Function(lua.create_function(
@@ -388,7 +364,7 @@ impl NLua {
       package.set("path", concat!("?.lua;", LUA_INCLUDE_PATH, "?.lua"))?;
       package.set("cpath", "")?;
       let loaders: mlua::Table = lua.create_table()?;
-      loaders.push(lua.create_function(loader_ndata)?)?;
+      loaders.push(lua.create_function(ndata::loader_ndata)?)?;
       loaders.push(lua.create_function(loader_rust_libs)?)?;
       package.set("loaders", loaders)?;
 
