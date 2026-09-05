@@ -15,7 +15,7 @@
 --[[
    This is the fourth mission of the Shark's teeth campaign. The player has to hail a frontier ship.
    There should not be any ambush in this mission but the player must fear it from the beginning to the end
- <spob>Darkshed</spob>
+   
    Stages :
    0) Way to Frontier system
    1) Way back to HQ
@@ -107,7 +107,7 @@ function land()
       vn.sfxVictory()
       vn.na(fmt.reward(shark.rewards.sh03))
       vn.run()
-      shark.addLog( _([[You helped Nexus Shipyards initiate a secret meeting with a member of the Frontier Council. Arnold Smith said that he has another mission for you and to meet him in the bar on Darkshed when you are ready to transport him to Curie.]]) )
+      shark.addLog( _([[You helped Nexus Shipyards initiate a secret meeting with a member of the Frontier Council. Arnold Smith said that he has another mission for you and to meet him in the bar on {paypla} when you are ready to transport him to Curie.]]) )
       misn.finish(true)
    end
 end
