@@ -6,8 +6,7 @@
  <done>A Journey To Arandon</done>
  <chance>50</chance>
  <location>Bar</location>
- <spob>Darkshed</spob>
- <cond>not diff.isApplied( "flf_dead" )</cond>
+ <cond>not diff.isApplied( "flf_dead" ) and spob.cur() == spob.getS(require("common.shark").HQ)</cond>
  <notes>
   <campaign>Nexus show their teeth</campaign>
  </notes>
@@ -18,7 +17,7 @@
 
    Stages :
    0) There are pirates to kill
-   1) Way to Alteris
+   1) Way to HQ
 --]]
 local pir = require "common.pirate"
 local pilotname = require "pilotname"
@@ -31,7 +30,7 @@ local vntk = require "vntk"
 local baddie -- Non-persistent state
 
 -- Mission constants
-local paypla, paysys = spob.getS("Darkshed")
+local paypla, paysys = spob.getS(shark.HQ)
 
 local reward_outfit = outfit.get("Sandwich Holder")
 mem.osd_title = _("The Last Detail")

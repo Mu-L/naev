@@ -6,8 +6,7 @@
  <done>The FLF Contact</done>
  <chance>100</chance>
  <location>Bar</location>
- <spob>Darkshed</spob>
- <cond>not diff.isApplied( "flf_dead" )</cond>
+ <cond>not diff.isApplied( "flf_dead" ) and spob.cur() == spob.getS(require("common.shark").HQ)</cond>
  <notes>
   <campaign>Nexus show their teeth</campaign>
  </notes>
@@ -18,7 +17,7 @@
 
    Stages :
    0) Way to Behar
-   1) Way back to Darkshed
+   1) Way back to HQ
 --]]
 local pir = require "common.pirate"
 local fmt = require "format"
@@ -31,7 +30,7 @@ local pacifier -- Non-persistent state
 
 --Change here to change the planets and the systems
 local missys = system.get("Behar")
-local paypla, paysys = spob.getS("Darkshed")
+local paypla, paysys = spob.getS(shark.HQ)
 
 function create ()
    if not misn.claim(missys) then

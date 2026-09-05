@@ -6,7 +6,7 @@
  <done>Invitation</done>
  <chance>100</chance>
  <location>Bar</location>
- <spob>Darkshed</spob>
+ <cond>spob.cur() == spob.getS(require("common.shark").HQ)</cond>
  <notes>
   <campaign>Nexus show their teeth</campaign>
  </notes>
@@ -17,7 +17,7 @@
 
    Stages :
    0) Way to Za'lek system
-   1) Way back to Darkshed
+   1) Way back to HQ
 
    TODO: I'm not really happy with the drone's behaviour: it's quite too obvious
 --]]
@@ -34,7 +34,7 @@ local ambush -- Forward-declared functions
 
 --Change here to change the planets and the systems
 local mispla, missys = spob.getS("Curie")
-local paypla, paysys = spob.getS("Darkshed")
+local paypla, paysys = spob.getS(shark.HQ)
 
 function create ()
    if not misn.claim(missys) then

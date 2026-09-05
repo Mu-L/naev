@@ -26,7 +26,7 @@
 
    Stages :
    0) Way to Eiger/Surano
-   1) Way back to Darkshed
+   1) Way back to HQ
 --]]
 local pir = require "common.pirate"
 local fmt = require "format"
@@ -36,7 +36,7 @@ local vntk = require "vntk"
 local ccomm = require "common.comm"
 
 -- Mission constants
-local paypla, paysys = spob.getS("Darkshed")
+local paypla, paysys = spob.getS(shark.HQ)
 
 function create ()
    --Change here to change the planets and the systems

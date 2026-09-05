@@ -24,7 +24,7 @@
 
    Stages :
    0) Way to Sirius world
-   1) Way to Darkshed
+   1) Way to HQ
 --]]
 local pir = require "common.pirate"
 local fmt = require "format"
@@ -36,7 +36,7 @@ local badguys -- Non-persistent state
 local add_llama, bombers, choose, corvette, cruiser, hvy_intercept, interceptors, rndNb -- Forward-declared functions
 
 -- Mission constants
-local paypla, paysys = spob.getS("Darkshed")
+local paypla, paysys = spob.getS(shark.HQ)
 
 function create ()
    mem.mispla, mem.missys = spob.getLandable(faction.get("Sirius"))

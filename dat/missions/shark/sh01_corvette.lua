@@ -26,7 +26,7 @@
    Stages :
    0) Way to Toaxis
    1) Battle
-   2) Going to Darkshed
+   2) Going to HQ
 --]]
 local pir = require "common.pirate"
 local fmt = require "format"
@@ -39,7 +39,7 @@ local sharkboy -- Non-persistent state
 
 --Change here to change the planet and the system
 local battlesys = system.get("Toaxis")
-local paypla, paysys = spob.getS("Darkshed")
+local paypla, paysys = spob.getS(shark.HQ)
 --System neighbouring Toaxis with zero pirate presence due to a "Virtual Pirate Unpresence" asset
 local escapesys = system.get("Ingot")
 

@@ -6,7 +6,7 @@
  <done>Unfair Competition</done>
  <chance>50</chance>
  <location>Bar</location>
- <spob>Darkshed</spob>
+ <cond>spob.cur() == spob.getS(require("common.shark").HQ)</cond>
  <notes>
   <campaign>Nexus show their teeth</campaign>
  </notes>
@@ -15,10 +15,10 @@
 --[[
    This is the fourth mission of the Shark's teeth campaign. The player has to hail a frontier ship.
    There should not be any ambush in this mission but the player must fear it from the beginning to the end
-
+ <spob>Darkshed</spob>
    Stages :
    0) Way to Frontier system
-   1) Way back to Darkshed
+   1) Way back to HQ
 --]]
 local pir = require "common.pirate"
 local fmt = require "format"
@@ -29,7 +29,7 @@ local ccomm = require "common.comm"
 local hawking -- Non-persistent state
 
 -- Mission constants
-local paypla, paysys = spob.getS("Darkshed")
+local paypla, paysys = spob.getS(shark.HQ)
 local nextpla, nextsys = spob.getS("Curie") -- This should be the same as the planet used in sh04_meeting!
 
 function create ()
