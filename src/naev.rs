@@ -26,6 +26,7 @@ mod gatherable;
 mod hook;
 mod input;
 mod linebreak;
+mod linopt;
 mod nebula;
 mod nlua;
 mod outfit;

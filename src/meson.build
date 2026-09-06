@@ -80,6 +80,7 @@ source_rust = files(
    'input.rs',
    'gatherable.rs',
    'linebreak.rs',
+   'linopt.rs',
    'naev.rs',
    'nebula.rs',
    'nlua.rs',

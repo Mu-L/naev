@@ -4118,6 +4118,7 @@ src/land_shipyard.h
 src/land_trade.c
 src/land_trade.h
 src/linebreak.rs
+src/linopt.rs
 src/load.c
 src/load.h
 src/log.h
