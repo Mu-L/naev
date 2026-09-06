@@ -221,8 +221,8 @@ fn main() {
          m
       });
       let (micro_ms, zm) = solve(&problem, good_lp::microlp, |m| m);
-      let (micro_cbc, zc) = solve(&problem, good_lp::coin_cbc, |m| m);
-      let (micro_scip, zs) = solve(&problem, good_lp::scip, |m| m);
+      let (cbc_ms, zc) = solve(&problem, good_lp::coin_cbc, |m| m);
+      let (scip_ms, zs) = solve(&problem, good_lp::scip, |m| m);
 
       let agrees = |z: f64| (zg - z).abs() <= 1e-6 * zg.abs().max(1.0);
       let mark = |z: f64| if agrees(z) { " " } else { "*" };
@@ -241,13 +241,13 @@ fn main() {
          mark(zt),
          micro_ms,
          mark(zm),
-         micro_cbc,
+         cbc_ms,
          mark(zc),
-         micro_scip,
+         scip_ms,
          mark(zs),
          path.file_name().unwrap_or_default().to_string_lossy()
       );
-      for (slot, ms) in [glpk_ms, highs_ms, tuned_ms, micro_ms, micro_cbc, micro_scip]
+      for (slot, ms) in [glpk_ms, highs_ms, tuned_ms, micro_ms, cbc_ms, scip_ms]
          .iter()
          .enumerate()
       {
