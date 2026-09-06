@@ -18,7 +18,7 @@ function shark.addLog( text )
    shiplog.append( "shark", text )
 end
 
-shark.HQ = "Waterhole's Moon" -- Most missions start or finish there
+shark.HQspob, shark.HQsys = spob.getS("Waterhole's Moon") -- Most missions start or finish there
 
 shark.arnold = {
    name = _("Arnold Smith"),

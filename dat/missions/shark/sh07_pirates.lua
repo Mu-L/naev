@@ -6,7 +6,7 @@
  <done>A Journey To Arandon</done>
  <chance>50</chance>
  <location>Bar</location>
- <cond>not diff.isApplied( "flf_dead" ) and spob.cur() == spob.getS(require("common.shark").HQ)</cond>
+ <cond>not diff.isApplied( "flf_dead" ) and spob.cur() == require("common.shark").HQspob</cond>
  <notes>
   <campaign>Nexus show their teeth</campaign>
  </notes>
@@ -28,9 +28,6 @@ local vn = require "vn"
 local vntk = require "vntk"
 
 local baddie -- Non-persistent state
-
--- Mission constants
-local paypla, paysys = spob.getS(shark.HQ)
 
 local reward_outfit = outfit.get("Sandwich Holder")
 mem.osd_title = _("The Last Detail")
@@ -119,7 +116,7 @@ function accept()
    misn.setDesc(_("Nexus Shipyards has tasked you with killing four pirates."))
    misn.osdCreate(mem.osd_title, {
       _("Kill the four pirates"),
-      fmt.f(_("Report back to {pnt} in {sys}"), {pnt=paypla, sys=paysys}),
+      fmt.f(_("Report back to {pnt} in {sys}"), {pnt=shark.HQspob, sys=shark.HQsys}),
    })
    misn.osdActive(1)
 
@@ -134,7 +131,7 @@ end
 
 function land ()
    --Job is done
-   if mem.stage == 1 and spob.cur() == paypla then
+   if mem.stage == 1 and spob.cur() == shark.HQspob then
       vn.clear()
       vn.scene()
       local arnold = vn.newCharacter( shark.vn_arnold() )
@@ -285,10 +282,10 @@ end
 function generic_dead()
    --Are there still other pirates to kill ?
    if mem.gawdead == true and mem.kerdead1 == true and mem.kerdead2 == true and mem.goddead == true then
-      vntk.msg(_("Mission accomplished"), fmt.f(_([[You have killed the four pirates. Now to return to {sys} and collect your payment…]]), {sys=paysys}))
+      vntk.msg(_("Mission accomplished"), fmt.f(_([[You have killed the four pirates. Now to return to {sys} and collect your payment…]]), {sys=shark.HQsys}))
       mem.stage = 1
       misn.osdActive(2)
-      mem.marker2 = misn.markerAdd(paypla, "low")
+      mem.marker2 = misn.markerAdd(shark.HQspob, "low")
    end
 end
 
