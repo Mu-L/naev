@@ -178,7 +178,7 @@ source = files(
    'nlua_gui.c',
    'nlua_hook.c',
    'nlua_jump.c',
-   'nlua_linopt.c',
+   #'nlua_linopt.c',
    'nlua_munition.c',
    'nlua_misn.c',
    'nlua_music.c',

@@ -39,11 +39,13 @@ impl Problem {
       }
    }
 
+   /*
    fn minimize(&self) {
       unsafe {
          naevc::glp_set_obj_dir(self.prob, naevc::GLP_MAX as i32);
       }
    }
+   */
 
    fn num_cols(&self) -> i32 {
       unsafe { naevc::glp_get_num_cols(self.prob) }
@@ -273,7 +275,7 @@ impl UserData for Problem {
        * @luafunc set_row
        */
       methods.add_method(
-         "set_col",
+         "set_row",
          |_,
           this,
           (idx, name, lb, ub): (i32, BorrowedStr, Option<f64>, Option<f64>)|
@@ -322,23 +324,30 @@ impl UserData for Problem {
        * @luafunc load_matrix
        */
       methods.add_method(
-         "set_col",
-         |_, this, (row, col, coef): (Vec<i32>, Vec<i32>, Vec<f64>)| -> mlua::Result<()> {
+         "load_matrix",
+         |_, this, (row, col, coef): (mlua::Table, mlua::Table, mlua::Table)| -> mlua::Result<()> {
+            let n = coef.raw_len();
+
             #[cfg(debug_assertions)]
-            if row.len() != col.len() || row.len() != coef.len() {
+            if row.raw_len() != n || col.raw_len() != n {
                return Err(mlua::Error::RuntimeError(
                   "Table lengths don't match!".to_string(),
                ));
             }
 
+            // glp_load_matrix accesses from 1..=n, so we can't just use Vec<i32> or whatever that would
+            // be much cleaner...
+            let mut ia = vec![0i32; n + 1];
+            let mut ja = vec![0i32; n + 1];
+            let mut ar = vec![0f64; n + 1];
+            for i in 1..=n {
+               ia[i] = row.raw_get(i)?;
+               ja[i] = col.raw_get(i)?;
+               ar[i] = coef.raw_get(i)?;
+            }
+
             unsafe {
-               naevc::glp_load_matrix(
-                  this.prob,
-                  coef.len() as i32,
-                  row.as_ptr(),
-                  col.as_ptr(),
-                  coef.as_ptr(),
-               );
+               naevc::glp_load_matrix(this.prob, n as i32, ia.as_ptr(), ja.as_ptr(), ar.as_ptr());
             }
 
             Ok(())
@@ -355,7 +364,7 @@ impl UserData for Problem {
        */
       methods.add_method(
          "solve",
-         |_, this, params: Option<Table>| -> mlua::Result<(f64, Vec<f64>, Vec<f64>)> {
+         |_, this, _params: Option<Table>| -> mlua::Result<(f64, Vec<f64>, Vec<f64>)> {
             use std::mem::MaybeUninit;
 
             let mut parm_smcp = unsafe {
@@ -377,7 +386,7 @@ impl UserData for Problem {
             let ismip = unsafe { naevc::glp_get_num_int(this.prob) > 0 };
 
             // TODO handle parameters
-            if !ismip || parm_iocp.presolve != 0 {
+            if !ismip || parm_iocp.presolve == 0 {
                let ret = unsafe { naevc::glp_simplex(this.prob, &parm_smcp) } as i32;
                if ret != 0 && ret != naevc::GLP_ETMLIM as i32 {
                   return Err(mlua::Error::RuntimeError(linopt_error(ret).to_string()));
@@ -423,4 +432,8 @@ impl UserData for Problem {
          },
       );
    }
+}
+
+pub fn open_linopt(lua: &mlua::Lua) -> anyhow::Result<mlua::AnyUserData> {
+   Ok(lua.create_proxy::<Problem>()?)
 }
