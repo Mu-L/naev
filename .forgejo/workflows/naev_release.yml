@@ -9,7 +9,6 @@ on:
 
 name: Release
 
-permissions: {}
 jobs:
   "Package_Source":
     runs-on: naev-release
