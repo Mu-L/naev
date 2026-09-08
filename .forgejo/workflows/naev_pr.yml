@@ -49,7 +49,7 @@ jobs:
           # fork-PR runners send an invalid token and Codeberg rejects it.
           git -C source/assets config --unset-all "http.https://codeberg.org/.extraheader" || true
           git -C source config --unset-all "http.https://codeberg.org/.extraheader" || true
-          git -C source/assets lfs fetch --all
+          git -C source/assets lfs fetch
           git -C source/assets lfs checkout
 
       - name: Package Dist

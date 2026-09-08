@@ -58,7 +58,7 @@ jobs:
 
       - name: Fetch and checkout LFS
         run: |
-          git -C source/assets lfs fetch --all
+          git -C source/assets lfs fetch
           git -C source/assets lfs checkout
 
       - name: Package Dist
