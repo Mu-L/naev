@@ -211,6 +211,21 @@ fn naevmain() -> Result<()> {
    ) {
       warn_err!(e);
    }
+   for (p, v) in [
+      (
+         sdl::properties::names::APP_METADATA_URL_STRING,
+         "https://naev.org",
+      ),
+      (
+         sdl::properties::names::APP_METADATA_CREATOR_STRING,
+         "Naev DevTeam",
+      ),
+      (sdl::properties::names::APP_METADATA_TYPE_STRING, "game"),
+   ] {
+      if let Err(e) = sdl::set_app_metadata_property(p.value, Some(v)) {
+         warn_err!(e);
+      }
+   }
    let sdlctx = sdl::init()?;
    let start = std::time::Instant::now();
 
