@@ -28,6 +28,13 @@ jobs:
           ssh-known-hosts: ${{ secrets.CODEBERG_SSH_KNOWN_HOSTS }}
           persist-credentials: true
 
+      - name: Cache Meson wrap downloads
+        uses: actions/cache@v5
+        with:
+          path: source/subprojects/packagecache
+          key: wrap-${{ hashFiles('source/subprojects/*.wrap') }}
+          restore-keys: wrap-
+
       - name: Fetch Meson subprojects
         run: |
           mkdir -p source/subprojects/packagecache
@@ -47,8 +54,8 @@ jobs:
           path: |
             source/.git/lfs/objects
             source/.git/modules/assets/lfs/objects
-          key: lfs-${{ runner.os }}-${{ steps.assets_rev.outputs.rev }}
-          restore-keys: lfs-${{ runner.os }}-
+          key: lfs-${{ steps.assets_rev.outputs.rev }}
+          restore-keys: lfs-
 
       - name: Fetch and checkout LFS
         run: |
@@ -94,8 +101,8 @@ jobs:
         uses: actions/cache@v5
         with:
           path: source/subprojects/packagecache
-          key: wrap-${{ matrix.image }}-${{ hashFiles('source/subprojects/*.wrap') }}
-          restore-keys: wrap-${{ matrix.image }}-
+          key: wrap-${{ hashFiles('source/subprojects/*.wrap') }}
+          restore-keys: wrap-
 
       - name: Cache Cargo home
         uses: actions/cache@v5
@@ -103,7 +110,7 @@ jobs:
           path: |
             build/cargo-home
             build/src
-          key: cargo-v2-${{ matrix.image }}-${{ matrix.target }}-${{ hashFiles('source/Cargo.toml.in', 'source/meson.build') }}
+          key: cargo-v2-${{ matrix.image }}-${{ matrix.target }}-${{ github.run_id }}
           restore-keys: |
             cargo-v2-${{ matrix.image }}-${{ matrix.target }}-
             cargo-${{ matrix.image }}-${{ matrix.target }}-
@@ -177,7 +184,7 @@ jobs:
           path: |
             appImageBuild/builddir/cargo-home
             appImageBuild/builddir/src
-          key: cargo-v2-appimage-${{ matrix.image }}-${{ matrix.target }}-${{ hashFiles('source/Cargo.toml.in', 'source/meson.build') }}
+          key: cargo-v2-appimage-${{ matrix.image }}-${{ matrix.target }}-${{ github.run_id }}
           restore-keys: |
             cargo-v2-appimage-${{ matrix.image }}-${{ matrix.target }}-
             cargo-appimage-${{ matrix.image }}-${{ matrix.target }}-
@@ -227,8 +234,8 @@ jobs:
         uses: actions/cache@v5
         with:
           path: source/subprojects/packagecache
-          key: wrap-${{ matrix.image }}-${{ hashFiles('source/subprojects/*.wrap') }}
-          restore-keys: wrap-${{ matrix.image }}-
+          key: wrap-${{ hashFiles('source/subprojects/*.wrap') }}
+          restore-keys: wrap-
 
       - name: Cache Cargo home
         uses: actions/cache@v5
@@ -236,7 +243,7 @@ jobs:
           path: |
             build/cargo-home
             build/src
-          key: cargo-v2-${{ matrix.image }}-${{ matrix.target }}-${{ hashFiles('source/Cargo.toml.in', 'source/meson.build') }}
+          key: cargo-v2-${{ matrix.image }}-${{ matrix.target }}-${{ github.run_id }}
           restore-keys: |
             cargo-v2-${{ matrix.image }}-${{ matrix.target }}-
             cargo-${{ matrix.image }}-${{ matrix.target }}-
@@ -329,8 +336,8 @@ jobs:
         uses: actions/cache@v5
         with:
           path: source/subprojects/packagecache
-          key: wrap-${{ matrix.image }}-${{ hashFiles('source/subprojects/*.wrap') }}
-          restore-keys: wrap-${{ matrix.image }}-
+          key: wrap-${{ hashFiles('source/subprojects/*.wrap') }}
+          restore-keys: wrap-
 
       - name: Cache Cargo home
         uses: actions/cache@v5
@@ -338,7 +345,7 @@ jobs:
           path: |
             build/cargo-home
             build/src
-          key: cargo-v2-${{ matrix.image }}-${{ matrix.arch }}-${{ hashFiles('source/Cargo.toml.in', 'source/meson.build') }}
+          key: cargo-v2-${{ matrix.image }}-${{ matrix.arch }}-${{ github.run_id }}
           restore-keys: |
             cargo-v2-${{ matrix.image }}-${{ matrix.arch }}-
             cargo-${{ matrix.image }}-${{ matrix.arch }}-
