@@ -171,7 +171,6 @@ jobs:
               --native-file='source/utils/build/linux_steamruntime.ini' \
               --buildtype=debug \
               --wrap-mode=${{ matrix.wrap_mode }} \
-              --force-fallback-for=sdl2_image,glpk,SuiteSparse \
               -Dsteamruntime=true \
               -Dprefix="/usr" \
               -Dinstaller=true \
