@@ -204,6 +204,13 @@ fn naevmain() -> Result<()> {
    setup_logging()?;
 
    // Initialize SDL.
+   if let Err(e) = sdl::set_app_metadata(
+      Some("Naev"),
+      Some(&nlog::version::VERSION_HUMAN),
+      Some("org.naev.Naev"),
+   ) {
+      warn_err!(e);
+   }
    let sdlctx = sdl::init()?;
    let start = std::time::Instant::now();
 
