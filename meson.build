@@ -402,7 +402,10 @@ if buildExec.disabled() == false
       'FP_NORMAL*',
       'FP_NAN*',
       'FP_INFINITE*',
-      'FP_ZERO*'
+      'FP_ZERO*',
+      # clang 22's amxintrin.h marks the AMX tile registers as both packed and
+      # 64-byte aligned, which bindgen has no way to express together.
+      '.*tile1024i.*'
    ]
 
    foreach item : bindgen_blocklist_items
