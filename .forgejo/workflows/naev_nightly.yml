@@ -326,9 +326,11 @@ jobs:
           - image: naev-macos
             arch: x86_64
             config: macos_cross_osxcross.ini
+            binaries_only: "1"
           - image: naev-macos
             arch: aarch64
             config: macos_aarch64_cross_osxcross.ini
+            binaries_only: "0"
 
     runs-on: ${{ matrix.image }}
     env:
@@ -385,6 +387,8 @@ jobs:
       - name: Meson Install
         run: |
           meson install -C build
+        env:
+          NAEV_BUNDLE_BINARIES_ONLY: ${{ matrix.binaries_only }}
 
       - name: Fix zip name
         run: |
