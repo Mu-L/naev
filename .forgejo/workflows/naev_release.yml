@@ -610,13 +610,6 @@ jobs:
           name: naev-linux-libs
           path: ${{ github.workspace }}/build/staging/naev-linux-libs
 
-      - name: Download Steam macOS Package (steam)
-        if: ${{ matrix.releasetype == 'steam' }}
-        uses: actions/download-artifact@v3
-        with:
-          name: naev-macos
-          path: ${{ github.workspace }}/build/staging/naev-macos
-
       - name: Download Steam Windows Package (steam)
         if: ${{ matrix.releasetype == 'steam' }}
         uses: actions/download-artifact@v3
