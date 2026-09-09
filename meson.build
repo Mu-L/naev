@@ -192,9 +192,12 @@ if buildExec.disabled() == false
    # Steam's runtime carries none of the numeric libraries, so they get linked
    # in rather than shipped beside the binary.
    static_deps = get_option('steamruntime')
+   # Passing static: false is not the same as leaving it out. Only the omitted
+   # form probes with -l, which is how the osxcross libraries get found at all.
+   static_kw = static_deps ? {'static': true} : {}
 
    if use_system_glpk
-      system_glpk = cc.find_library('glpk', required: false, has_headers: ['glpk.h'], static: static_deps)
+      system_glpk = cc.find_library('glpk', required: false, has_headers: ['glpk.h'], kwargs: static_kw)
       use_system_glpk = system_glpk.found()
    endif
    naev_deps += use_system_glpk ? system_glpk : subproject('glpk').get_variable('glpk_dep')
@@ -210,7 +213,7 @@ if buildExec.disabled() == false
       message('Note: Naev needs the following SuiteSparse libraries: amd, colamd, cholmod, and either csparse or cxsparse. ' +
          'It can use its own copies if you run "meson configure --force-fallback-for=SuiteSparse".')
       foreach csparse_name : ['cxsparse', 'csparse']
-         system_csparse = cc.find_library(csparse_name, required: false, static: static_deps)
+         system_csparse = cc.find_library(csparse_name, required: false, kwargs: static_kw)
          if system_csparse.found()
             break
          endif
@@ -222,7 +225,7 @@ if buildExec.disabled() == false
          error('Failed to find an installation of c[x]sparse. See above note about SuiteSparse.')
       endif
 
-      system_cholmod = cc.find_library('cholmod', required: false, static: static_deps)
+      system_cholmod = cc.find_library('cholmod', required: false, kwargs: static_kw)
       if system_cholmod.found()
          naev_deps += system_cholmod
          config_data.set10('HAVE_SUITESPARSE_CHOLMOD_H', cc.has_header('suitesparse/cholmod.h'))
@@ -230,15 +233,15 @@ if buildExec.disabled() == false
          error('Failed to find an installation of cholmod. See above note about SuiteSparse.')
       endif
 
-      naev_deps += cc.find_library('amd', required: true, static: static_deps)
+      naev_deps += cc.find_library('amd', required: true, kwargs: static_kw)
       # CHOLMOD's partition module calls into CAMD. A shared libcholmod
       # resolves that itself; the static archive leaves it to the caller.
-      naev_deps += cc.find_library('camd', required: false, static: static_deps)
-      naev_deps += cc.find_library('ccolamd', required: false, static: static_deps)
-      naev_deps += cc.find_library('colamd', required: true, static: static_deps)
-      naev_deps += cc.find_library('lapack', required: false, static: static_deps)
-      naev_deps += cc.find_library('metis', required: false, static: static_deps)
-      naev_deps += cc.find_library('suitesparseconfig', required: true, static: static_deps)
+      naev_deps += cc.find_library('camd', required: false, kwargs: static_kw)
+      naev_deps += cc.find_library('ccolamd', required: false, kwargs: static_kw)
+      naev_deps += cc.find_library('colamd', required: true, kwargs: static_kw)
+      naev_deps += cc.find_library('lapack', required: false, kwargs: static_kw)
+      naev_deps += cc.find_library('metis', required: false, kwargs: static_kw)
+      naev_deps += cc.find_library('suitesparseconfig', required: true, kwargs: static_kw)
    else
       naev_deps += subproject('SuiteSparse').get_variable('SuiteSparse_dep')
    endif
