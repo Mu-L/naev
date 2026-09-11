@@ -189,17 +189,31 @@ if buildExec.disabled() == false
    use_system_glpk = ('glpk' not in forced_fallbacks and 'forcefallback' != get_option('wrap_mode'))
    use_system_suitesparse = ('SuiteSparse' not in forced_fallbacks and 'forcefallback' != get_option('wrap_mode'))
 
+   # Steam's runtime carries none of the numeric libraries, so they get linked
+   # in rather than shipped beside the binary.
+   static_deps = get_option('steamruntime')
+   # Passing static: false is not the same as leaving it out. Only the omitted
+   # form probes with -l, which is how the osxcross libraries get found at all.
+   static_kw = static_deps ? {'static': true} : {}
+
    if use_system_glpk
-      system_glpk = cc.find_library('glpk', required: false, has_headers: ['glpk.h'])
+      system_glpk = cc.find_library('glpk', required: false, has_headers: ['glpk.h'], kwargs: static_kw)
       use_system_glpk = system_glpk.found()
    endif
    naev_deps += use_system_glpk ? system_glpk : subproject('glpk').get_variable('glpk_dep')
+
+   # Distributions build glpk with libtool-dl and compressed file support.
+   # Naev calls neither, but the static archive still refers to them.
+   if use_system_glpk and static_deps
+      naev_deps += cc.find_library('ltdl', required: true, static: true)
+      naev_deps += cc.find_library('z', required: true, static: true)
+   endif
 
    if use_system_suitesparse
       message('Note: Naev needs the following SuiteSparse libraries: amd, colamd, cholmod, and either csparse or cxsparse. ' +
          'It can use its own copies if you run "meson configure --force-fallback-for=SuiteSparse".')
       foreach csparse_name : ['cxsparse', 'csparse']
-         system_csparse = cc.find_library(csparse_name, required: false)
+         system_csparse = cc.find_library(csparse_name, required: false, kwargs: static_kw)
          if system_csparse.found()
             break
          endif
@@ -211,7 +225,7 @@ if buildExec.disabled() == false
          error('Failed to find an installation of c[x]sparse. See above note about SuiteSparse.')
       endif
 
-      system_cholmod = cc.find_library('cholmod', required: false)
+      system_cholmod = cc.find_library('cholmod', required: false, kwargs: static_kw)
       if system_cholmod.found()
          naev_deps += system_cholmod
          config_data.set10('HAVE_SUITESPARSE_CHOLMOD_H', cc.has_header('suitesparse/cholmod.h'))
@@ -219,12 +233,15 @@ if buildExec.disabled() == false
          error('Failed to find an installation of cholmod. See above note about SuiteSparse.')
       endif
 
-      naev_deps += cc.find_library('amd', required: true)
-      naev_deps += cc.find_library('ccolamd', required: false)
-      naev_deps += cc.find_library('colamd', required: true)
-      naev_deps += cc.find_library('lapack', required: false)
-      naev_deps += cc.find_library('metis', required: false)
-      naev_deps += cc.find_library('suitesparseconfig', required: true)
+      naev_deps += cc.find_library('amd', required: true, kwargs: static_kw)
+      # CHOLMOD's partition module calls into CAMD. A shared libcholmod
+      # resolves that itself; the static archive leaves it to the caller.
+      naev_deps += cc.find_library('camd', required: false, kwargs: static_kw)
+      naev_deps += cc.find_library('ccolamd', required: false, kwargs: static_kw)
+      naev_deps += cc.find_library('colamd', required: true, kwargs: static_kw)
+      naev_deps += cc.find_library('lapack', required: false, kwargs: static_kw)
+      naev_deps += cc.find_library('metis', required: false, kwargs: static_kw)
+      naev_deps += cc.find_library('suitesparseconfig', required: true, kwargs: static_kw)
    else
       naev_deps += subproject('SuiteSparse').get_variable('SuiteSparse_dep')
    endif
@@ -238,6 +255,14 @@ if buildExec.disabled() == false
    endif
 
    naev_deps += blas
+
+   # CHOLMOD is built against OpenMP and OpenBLAS needs the Fortran runtime.
+   # Clang's libomp has no static archive, so GCC's libgomp supplies the omp_*
+   # symbols instead.
+   if use_system_suitesparse and static_deps
+      naev_deps += cc.find_library('gomp', required: true, static: true)
+      naev_deps += cc.find_library('gfortran', required: true, static: true)
+   endif
 
    # libdl can be used for debugging stack traces.
    if host_machine.system()=='windows'
@@ -380,7 +405,10 @@ if buildExec.disabled() == false
       'FP_NORMAL*',
       'FP_NAN*',
       'FP_INFINITE*',
-      'FP_ZERO*'
+      'FP_ZERO*',
+      # clang 22's amxintrin.h marks the AMX tile registers as both packed and
+      # 64-byte aligned, which bindgen has no way to express together.
+      '.*tile1024i.*'
    ]
 
    foreach item : bindgen_blocklist_items
@@ -515,6 +543,14 @@ if buildExec.disabled() == false
    cargo_options += [ '--target-dir', meson.project_build_root() / 'src' ]
    if target_triplet != ''
       cargo_options += ['--target', target_triplet]
+      # A cargo build script reads the environment rather than meson's cross
+      # file, so crates that probe with pkg-config have to be pointed at the
+      # cross one by hand. Without this dav1d-sys refuses to look at all.
+      cargo_pkgconf = find_program('pkg-config', required: false)
+      if cargo_pkgconf.found()
+         cargo_env.set('PKG_CONFIG_' + target_triplet.replace('-', '_'),
+            cargo_pkgconf.full_path())
+      endif
    endif
 
    # First let's compile Rust with cargo, but we can't control output
